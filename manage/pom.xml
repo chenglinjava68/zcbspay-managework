@@ -79,6 +79,11 @@
 			<artifactId>system-api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.zcbspay.platform.manager</groupId>
+			<artifactId>merch-api</artifactId> 
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 		<!-- <dependency> 
 			<groupId>com.zcbspay.platform.manager</groupId>
 			<artifactId>merchant-api</artifactId> 

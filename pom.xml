@@ -290,8 +290,10 @@
     <module>common</module>
     <module>system</module>
     <module>system-api</module>
-    <module>merchant</module>
-    <module>merchant-api</module>
     <module>system-simple</module>
-  </modules>
+    <module>merch</module>
+    <module>merch-api</module>
+    <module>merch-simple</module>
+    <module>merch-service</module>
+	</modules>
 </project>

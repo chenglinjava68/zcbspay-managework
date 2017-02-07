@@ -76,12 +76,12 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="saveForm" action="" method="post">
-					<input type="hidden" id="t_id" name="productModel.prdtver" />
+					<input type="hidden" id="t_id" name="prdtver" />
 					<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo">
 						<tr style="height: 25px">
 							<td align="center" width="74px">产品名称</td>
 							<td align="left"><input type="text" id="group_name_ins"
-								name="productModel.prdtname" class="easyui-validatebox"
+								name="prdtname" class="easyui-validatebox"
 								required="true" maxlength="32" /></td>
 						</tr>
 						<tr style="height: 60px">
@@ -93,7 +93,7 @@
 						<tr>
 							<td>备注</td>
 							<td align="left" colspan="3"><textarea id="group_notes_ins"
-									rows="2" cols="75" name="productModel.notes" maxlength="64"></textarea>
+									rows="2" cols="75" name="productBean.notes" maxlength="64"></textarea>
 							</td>
 						</tr>
 
@@ -207,7 +207,7 @@
       document.getElementById("div_id").style.display = "";
       //$("#checkAll").attr("checked",false);
       $('#saveForm :input').val('');
-      $("#saveForm").attr("action", "pages/product/addProductProductAction.action");
+      $("#saveForm").attr("action", "product/addProduct");
       //  $("#busi_code_ins").attr("readonly",false);
       loadYWAll();
       $('#w').window({
@@ -227,7 +227,7 @@
   
   function closeAdd() {
       $('#w').window('close');
-      $("#saveForm").attr("action", "pages/product/addProductProductAction.action");
+      $("#saveForm").attr("action", "product/addProduct");
   }
   
   function search() {

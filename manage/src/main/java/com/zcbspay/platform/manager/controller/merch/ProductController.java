@@ -1,24 +1,37 @@
 package com.zcbspay.platform.manager.controller.merch;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.zcbspay.platform.manager.merch.bean.CashBean;
+import com.zcbspay.platform.manager.merch.bean.ProductBean;
+import com.zcbspay.platform.manager.merch.service.ProductService;
+import com.zcbspay.platform.manager.system.bean.UserBean;
 
 @Controller
 @RequestMapping("/product/")
 public class ProductController {
+	
+	//@Autowired
+	private ProductService productService;
 
 	/*private ServiceContainer serviceContainer;
 	private ProductModel productModel;
 	private CashModel cashModel;
 	private String pid;
-    private List checkboxList;
+    
 	private List<ProductModel> groupList;
 	private Map<String, Object> cashMap;*/
-	
+	private List checkboxList;
 	/**
 	 * 产品信息管理页面
 	 * @param request
@@ -47,17 +60,16 @@ public class ProductController {
 	//产品新增
 	@ResponseBody
 	@RequestMapping("addProduct")
-	public String addProduct(){
+	public String addProduct(ProductBean productBean,HttpServletRequest request){
 	    String result = "";
-        /*if (productModel == null||StringUtil.isEmpty(productModel.getPrdtname().trim())) {
+        if (StringUtils.isEmpty(productBean.getPrdtname().trim())) {
             result = "产品名称不能为空";
-            json_encode(result);
-            return null;
         }
-		productModel.setInuser(getCurrentUser().getUserId());
-		result=serviceContainer.getProductService().AddOneProduct(productModel, checkboxList);
-		json_encode(result);*/
-		return null;
+        UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+        productBean.setInuser(loginUser.getUserId());
+        result =productService.AddOneProduct(productBean, checkboxList);
+		//result=serviceContainer.getProductService().AddOneProduct(productModel, checkboxList);
+		return result;
 	}
 	//业务类型
 	 public String queryBusinessType() throws Exception {
