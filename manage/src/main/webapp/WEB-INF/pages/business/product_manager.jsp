@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="../../top.jsp"></jsp:include>
 <html>
 <head>
@@ -93,7 +93,7 @@
 						<tr>
 							<td>备注</td>
 							<td align="left" colspan="3"><textarea id="group_notes_ins"
-									rows="2" cols="75" name="productBean.notes" maxlength="64"></textarea>
+									rows="2" cols="75" name="notes" maxlength="64"></textarea>
 							</td>
 						</tr>
 
@@ -137,7 +137,7 @@
           nowrap: false,
           striped: true,
           singleSelect: true,
-          url: 'pages/product/queryProductProductAction.action',
+          url: 'product/queryProduct',
           remoteSort: false,
           columns: [[{
               field: 'PRDTVER',
@@ -232,8 +232,8 @@
   
   function search() {
       var data = {
-          'productModel.prdtver': $('#code_ins').val(),
-          'productModel.prdtname': $('#name_ins').val()
+          'prdtver': $('#code_ins').val(),
+          'prdtname': $('#name_ins').val()
       };
       $('#paraList').datagrid('load', data);
   }
@@ -261,12 +261,12 @@
       document.getElementById("div_id").style.display = "";
       $.ajax({
           type: "POST",
-          url: "pages/product/queryOneProductProductAction.action",
+          url: "product/queryOneProduct",
           data: "pid=" + pid,
           async: false,
           dataType: "json",
           success: function(json) {
-              $("#saveForm").attr("action", "pages/product/updateProductProductAction.action");
+              $("#saveForm").attr("action", "product/updateProduct");
               $("#group_name_ins").val(json.prdtname);
               $("#t_id").val(json.prdtver);
               $("#group_notes_ins").val(json.notes);
@@ -294,7 +294,7 @@
       //$("#div_id").attr("display","none");	
       $.ajax({
           type: "POST",
-          url: "pages/product/queryOneProductProductAction.action",
+          url: "product/queryOneProduct",
           data: "pid=" + pid,
           async: false,
           dataType: "json",
@@ -364,7 +364,7 @@
       var html = '';
       $.ajax({
           type: "GET",
-          url: "pages/product/queryBusinessTypeProductAction.action",
+          url: "product/queryBusinessType",
           data: "rand=" + new Date().getTime(),
           dataType: "json",
           success: function(json) {
@@ -387,7 +387,7 @@
       var html = '';
       $.ajax({
           type: "GET",
-          url: "pages/product/queryProductCaseProductAction.action?pid=" + pid,
+          url: "product/queryProductCase?pid=" + pid,
           data: "rand=" + new Date().getTime(),
           dataType: "json",
           success: function(json) {
