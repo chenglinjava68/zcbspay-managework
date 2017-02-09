@@ -26,7 +26,7 @@ public class FeeController {
 
 	@Autowired
 	private FeeService feeService;
-
+	
 	@RequestMapping("showBusiRate")
 	public String showBusiRate() {
 		return "fee/txn_rate_manager";
@@ -171,49 +171,52 @@ public class FeeController {
 
 	/**
 	 * 更新卡扣率信息
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("updateCardRate")
-	public void updateCardRate(CardRateEntity cardrate,HttpServletResponse response) {
-        if(!StringUtils.isEmpty(cardrate.getMinFeeStr())){
-        	cardrate.setMinFee(new BigDecimal(cardrate.getMinFeeStr()));
-        }
-        
-        if(!StringUtils.isEmpty(cardrate.getMaxFeeStr())){
-        	cardrate.setMaxFee(new BigDecimal(cardrate.getMaxFeeStr()));
-        }
-        
-        if(!StringUtils.isEmpty(cardrate.getFeeRateStr())){
-        	cardrate.setFeeRate(new BigDecimal(cardrate.getFeeRateStr()));
-        }
-        
-        String mark = feeService.updateCardRate(
-        		cardrate);
-        JsonUtils.json_encodeAndWrite(response, mark);
-		
+	public void updateCardRate(CardRateEntity cardrate, HttpServletResponse response) {
+		if (!StringUtils.isEmpty(cardrate.getMinFeeStr())) {
+			cardrate.setMinFee(new BigDecimal(cardrate.getMinFeeStr()));
+		}
+
+		if (!StringUtils.isEmpty(cardrate.getMaxFeeStr())) {
+			cardrate.setMaxFee(new BigDecimal(cardrate.getMaxFeeStr()));
+		}
+
+		if (!StringUtils.isEmpty(cardrate.getFeeRateStr())) {
+			cardrate.setFeeRate(new BigDecimal(cardrate.getFeeRateStr()));
+		}
+
+		String mark = feeService.updateCardRate(cardrate);
+		JsonUtils.json_encodeAndWrite(response, mark);
+
 	}
+
 	/**
 	 * 添加卡扣率信息
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("saveCardRate")
-	public void saveCardRate(CardRateEntity cardRateEntity,HttpServletRequest request,HttpServletResponse response) {
-        if(!StringUtils.isEmpty(cardRateEntity.getMinFeeStr())){
-        	cardRateEntity.setMinFee(new BigDecimal(cardRateEntity.getMinFeeStr()));
-        }
-        
-        if(!StringUtils.isEmpty(cardRateEntity.getMaxFeeStr())){
-        	cardRateEntity.setMaxFee(new BigDecimal(cardRateEntity.getMaxFeeStr()));
-        }
-        
-        if(!StringUtils.isEmpty(cardRateEntity.getFeeRateStr())){
-        	cardRateEntity.setFeeRate(new BigDecimal(cardRateEntity.getFeeRateStr()));
-        }
-        cardRateEntity.setInuser(UserHelper.getCurrentUser(request).getUserId());
-        String mark = feeService.addOneCardRate(
-        		cardRateEntity);
-        JsonUtils.json_encodeAndWrite(response, mark);
-    }
+	public void saveCardRate(CardRateEntity cardRateEntity, HttpServletRequest request, HttpServletResponse response) {
+		if (!StringUtils.isEmpty(cardRateEntity.getMinFeeStr())) {
+			cardRateEntity.setMinFee(new BigDecimal(cardRateEntity.getMinFeeStr()));
+		}
+
+		if (!StringUtils.isEmpty(cardRateEntity.getMaxFeeStr())) {
+			cardRateEntity.setMaxFee(new BigDecimal(cardRateEntity.getMaxFeeStr()));
+		}
+
+		if (!StringUtils.isEmpty(cardRateEntity.getFeeRateStr())) {
+			cardRateEntity.setFeeRate(new BigDecimal(cardRateEntity.getFeeRateStr()));
+		}
+		cardRateEntity.setInuser(UserHelper.getCurrentUser(request).getUserId());
+		String mark = feeService.addOneCardRate(cardRateEntity);
+		JsonUtils.json_encodeAndWrite(response, mark);
+	}
+
+	
 }
