@@ -98,4 +98,10 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<?> findAll() {
+		return productDao.findAll();
+	}
+
 }

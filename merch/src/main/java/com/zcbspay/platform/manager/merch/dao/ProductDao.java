@@ -53,6 +53,12 @@ public interface ProductDao extends BaseDAO<ProductBean>{
 	 * @param busicodeStr
 	 * @return
 	 */
-	public String updateProduct(ProductBean product, String busicodeStr); 
+	public String updateProduct(ProductBean product, String busicodeStr);
+
+	/**
+	 * 查询所有产品
+	 * @return
+	 */
+	public List<?> findAll(); 
 
 }

@@ -64,4 +64,10 @@ public class ProductDaoImpl extends HibernateBaseDAOImpl<ProductBean> implements
 		return (String) total;
 	}
 
+	@Override
+	public List<?> findAll() {
+		String sql = "select * from T_PRODUCT ";
+		return queryBySQL(sql, null);
+	}
+
 }
