@@ -15,4 +15,11 @@
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserFunctService" ref="userFunctService" retries="0" version="1.0" timeout="60000"/>
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserRoleService" ref="userRoleService" retries="0" version="1.0" timeout="60000"/>
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserService" ref="userService" retries="0" version="1.0" timeout="60000"/>
+	
+	<!-- 商户管理-->
+	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.MerchDetaService" ref="merchDetaService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.MccListService" ref="mccListService" retries="0" version="1.0" timeout="60000"/>
+
+
+
 </beans>

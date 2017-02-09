@@ -47,8 +47,7 @@
 		<!-- 注解方式配置 -->
 		<property name="packagesToScan">
 			<list>
-				<value>com.zcbspay.platform.manager.system.pojo</value>
-<!-- 				<value>com.zlebank.zplatform.payment.pojo</value>			 -->
+				<value>com.zcbspay.platform.manager</value>
 			</list>
 		</property>
 

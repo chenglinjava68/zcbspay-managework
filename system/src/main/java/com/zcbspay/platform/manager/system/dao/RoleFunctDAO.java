@@ -3,7 +3,6 @@ package com.zcbspay.platform.manager.system.dao;
 import java.util.List;
 
 import com.zcbspay.platform.manager.dao.BaseDAO;
-import com.zcbspay.platform.manager.system.bean.RoleFunctBean;
 import com.zcbspay.platform.manager.system.pojo.PojoRoleFunct;
 
 public interface RoleFunctDAO extends BaseDAO<PojoRoleFunct>{

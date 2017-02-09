@@ -293,5 +293,6 @@
     <module>merchant</module>
     <module>merchant-api</module>
     <module>system-simple</module>
-  </modules>
+    <module>asa</module>
+	</modules>
 </project>

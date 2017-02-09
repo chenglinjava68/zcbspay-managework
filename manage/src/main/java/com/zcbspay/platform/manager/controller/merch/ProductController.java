@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+@SuppressWarnings("all")
 @Controller
 @RequestMapping("/product/")
 public class ProductController {
@@ -48,7 +49,7 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping("addProduct")
 	public String addProduct(){
-	    String result = "";
+		String result = "";
         /*if (productModel == null||StringUtil.isEmpty(productModel.getPrdtname().trim())) {
             result = "产品名称不能为空";
             json_encode(result);
