@@ -136,4 +136,16 @@ public class ProductController {
 	    result = productService.updateProduct(productBean, Arrays.asList(checkboxList));
 		JsonUtils.json_encodeAndWrite(response, result);
 	}
+	
+	/**
+	 * 查询所有产品
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("queryProductAll")
+	public List<?> queryProductAll() {
+		List<?> resultList = productService.findAll();
+		return resultList;
+	}
 }
