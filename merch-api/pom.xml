@@ -6,4 +6,11 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>merch-api</artifactId>
+  <dependencies>
+    <dependency>
+    	<groupId>com.zcbspay.platform.manager</groupId>
+    	<artifactId>common</artifactId>
+    	<version>1.0.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 </project>
