@@ -23,8 +23,12 @@
 	<dubbo:reference id="userRoleService" interface="com.zcbspay.platform.manager.system.service.UserRoleService" version="1.0"/>
 	<dubbo:reference id="userService" interface="com.zcbspay.platform.manager.system.service.UserService" version="1.0"/>
 	
-	
-	
 	<dubbo:reference id="merchDetaService" interface="com.zcbspay.platform.manager.merchant.service.MerchDetaService" version="1.0"/>
 	<dubbo:reference id="mccListService" interface="com.zcbspay.platform.manager.merchant.service.MccListService" version="1.0"/>
-</beans> 
+
+	<dubbo:reference id="productService" interface="com.zcbspay.platform.manager.merch.service.ProductService" version="1.0"/>
+	<dubbo:reference id="feeService" interface="com.zcbspay.platform.manager.merch.service.FeeService" version="1.0"/>
+	
+	<!-- 风控 -->
+	<dubbo:reference id="riskService" interface="com.zcbspay.platform.manager.risk.service.RiskService" version="1.0"/>
+</beans>

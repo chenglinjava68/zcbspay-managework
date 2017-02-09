@@ -293,6 +293,12 @@
     <module>merchant</module>
     <module>merchant-api</module>
     <module>system-simple</module>
-    <module>asa</module>
+    <module>merch</module>
+    <module>merch-api</module>
+    <module>merch-simple</module>
+    <module>merch-service</module>
+    <module>risk-api</module>
+    <module>risk</module>
+    <module>risk-service</module>
 	</modules>
 </project>
