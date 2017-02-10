@@ -37,14 +37,14 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post"
-					action="pages/risk/saveCardHolderBlackRiskAction.action">
-					<input name="blackIdnumModel.tid" id="tid" type="hidden" />
+					action="risk/saveCardHolderBlack">
+					<input name="tid" id="tid" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="50px">身份证号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="blackIdnumModel.idnum" id="idnum1" validType="cardNo[18]"
+								name="idnum" id="idnum1" validType="cardNo[18]"
 								maxlength="18" class="easyui-validatebox" /> <font color="red">*</font>
 							</td>
 
@@ -52,7 +52,7 @@
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="risklevel" class="easyui-validatebox"
 								missingMessage="请选选择风险等级" required="true"
-								name="blackIdnumModel.risklevel" class="easyui-validatebox">
+								name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 									<option value="5">拒绝</option>
 							</select> <font color="red">*</font></td>
@@ -61,11 +61,11 @@
 
 						<tr>
 							<td align="right" width="15%">有效期开始日期</td>
-							<td><input name="blackIdnumModel.sdate" maxlength="10"
+							<td><input name="sdate" maxlength="10"
 								type="text" id="sdate" /> <font color="red">*</font></td>
 
 							<td align="right" width="15%">有效期终止日期</td>
-							<td><input name="blackIdnumModel.edate"
+							<td><input name="edate"
 								class="easyui-validatebox" maxlength="10" id="edate" /> <font
 								color="red">*</font></td>
 						</tr>
@@ -74,7 +74,7 @@
 						<tr>
 							<td align="right" width="15%" height="50px">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="blackIdnumModel.notes" id="notes" maxlength="42" /></td>
+								name="notes" id="notes" maxlength="42" /></td>
 						</tr>
 					</table>
 				</form>
@@ -118,7 +118,7 @@
 			success : function(data) {
 				var a= data.split("validateUserLoginAction");
 				if(data.split("validateUserLoginAction").length>1){
-					window.parent.location.replace("<%=basePath%>"+"pages/logoutAction.action?relogin=relogin");
+					window.parent.location.replace("<%=basePath%>"+"logout?relogin=relogin");
 					return ;
 				}
 				if (data == '添加成功!' || data == '修改成功!') {
@@ -152,7 +152,7 @@
 							height : gridHeight,
 							nowrap : false,
 							striped : true,
-							url : 'pages/risk/queryCardHolderBlackListRiskAction.action',
+							url : 'risk/queryCardHolderBlackList',
 							remoteSort : false,
 							columns : [ [
 									{
@@ -252,7 +252,7 @@
 			closed : false
 		});
 		$("#theForm").attr("action",
-				"pages/risk/saveCardHolderBlackRiskAction.action");
+				"risk/saveCardHolderBlack");
 		$('#btn_submit').linkbutton('enable');
 	}
 
@@ -298,7 +298,7 @@
 	function showRiskLevel() {
 		$.ajax({
 			type : "POST",
-			url : "pages/risk/queryRiskLevelRiskAction.action",
+			url : "risk/queryRiskLevel",
 			dataType : "json",
 			success : function(json) {
 				var html = "<option value=''>--请选择风险等级--</option>";
@@ -314,7 +314,7 @@
 	function showBlackCardHolder(tid) {
 		$.ajax({
 			type : "POST",
-			url : "pages/risk/queryOneBlackCardHolderRiskAction.action?tid="
+			url : "risk/queryOneBlackCardHolder?tid="
 					+ tid,
 			dataType : "json",
 			success : function(json) {				
@@ -344,7 +344,7 @@
 			closed : false
 		});
 		$("#theForm").attr("action",
-				"pages/risk/updateBlackCardHolderRiskAction.action?tid="+tid);
+				"risk/updateBlackCardHolder?tid="+tid);
 		$('#btn_submit').linkbutton('enable');
 
 	}
@@ -359,7 +359,7 @@
 								$
 										.ajax({
 											type : "GET",
-											url : "pages/risk/deleteCardHolderBlackRiskAction.action?tid="
+											url : "risk/deleteCardHolderBlack?tid="
 													+ tid,
 											dataType : "text",
 											success : function(text) {
@@ -377,7 +377,7 @@
 			if (r) {
 				$.ajax({
 					type : "GET",
-					url : "pages/risk/startCardHolderBlackRiskAction.action",
+					url : "risk/startCardHolderBlack",
 					data : "tid=" + tid,
 					dataType : "text",
 					success : function(text) {

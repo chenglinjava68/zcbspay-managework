@@ -233,7 +233,7 @@
 					var html = "<option value=''>--请选择产品--</option>";
 					$.each(json,
 					function(key, value) {
-						html += '<option value="' + value.prdtver + '">' + value.prdtname + '</option>';
+						html += '<option value="' + value.PRDTVER + '">' + value.PRDTNAME + '</option>';
 					});
 					$("#prdtver").html(html);
 				}

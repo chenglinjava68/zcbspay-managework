@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zcbspay.platform.manager.risk.bean.BlackIdnumBean;
 import com.zcbspay.platform.manager.risk.bean.RiskBean;
 import com.zcbspay.platform.manager.risk.bean.RiskCaseBean;
+import com.zcbspay.platform.manager.risk.service.CardHolderBlackService;
 import com.zcbspay.platform.manager.risk.service.RiskService;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.utils.StringUtil;
@@ -23,6 +25,8 @@ import com.zcbspay.platform.manager.utils.StringUtil;
 public class RiskController {
 	@Autowired
 	private RiskService riskService;
+	@Autowired
+	private CardHolderBlackService cardHolderBlackService;
 
 	@RequestMapping("/index")
 	public String showRisk() {
@@ -455,6 +459,11 @@ public class RiskController {
 	 * public String showCardholderBlackList(){ return "cardholder_black"; }
 	 * HttpServletRequest request = ServletActionContext.getRequest();
 	 */
+	
+	@RequestMapping("/showCardholderBlackList")
+	public String showCardholderBlackList(){ 
+		return "cardholder_black_manager"; 
+	}
 	public final static String DEFAULT_TIME_STAMP_FROMAT2 = "yyyy-MM-dd";
 
 	/**
@@ -462,115 +471,116 @@ public class RiskController {
 	 * 
 	 * @return
 	 */
-//	public String queryCardHolderBlackList() {
-//		Map<String, Object> variables = new HashMap<String, Object>();
-//		if (blackIdnumModel == null) {
-//			blackIdnumModel = new BlackIdnumModel();
-//		}
-//		variables.put("idnum", blackIdnumModel.getIdnum());
-//
-//		Map<String, Object> result = serviceContainer.getCardHolderBlackService().queryCardHolderBlackList(variables,
-//				this.getPage(), this.getRows());
-//		json_encode(result);
-//		return null;
-//	}
+	@ResponseBody
+	@RequestMapping("/queryCardHolderBlackList")
+	public Map<String, Object> queryCardHolderBlackList(BlackIdnumBean blackIdnumBean, int page, int rows) {
+		Map<String, Object> variables = new HashMap<String, Object>();
+		if (blackIdnumBean == null) {
+			blackIdnumBean = new BlackIdnumBean();
+		}
+		variables.put("idnum", blackIdnumBean.getIdnum());
+
+		Map<String, Object> result = cardHolderBlackService.queryCardHolderBlackList(variables, page, rows);
+		return result;
+	}
 
 	/***
 	 * 保存持卡人黑名单信息
 	 * 
 	 * @return
 	 */
-//	public void saveCardHolderBlack() {
-//		if (blackIdnumModel == null) {
-//			blackIdnumModel = new BlackIdnumModel();
-//		}
-//		String sdateString = blackIdnumModel.getSdate();
-//		String edateString = blackIdnumModel.getEdate();
-//		String[] sdate1 = sdateString.split("-");
-//		String[] edate1 = edateString.split("-");
-//		String sdate = "";
-//		String edate = "";
-//		for (int i = 0; i < sdate1.length; i++) {
-//			sdate = sdate + sdate1[i];
-//			edate = edate + edate1[i];
-//		}
-//		blackIdnumModel.setSdate(sdate);
-//		blackIdnumModel.setEdate(edate);
-//		String result = serviceContainer.getCardHolderBlackService().AddOneBlackCardHolder(blackIdnumModel);
-//		json_encode(result);
-//	}
+	@ResponseBody
+	@RequestMapping("/saveCardHolderBlack")
+	public String saveCardHolderBlack(BlackIdnumBean blackIdnumBean) {
+		if (blackIdnumBean == null) {
+			blackIdnumBean = new BlackIdnumBean();
+		}
+		String sdateString = blackIdnumBean.getSdate();
+		String edateString = blackIdnumBean.getEdate();
+		String[] sdate1 = sdateString.split("-");
+		String[] edate1 = edateString.split("-");
+		String sdate = "";
+		String edate = "";
+		for (int i = 0; i < sdate1.length; i++) {
+			sdate = sdate + sdate1[i];
+			edate = edate + edate1[i];
+		}
+		blackIdnumBean.setSdate(sdate);
+		blackIdnumBean.setEdate(edate);
+		String result = cardHolderBlackService.AddOneBlackCardHolder(blackIdnumBean);
+		return result;
+	}
 
 	/**
 	 * （根据选中的记录的tid）查询一条持卡人黑名单信息
 	 * 
 	 * @return
 	 */
-//	public String queryOneBlackCardHolder() {
-//		String tid = request.getParameter("tid");
-//		Map<String, Object> blackCardHolder = serviceContainer.getCardHolderBlackService().queryOneBlackCardHolder(tid);
-//		String sdateString = (String) blackCardHolder.get("SDATE");
-//		String edateString = (String) blackCardHolder.get("EDATE");
-//		String sdate = sdateString.substring(0, 4) + "-" + sdateString.substring(4, 6) + "-"
-//				+ sdateString.substring(6, 8);
-//		String edate = edateString.substring(0, 4) + "-" + edateString.substring(4, 6) + "-"
-//				+ edateString.substring(6, 8);
-//		blackCardHolder.put("SDATE", sdate);
-//		blackCardHolder.put("EDATE", edate);
-//
-//		json_encode(blackCardHolder);
-//		return null;
-//	}
+	@ResponseBody
+	@RequestMapping("/queryOneBlackCardHolder")
+	public Map<String, Object> queryOneBlackCardHolder(HttpServletRequest request) {
+		String tid = request.getParameter("tid");
+		Map<String, Object> blackCardHolder = cardHolderBlackService.queryOneBlackCardHolder(tid);
+		String sdateString = (String) blackCardHolder.get("SDATE");
+		String edateString = (String) blackCardHolder.get("EDATE");
+		String sdate = sdateString.substring(0, 4) + "-" + sdateString.substring(4, 6) + "-"
+				+ sdateString.substring(6, 8);
+		String edate = edateString.substring(0, 4) + "-" + edateString.substring(4, 6) + "-"
+				+ edateString.substring(6, 8);
+		blackCardHolder.put("SDATE", sdate);
+		blackCardHolder.put("EDATE", edate);
+
+		return blackCardHolder;
+	}
 
 	/***
 	 * 修改持卡人黑名单
 	 */
-
-//	public String updateBlackCardHolder() {
-//		String tid = request.getParameter("tid");
-//		blackIdnumModel.setTid(tid);
-//		if (blackIdnumModel == null) {
-//			blackIdnumModel = new BlackIdnumModel();
-//		}
-//		String sdateString = blackIdnumModel.getSdate();
-//		String edateString = blackIdnumModel.getEdate();
-//		String[] sdate1 = sdateString.split("-");
-//		String[] edate1 = edateString.split("-");
-//		String sdate = "";
-//		String edate = "";
-//		for (int i = 0; i < sdate1.length; i++) {
-//			sdate = sdate + sdate1[i];
-//			edate = edate + edate1[i];
-//		}
-//		blackIdnumModel.setSdate(sdate);
-//		blackIdnumModel.setEdate(edate);
-//		String mark = serviceContainer.getCardHolderBlackService().updateBlackCardHolder(blackIdnumModel);
-//		json_encode(mark);
-//		return null;
-//
-//	}
+	@ResponseBody
+	@RequestMapping("/updateBlackCardHolder")
+	public String updateBlackCardHolder(HttpServletRequest request, BlackIdnumBean blackIdnumBean) {
+		String tid = request.getParameter("tid");
+		blackIdnumBean.setTid(tid);
+		String sdateString = blackIdnumBean.getSdate();
+		String edateString = blackIdnumBean.getEdate();
+		String[] sdate1 = sdateString.split("-");
+		String[] edate1 = edateString.split("-");
+		String sdate = "";
+		String edate = "";
+		for (int i = 0; i < sdate1.length; i++) {
+			sdate = sdate + sdate1[i];
+			edate = edate + edate1[i];
+		}
+		blackIdnumBean.setSdate(sdate);
+		blackIdnumBean.setEdate(edate);
+		String mark = cardHolderBlackService.updateBlackCardHolder(blackIdnumBean);
+		return mark;
+	}
 
 	/**
 	 * （根据选中记录的tid）注销此持卡人黑名单
 	 * 
 	 * @return
 	 */
-//	public String deleteCardHolderBlack() {
-//		String tid = request.getParameter("tid");
-//		String mark = serviceContainer.getCardHolderBlackService().delteOneCardHolderBlack(tid);
-//		json_encode(mark);
-//		return null;
-//	}
+	@ResponseBody
+	@RequestMapping("/deleteCardHolderBlack")
+	public String deleteCardHolderBlack(HttpServletRequest request) {
+		String tid = request.getParameter("tid");
+		String mark = cardHolderBlackService.delteOneCardHolderBlack(tid);
+		return mark;
+	}
 
 	/**
 	 * （根据选中记录的tid）启用此持卡人黑名单
 	 * 
 	 * @return
 	 */
-//	public String startCardHolderBlack() {
-//		String tid = request.getParameter("tid");
-//		String mark = serviceContainer.getCardHolderBlackService().startCardHolderBlack(tid);
-//		json_encode(mark);
-//		return null;
-//
-//	}
+	@ResponseBody
+	@RequestMapping("/startCardHolderBlack")
+	public String startCardHolderBlack(HttpServletRequest request) {
+		String tid = request.getParameter("tid");
+		String mark = cardHolderBlackService.startCardHolderBlack(tid);
+		return mark;
+
+	}
 }
