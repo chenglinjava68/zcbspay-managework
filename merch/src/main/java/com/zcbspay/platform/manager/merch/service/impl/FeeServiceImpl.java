@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.manager.merch.bean.BusiRateEntity;
 import com.zcbspay.platform.manager.merch.bean.CardRateEntity;
+import com.zcbspay.platform.manager.merch.bean.CommonRateEntity;
+import com.zcbspay.platform.manager.merch.bean.NewCardRateEntity;
 import com.zcbspay.platform.manager.merch.dao.FeeDao;
 import com.zcbspay.platform.manager.merch.service.FeeService;
 
@@ -77,6 +79,49 @@ public class FeeServiceImpl implements FeeService {
             return "操作失败！";
         }
 		return feeDao.addOneCardRate(cardRateEntity);
+	}
+
+	@Override
+	public String addOneCommonRate(CommonRateEntity rateModel) {
+		if (rateModel == null) {
+            return "操作失败！";
+        }
+		return feeDao.addOneCommonRate(rateModel);
+	}
+
+	@Override
+	public List<?> queryRateType() {
+		return feeDao.queryRateType();
+	}
+
+	@Override
+	public Map<String, Object> findCommonRateByPage(Map<String, Object> variables, String page, String rows) {
+		return feeDao.findCommonRateByPage(variables, page, rows);
+	}
+
+	@Override
+	public Map<String, Object> queryOneCommonRate(String caseid) {
+		return feeDao.queryOneCommonRate(caseid);
+	}
+
+	@Override
+	public String updateCommonRate(CommonRateEntity rateEntity) {
+		return feeDao.updateCommonRate(rateEntity);
+	}
+
+	@Override
+	public String saveNewCardRate(NewCardRateEntity cardRateEntity) {
+		return feeDao.saveNewCardRate(cardRateEntity);
+	}
+
+	@Override
+	public Map<String, Object> findNewCardRateByPage(NewCardRateEntity variables, String page, String rows) {
+		return feeDao.findNewCardRateByPage(variables, page, rows);
+	}
+
+	@Override
+	public Map<String, Object> queryOneNewCardRate(String caseid) {
+		return feeDao.queryOneNewCardRate(caseid);
 	}
 
 }
