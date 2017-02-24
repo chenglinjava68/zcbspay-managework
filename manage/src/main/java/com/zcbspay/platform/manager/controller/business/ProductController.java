@@ -1,4 +1,4 @@
-package com.zcbspay.platform.manager.controller.merch;
+package com.zcbspay.platform.manager.controller.business;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,12 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.manager.constants.Constants;
-import com.zcbspay.platform.manager.merch.bean.ProductBean;
-import com.zcbspay.platform.manager.merch.service.ProductService;
-import com.zcbspay.platform.manager.system.bean.UserBean;
+import com.zcbspay.platform.manager.business.bean.ProductBean;
+import com.zcbspay.platform.manager.business.service.ProductService;
 import com.zcbspay.platform.manager.utils.JsonUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
 

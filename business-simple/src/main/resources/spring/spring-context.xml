@@ -13,28 +13,15 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	<!--启用注解 -->
 	<context:annotation-config />
-	<context:component-scan base-package="com.zcbspay.platform.manager"/>
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
 	 <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
         <property name="locations">  
            <list>  
-              <!-- 推荐使用file的方式引入，这样可以将配置和代码分离   -->
-             <!--  <value>file:D:/cert/*.properties</value> 
-              <value>file:/home/web/trade/config/*.properties</value>  -->
               <value>classpath:*.properties</value>  
             </list>  
         </property>  
     </bean>
-    <bean id="logHelper" class="com.zcbspay.platform.manager.utils.LogHelper"/>
-	<aop:config>
-	    <aop:aspect ref="logHelper">
-	        <aop:pointcut id="pointcut" expression="execution(* com.zlebank.zplatform..*.*(..))"/>
-	        <aop:before method="before"  pointcut-ref="pointcut" />
-	        <aop:after method="after" pointcut-ref="pointcut" />
-	        <aop:around method="around"  pointcut-ref="pointcut" />
-	        <aop:after-throwing method="throwException" pointcut-ref="pointcut" throwing="ex" />
-	    </aop:aspect>
-	</aop:config>
+	<context:component-scan base-package="com.zcbspay.platform"/>
 	<import resource="classpath:spring-hibernate.xml"/>
 	<import resource="classpath:spring-dubbo.xml"/>
 </beans>
