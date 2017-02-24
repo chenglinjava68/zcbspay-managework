@@ -29,7 +29,6 @@ table tr td select {
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
-
 					<tr>
 						<td align="right" width="15%">扣率代码</td>
 						<td align="left" style="padding-left: 5px" width="25%">
@@ -46,7 +45,6 @@ table tr td select {
 						<td align="right"><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
 					</tr>
-
 				</table>
 			</form>
 		</div>
@@ -396,7 +394,6 @@ table tr td select {
 				shadow: true,
 				closed: false, 
 			});
-			showFee();
 		}
 		
 		function saveTxnRate() {
@@ -425,44 +422,11 @@ table tr td select {
 			}
 		}
 		
-		function showFee() {
-			$.ajax({
-				type: "POST",
-				url: "fee/queryFeeAll",
-				dataType: "json",
-				success: function(json) {
-					var html = "<option value=''>--请选择扣率版本--</option>";
-					$.each(json,
-					function(key, value) {
-						html += '<option value="' + value.FEEVER + '">' + value.FEENAME + '</option>';
-					});
-					$("#busipack").html(html);
-				}
-			});
-		}
-		
-		function showFeeCase() {
-			feever = $("#busipack").val();
-			$.ajax({
-				type: "POST",
-				url: "fee/queryFeeCaseByFeever?feever=" + feever,
-				dataType: "json",
-				success: function(json) {
-					var html = "<option value=''>--请选择业务--</option>";
-					$.each(json,
-					function(key, value) {
-						html += '<option value="' + value.BUSICODE + '">' + value.BUSINAME + '</option>';
-					});
-					$("#busicase").html(html);
-				}
-			});
-		}
 		
 		function showTxnRate(tid) {
 			$("#save_button").show();
 			$("#cancel_button").show();
 			showAdd(true);
-			showFee();
 			$.ajax({
 				type: "POST",
 				url: "fee/queryOneNewCardRate?caseid=" + tid,
@@ -489,7 +453,7 @@ table tr td select {
 					$("#notes").val(json.NOTES);
 				}
 			});
-			$("#txnRateForm").attr("action", "fee/updateCardRate");
+			$("#txnRateForm").attr("action", "fee/updateNewCardRate");
 		}
 		
 		
@@ -534,7 +498,6 @@ table tr td select {
 		
 		function showTxnRateDetail(tid) {
 			showAdd();
-			showFee();
 			$.ajax({
 				type: "POST",
 				url: "fee/queryOneNewCardRate?caseid=" + tid,
@@ -561,7 +524,7 @@ table tr td select {
 					$("#notes").val(json.NOTES);
 				}
 			});
-			$("#txnRateForm").attr("action", "fee/updateCardRate");
+			$("#txnRateForm").attr("action", "fee/updateNewCardRate");
 			$("#save_button").hide();
 			$("#cancel_button").hide();
 		}

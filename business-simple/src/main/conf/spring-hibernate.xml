@@ -58,23 +58,13 @@
 				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
 			</props>
 		</property>
-		<!-- 注解方式配置 -->
-		<property name="packagesToScan">
-			<list>
-				<value>com.zcbspay.platform.manager.system.pojo</value>			
-			</list>
-		</property>
-
-
 	</bean>
-
 	<!-- 配置事务 -->
 	<bean name="txManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 		<property name="globalRollbackOnParticipationFailure" value="false" />
 		<property name="nestedTransactionAllowed" value="true"></property>
-		
 	</bean>
 	<tx:annotation-driven transaction-manager="txManager" />
 </beans>

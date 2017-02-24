@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zcbspay.platform.manager.business.bean.AccumulateRateBean;
 import com.zcbspay.platform.manager.business.bean.BusiRateBean;
 import com.zcbspay.platform.manager.business.bean.CardRateBean;
 import com.zcbspay.platform.manager.business.bean.CommonRateBean;
@@ -50,9 +51,6 @@ public class FeeServiceImpl implements FeeService {
 
 	@Override
 	public String addOneBusiRate(BusiRateBean busiRate) {
-		if (busiRate == null) {
-			return "操作失败！";
-		}
 		return feeDao.addOneBusiRate(busiRate);
 	}
 
@@ -68,25 +66,16 @@ public class FeeServiceImpl implements FeeService {
 
 	@Override
 	public String updateCardRate(CardRateBean cardrate) {
-		if (cardrate == null) {
-			return "操作失败！";
-		}
 		return feeDao.updateCardRate(cardrate);
 	}
 
 	@Override
 	public String addOneCardRate(CardRateBean cardRateEntity) {
-		if (cardRateEntity == null) {
-            return "操作失败！";
-        }
 		return feeDao.addOneCardRate(cardRateEntity);
 	}
 
 	@Override
 	public String addOneCommonRate(CommonRateBean rateModel) {
-		if (rateModel == null) {
-            return "操作失败！";
-        }
 		return feeDao.addOneCommonRate(rateModel);
 	}
 
@@ -148,6 +137,27 @@ public class FeeServiceImpl implements FeeService {
 	@Override
 	public String updateStepRate(StepRateBean stepRateBean) {
 		return feeDao.updateStepRate(stepRateBean);
+	}
+
+	@Override
+	public String addOneAccumulateRate(AccumulateRateBean accumulateRateBean) {
+		return feeDao.addOneAccumulateRate(accumulateRateBean);
+	}
+
+	@Override
+	public Map<String, Object> findAccumulateRateByPage(AccumulateRateBean accumulateRateBean, String page,
+			String rows) {
+		return feeDao.findAccumulateRateByPage(accumulateRateBean,page,rows);
+	}
+
+	@Override
+	public Map<String, Object> queryOneAccumulateRate(String caseid) {
+		return feeDao.queryOneAccumulateRate(caseid);
+	}
+
+	@Override
+	public String updateAccumulateRate(AccumulateRateBean accumulateRateBean) {
+		return feeDao.updateAccumulateRate(accumulateRateBean);
 	}
 
 

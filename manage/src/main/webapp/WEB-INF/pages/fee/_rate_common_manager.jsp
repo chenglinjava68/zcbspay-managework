@@ -79,17 +79,17 @@ table tr td select {
 							</select>
 							</td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate" name="feeRateStr"
+							<td><input id="feeRate" name="feeRate"
 								validType="percent" required="true" type="text"
 								class="easyui-validatebox" maxlength="5" /></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee" name="minFeeStr"
+							<td><input id="minFee" name="minFee"
 								maxlength="12" validType="amount" required="true" type="text"
 								class="easyui-validatebox" /></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee" name="maxFeeStr"
+							<td><input id="maxFee" name="maxFee"
 								required="true" maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 						</tr>
