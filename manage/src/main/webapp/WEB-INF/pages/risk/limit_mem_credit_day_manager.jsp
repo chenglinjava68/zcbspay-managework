@@ -47,19 +47,19 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post" action="">
-					<input name="limitMemCreditDayModel.TId" id="TId" type="hidden" />
+					<input name="TId" id="TId" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="30px">会员号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemCreditDayModel.memberid" id="memberid"
+								name="memberid" id="memberid"
 								validType="merchno" maxlength="15" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%">卡类别</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="cardtype" class="easyui-validatebox" required="true"
-								missingMessage="请选择卡类型" name="limitMemCreditDayModel.cardType">
+								missingMessage="请选择卡类型" name="cardType">
 									<option value="" selected="selected">--请选择卡类型--</option>
 									<option value="1">--借记--</option>
 									<option value="2">--贷记--</option>
@@ -70,12 +70,12 @@
 						<tr>
 							<td align="right" width="15%" height="30px">累计限额（元）</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemCreditDayModel.limitAmount" id="limitAmount"
+								name="limitAmount" id="limitAmount"
 								validType="amount" maxlength="11" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%">累计限次</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemCreditDayModel.limitCount" id="limitCount"
+								name="limitCount" id="limitCount"
 								maxlength="8"
 								onkeyup="this.value=this.value.replace(/[^\d]/g,'') " /></td>
 						</tr>
@@ -84,13 +84,13 @@
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="risklevel" class="easyui-validatebox"
 								missingMessage="请选选择风险等级" required="true"
-								name="limitMemCreditDayModel.risklevel"
+								name="risklevel"
 								class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 							</select></td>
 							<td align="right" width="15%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemCreditDayModel.notes" id="Notes" maxlength="32" />
+								name="notes" id="Notes" maxlength="32" />
 							</td>
 						</tr>
 					</table>
@@ -125,7 +125,7 @@
 				nowrap: false,
 				striped: true,
 				sortName: 'FEEVER',
-				url: 'pages/risk/queryLimitMemCreditDayByPageLimitAction.action',
+				url: 'risk/queryLimitMemCreditDayByPage',
 				remoteSort: false,
 				columns: [[{
 					field: 'MEMBERID',
@@ -234,8 +234,8 @@
 	
 		function search() {
 			var data = {
-				'limitMemCreditDayModel.memberid': $('#merber_qid').val(),
-				'limitMemCreditDayModel.cardType': $('#cardtype_qid').val()
+				'memberid': $('#merber_qid').val(),
+				'cardType': $('#cardtype_qid').val()
 			};
 			$('#test').datagrid('load', data);
 		}
@@ -256,7 +256,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/saveLimitMemCreditDayLimitAction.action");
+			$("#theForm").attr("action", "risk/saveLimitMemCreditDay");
 			$('#btn_submit').linkbutton('enable');
 			showRiskLevel();
 		}
@@ -278,7 +278,7 @@
 				success: function(data) {
 					var a= data.split("validateUserLoginAction");
 					if(data.split("validateUserLoginAction").length>1){
-						window.parent.location.replace("<%=basePath%>"+"pages/logoutAction.action?relogin=relogin");
+						window.parent.location.replace("<%=basePath%>"+"logout?relogin=relogin");
 						return ;
 					}
 					if (data == '添加成功!' || data == '修改成功!') {
@@ -297,7 +297,7 @@
 		function showRiskLevel() {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRiskLevelRiskAction.action",
+				url: "risk/queryRiskLevel",
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风险等级--</option>";
@@ -312,7 +312,7 @@
 		function showLimitMem(tid) {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryLimitMemCreditDayLimitAction.action",
+				url: "risk/queryLimitMemCreditDay",
 				data: "riskId=" + tid,
 				dataType: "json",
 				success: function(json) {
@@ -343,7 +343,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/updateLimitMemCreditDayLimitAction.action");
+			$("#theForm").attr("action", "risk/updateLimitMemCreditDay");
 			$('#btn_submit').linkbutton('enable');
 			s
 		}
@@ -353,7 +353,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/deleteLimitMemCreditDayLimitAction.action",
+						url: "risk/deleteLimitMemCreditDay",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {
@@ -371,7 +371,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/startLimitMemCreditDayLimitAction.action",
+						url: "risk/startLimitMemCreditDay",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {

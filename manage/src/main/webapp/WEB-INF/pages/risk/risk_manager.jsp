@@ -43,19 +43,19 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post"
-					action="pages/risk/saveRiskRiskAction.action">
-					<input name="riskModel.riskid" id="riskid" type="hidden" />
+					action="risk/saveRisk">
+					<input name="riskid" id="riskid" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="50px">风控版本代码</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="riskModel.riskver" id="riskver" validType="minLength[8,8]"
+								name="riskver" id="riskver" validType="minLength[8,8]"
 								maxlength="8" class="easyui-validatebox" required="required" />
 							</td>
 							<td align="right" width="15%">风控版本名称</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="riskModel.riskname" id="riskname" required="required"
+								name="riskname" id="riskname" required="required"
 								class="easyui-validatebox" /></td>
 						</tr>
 						<tr></tr>
@@ -63,13 +63,13 @@
 							<td align="right" width="15%">所属产品</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="prdtver" class="easyui-validatebox" missingMessage="请选择产品"
-								required="true" name="riskModel.prdtver"
+								required="true" name="prdtver"
 								class="easyui-validatebox">
 									<option value="">--请选择产品--</option>
 							</select></td>
 							<td align="right" width="15%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="riskModel.notes" id="Notes" maxlength="32" /></td>
+								name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
 					</table>
 				</form>
@@ -259,7 +259,7 @@
 				}
 			});
 			$('#w').window({
-				title: '修改扣率版本',
+				title: '修改风控版本',
 				top: panelVertFloat,
 		  		left: panelHoriFloat,
 		  		width: panelWidth,
@@ -277,7 +277,7 @@
 		
 		function toMakeFEECase(riskver) {
 			var form = document.forms['theForm'];
-			form.action = "<%=basePath%>risk/toMakeRiskCase?riskver=" + riskver;
+			form.action = "<%=basePath%>risk/toMakeRiskCase?riskverMake=" + riskver;
 			form.submit();
 		}
 		function closeAdd() {

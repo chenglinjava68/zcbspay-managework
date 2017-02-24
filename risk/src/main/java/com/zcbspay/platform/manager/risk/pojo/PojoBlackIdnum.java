@@ -1,6 +1,7 @@
 package com.zcbspay.platform.manager.risk.pojo;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -8,7 +9,7 @@ import javax.persistence.Table;
 public class PojoBlackIdnum implements java.io.Serializable {
 
 	private static final long serialVersionUID = 6918187125419723794L;
-
+	
 	/** 标识 **/
 	private String tid;
 	/** 持卡人身份证号 **/
@@ -42,6 +43,7 @@ public class PojoBlackIdnum implements java.io.Serializable {
 		this.edate = edate;
 	}
 
+	@Id
 	public String getTid() {
 		return tid;
 	}

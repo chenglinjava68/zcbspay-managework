@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.manager.risk.bean.BlackIdnumBean;
 import com.zcbspay.platform.manager.risk.dao.CardHolderBlackDAO;
-import com.zcbspay.platform.manager.risk.pojo.PojoBlackIdnum;
 import com.zcbspay.platform.manager.risk.service.CardHolderBlackService;
 
 /**

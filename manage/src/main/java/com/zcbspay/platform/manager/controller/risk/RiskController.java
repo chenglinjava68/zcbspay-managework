@@ -1,6 +1,5 @@
 package com.zcbspay.platform.manager.controller.risk;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.manager.risk.bean.BlackIdnumBean;
+import com.zcbspay.platform.manager.risk.bean.BlacklistMemberBean;
+import com.zcbspay.platform.manager.risk.bean.BlacklistPanBean;
+import com.zcbspay.platform.manager.risk.bean.LimitCreditSingleBean;
 import com.zcbspay.platform.manager.risk.bean.RiskBean;
 import com.zcbspay.platform.manager.risk.bean.RiskCaseBean;
+import com.zcbspay.platform.manager.risk.bean.WhitePanBean;
 import com.zcbspay.platform.manager.risk.service.CardHolderBlackService;
 import com.zcbspay.platform.manager.risk.service.RiskService;
 import com.zcbspay.platform.manager.system.bean.UserBean;
@@ -59,10 +63,10 @@ public class RiskController {
 	 * 保存风控版本
 	 * 
 	 * @param risk
-	 * @return
+	 * @return-
 	 */
 	@ResponseBody
-	@RequestMapping("/saveRisk")
+	@RequestMapping(value="/saveRisk", produces = "text/html;charset=UTF-8")
 	public String saveRisk(HttpServletRequest request, RiskBean risk) {
 		String result = "";
 		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
@@ -92,7 +96,7 @@ public class RiskController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/updateOneRisk")
+	@RequestMapping(value="/updateOneRisk", produces = "text/html;charset=UTF-8")
 	public String updateOneRisk(HttpServletRequest request, RiskBean risk) {
 		String result = "";
 		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
@@ -108,8 +112,12 @@ public class RiskController {
 
 	// 根据一条风控ID，查询下面的实例，给实例配置复选业务
 	@RequestMapping("/toMakeRiskCase")
-	public String toMakeRiskCase(String riskver) {
-		return "/risk/risk_case_make";
+	public ModelAndView toMakeRiskCase(String riskverMake) {
+		ModelAndView modelAndView = new ModelAndView("/risk/risk_case_make");
+		if (riskverMake != null && !StringUtil.isEmpty(riskverMake.trim())) {
+			modelAndView.addObject("riskver", riskverMake);
+		}
+		return modelAndView;
 	}
 
 	@ResponseBody
@@ -149,16 +157,16 @@ public class RiskController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/updateRiskCase")
-	public String updateRiskCase(HttpServletRequest request, RiskCaseBean riskCase, List<String> checkboxList) {
+	@RequestMapping(value="/updateRiskCase", produces = "text/html;charset=UTF-8")
+	public String updateRiskCase(HttpServletRequest request, RiskCaseBean riskCase, String[] checkboxList) {
 		if (riskCase == null) {
 			riskCase = new RiskCaseBean();
 		}
 		StringBuffer activeflag = new StringBuffer("000000000000000000000000000000000000000000000000000000000000");
 		if (checkboxList != null) {
-			for (int i = 0; i < checkboxList.size(); i++) {
-				activeflag.deleteCharAt(Integer.parseInt(checkboxList.get(i)) - 1);
-				activeflag.insert(Integer.parseInt(checkboxList.get(i)) - 1, "1");
+			for (int i = 0; i < checkboxList.length; i++) {
+				activeflag.deleteCharAt(Integer.parseInt(checkboxList[i]) - 1);
+				activeflag.insert(Integer.parseInt(checkboxList[i]) - 1, "1");
 			}
 		}
 		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
@@ -193,244 +201,275 @@ public class RiskController {
 	}
 
 	// -------------------------------------------------------------银行卡黑名单-----------------------------------------------------------------------
-	/*private BlacklistPanBean blackpanModel;
-
+	@RequestMapping("/showBlackPan")
 	public String showBlackPan() {
-		return "black_pan_manager";
+		return "/risk/black_pan_manager";
 	}
 
-	public String queryBlackPanByPage() {
+	@ResponseBody
+	@RequestMapping("/queryBlackPanByPage")
+	public Map<String, Object> queryBlackPanByPage(HttpServletRequest request, BlacklistPanBean blacklistPan, int page, int rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
-		variables.put("userId", getCurrentUser().getUserId());
-		if (blackpanModel == null) {
-			blackpanModel = new BlacklistPanBean();
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		variables.put("userId", loginUser.getUserId());
+		if (blacklistPan == null) {
+			blacklistPan = new BlacklistPanBean();
 		}
-		variables.put("pan", blackpanModel.getPan());
-		Map<String, Object> groupList = serviceContainer.getRiskService().findBlackPanByPage(variables, getPage(),
-				getRows());
-		json_encode(groupList);
-		return null;
+		variables.put("pan", blacklistPan.getPan());
+		Map<String, Object> groupList = riskService.findBlackPanByPage(variables, page, rows);
+		return groupList;
 	}
 
-	// 风险等级
-	public String queryRiskLevel() {
-		List<?> riskcheckList = serviceContainer.getRiskService().query_risk_level();
-		try {
-			json_encode(riskcheckList);
-		} catch (IOException e) {
-			e.printStackTrace();
+	// 
+	/**
+	 * 风险等级
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryRiskLevel")
+	public List<?> queryRiskLevel() {
+		List<?> riskcheckList = riskService.query_risk_level();
+		return riskcheckList;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/saveBlackPan", produces = "text/html;charset=UTF-8")
+	public String saveBlackPan(BlacklistPanBean blacklistPan) {
+		if (blacklistPan == null) {
+			blacklistPan = new BlacklistPanBean();
 		}
-		return null;
+		String mark = riskService.AddOneBlackPan(blacklistPan);
+		return mark;
 	}
 
-	public String saveBlackPan() {
-		if (blackpanModel == null) {
-			blackpanModel = new BlacklistPanBean();
+	@ResponseBody
+	@RequestMapping("/queryOneBlackPan")
+	public Map<String, Object> queryOneBlackPan(String riskId) {
+		Map<String, Object> feeList = riskService.queryOneBlackPan(riskId);
+		return feeList;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/updateBlackPan", produces = "text/html;charset=UTF-8")
+	public String updateBlackPan(BlacklistPanBean blacklistPan) {
+		if (blacklistPan == null) {
+			blacklistPan = new BlacklistPanBean();
 		}
-		String mark = serviceContainer.getRiskService().AddOneBlackPan(blackpanModel);
-		json_encode(mark);
-		return null;
+		String mark = riskService.updateOneBlackPan(blacklistPan);
+		return mark;
 	}
 
-	public String queryOneBlackPan() {
-		Map<String, Object> feeList = serviceContainer.getRiskService().queryOneBlackPan(riskId);
-		json_encode(feeList);
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/deleteBlackPan", produces = "text/html;charset=UTF-8")
+	public String deleteBlackPan(String riskId) {
+		String mark = riskService.deleteOneBlackPan(riskId);
+		return mark;
 	}
 
-	public String updateBlackPan() {
-		if (blackpanModel == null) {
-			blackpanModel = new BlacklistPanBean();
-		}
-		String mark = serviceContainer.getRiskService().updateOneBlackPan(blackpanModel);
-		json_encode(mark);
-		return null;
-	}
-
-	public String deleteBlackPan() {
-		String mark = serviceContainer.getRiskService().deleteOneBlackPan(riskId);
-		json_encode(mark);
-		return null;
-	}
-
-	public String startBlackPan() {
-		String mark = serviceContainer.getRiskService().startOneBlackPan(riskId);
-		json_encode(mark);
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/startBlackPan", produces = "text/html;charset=UTF-8")
+	public String startBlackPan(String riskId) {
+		String mark = riskService.startOneBlackPan(riskId);
+		return mark;
 	}
 
 	// --------------------------------------------------
 	// 银行卡白名单------------------------------------------------------------------------
-	private WhitePanModel whitepanModel;
 
+	@RequestMapping("/showWhitePan")
 	public String showWhitePan() {
-		return "white_pan_manager";
+		return "/risk/white_pan_manager";
 	}
 
-	public String queryWhitePanByPage() {
+	@ResponseBody
+	@RequestMapping("/queryWhitePanByPage")
+	public Map<String, Object> queryWhitePanByPage(HttpServletRequest request, WhitePanBean whitePanBean, int page, int rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
-		variables.put("userId", getCurrentUser().getUserId());
-		if (whitepanModel == null) {
-			whitepanModel = new WhitePanModel();
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		variables.put("userId", loginUser.getUserId());
+		if (whitePanBean == null) {
+			whitePanBean = new WhitePanBean();
 		}
-		variables.put("pan", whitepanModel.getPan());
-		Map<String, Object> groupList = serviceContainer.getRiskService().findWhitePanByPage(variables, getPage(),
-				getRows());
-		json_encode(groupList);
-		return null;
+		variables.put("pan", whitePanBean.getPan());
+		Map<String, Object> groupList = riskService.findWhitePanByPage(variables, page, rows);
+		return groupList;
 	}
 
-	public String saveWhitePan() {
-		if (whitepanModel == null) {
-			whitepanModel = new WhitePanModel();
+	@ResponseBody
+	@RequestMapping(value="/saveWhitePan", produces = "text/html;charset=UTF-8")
+	public String saveWhitePan(WhitePanBean whitePanBean) {
+		if (whitePanBean == null) {
+			whitePanBean = new WhitePanBean();
 		}
-		String mark = serviceContainer.getRiskService().AddOneWhitePan(whitepanModel);
-		json_encode(mark);
-		return null;
+		String mark = riskService.AddOneWhitePan(whitePanBean);
+		return mark;
 	}
 
-	public String queryOneWhitePan() {
-		Map<String, Object> feeList = serviceContainer.getRiskService().queryOneWhitePan(riskId);
-		json_encode(feeList);
-		return null;
+	@ResponseBody
+	@RequestMapping("/queryOneWhitePan")
+	public Map<String, Object> queryOneWhitePan(String riskId) {
+		Map<String, Object> feeList = riskService.queryOneWhitePan(riskId);
+		return feeList;
 	}
 
-	public String updateWhitePan() {
-		if (whitepanModel == null) {
-			whitepanModel = new WhitePanModel();
+	@ResponseBody
+	@RequestMapping(value="/updateWhitePan", produces = "text/html;charset=UTF-8")
+	public String updateWhitePan(WhitePanBean whitePanBean) {
+		if (whitePanBean == null) {
+			whitePanBean = new WhitePanBean();
 		}
-		String mark = serviceContainer.getRiskService().updateOneWhitePan(whitepanModel);
-		json_encode(mark);
-		return null;
+		String mark = riskService.updateOneWhitePan(whitePanBean);
+		return mark;
 	}
 
-	public String deleteWhitePan() {
-		String mark = serviceContainer.getRiskService().deleteOneWhitePan(riskId);
-		json_encode(mark);
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/deleteWhitePan", produces = "text/html;charset=UTF-8")
+	public String deleteWhitePan(String riskId) {
+		String mark = riskService.deleteOneWhitePan(riskId);
+		return mark;
 	}
 
-	public String startWhitePan() {
-		String mark = serviceContainer.getRiskService().startOneWhitePan(riskId);
-		json_encode(mark);
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/startWhitePan", produces = "text/html;charset=UTF-8")
+	public String startWhitePan(String riskId) {
+		String mark = riskService.startOneWhitePan(riskId);
+		return mark;
 	}
 
 	// --------------------------------------------------------------卡类别日累计限额------------------------------------------------------
-	private BlacklistMemberModel blacklistMemberModel;
+	// private BlacklistMemberModel blacklistMemberModel;
 
+	@RequestMapping("/showBlacklistMember")
 	public String showBlacklistMember() {
-		return "black_mem_manager";
+		return "/risk/black_mem_manager";
 	}
 
-	public String queryBlacklistMemberByPage() {
+	@ResponseBody
+	@RequestMapping("/queryBlacklistMemberByPage")
+	public Map<String, Object> queryBlacklistMemberByPage(HttpServletRequest request, BlacklistMemberBean blacklistMemberBean, int page, int rows, String merchName) {
 		Map<String, Object> variables = new HashMap<String, Object>();
-		variables.put("userId", getCurrentUser().getUserId());
-		if (blacklistMemberModel == null) {
-			blacklistMemberModel = new BlacklistMemberModel();
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		variables.put("userId", loginUser.getUserId());
+		if (blacklistMemberBean == null) {
+			blacklistMemberBean = new BlacklistMemberBean();
 		}
-		variables.put("memberId", blacklistMemberModel.getMemberid());
+		variables.put("memberId", blacklistMemberBean.getMemberid());
 		variables.put("merchName", merchName);
-		Map<String, Object> LimitMemList = serviceContainer.getRiskService().findBlacklistMemberByPage(variables,
-				getPage(), getRows());
-		json_encode(LimitMemList);
-		return null;
+		Map<String, Object> LimitMemList = riskService.findBlacklistMemberByPage(variables, page, rows);
+		return LimitMemList;
 	}
 
-	public String saveBlacklistMember() {
-		if (blacklistMemberModel == null) {
-			blacklistMemberModel = new BlacklistMemberModel();
+	@ResponseBody
+	@RequestMapping(value="/saveBlacklistMember", produces = "text/html;charset=UTF-8")
+	public String saveBlacklistMember(BlacklistMemberBean blacklistMemberBean) {
+		if (blacklistMemberBean == null) {
+			blacklistMemberBean = new BlacklistMemberBean();
 		}
-		String mark = serviceContainer.getRiskService().AddOneBlacklistMember(blacklistMemberModel);
-		json_encode(mark);
-		return null;
+		String mark = riskService.AddOneBlacklistMember(blacklistMemberBean);
+		return mark;
 	}
 
-	public String queryOneBlacklistMember() {
-		Map<String, Object> onelimit = serviceContainer.getRiskService().queryOneBlacklistMember(riskId);
-		json_encode(onelimit);
-		return null;
+	@ResponseBody
+	@RequestMapping("/queryOneBlacklistMember")
+	public Map<String, Object> queryOneBlacklistMember(String riskId) {
+		Map<String, Object> onelimit = riskService.queryOneBlacklistMember(riskId);
+		return onelimit;
 	}
 
-	public String updateBlacklistMember() {
-		if (blacklistMemberModel == null) {
-			blacklistMemberModel = new BlacklistMemberModel();
+	@ResponseBody
+	@RequestMapping(value="/updateBlacklistMember", produces = "text/html;charset=UTF-8")
+	public String updateBlacklistMember(BlacklistMemberBean blacklistMemberBean) {
+		if (blacklistMemberBean == null) {
+			blacklistMemberBean = new BlacklistMemberBean();
 		}
-		String mark = serviceContainer.getRiskService().updateBlacklistMember(blacklistMemberModel);
-		json_encode(mark);
-		return null;
+		String mark = riskService.updateBlacklistMember(blacklistMemberBean);
+		return mark;
 	}
 
-	public String deleteBlacklistMember() {
-		String mark = serviceContainer.getRiskService().deleteOneBlacklistMember(riskId, getCurrentUser().getUserId());
-		json_encode(mark);
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/deleteBlacklistMember", produces = "text/html;charset=UTF-8")
+	public String deleteBlacklistMember(HttpServletRequest request, String riskId) {
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		String mark = riskService.deleteOneBlacklistMember(riskId, loginUser.getUserId());
+		return mark;
 	}
 
-	public String startBlacklistMember() {
-		String mark = serviceContainer.getRiskService().startOneBlacklistMember(riskId, getCurrentUser().getUserId());
-		json_encode(mark);
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/startBlacklistMember", produces = "text/html;charset=UTF-8")
+	public String startBlacklistMember(HttpServletRequest request,String riskId) {
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		String mark = riskService.startOneBlacklistMember(riskId, loginUser.getUserId());
+		return mark;
 	}
 
 	// -------------------------------------------------------------------------------------------
 	// --------------------------------------------------------------分卡种单笔限额------------------------------------------------------
-	private LimitCreditSingleModel limitCreditSingleModel;
+	// private LimitCreditSingleModel limitCreditSingleModel;
 
+	@RequestMapping("/showLimitCreditSingle")
 	public String showLimitCreditSingle() {
-		return "limit_credit_single_manager";
+		return "/risk/limit_credit_single_manager";
 	}
 
-	public String queryLimitSingleByPage() {
+	@ResponseBody
+	@RequestMapping("/queryLimitCreditSingleByPage")
+	public Map<String, Object>  queryLimitCreditSingleByPage(HttpServletRequest request, LimitCreditSingleBean limitCreditSingleBean, int page, int rows, String riskver) {
 		Map<String, Object> variables = new HashMap<String, Object>();
-		variables.put("userId", getCurrentUser().getUserId());
-		if (limitCreditSingleModel == null) {
-			limitCreditSingleModel = new LimitCreditSingleModel();
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		variables.put("userId", loginUser.getUserId());
+		if (limitCreditSingleBean == null) {
+			limitCreditSingleBean = new LimitCreditSingleBean();
 		}
-		variables.put("caseid", limitCreditSingleModel.getCaseid());
+		variables.put("caseid", limitCreditSingleBean.getCaseid());
 		variables.put("riskver", riskver);
-		Map<String, Object> LimitMemList = serviceContainer.getRiskService().findlimitCreditSingleByPage(variables,
-				getPage(), getRows());
-		json_encode(LimitMemList);
-		return null;
+		Map<String, Object> LimitMemList = riskService.findlimitCreditSingleByPage(variables,
+				page, rows);
+		return LimitMemList;
 	}
 
-	public String saveLimitCreditSingle() {
-		if (limitCreditSingleModel == null) {
-			limitCreditSingleModel = new LimitCreditSingleModel();
+	@ResponseBody
+	@RequestMapping(value="/saveLimitCreditSingle", produces = "text/html;charset=UTF-8")
+	public String saveLimitCreditSingle(LimitCreditSingleBean limitCreditSingleBean) {
+		if (limitCreditSingleBean == null) {
+			limitCreditSingleBean = new LimitCreditSingleBean();
 		}
-		String mark = serviceContainer.getRiskService().AddOnelimitCreditSingle(limitCreditSingleModel);
-		json_encode(mark);
-		return null;
+		String mark = riskService.AddOnelimitCreditSingle(limitCreditSingleBean);
+		return mark;
 	}
 
-	public String queryLimitCreditSingle() {
-		Map<String, Object> onelimit = serviceContainer.getRiskService().queryOnelimitCreditSingle(riskId);
-		json_encode(onelimit);
-		return null;
+	@ResponseBody
+	@RequestMapping("/queryLimitCreditSingle")
+	public Map<String, Object> queryLimitCreditSingle(String riskId) {
+		Map<String, Object> onelimit = riskService.queryOnelimitCreditSingle(riskId);
+		return onelimit;
 	}
 
-	public String updateLimitCreditSingle() {
-		if (limitCreditSingleModel == null) {
-			limitCreditSingleModel = new LimitCreditSingleModel();
+	@ResponseBody
+	@RequestMapping(value="/updateLimitCreditSingle", produces = "text/html;charset=UTF-8")
+	public String updateLimitCreditSingle(LimitCreditSingleBean limitCreditSingleBean) {
+		if (limitCreditSingleBean == null) {
+			limitCreditSingleBean = new LimitCreditSingleBean();
 		}
-		String mark = serviceContainer.getRiskService().updateOnelimitCreditSingle(limitCreditSingleModel);
-		json_encode(mark);
-		return null;
+		String mark = riskService.updateOnelimitCreditSingle(limitCreditSingleBean);
+		return mark;
 	}
 
-	public String deleteLimitCreditSingle() {
-		String mark = serviceContainer.getRiskService().deleteOnelimitCreditSingle(riskId,
-				getCurrentUser().getUserId());
-		json_encode(mark);
-		return null;
+	@ResponseBody
+	@RequestMapping(value="/deleteLimitCreditSingle", produces = "text/html;charset=UTF-8")
+	public String deleteLimitCreditSingle(HttpServletRequest request, String riskId) {
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		String mark = riskService.deleteOnelimitCreditSingle(riskId,
+				loginUser.getUserId());
+		return mark;
 	}
 
-	public String startLimitCreditSingle() {
-		String mark = serviceContainer.getRiskService().startOnelimitCreditSingle(riskId, getCurrentUser().getUserId());
-		json_encode(mark);
-		return null;
-	}*/
+	@ResponseBody
+	@RequestMapping(value="/startLimitCreditSingle", produces = "text/html;charset=UTF-8")
+	public String startLimitCreditSingle(HttpServletRequest request, String riskId) {
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		String mark = riskService.startOnelimitCreditSingle(riskId, loginUser.getUserId());
+		return mark;
+	}
 	
 	
 	
@@ -448,21 +487,9 @@ public class RiskController {
 	
 
 	// -----------------------------------------------------------------持卡人黑名单------------------------------------------------
-	/*
-	 * private BlackIdnumModel blackIdnumModel;
-	 * 
-	 * public BlackIdnumModel getBlackIdnumModel() { return blackIdnumModel; }
-	 * 
-	 * public void setBlackIdnumModel(BlackIdnumModel blackIdnumModel) {
-	 * this.blackIdnumModel = blackIdnumModel; }
-	 * 
-	 * public String showCardholderBlackList(){ return "cardholder_black"; }
-	 * HttpServletRequest request = ServletActionContext.getRequest();
-	 */
-	
 	@RequestMapping("/showCardholderBlackList")
 	public String showCardholderBlackList(){ 
-		return "cardholder_black_manager"; 
+		return "/risk/cardholder_black_manager"; 
 	}
 	public final static String DEFAULT_TIME_STAMP_FROMAT2 = "yyyy-MM-dd";
 
@@ -490,7 +517,7 @@ public class RiskController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/saveCardHolderBlack")
+	@RequestMapping(value="/saveCardHolderBlack", produces = "text/html;charset=UTF-8")
 	public String saveCardHolderBlack(BlackIdnumBean blackIdnumBean) {
 		if (blackIdnumBean == null) {
 			blackIdnumBean = new BlackIdnumBean();
@@ -537,7 +564,7 @@ public class RiskController {
 	 * 修改持卡人黑名单
 	 */
 	@ResponseBody
-	@RequestMapping("/updateBlackCardHolder")
+	@RequestMapping(value="/updateBlackCardHolder", produces = "text/html;charset=UTF-8")
 	public String updateBlackCardHolder(HttpServletRequest request, BlackIdnumBean blackIdnumBean) {
 		String tid = request.getParameter("tid");
 		blackIdnumBean.setTid(tid);
@@ -563,7 +590,7 @@ public class RiskController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/deleteCardHolderBlack")
+	@RequestMapping(value="/deleteCardHolderBlack", produces = "text/html;charset=UTF-8")
 	public String deleteCardHolderBlack(HttpServletRequest request) {
 		String tid = request.getParameter("tid");
 		String mark = cardHolderBlackService.delteOneCardHolderBlack(tid);
@@ -576,7 +603,7 @@ public class RiskController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/startCardHolderBlack")
+	@RequestMapping(value="/startCardHolderBlack", produces = "text/html;charset=UTF-8")
 	public String startCardHolderBlack(HttpServletRequest request) {
 		String tid = request.getParameter("tid");
 		String mark = cardHolderBlackService.startCardHolderBlack(tid);

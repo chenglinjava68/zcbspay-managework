@@ -37,17 +37,17 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post" action="">
-					<input name="whitepanModel.TId" id="TId" type="hidden" />
+					<input name="TId" id="TId" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="50px">银行卡号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="whitepanModel.pan" id="pan" validType="minLength[16,16]"
+								name="pan" id="pan" validType="minLength[16,16]"
 								maxlength="19" class="easyui-validatebox" /></td>
 							<td align="right" width="15%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="whitepanModel.notes" id="Notes" maxlength="32" /></td>
+								name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
 					</table>
 				</form>
@@ -94,7 +94,7 @@
 				nowrap: false,
 				striped: true,
 				sortName: 'FEEVER',
-				url: 'pages/risk/queryWhitePanByPageRiskAction.action',
+				url: 'risk/queryWhitePanByPage',
 				remoteSort: false,
 				columns: [[{
 					field: 'PAN',
@@ -147,7 +147,7 @@
 	
 		function search() {
 			var data = {
-				'whitepanModel.pan': $('#pan_qid').val()
+				'pan': $('#pan_qid').val()
 			};
 			$('#test').datagrid('load', data);
 		}
@@ -167,7 +167,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/saveWhitePanRiskAction.action");
+			$("#theForm").attr("action", "risk/saveWhitePan");
 			$('#btn_submit').linkbutton('enable');
 		}
 	
@@ -187,7 +187,7 @@
 				success: function(data) {
 					var a= data.split("validateUserLoginAction");
 					if(data.split("validateUserLoginAction").length>1){
-						window.parent.location.replace("<%=basePath%>"+"pages/logoutAction.action?relogin=relogin");
+						window.parent.location.replace("<%=basePath%>"+"logout?relogin=relogin");
 						return ;
 					}
 					if (data == '添加成功!' || data == '修改成功!') {
@@ -207,7 +207,7 @@
 		function showWhitePan(tid) {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryOneWhitePanRiskAction.action",
+				url: "risk/queryOneWhitePan",
 				data: "riskId=" + tid,
 				dataType: "json",
 				success: function(json) {
@@ -230,7 +230,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/updateWhitePanRiskAction.action");
+			$("#theForm").attr("action", "risk/updateWhitePan");
 			$('#btn_submit').linkbutton('enable');
 			s
 		}
@@ -241,7 +241,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/deleteWhitePanRiskAction.action",
+						url: "risk/deleteWhitePan",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {
@@ -259,7 +259,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/startWhitePanRiskAction.action",
+						url: "risk/startWhitePan",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {

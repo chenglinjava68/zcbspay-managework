@@ -231,7 +231,7 @@
 
 	function search() {
 		var data = {
-			'blackIdnumModel.idnum' : $('#idnum').val()
+			'idnum' : $('#idnum').val()
 		};
 		$('#test').datagrid('load', data);
 	}

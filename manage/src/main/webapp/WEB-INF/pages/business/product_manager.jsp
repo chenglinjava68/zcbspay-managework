@@ -120,16 +120,6 @@
   var panelHoriFloat = (width - panelWidth) / 2;
   var panelVertFloat = 150;
   $(function() {
-      // var checkmark=1;
-      // $("#checkAll").click(
-      //   function () {
-      //   if(checkmark%2==0){
-      //    $("#checkboxList,#checkAll").attr("checked",false);
-      //   }else{
-      //     $("#checkboxList,#checkAll").attr("checked","checked");
-      //   }	
-      //   checkmark=checkmark+1;	      
-      //   } );
       $('#paraList').datagrid({
           title: '产品列表',
           iconCls: 'icon-save',

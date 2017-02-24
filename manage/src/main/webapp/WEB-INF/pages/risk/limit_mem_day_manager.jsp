@@ -39,39 +39,39 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post" action="">
-					<input name="limitMemDayModel.TId" id="TId" type="hidden" />
+					<input name="TId" id="TId" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="30px">会员号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemDayModel.memberid" id="memberid"
+								name="memberid" id="memberid"
 								validType="merchno" maxlength="15" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%" height="30px">风险等级</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="risklevel" class="easyui-validatebox"
 								missingMessage="请选选择风险等级" required="true"
-								name="limitMemDayModel.risklevel" class="easyui-validatebox">
+								name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 							</select></td>
 						</tr>
 						<tr>
 							<td align="right" width="15%" height="30px">累计限额（元）</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemDayModel.limitAmount" id="limitAmount"
+								name="limitAmount" id="limitAmount"
 								validType="amount" maxlength="11" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%">累计限次</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemDayModel.limitCount" id="limitCount" maxlength="8"
+								name="limitCount" id="limitCount" maxlength="8"
 								onkeyup="this.value=this.value.replace(/[^\d]/g,'') " /></td>
 						</tr>
 						<tr>
 
 							<td align="right" width="15%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitMemDayModel.notes" id="Notes" maxlength="32" /></td>
+								name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
 					</table>
 				</form>
@@ -105,7 +105,7 @@
 				nowrap: false,
 				striped: true,
 				sortName:'FEEVER',
-				url:'pages/risk/queryLimitMemDayByPageLimitAction.action',
+				url:'risk/queryLimitMemDayByPage',
 				remoteSort: false,
 				columns:[
 				[
@@ -168,7 +168,7 @@
 		});
 			
 		function search(){
-			var data={'limitMemDayModel.memberid':$('#merber_qid').val()};
+			var data={'memberid':$('#merber_qid').val()};
 			$('#test').datagrid('load',data);
 		}
 		
@@ -188,7 +188,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action","pages/risk/saveLimitMemDayLimitAction.action");
+			$("#theForm").attr("action","risk/saveLimitMemDay");
 			$('#btn_submit').linkbutton('enable');	
 			showRiskLevel();
 		}
@@ -211,7 +211,7 @@
 		    success:function(data){
 		    	var a= data.split("validateUserLoginAction");
 				if(data.split("validateUserLoginAction").length>1){
-					window.parent.location.replace("<%=basePath%>"+"pages/logoutAction.action?relogin=relogin");
+					window.parent.location.replace("<%=basePath%>"+"logout?relogin=relogin");
 					return ;
 				}else if(data=='添加成功!'||data=='修改成功!'){
 	    			alert(data);
@@ -228,7 +228,7 @@
 	function showRiskLevel(){		
 		$.ajax({
 		   type: "POST",
-		   url: "pages/risk/queryRiskLevelRiskAction.action",
+		   url: "risk/queryRiskLevel",
 		   dataType:"json",
 		   success: function(json){
 		   		var html ="<option value=''>--请选择风险等级--</option>";
@@ -242,7 +242,7 @@
 	function showLimitMem(tid){		
 		$.ajax({
 		   type: "POST",
-		   url: "pages/risk/queryLimitMemDayLimitAction.action",
+		   url: "risk/queryLimitMemDay",
 		   data: "riskId="+tid,
 		   dataType:"json",
 		   success: function(json){			
@@ -273,7 +273,7 @@
 			shadow: false,
 			closed: false
 		});
-		$("#theForm").attr("action","pages/risk/updateLimitMemDayLimitAction.action");
+		$("#theForm").attr("action","risk/updateLimitMemDay");
 		$('#btn_submit').linkbutton('enable'); 
 	}
 	function deleteLimitMem(tid){
@@ -281,7 +281,7 @@
 		    if (r){  
 		    	$.ajax({
 					type: "GET",
-				  	url: "pages/risk/deleteLimitMemDayLimitAction.action",
+				  	url: "risk/deleteLimitMemDay",
 				  	data: "rand="+new Date().getTime()+"&riskId="+tid,
 				 	dataType: "text",
 				 	success:function(text){				 		
@@ -298,7 +298,7 @@
 		    if (r){  
 		    	$.ajax({
 					type: "GET",
-				  	url: "pages/risk/startLimitMemDayLimitAction.action",
+				  	url: "risk/startLimitMemDay",
 				  	data: "rand="+new Date().getTime()+"&riskId="+tid,
 				 	dataType: "text",
 				 	success:function(text){

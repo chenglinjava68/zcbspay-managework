@@ -45,7 +45,7 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post" action="">
-					<input name="limitSingleModel.TId" id="TId" type="hidden" />
+					<input name="TId" id="TId" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
@@ -57,19 +57,19 @@
 							<td align="right" width="18%" height="30px">版本实例</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="busicase" class="easyui-validatebox" required="true"
-								name="limitSingleModel.caseid">
+								name="caseid">
 									<option value="">--请选择业务--</option>
 							</select></td>
 						</tr>
 						<tr>
 							<td align="right" width="18%" height="30px">单笔最小限额（元）</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitSingleModel.minAmount" id="minAmount"
+								name="minAmount" id="minAmount"
 								validType="amount" maxlength="11" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="18%" height="30px">单笔最大限额（元）</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitSingleModel.maxAmount" id="maxAmount"
+								name="maxAmount" id="maxAmount"
 								validType="amount" maxlength="11" class="easyui-validatebox" />
 							</td>
 						</tr>
@@ -79,13 +79,13 @@
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="risklevel" class="easyui-validatebox"
 								missingMessage="请选选择风险等级" required="true"
-								name="limitSingleModel.risklevel" class="easyui-validatebox">
+								name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 							</select></td>
 
 							<td align="right" width="18%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="limitSingleModel.notes" id="Notes" maxlength="32" /></td>
+								name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
 
 					</table>
@@ -123,7 +123,7 @@
 				nowrap: false,
 				striped: true,
 				sortName: 'FEEVER',
-				url: 'pages/risk/queryLimitSingleByPageLimitAction.action',
+				url: 'risk/queryLimitSingleByPage',
 				remoteSort: false,
 				columns: [[{
 					field: 'BUSINAME',
@@ -208,7 +208,7 @@
 	
 		function search() {
 			var data = {
-				'limitSingleModel.caseid': $('#busicase_qid').val(),
+				'caseid': $('#busicase_qid').val(),
 				'riskver': $('#busipack_qid').val()
 			};
 			$('#test').datagrid('load', data);
@@ -231,7 +231,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/saveLimitSingleLimitAction.action");
+			$("#theForm").attr("action", "risk/saveLimitSingle");
 			$('#btn_submit').linkbutton('enable');
 			showRiskLevel();
 			showFee();
@@ -272,7 +272,7 @@
 		function showRiskLevel() {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRiskLevelRiskAction.action",
+				url: "risk/queryRiskLevel",
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风险等级--</option>";
@@ -287,7 +287,7 @@
 		function showLimitMem(tid, riskver) {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryLimitSingleLimitAction.action",
+				url: "risk/queryLimitSingle",
 				data: "riskId=" + tid,
 				dataType: "json",
 				success: function(json) {
@@ -324,7 +324,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/updateLimitSingleLimitAction.action");
+			$("#theForm").attr("action", "risk/updateLimitSingle");
 			$('#btn_submit').linkbutton('enable');
 		}
 		function deleteLimitMem(tid) {
@@ -333,7 +333,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/deleteLimitSingleLimitAction.action",
+						url: "risk/deleteLimitSingle",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {
@@ -351,7 +351,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/startLimitSingleLimitAction.action",
+						url: "risk/startLimitSingle",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {
@@ -368,7 +368,7 @@
 		function showFee() {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRisklistRiskAction.action",
+				url: "risk/queryRisklist",
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风控版本--</option>";
@@ -384,7 +384,7 @@
 			riskId = $("#busipack").val();
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRisklistCaseRiskAction.action?riskId=" + riskId,
+				url: "risk/queryRisklistCase?riskId=" + riskId,
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风控实例--</option>";
@@ -399,7 +399,7 @@
 		function showFeeCaseValue(riskId) {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRisklistCaseRiskAction.action?riskId=" + riskId,
+				url: "risk/queryRisklistCase?riskId=" + riskId,
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风控实例--</option>";
@@ -414,7 +414,7 @@
 		function showFeeQuery() {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRisklistRiskAction.action",
+				url: "risk/queryRisklist",
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风控版本--</option>";
@@ -430,7 +430,7 @@
 			riskId = $("#busipack_qid").val();
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRisklistCaseRiskAction.action?riskId=" + riskId,
+				url: "risk/queryRisklistCase?riskId=" + riskId,
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风控实例--</option>";

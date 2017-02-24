@@ -40,20 +40,20 @@
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post" action="">
-					<input name="blacklistMemberModel.TId" id="TId" type="hidden" />
+					<input name="TId" id="TId" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
 							<td align="right" width="15%" height="30px">会员号</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="blacklistMemberModel.memberid" id="memberid"
+								name="memberid" id="memberid"
 								validType="amount[]" maxlength="15" class="easyui-validatebox" />
 							</td>
 							<td align="right" width="15%" height="30px">风险等级</td>
 							<td align="left" style="padding-left: 5px" width="25%"><select
 								id="risklevel" class="easyui-validatebox"
 								missingMessage="请选选择风险等级" required="true"
-								name="blacklistMemberModel.risklevel" class="easyui-validatebox">
+								name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
 									<option value="5">拒绝</option>
 							</select></td>
@@ -62,7 +62,7 @@
 
 							<td align="right" width="15%">备注</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
-								name="blacklistMemberModel.notes" id="Notes" maxlength="32" /></td>
+								name="notes" id="Notes" maxlength="32" /></td>
 						</tr>
 					</table>
 				</form>
@@ -108,7 +108,7 @@
 				nowrap: false,
 				striped: true,
 				sortName: 'FEEVER',
-				url: 'pages/risk/queryBlacklistMemberByPageRiskAction.action',
+				url: 'risk/queryBlacklistMemberByPage',
 				remoteSort: false,
 				columns: [[{
 					field: 'MEMBERID',
@@ -189,7 +189,7 @@
 	
 		function search() {
 			var data = {
-				'blacklistMemberModel.memberid': $('#merber_qid').val(),
+				'memberid': $('#merber_qid').val(),
 				'merchName': $('#merbername_qid').val()
 			};
 			$('#test').datagrid('load', data);
@@ -211,7 +211,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/saveBlacklistMemberRiskAction.action");
+			$("#theForm").attr("action", "risk/saveBlacklistMember");
 			$('#btn_submit').linkbutton('enable');
 			//showRiskLevel();
 		}
@@ -232,7 +232,7 @@
 				success: function(data) {
 					var a= data.split("validateUserLoginAction");
 					if(data.split("validateUserLoginAction").length>1){
-						window.parent.location.replace("<%=basePath%>"+"pages/logoutAction.action?relogin=relogin");
+						window.parent.location.replace("<%=basePath%>"+"logout?relogin=relogin");
 						return ;
 					}
 					if (data == '添加成功!' || data == '修改成功!') {
@@ -249,7 +249,7 @@
 		function showRiskLevel() {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryRiskLevelRiskAction.action",
+				url: "risk/queryRiskLevel",
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择风险等级--</option>";
@@ -264,7 +264,7 @@
 		function showLimitMem(tid) {
 			$.ajax({
 				type: "POST",
-				url: "pages/risk/queryOneBlacklistMemberRiskAction.action",
+				url: "risk/queryOneBlacklistMember",
 				data: "riskId=" + tid,
 				dataType: "json",
 				success: function(json) {
@@ -291,7 +291,7 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "pages/risk/updateBlacklistMemberRiskAction.action");
+			$("#theForm").attr("action", "risk/updateBlacklistMember");
 			$('#btn_submit').linkbutton('enable');
 		}
 		function deleteLimitMem(tid) {
@@ -300,7 +300,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/deleteBlacklistMemberRiskAction.action",
+						url: "risk/deleteBlacklistMember",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {
@@ -317,7 +317,7 @@
 				if (r) {
 					$.ajax({
 						type: "GET",
-						url: "pages/risk/startBlacklistMemberRiskAction.action",
+						url: "risk/startBlacklistMember",
 						data: "rand=" + new Date().getTime() + "&riskId=" + tid,
 						dataType: "text",
 						success: function(text) {

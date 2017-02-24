@@ -32,4 +32,5 @@
 	<!-- 风控 -->
 	<dubbo:reference id="riskService" interface="com.zcbspay.platform.manager.risk.service.RiskService" version="1.0"/>
 	<dubbo:reference id="cardHolderBlackService" interface="com.zcbspay.platform.manager.risk.service.CardHolderBlackService" version="1.0"/>
+	<dubbo:reference id="limitPerdayService" interface="com.zcbspay.platform.manager.risk.service.LimitPerdayService" version="1.0"/>
 </beans>
