@@ -297,5 +297,9 @@
     <module>risk</module>
     <module>risk-service</module>
     <module>risk-simple</module>
+    <module>business-api</module>
+    <module>business</module>
+    <module>business-service</module>
+    <module>business-simple</module>
 	</modules>
 </project>
