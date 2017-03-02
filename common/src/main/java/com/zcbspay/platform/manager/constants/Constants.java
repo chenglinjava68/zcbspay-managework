@@ -32,6 +32,19 @@ public class Constants {
         private DateCanstant() {
         }
     }
+    
+    /**
+	 * 发送、接收标志
+		SR00：发送sendReceiveType;
+		SR01：接收
+	 */
+    public static class SendReceiveType{
+        public static final String SEND = "SR00";
+        public static final String RECEIVE = "SR01";
+        private SendReceiveType() {
+        }
+    }
+	
     /**
      * web相关常量
      */
@@ -72,4 +85,7 @@ public class Constants {
         public static final String GET = "GET";
     }
 
+    
+    
+    
 }

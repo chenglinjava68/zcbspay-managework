@@ -301,5 +301,9 @@
     <module>business</module>
     <module>business-service</module>
     <module>business-simple</module>
+    <module>checkinfo-api</module>
+    <module>checkinfo</module>
+    <module>checkinfo-service</module>
+    <module>checkinfo-simple</module>
 	</modules>
 </project>
