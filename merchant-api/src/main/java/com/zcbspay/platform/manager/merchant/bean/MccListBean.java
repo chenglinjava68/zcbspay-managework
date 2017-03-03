@@ -3,8 +3,8 @@ package com.zcbspay.platform.manager.merchant.bean;
 import java.io.Serializable;
 
 public class MccListBean implements Serializable{
-
-	private static final long serialVersionUID = 762373855992086364L;
+	
+	private static final long serialVersionUID = -7770692787755809217L;
 	private String mccList;
 	private String mccCont;
 	private String mccType;
@@ -63,3 +63,4 @@ public class MccListBean implements Serializable{
 	}
 	
 }
+

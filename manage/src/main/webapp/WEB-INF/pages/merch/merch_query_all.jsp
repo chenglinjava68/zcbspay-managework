@@ -63,7 +63,7 @@ table tr td select {
 			<table id="test"></table>
 		</div>
 	</div>
-	
+
 
 
 </body>
@@ -79,7 +79,7 @@ table tr td select {
 					singleSelect:true,
 					nowrap: false,
 					striped: true,
-					url:'pages/merchant/queryMerchMerchantAction.action?flag='+flag,
+					url:'merchant/queryMerch?flag='+flag,
 					remoteSort: false,
 					columns:[
 					[
@@ -137,7 +137,8 @@ table tr td select {
 						formatter:function(value,rec){
 							if(flag=='10'){
 								if(rec.STATUS=='00'){
-									return '<a href="javascript:toMerchMk('+rec.MEMBER_ID+')" style="color:blue;margin-left:10px">秘钥下载</a>&nbsp<a href="javascript:toMerchDetail('+rec.SELF_ID+')" style="color:blue;margin-left:10px">详情</a>';									       							      
+// 									return '<a href="javascript:toMerchMk('+rec.MEMBER_ID+')" style="color:blue;margin-left:10px">秘钥下载</a>&nbsp<a href="javascript:toMerchDetail('+rec.SELF_ID+')" style="color:blue;margin-left:10px">详情</a>';									       							      
+									return '<a href="javascript:toMerchDetail('+rec.SELF_ID+')" style="color:blue;margin-left:10px">详情</a>';									       							      
 								}else{
 									return '<a href="javascript:toMerchDetail('+rec.SELF_ID+')" style="color:blue;margin-left:10px">详情</a>';
 								}
@@ -149,20 +150,20 @@ table tr td select {
 							
 							
 						}
-					},
-					{field:'ACTIVATE_STATUS',title:'是否激活成功',width:120,align:'center',
-						formatter:function(value,rec){
-							// if(rec.STATUS!='00'){
-							//	return ;
-							//}
-							if(rec.ACTIVATE_STATUS=='00'){
-								return "已经激活";
-							}else{
-							    return '<a id="'+rec.MEMBER_ID+'"href="javascript:toActivateStatus('+rec.MEMBER_ID+')" style="color:blue;margin-left:10px" value="0">重发邮件</a>';
-							}
-							
-						}
 					}
+// 					{field:'ACTIVATE_STATUS',title:'是否激活成功',width:120,align:'center',
+// 						formatter:function(value,rec){
+// 							// if(rec.STATUS!='00'){
+// 							//	return ;
+// 							//}
+// 							if(rec.ACTIVATE_STATUS=='00'){
+// 								return "已经激活";
+// 							}else{
+// 							    return '<a id="'+rec.MEMBER_ID+'"href="javascript:toActivateStatus('+rec.MEMBER_ID+')" style="color:blue;margin-left:10px" value="0">重发邮件</a>';
+// 							}
+							
+// 						}
+// 					}
 					]],
 						pagination:true,
 						rownumbers:true
@@ -184,26 +185,26 @@ table tr td select {
 			});  
 		});
 		function search(){
-			//var url="pages/merchant/queryMerchMerchantAction.action?flag="+$("#flag").val();
+			//var url="merchant/queryMerch?flag="+$("#flag").val();
 			var data={
-					'merchDeta.member.memberId':$('#merchId_ins').val(),
-					'merchDeta.member.memberName':$('#memberName_ins').val(),
+					'memberId':$('#merchId_ins').val(),
+					'memberName':$('#memberName_ins').val(),
 					'merchStatus':$('#status_ins').val()
 					};
 			$('#test').datagrid('load',data);
 		}
 
 		function toMerchDetail(id,isApply){
-			window.location.href= "<%=basePath%>" +'/pages/merchant/toMerchDetailMerchantAction.action?merchApplyId='+id;
+			window.location.href= "<%=basePath%>" +'/merchant/toMerchDetail?merchApplyId='+id;
 			window.event.returnValue = false;
 		}
 		function toMerchMk(memberId){
-			window.location.href= "<%=basePath%>" +'/pages/merchant/loadMerchMkMerchantAction.action?memberId='+memberId;
+			window.location.href= "<%=basePath%>" +'/merchant/loadMerchMk?memberId='+memberId;
 	    	window.event.returnValue = false;
             
 		}
 		function toMerchModify(id){
-			window.location.href= "<%=basePath%>" +'pages/merchant/toMerchModifyMerchantAction.action?merchApplyId='+id;
+			window.location.href= "<%=basePath%>" +'merchant/toMerchModify?merchApplyId='+id;
 			window.event.returnValue = false;
 		}
 		

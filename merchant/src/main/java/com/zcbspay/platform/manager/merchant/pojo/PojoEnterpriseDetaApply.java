@@ -1,13 +1,3 @@
-/* 
- * PojoEnterpriseDeta.java  
- * 
- * version TODO
- *
- * 2016年2月24日 
- * 
- * Copyright (c) 2016,zlebank.All rights reserved.
- * 
- */
 package com.zcbspay.platform.manager.merchant.pojo;
 
 import java.io.Serializable;
@@ -20,11 +10,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="T_ENTERPRISE_DETA_APPLY")
-public class PojoEnterpriseDetaApply extends PojoMemberApply implements Serializable{
+public class PojoEnterpriseDetaApply implements Serializable{
     /**
      * serialVersionUID
      */
     private static final long serialVersionUID = -5982742932419187863L;
+    private String selfId;
+    private String memId;
     /**会员号**/
     private String enterpriseMemberId;
     /**合作机构id**/
@@ -49,6 +41,8 @@ public class PojoEnterpriseDetaApply extends PojoMemberApply implements Serializ
     private String postCode;
     /**企业地址**/
     private String address;
+    /**企业电话**/
+    private String phone;
     /**企业邮箱**/
     private String email;
     /**企业网址**/
@@ -127,13 +121,31 @@ public class PojoEnterpriseDetaApply extends PojoMemberApply implements Serializ
     private String notes;
     /**备注**/
     private String remarks;
+    
 
-    @Id
+	@Id
+	@Column(name = "SELF_ID")
+	public String getSelfId() {
+		return selfId;
+	}
+
+	public void setSelfId(String selfId) {
+		this.selfId = selfId;
+	}
+	@Column(name = "ENTERPRISE_ID")
+	public String getMemId() {
+		return memId;
+	}
+	
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
     @Column(name = "MEMBER_ID")
     public String getEnterpriseMemberId() {
         return enterpriseMemberId;
     }
-    public void setEnterpriseMemberId(String enterpriseMemberId) {
+
+	public void setEnterpriseMemberId(String enterpriseMemberId) {
         this.enterpriseMemberId = enterpriseMemberId;
     }
 
@@ -214,11 +226,18 @@ public class PojoEnterpriseDetaApply extends PojoMemberApply implements Serializ
     public void setAddress(String address) {
         this.address = address;
     }
+    @Column(name="CELL_PHONE_NO")
+    public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
     @Column(name="EMAIL")
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
+	public void setEmail(String email) {
         this.email = email;
     }
     @Column(name="WEBSITE")

@@ -3,17 +3,14 @@ package com.zcbspay.platform.manager.merchant.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.zcbspay.platform.manager.pojo.Money;
-
 public class MerchDetaApplyBean implements Serializable{
-
-	private static final long serialVersionUID = -5274883527143855497L;
-	
-	private long selfId;
+	private static final long serialVersionUID = 6022044819280354473L;
+	/**主键**/
+    private Long selfId;
     /**在用会员表主键**/
     private Long merchId;
     /**会员外键**/
-    private MemberApplyBean memberApply;
+//    private MemberApplyBean memberApply;
     /**会员号**/
     private String memberId;
     /**上级商户**/
@@ -31,13 +28,13 @@ public class MerchDetaApplyBean implements Serializable{
     /**开户名**/
     private String accName;
     /**服务费**/
-    private Money charge;
+    private String charge;
     /**保证金**/
-    private Money deposit;
+    private String deposit;
     /**合约开始日期**/
-    private Date agreemtStart;
+    private String agreemtStart;
     /**合约终止日期**/
-    private Date agreemtEnd;
+    private String agreemtEnd;
     /**产品代码**/
     private String prdtVer;
     /**扣率版本**/
@@ -71,7 +68,7 @@ public class MerchDetaApplyBean implements Serializable{
     /**备注**/
     private String remarks;
     /**会员申请ID**/
-    private long memApplyId;
+//    private long memApplyId;
     /**付款卡清算行号**/
     private String payBankCode;
     /**付款卡开户行号**/
@@ -80,10 +77,10 @@ public class MerchDetaApplyBean implements Serializable{
     private String payAccNum;
     /**付款卡开户名**/
     private String payAccName;
-	public long getSelfId() {
+	public Long getSelfId() {
 		return selfId;
 	}
-	public void setSelfId(long selfId) {
+	public void setSelfId(Long selfId) {
 		this.selfId = selfId;
 	}
 	public Long getMerchId() {
@@ -92,12 +89,12 @@ public class MerchDetaApplyBean implements Serializable{
 	public void setMerchId(Long merchId) {
 		this.merchId = merchId;
 	}
-	public MemberApplyBean getMemberApply() {
-		return memberApply;
-	}
-	public void setMemberApply(MemberApplyBean memberApply) {
-		this.memberApply = memberApply;
-	}
+//	public MemberApplyBean getMemberApply() {
+//		return memberApply;
+//	}
+//	public void setMemberApply(MemberApplyBean memberApply) {
+//		this.memberApply = memberApply;
+//	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -146,28 +143,28 @@ public class MerchDetaApplyBean implements Serializable{
 	public void setAccName(String accName) {
 		this.accName = accName;
 	}
-	public Money getCharge() {
+	public String getCharge() {
 		return charge;
 	}
-	public void setCharge(Money charge) {
+	public void setCharge(String charge) {
 		this.charge = charge;
 	}
-	public Money getDeposit() {
+	public String getDeposit() {
 		return deposit;
 	}
-	public void setDeposit(Money deposit) {
+	public void setDeposit(String deposit) {
 		this.deposit = deposit;
 	}
-	public Date getAgreemtStart() {
+	public String getAgreemtStart() {
 		return agreemtStart;
 	}
-	public void setAgreemtStart(Date agreemtStart) {
+	public void setAgreemtStart(String agreemtStart) {
 		this.agreemtStart = agreemtStart;
 	}
-	public Date getAgreemtEnd() {
+	public String getAgreemtEnd() {
 		return agreemtEnd;
 	}
-	public void setAgreemtEnd(Date agreemtEnd) {
+	public void setAgreemtEnd(String agreemtEnd) {
 		this.agreemtEnd = agreemtEnd;
 	}
 	public String getPrdtVer() {
@@ -266,12 +263,12 @@ public class MerchDetaApplyBean implements Serializable{
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public long getMemApplyId() {
-		return memApplyId;
-	}
-	public void setMemApplyId(long memApplyId) {
-		this.memApplyId = memApplyId;
-	}
+//	public long getMemApplyId() {
+//		return memApplyId;
+//	}
+//	public void setMemApplyId(long memApplyId) {
+//		this.memApplyId = memApplyId;
+//	}
 	public String getPayBankCode() {
 		return payBankCode;
 	}

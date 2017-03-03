@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <jsp:include page="../../../top.jsp"></jsp:include>
-<%@taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -48,24 +48,17 @@ table tr td font.current-step {
 		<div id="title" name="title" class="easyui-panel" title="商户开通"
 			style="background: #fafafa;" iconCls="icon-save" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
-				<form id="merchDateForm"
-					action="pages/merchant/commitMerchMerchantAction.action"
-					method="post">
+				<form id="merchDateForm" action="merchant/commitMerch" method="post" enctype="multipart/form-data">
 					<input type="hidden" id="merchApplyId" value="${merchApplyId}" />
-					<input type="hidden" id="merchId" name="merchDeta.merchId"
-						value="${merchDeta.merchId}" /> <input type="hidden"
-						id="busilice_old" value="${merchDeta.member.licenceFile}" /> <input
-						type="hidden" id="orgCert_old"
-						value="${merchDeta.member.orgCodeFile}" /> <input type="hidden"
-						id="corpfileFace_old" value="${merchDeta.member.corpFile}" /> <input
-						type="hidden" id="corpfileOpp_old"
-						value="${merchDeta.member.corpFileOpp}" /> <input type="hidden"
-						id="signfileFace_old" value="${merchDeta.member.signCertFile}" />
-					<input type="hidden" id="signfileOpp_old"
-						value="${merchDeta.member.signCertFileOpp}" /> <input
-						type="hidden" id="taxRegCert_old"
-						value="${merchDeta.member.taxFile}" /> <input type="hidden"
-						id="isde" value="${merchDeta.member.isDelegation}" />
+					<input type="hidden" id="merchId" name="merchId" value="${merchDeta.merchId}" /> 
+					<input type="hidden" id="busilice_old" value="${member.licenceFile}" /> 
+					<input type="hidden" id="orgCert_old" value="${member.orgCodeFile}" />
+					<input type="hidden" id="corpfileFace_old" value="${member.corpFile}" /> 
+					<input type="hidden" id="corpfileOpp_old" value="${member.corpFileOpp}" />
+					<input type="hidden" id="signfileFace_old" value="${member.signCertFile}" />
+					<input type="hidden" id="signfileOpp_old" value="${member.signCertFileOpp}" /> 
+					<input type="hidden" id="taxRegCert_old" value="${member.taxFile}" /> 
+					<input type="hidden" id="isde" value="${member.isDelegation}" />
 					<table width="100%">
 						<tr>
 							<td colspan="4" class="head-guide">第一步:企业信息录入----><font
@@ -76,7 +69,7 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center" width="20%">企业名称</td>
-							<td width="30%">${merchDeta.member.enterpriseName}</td>
+							<td width="30%">${member.enterpriseName}</td>
 							<td align="center" width="20%">商户号</td>
 							<td width="30%">${merchDeta.memberId}</td>
 						</tr>
@@ -102,7 +95,7 @@ table tr td font.current-step {
 								type="file" name="headImage" class="easyui-validatebox">
 								<span id="corpfileOpp_span"></span></td>
 						</tr>
-						<s:if test="merchDeta.member.isDelegation==1">
+						<c:if test="${member.isDelegation==1}">
 							<tr>
 								<td align="center" id="psamORpass">委托人身份证正面照</td>
 								<td><input style="height: 30px" id="signfileFace_cert_img"
@@ -113,7 +106,7 @@ table tr td font.current-step {
 									type="file" name="headImage" class="easyui-validatebox">
 									<span id="signfileOpp_span"></span></td>
 							</tr>
-						</s:if>
+						</c:if>
 						<tr>
 							<td align="center">税务登记证文件目录</td>
 							<td><input style="height: 30px" id="taxRegCert_cert_img"
@@ -128,10 +121,8 @@ table tr td font.current-step {
 			</div>
 			<div region="south" border="false"
 				style="text-align: center; padding: 5px 0;">
-				<a href="javascript:toFirstStep();" class="easyui-linkbutton"
-					iconCls="icon-back">上一步</a> <a class="easyui-linkbutton"
-					iconCls="icon-ok" id="button_id" href="javascript:commitMerch()"
-					onclick="">提交申请</a>
+				<a href="javascript:toFirstStep();" class="easyui-linkbutton" iconCls="icon-back">上一步</a>
+			    <a class="easyui-linkbutton" iconCls="icon-ok" id="button_id" href="javascript:commitMerch()" onclick="">提交申请</a>
 			</div>
 		</div>
 	</div>
@@ -146,7 +137,7 @@ table tr td font.current-step {
 		  $(this).uploadify({
 				'auto' : true,
 				'swf' : '<%=basePath%>js/uploadify/uploadify.swf', 
-				'uploader': '<%=basePath%>/pages/merchant/uploadMerchantAction.action',
+				'uploader': '<%=basePath%>merchant/upload',
 				'fileObjName': 'headImage',
 				'formData' : {'merchApplyId':$('#merchApplyId').val(),'certTypeCode':certType},
 				 'method'   : 'post',
@@ -194,19 +185,20 @@ table tr td font.current-step {
   });
 	
 	function toFirstStep(){
-		window.location.href= "<%=basePath%>" +'/pages/merchant/toMerchChangeMerchantAction.action?merchApplyId='+$('#merchApplyId').val();
+		$.messager.alert('提示','成功');
+		window.location.href= "<%=basePath%>" +'merchant/toMerchChange?merchApplyId=' + $('#merchApplyId').val();
 	}
 	
 	function commitMerch(){
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/commitMerchMerchantAction.action",
+				url: "merchant/commitMerch",
 				data: "rand=" + new Date().getTime()+"&merchApplyId="+$('#merchApplyId').val(),
 				dataType: "json",
 				success: function(json) {
 					if (json.status == "OK") {
 						$.messager.alert('提示','开通申请提交成功','info',function(){
-							window.location.href = '<%=basePath%>pages/merchant/showMerchantAction.action';
+							window.location.href = '<%=basePath%>merchant/show';
 						});
 					} else {
 						$.messager.alert('提示', '开通申请提交失败'); 
@@ -226,7 +218,7 @@ table tr td font.current-step {
 			var certSpan = $('#'+certType+'_span');
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/downloadImgUrlMerchantAction.action",
+				url: "merchant/downloadImgUrl",
 				data: "merchApplyId=" + $('#merchApplyId').val()+"&certTypeCode="+certType,
 				dataType: "json",
 				success: function(json) {
@@ -246,7 +238,7 @@ table tr td font.current-step {
 		var certSpan = $('#'+certType+'_span');
 		$.ajax({
 			type: "POST",
-			url: "pages/merchant/downloadImgUrlMerchantAction.action",
+			url: "merchant/downloadImgUrl",
 			data: "merchApplyId=" + $('#merchApplyId').val()+"&certTypeCode="+certType+"&fouceDownload=fouce",
 			dataType: "json",
 			success: function(json) {
@@ -255,7 +247,7 @@ table tr td font.current-step {
 				 }else if(json.status=='notExist'){
 					 certSpan.html('暂无可查看文件');
 				 } else{
-					 certSpan.html('查询失败');
+					 certSpan.html('查询失败')
 				 }
 			}
 		});  

@@ -43,15 +43,12 @@ table tr td font.current-step {
 		<div id="title" name="title" class="easyui-panel" title="商户开通"
 			style="background: #fafafa;" iconCls="icon-save" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
-				<form id="merchDetaForm"
-					action="merchant/saveMerchDeta"
+				<form id="merchDetaForm" action="merchant/saveMerchDeta"
 					method="post">
-					<input type="hidden" id="merchant_busiScan1"
-						name="enterprise.taxfile" /> <input type="hidden"
-						id="merchant_busiScan2" name="enterprise.licencefile" /> <input
-						type="hidden" id="merchant_busiScan3"
-						name="enterprise.orgcodefile" /> <input type="hidden"
-						id="merchant_busiScan4" name="enterprise.corpfile" />
+					<input type="hidden" id="merchant_busiScan1" name="taxfile" /> <input
+						type="hidden" id="merchant_busiScan2" name="licencefile" /> <input
+						type="hidden" id="merchant_busiScan3" name="orgcodefile" /> <input
+						type="hidden" id="merchant_busiScan4" name="corpfile" />
 					<table width="100%">
 						<tr>
 							<td colspan="4" class="head-guide"><font
@@ -62,40 +59,39 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center" width="20%">企业名称</td>
-							<td width="30%"><input id="merName"
-								name="enterprise.enterpriseName" required="true" maxlength="30"
-								style="width: 250px" class="easyui-validatebox"
-								validType="MerchLength[60]" /> <font color="red">*</font></td>
+							<td width="30%"><input id="merName" name="enterpriseName"
+								required="true" maxlength="30" style="width: 250px"
+								class="easyui-validatebox" validType="MerchLength[60]" /> <font
+								color="red">*</font></td>
 							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<td align="center">企业所在地</td>
 							<td colspan="3"><select id="province_ins"
-								class="easyui-validatebox" required="true"
-								name="enterprise.province" onchange="showCity('province_ins')" /></select>
-								<select id="city_ins" class="easyui-validatebox" required="true"
-								name="enterprise.city" onchange="showCounty('city_ins')" /></select> <select
-								id="county_ins" class="easyui-validatebox" required="true"
-								name="enterprise.street" /></select> <font color="red">*</font></td>
+								class="easyui-validatebox" required="true" name="province"
+								onchange="showCity('province_ins')" /></select> <select id="city_ins"
+								class="easyui-validatebox" required="true" name="city"
+								onchange="showCounty('city_ins')" /></select> <select id="county_ins"
+								class="easyui-validatebox" required="true" name="street" /></select> <font
+								color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">联系手机号</td>
 							<td><input class="easyui-validatebox" maxlength="11"
-								validType="cellphonenum" required="true" name="enterprise.phone" />
-								<font color="red">*</font></td>
+								validType="cellphonenum" required="true" name="phone" /> <font
+								color="red">*</font></td>
 							<td align="center">邮箱</td>
-							<td><input name="enterprise.email" maxlength="32"
-								validType="email" type="text" required="true"
-								class="easyui-validatebox" /> <font color="red">*</font></td>
+							<td><input name="email" maxlength="32" validType="email"
+								type="text" required="true" class="easyui-validatebox" /> <font
+								color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">地址</td>
 							<td><input class="easyui-validatebox" maxlength="128"
-								name="enterprise.address" style="width: 300px" /></td>
+								name="address" style="width: 300px" /></td>
 							<td align="center">邮编编码</td>
 							<td><input class="easyui-validatebox"
-								validType="postcode[6]" maxlength="6" name="enterprise.postCode" />
-							</td>
+								validType="postcode[6]" maxlength="6" name="postCode" /></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -107,33 +103,32 @@ table tr td font.current-step {
 					</tr>-->
 						<tr>
 							<td align="center">营业执照号</td>
-							<td><input name="enterprise.licenceNo" maxlength="15"
-								type="text" validType="licencenoMerLength[15]"
+							<td><input name="licenceNo" maxlength="15" type="text"
+								validType="licencenoMerLength[15]"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								required="true" class="easyui-validatebox" /><font color="red">*</font>
 							</td>
 							<td align="center">组织机构代码号</td>
-							<td><input name="enterprise.orgCode" maxlength="10"
-								type="text" validType="orgLength[8]"
+							<td><input name="orgCode" maxlength="10" type="text"
+								validType="orgLength[8]"
 								onkeyup="value=value.replace(/[^\d\-]/g,'')" required="true"
 								class="easyui-validatebox" /> <font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">税务登记号</td>
-							<td><input name="enterprise.taxno" maxlength="20"
-								type="text" required="true" validType="merLength[15]"
+							<td><input name="taxno" maxlength="20" type="text"
+								required="true" validType="merLength[15]"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								class="easyui-validatebox" /> <font color="red">*</font></td>
 							<td align="center">所属行业</td>
 							<td><select id="mcclist_ins" class="easyui-validatebox"
-								name="enterprise.mccList" required="true" /></select><font color="red">*</font>
-							</td>
+								name="mccList" required="true" /></select><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">企业网站地址</td>
-							<td><input name="enterprise.website" maxlength="256"
-								type="text" validType="url" required="true"
-								class="easyui-validatebox" /> <font color="red">*</font></td>
+							<td><input name="website" maxlength="256" type="text"
+								validType="url" required="true" class="easyui-validatebox" /> <font
+								color="red">*</font></td>
 							<td></td>
 							<td></td>
 							<!--  
@@ -144,13 +139,12 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center" id="psamORpass">法人姓名</td>
-							<td><input name="enterprise.corporation" maxlength="16"
-								type="text" required="true" class="easyui-validatebox" /> <font
-								color="red">*</font></td>
+							<td><input name="corporation" maxlength="16" type="text"
+								required="true" class="easyui-validatebox" /> <font color="red">*</font></td>
 							<td align="center">法人身份证号</td>
 							<td><input class="easyui-validatebox" required="true"
-								validType="cardNo[18]" maxlength="18" name="enterprise.corpNo" />
-								<font color="red">*</font></td>
+								validType="cardNo[18]" maxlength="18" name="corpNo" /> <font
+								color="red">*</font></td>
 						</tr>
 
 						<tr>
@@ -159,32 +153,30 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">商户清算类型</td>
 							<td><select id="setltype_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.setlType" /></select> <font color="red">*</font>
-							</td>
+								required="true" name="setlType" /></select> <font color="red">*</font></td>
 							<td align="center">商户清算周期</td>
 							<td><select id="setlcycle_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.setlCycle" /></select> <font color="red">*</font>
+								required="true" name="setlCycle" /></select> <font color="red">*</font>
 							</td>
 						</tr>
 						<tr>
 
 							<td align="center">开户行</td>
 							<td colspan="3"><select id="banknode_ins"
-								class="easyui-validatebox" required="true"
-								name="merchDeta.bankNode" style="width: 350px" /></select> <font
-								color="red">*</font> <input id="banknode_key" maxlength="16"
-								type="text" onclick="checkBankKey()" onchange="queryBankNode()" />
-							</td>
+								class="easyui-validatebox" required="true" name="bankNode"
+								style="width: 350px" /></select> <font color="red">*</font> <input
+								id="banknode_key" maxlength="16" type="text"
+								onclick="checkBankKey()" onchange="queryBankNode()" /></td>
 						</tr>
 						<tr>
 							<td align="center">开户账号</td>
-							<td><input name="merchDeta.accNum" maxlength="32"
-								required="true" type="text" validType="settleAccount"
-								class="easyui-validatebox" /> <font color="red">*</font></td>
+							<td><input name="accNum" maxlength="32" required="true"
+								type="text" validType="settleAccount" class="easyui-validatebox" />
+								<font color="red">*</font></td>
 							<td align="center">开户名</td>
 							<td><input class="easyui-validatebox" maxlength="30"
-								validType="accName" required="true" name="merchDeta.accName" />
-								<font color="red">*</font></td>
+								validType="accName" required="true" name="accName" /> <font
+								color="red">*</font></td>
 						</tr>
 
 						<tr>
@@ -193,35 +185,32 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">合作机构</td>
 							<td><select id="coop_insti_ins" class="easyui-validatebox"
-								required="true" name="enterprise.coopInstiId"
-								style="width: 150px" onchange="refreshProduct()" /></select> <font
-								color="red">*</font></td>
+								required="true" name="coopInstiId" style="width: 150px"
+								onchange="refreshProduct()" /></select> <font color="red">*</font></td>
 							<td align="center" colspan="2"></td>
 						</tr>
 						<tr>
 							<td align="center">产品</td>
 							<td><select id="prdtver_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.prdtVer" style="width: 150px"
+								required="true" name="prdtVer" style="width: 150px"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
 							<td align="center">风控版本</td>
-							<td><select name="merchDeta.riskVer" maxlength="8"
-								required="true" id="riskver" /></select> <font color="red">*</font></td>
+							<td><select name="riskVer" maxlength="8" required="true"
+								id="riskver" /></select> <font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">扣率版本</td>
 							<td><select id="feever_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.feeVer" /></select> <font color="red">*</font>
-							</td>
+								required="true" name="feeVer" /></select> <font color="red">*</font></td>
 							<td align="center">分润版本</td>
-							<td><select name="merchDeta.spiltVer" maxlength="8"
-								id="spiltver" /></select></td>
+							<td><select name="spiltVer" maxlength="8" id="spiltver" /></select></td>
 						</tr>
 						<tr>
 
 							<td align="center">路由版本</td>
 							<td><select id="routver_ins" class="easyui-validatebox"
-								name="merchDeta.routVer" style="width: 150px" required="true" /></select>
-								<font color="red">*</font></td>
+								name="routVer" style="width: 150px" required="true" /></select> <font
+								color="red">*</font></td>
 							<td align="center"></td>
 							<td></td>
 						</tr>
@@ -231,34 +220,32 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center"><input type="checkbox" id="isDelegation"
-								name="enterprise.isDelegation" onchange="checkIsDelegation()" />是否授权人办理</td>
+								name="isDelegation" onchange="checkIsDelegation()" />是否授权人办理</td>
 							<td colspan="3"></td>
 						</tr>
 						<tr id="delegation">
 							<td align="center">委托人姓名</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								id="signatory" name="enterprise.signatory" /> <font color="red">*</font>
-							</td>
+								id="signatory" name="signatory" /> <font color="red">*</font></td>
 							<td align="center">委托人身份证号</td>
 							<td><input class="easyui-validatebox" validType="cardNo[18]"
-								id="signCertNo" maxlength="18" name="enterprise.signCertNo" />
-								<font color="red">*</font></td>
+								id="signCertNo" maxlength="18" name="signCertNo" /> <font
+								color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">客户经理</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								name="enterprise.custMgr" /></td>
+								name="custMgr" /></td>
 							<td align="center">客户经理部门</td>
-							<td><input name="enterprise.custMgrDept" maxlength="16"
-								type="text" /></td>
+							<td><input name="custMgrDept" maxlength="16" type="text" /></td>
 						</tr>
 						<tr>
 							<td align="center">合约开始日期</td>
-							<td><input name="merchDeta.agreemtStart" maxlength="12"
-								type="text" id="startDate" /></td>
+							<td><input name="agreemtStart" maxlength="12" type="date"
+								id="startDate" /></td>
 							<td align="center">合约终止日期</td>
 							<td><input class="easyui-validatebox" maxlength="32"
-								name="merchDeta.agreemtEnd" id="endDate" /></td>
+								type="date" name="agreemtEnd" id="endDate" /></td>
 						</tr>
 						<tr>
 							<td align="center">保证金</td>
@@ -276,25 +263,24 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">联系人姓名</td>
-							<td><input name="enterprise.contact" maxlength="16"
-								type="text" class="easyui-validatebox" />
+							<td><input name="contact" maxlength="16" type="text"
+								class="easyui-validatebox" />
 							<td align="center">联系人地址</td>
-							<td><input name="enterprise.contAddress" maxlength="120"
+							<td><input name="contAddress" maxlength="120"
 								style="width: 250px" type="text" class="easyui-validatebox" />
 							</td>
 						</tr>
 						<tr>
 							<td align="center">联系人电话</td>
 							<td><input class="easyui-validatebox" maxlength="11"
-								validType="chinesetest" name="enterprise.contPhone" /></td>
+								validType="chinesetest" name="contPhone" /></td>
 							<td align="center">联系人职位</td>
-							<td><input name="enterprise.contTitle" maxlength="16"
-								type="text" /></td>
+							<td><input name="contTitle" maxlength="16" type="text" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人邮箱</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								validType="email" name="enterprise.contEmail" /></td>
+								validType="email" name="contEmail" /></td>
 							<td colspan="2"></td>
 						</tr>
 					</table>
@@ -305,9 +291,8 @@ table tr td font.current-step {
 					<div class="easyui-layout" fit="true">
 						<div region="center" border="false"
 							style="border: 1px solid #ccc; background: #fff; border: 1px solid #ccc; text-align: center">
-							<form id="theForm"
-								action="merchant/upload"
-								method="post" enctype="multipart/form-data">
+							<form id="theForm" action="merchant/upload" method="post"
+								enctype="multipart/form-data">
 								<input type="hidden" id="scanType" />
 								<table width="100%" height="100%" cellpadding="2"
 									cellspacing="2" border="0">
@@ -388,20 +373,24 @@ table tr td font.current-step {
 						return $('#merchDetaForm').form('validate');
 					},
 					success: function(json) {
+						
 						json = eval('(' + json + ')');
-						if (json.RET == "succ") {
-							$("#button_id").linkbutton('enable');
-							$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
-								if(data){
-									window.location.href= "<%=basePath%>" +'/merchant/toUpload?merchApplyId='+json.INFO;
-								}
-								
-							});
-						} else {
-							$.messager.alert('提示', json.INFO);
-							$("#button_id").linkbutton('enable');
-						}
+						$.each(json,
+							function(key, value) {
+							if (value.RET == "succ") {
+// 								$("#button_id").linkbutton('enable');
+								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
+									if(data){
+										window.location.href='merchant/toUpload?merchApplyId='+value.INFO;
+									}
+									
+								});
+							} else {
+								$.messager.alert('提示', value.INFO);
+							}
+						});
 					}
+					
 				});
 			}
 		}
@@ -412,11 +401,17 @@ table tr td font.current-step {
 				url: "merchant/queryProvince",
 				dataType: "json",
 				success: function(json) {
+					var province = $('#province_old').val();
 					var html = "<option value=''>--请选择所属省--</option>";
 					$.each(json,
 					function(key, value) {
 						//alert(value.roleName);
-						html += '<option value="' + value.P_ID + '">' + value.P_NAME + '</option>';
+// 						html += '<option value="' + value.P_ID + '">' + value.P_NAME + '</option>';
+						if(value.P_ID==province){
+							html += '<option value="' + value.P_ID + '" selected="selected">' + value.P_NAME + '</option>';
+						}else{
+							html += '<option value="' + value.P_ID + '">' + value.P_NAME + '</option>';
+						}
 					}) ;
 					$("#province_ins").html(html);
 					$("#bnkProvince_ins").html(html);
@@ -438,11 +433,17 @@ table tr td font.current-step {
 				data: "pid=" + pid,
 				dataType: "json",
 				success: function(json) {
+					var city = $('#city_old').val();
 					var html = "<option value=''>--请选择所属市--</option>";
 					$.each(json,
 					function(key, value) {
+						if(value.CId!=pid){
+							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
+						}else if(value.CId==city){
+							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
+						}
 						//alert(value.roleName);
-						html += '<option value="' + value.CId + '">' + value.CNames + '</option>';
+// 						html += '<option value="' + value.CId + '">' + value.CName + '</option>';
 					});
 					if (type == 'province_ins') {
 						$("#city_ins").html(html);
@@ -466,11 +467,17 @@ table tr td font.current-step {
 				data: "pid=" + pid,
 				dataType: "json",
 				success: function(json) {
+					var county = $('#county_old').val();
 					var html = "<option value=''>--请选择所属县--</option>";
 					$.each(json,
 					function(key, value) {
+						if(value.T_ID==county){
+							html += '<option value="' + value.T_ID + '" selected="selected">' + value.T_NAME + '</option>';
+						}else{
+							html += '<option value="' + value.T_ID + '">' + value.T_NAME + '</option>';
+						}
 						//alert(value.roleName);
-						html += '<option value="' + value.T_ID + '">' + value.T_NAME + '</option>';
+// 						html += '<option value="' + value.T_ID + '">' + value.T_NAME + '</option>';
 					});
 					if (type == 'city_ins') {
 						$("#county_ins").html(html);
@@ -692,13 +699,13 @@ table tr td font.current-step {
 		function showProduct(coopInstiId) {
 			$.ajax({
 				type: "POST",
-				url: "pages/coopinsti/queryCoopInstiProductCoopInstiAction.action?coopInstiId="+coopInstiId,
+				url: "merchant/queryProduct?coopInstiId="+coopInstiId,
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择产品--</option>";
 					$.each(json,
 					function(key, value) {
-						html += '<option value="' + value.prdtver + '">' + value.prdtname + '</option>';
+						html += '<option value="' + value.PRDTVER + '">' + value.PRDTNAME + '</option>';
 					}) ;
 					$("#prdtver_ins").html(html);
 				}
@@ -759,13 +766,13 @@ table tr td font.current-step {
 		function showCoopInsti() {
 			$.ajax({
 				type: "POST",
-				url: "pages/coopinsti/queryAllCoopInstiAction.action",
+				url: "merchant/queryAll",
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择合作机构--</option>";
 					$.each(json,
 					function(key, value) {
-						html += '<option value="' + value.id + '">' + value.instiName + '</option>';
+						html += '<option value="' + value.ID + '">' + value.INSTI_NAME + '</option>';
 					}) ;
 					$("#coop_insti_ins").html(html);
 				}

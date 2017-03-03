@@ -6,7 +6,6 @@ public interface MccListService {
 
 	/**
      * 产品类型
-     * @return
      */
 	List<?> findAll();
 

@@ -1,33 +1,12 @@
-/* 
- * PojoMerchDeta.java  
- * 
- * version TODO
- *
- * 2015年9月7日 
- * 
- * Copyright (c) 2015,zlebank.All rights reserved.
- * 
- */
 package com.zcbspay.platform.manager.merchant.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
-
-import com.zcbspay.platform.manager.pojo.Money;
 
 @Entity
 @Table(name="T_MERCH_DETA_APPLY")
@@ -38,11 +17,11 @@ public class PojoMerchDetaApply implements Serializable{
      */
     private static final long serialVersionUID = -4085515656084246454L;
     /**主键**/
-    private long selfId;
+    private Long selfId;
     /**在用会员表主键**/
     private Long merchId;
-    /**会员外键**/
-    private PojoMemberApply memberApply;
+    /**会员外键
+    private PojoMemberApply memberApply;**/
     /**会员号**/
     private String memberId;
     /**上级商户**/
@@ -60,13 +39,13 @@ public class PojoMerchDetaApply implements Serializable{
     /**开户名**/
     private String accName;
     /**服务费**/
-    private Money charge;
+    private String charge;
     /**保证金**/
-    private Money deposit;
+    private String deposit;
     /**合约开始日期**/
-    private Date agreemtStart;
+    private String agreemtStart;
     /**合约终止日期**/
-    private Date agreemtEnd;
+    private String agreemtEnd;
     /**产品代码**/
     private String prdtVer;
     /**扣率版本**/
@@ -100,7 +79,7 @@ public class PojoMerchDetaApply implements Serializable{
     /**备注**/
     private String remarks;
     /**会员申请ID**/
-    private long memApplyId;
+//    private long memApplyId;
     /**付款卡清算行号**/
     private String payBankCode;
     /**付款卡开户行号**/
@@ -110,13 +89,12 @@ public class PojoMerchDetaApply implements Serializable{
     /**付款卡开户名**/
     private String payAccName;
     
- 
-    @Id
+	@Id
     @Column(name="SELF_ID")
-    public long getSelfId() {
+    public Long getSelfId() {
         return selfId;
     }
-    public void setSelfId(long selfId) {
+    public void setSelfId(Long selfId) {
         this.selfId = selfId;
     }
     @Column(name = "MERCH_ID")
@@ -127,14 +105,6 @@ public class PojoMerchDetaApply implements Serializable{
         this.merchId = merchId;
     }
      
-    @OneToOne
-    @JoinColumn(name="SELF_ID")
-    public PojoMemberApply getMemberApply() {
-        return memberApply;
-    }
-    public void setMemberApply(PojoMemberApply memberApply) {
-        this.memberApply = memberApply;
-    }
     @Column(name = "MEMBER_ID")
     public String getMemberId() {
         return memberId;
@@ -191,35 +161,32 @@ public class PojoMerchDetaApply implements Serializable{
     public void setAccName(String accName) {
         this.accName = accName;
     }
-    @Embedded
-    @AttributeOverrides({@AttributeOverride(name="amount",column=@Column(name="CHARGE"))})
-    public Money getCharge() {
+    @Column(name = "CHARGE")
+    public String getCharge() {
         return charge;
     }
-    public void setCharge(Money charge) {
+    public void setCharge(String charge) {
         this.charge = charge;
     }
-    @Embedded
-    @AttributeOverrides({@AttributeOverride(name="amount",column=@Column(name="DEPOSIT"))})
-    public Money getDeposit() {
+    @Column(name = "DEPOSIT")
+    public String getDeposit() {
         return deposit;
     }
-    public void setDeposit(Money deposit) {
+    public void setDeposit(String deposit) {
         this.deposit = deposit;
     }
-    @Temporal(TemporalType.DATE)
     @Column(name = "AGREEMT_START")
-    public Date getAgreemtStart() {
+    public String getAgreemtStart() {
         return agreemtStart;
     }
-    public void setAgreemtStart(Date agreemtStart) {
+    public void setAgreemtStart(String agreemtStart) {
         this.agreemtStart = agreemtStart;
     }
     @Column(name = "AGREEMT_END")
-    public Date getAgreemtEnd() {
+    public String getAgreemtEnd() {
         return agreemtEnd;
     }
-    public void setAgreemtEnd(Date agreemtEnd) {
+    public void setAgreemtEnd(String agreemtEnd) {
         this.agreemtEnd = agreemtEnd;
     }
     @Column(name = "PRDT_VER")
@@ -257,7 +224,6 @@ public class PojoMerchDetaApply implements Serializable{
     public void setRoutVer(String routVer) {
         this.routVer = routVer;
     }
-    @Type(type = "com.zlebank.zplatform.member.pojo.usertype.MerchStatusSqlType")
     @Column(name = "STATUS")
     public String getMerchStatus() {
         return merchStatus;
@@ -335,13 +301,6 @@ public class PojoMerchDetaApply implements Serializable{
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
-    @Column(name = "MEM_APPLY_ID")
-	public long getMemApplyId() {
-		return memApplyId;
-	}
-	public void setMemApplyId(long memApplyId) {
-		this.memApplyId = memApplyId;
-	}
 	@Column(name = "PAY_BANK_CODE")
    	public String getPayBankCode() {
    		return payBankCode;

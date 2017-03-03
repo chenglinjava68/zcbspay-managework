@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.zcbspay.platform.manager.dao.BaseDAO;
-import com.zcbspay.platform.manager.merchant.bean.MerchBean;
+import com.zcbspay.platform.manager.merchant.bean.CertType;
+import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
+import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
+import com.zcbspay.platform.manager.merchant.pojo.PojoEnterpriseDetaApply;
 import com.zcbspay.platform.manager.merchant.pojo.PojoMerchDetaApply;
 
 public interface MerchDetaDAO extends BaseDAO<PojoMerchDetaApply>{
@@ -29,7 +32,7 @@ public interface MerchDetaDAO extends BaseDAO<PojoMerchDetaApply>{
 	 * @param merchDeta
 	 * @return
 	 */
-	List<?> saveMerchDeta(MerchBean merchDeta);
+	List<?> saveMerchDeta(MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterprise);
 
 	/**
 	 * 县
@@ -109,7 +112,65 @@ public interface MerchDetaDAO extends BaseDAO<PojoMerchDetaApply>{
 	 * @return
 	 */
 	List<?> querySetlcycleAll();
-	
-	
+
+	/**
+	 * 获取商户企业数据
+	 * @param merchApplyId
+	 * @return
+	 */
+	List<?> getBean(Long merchApplyId);
+
+	/**
+	 * 提交申请
+	 * @param merchApplyId
+	 * @return
+	 */
+	boolean commitMerch(String merchApplyId);
+
+	/**
+	 * 下载图片路径
+	 * @param parseLong
+	 * @param realpath
+	 * @param format
+	 * @param fouce
+	 * @return
+	 */
+	String downloadFromFtp(PojoMerchDetaApply bean,PojoEnterpriseDetaApply enterpriseDeta, String targDir, CertType certType, boolean fouce);
+
+	/**
+	 * 修改商户信息
+	 * @param merchApplyId
+	 * @param merchDeta
+	 * @return
+	 */
+	List<?> saveChangeMerchDeta(String merchApplyId, MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterpriseDeta);
+
+	/**
+	 * 查询银行账户
+	 * @param bankNode
+	 * @param bankCode
+	 * @return
+	 */
+	String queryBankName(String bankNode, String bankCode);
+
+	/**
+	 * 查看商户详情
+	 * @param merchApplyId
+	 * @param userId
+	 * @return
+	 */
+	Map<String, Object> queryApplyMerchDeta(String merchApplyId, Long userId);
+
+	/**
+	 * 商户审核
+	 * @param merchApplyId
+	 * @param merchDeta
+	 * @param memId
+	 * @param flag
+	 * @param isAgree
+	 * @return
+	 */
+	List<Map<String, Object>> merchAudit(String merchApplyId, MerchDetaApplyBean merchDeta, String memId, String flag,
+			String isAgree);
 
 }

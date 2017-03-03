@@ -1,9 +1,12 @@
 package com.zcbspay.platform.manager.merchant.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import com.zcbspay.platform.manager.merchant.bean.MerchBean;
+import com.zcbspay.platform.manager.merchant.bean.CertType;
+import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
+import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 @SuppressWarnings("all")
 public interface MerchDetaService {
 
@@ -45,7 +48,7 @@ public interface MerchDetaService {
 	 * @param merchDeta
 	 * @return
 	 */
-	public List<?> saveMerchDeta(MerchBean merchDeta);
+	public List<?> saveMerchDeta(MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterprise);
 
 	/**
 	 * 县
@@ -107,4 +110,74 @@ public interface MerchDetaService {
 	 * @return
 	 */
 	public List<?> querySetlcycleAll();
+
+	/**
+	 * 获取商户个人企业信息
+	 * @param parseLong
+	 * @return
+	 */
+	public MerchDetaApplyBean getBean(Long merchApplyId);
+
+	/**
+	 * 
+	 * 上传照片
+	 * @param parseLong
+	 * @param headImageFileName
+	 * @param headImage
+	 * @param certType
+	 * @return
+	 */
+	public boolean upload(String merchApplyId, String path, CertType certType);
+
+	/**提交申请
+	 * @param parseLong
+	 * @return
+	 */
+	public boolean commitMerch(String merchApplyId);
+
+//	public String downloadFromFtp(String parseLong, String realpath, CertType format, boolean fouce);
+
+	/**
+	 * 下载图片路径
+	 * @param merchApplyId
+	 * @param format
+	 * @return
+	 */
+	public String downloadFromFtp(String merchApplyId, CertType format);
+
+	/**
+	 * 修改商户信息
+	 * @param merchApplyId
+	 * @param merchDeta
+	 * @return
+	 */
+	public List<?> saveChangeMerchDeta(String merchApplyId, MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterpriseDeta);
+
+	/**
+	 * 查询银行账户
+	 * @param bankNode
+	 * @param bankCode
+	 * @return
+	 */
+	public String queryBankName(String bankNode, String bankCode);
+
+	/**
+	 * 查看商户详情
+	 * @param parseLong
+	 * @param userId
+	 * @return
+	 */
+	public Map<String, Object> queryApplyMerchDeta(String merchApplyId, Long userId);
+
+	/**
+	 * 商户审核
+	 * @param merchApplyId
+	 * @param merchDeta
+	 * @param memId
+	 * @param flag
+	 * @param isAgree
+	 * @return
+	 */
+	public List<Map<String, Object>> merchAudit(String merchApplyId, MerchDetaApplyBean merchDeta, String memId,
+			String flag, String isAgree);
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <jsp:include page="../../top.jsp"></jsp:include>
-<%@taglib prefix="s" uri="/struts-tags"%>
+<%-- <%@taglib prefix="s" uri="/struts-tags"%> --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -46,12 +47,11 @@ table tr td font.current-step {
 			data-options="fit:true,border:false" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
 				<form id="merchDetaForm"
-					action="pages/merchant/saveMerchDetaMerchantAction.action"
+					action="merchant/saveMerchDeta"
 					method="post">
-					<input type="hidden" id="isDelegation"
-						value="${merchMap.IS_DELEGATION}" /> <input type="hidden"
-						id="merchId" name="merchDeta.merchId" value="${merchMap.MERCHID}" />
-					<input type="hidden" id="merchApplyId" value="${merchApplyId}" />
+					<input type="hidden" id="isDelegation" value="${merchMap.IS_DELEGATION}" /> 
+					<input type="hidden" id="merchId" name="merchDeta.merchId" value="${merchMap.MERCH_ID}" />
+					<input type="hidden" id="merchApplyId" value="${merchMap.SELF_ID}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
 						<tr>
@@ -246,15 +246,15 @@ table tr td font.current-step {
 							<td></td>
 						</tr>
 
-						<s:if test="%{flag==2}">
+						<c:if test="${flag==2}">
 							<tr>
 								<td align="center">初核意见</td>
 								<td colspan="3" align="center"><textarea rows="5"
 										cols="100" style="margin: 5px" maxlength="60" id="STOPINION"></textarea>
 								</td>
 							</tr>
-						</s:if>
-						<s:if test="%{flag==3}">
+						</c:if>
+						<c:if test="${flag==3}">
 							<tr>
 								<td align="center">初审人</td>
 								<td>${merchMap.STEXANAME}</td>
@@ -267,8 +267,8 @@ table tr td font.current-step {
 										cols="100" style="margin: 5px" maxlength="60" id="STOPINION"></textarea>
 								</td>
 							</tr>
-						</s:if>
-						<s:if test="%{flag==9}">
+						</c:if>
+						<c:if test="${flag==9}">
 							<tr>
 								<td align="center">初核意见</td>
 								<td colspan="3" align="center"><textarea rows="5"
@@ -281,7 +281,7 @@ table tr td font.current-step {
 										cols="100" style="margin: 5px" value="${merchMap.CVLEXA_OPT}"
 										maxlength="60" id="STOPINION"></textarea></td>
 							</tr>
-						</s:if>
+						</c:if>
 					</table>
 				</form>
 			</div>
@@ -289,14 +289,14 @@ table tr td font.current-step {
 	</div>
 	<div region="south" border="false"
 		style="text-align: center; padding: 5px 0;">
-		<s:if test="%{flag==2||flag==3}">
+		<c:if test="${flag==2||flag==3}">
 			<a href="javascript:merchAudit('0');" id="button_ins1"
 				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
 			<a href="javascript:merchAudit('9');" id="button_ins2"
 				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
 			<a href="javascript:merchAudit('1');" id="button_ins3"
 				class="easyui-linkbutton" iconCls="icon-no">驳回</a>
-		</s:if>
+		</c:if>
 		<a href="javascript:history.back(-1);" class="easyui-linkbutton"
 			iconCls="icon-back">返回</a>
 	</div>
@@ -324,7 +324,7 @@ table tr td font.current-step {
 				var certType = id.substring(0,id.indexOf('_cert_img'));
 				$.ajax({
 					type: "POST",
-					url: "pages/merchant/downloadImgUrlMerchantAction.action",
+					url: "merchant/downloadImgUrl",
 					data: "merchApplyId=" + $('#merchApplyId').val()+"&certTypeCode="+certType,
 					dataType: "json",
 					success: function(json) {
@@ -349,8 +349,8 @@ table tr td font.current-step {
 			var flag = $("#flag_ins").val();
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/auditMerchantAction.action?isAgree=" + result + "&merchApplyId=" + merchApplyId + "&flag=" + flag,
-				data: "merchDate.stexaOpt=" + encodeURI(stexaOpt),
+				url: "merchant/audit?isAgree=" + result + "&merchApplyId=" + merchApplyId + "&flag=" + flag,
+				data: "stexaOpt=" + encodeURI(stexaOpt),
 				dataType: "json",
 				success: function(json) {
 					$.each(json,
