@@ -14,31 +14,19 @@ public class PojoProvince implements java.io.Serializable {
 
 	// Fields
 
-	private Long PId;
+	private String PId;
 	private String PName;
 	private String PCode;
 
 	// Constructors
 
-	/** default constructor */
-	public PojoProvince() {
-	}
-
-	public PojoProvince(String PName) {
-		this.PName = PName;
-		
-	}
-	
-
-	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "P_ID", unique = true, nullable = false, precision = 10, scale = 0)
-	public Long getPId() {
+	@Column(name = "P_ID")
+	public String getPId() {
 		return this.PId;
 	}
 
-	public void setPId(Long PId) {
+	public void setPId(String PId) {
 		this.PId = PId;
 	}
 

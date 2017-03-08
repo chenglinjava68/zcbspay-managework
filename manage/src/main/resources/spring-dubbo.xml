@@ -28,6 +28,7 @@
 	<dubbo:reference id="coopInstiService" interface="com.zcbspay.platform.manager.merchant.service.CoopInstiService" version="1.0" />
 	<dubbo:reference id="enterpriseDetaService" interface="com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService" version="1.0" />
 	<dubbo:reference id="pojoProductService" interface="com.zcbspay.platform.manager.merchant.service.PojoProductService" version="1.0" />
+	<dubbo:reference id="merchBankAccoutService" interface="com.zcbspay.platform.manager.merchant.service.MerchBankAccoutService" version="1.0" />
 	
 	<!-- 业务和扣率 -->
 	<dubbo:reference id="productService" interface="com.zcbspay.platform.manager.business.service.ProductService" version="1.0"/>

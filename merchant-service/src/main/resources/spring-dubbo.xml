@@ -12,4 +12,5 @@
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService" ref="enterpriseDetaService" retries="0" version="1.0" timeout="60000"/>
 	
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.PojoProductService" ref="pojoProductService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.MerchBankAccoutService" ref="merchBankAccoutService" retries="0" version="1.0" timeout="60000"/>
 </beans>
