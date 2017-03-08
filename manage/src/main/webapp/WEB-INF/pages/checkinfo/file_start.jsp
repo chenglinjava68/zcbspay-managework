@@ -195,7 +195,7 @@ table tr td select {
 			singleSelect:true,
 			nowrap: false,
 			striped: true,
-			url:'checkinfo/querySuccess',			
+			url:'checkinfo/querySuccess?proid='+proid,			
 			remoteSort: false,
 			idField:'TID',
 			columns:[
@@ -225,8 +225,8 @@ table tr td select {
 	}
 
 	function exportSuccess(proid){
-		$('#check').attr("action","checkinfo/exportCheckSuccess");
-		$("#check").submit();
+		/* $('#check').attr("action","checkinfo/exportCheckSuccess");
+		$("#check").submit(); */
 	}
 	function showCheckFail(proid){				
 		$('#success').datagrid({
@@ -236,7 +236,7 @@ table tr td select {
 			singleSelect:true,
 			nowrap: false,
 			striped: true,
-			url:'checkinfo/queryFail',			
+			url:'checkinfo/queryFail?proid='+proid,	
 			remoteSort: false,
 			idField:'TID',
 			columns:[

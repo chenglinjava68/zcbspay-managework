@@ -37,4 +37,9 @@
 	<dubbo:reference id="checkInfoService" interface="com.zcbspay.platform.manager.checkinfo.service.CheckInfoService" version="1.0"/>
 	<dubbo:reference id="channelFileService" interface="com.zcbspay.platform.manager.checkinfo.service.ChannelFileService" version="1.0"/>
 	<dubbo:reference id="uploadlogService" interface="com.zcbspay.platform.manager.checkinfo.service.UploadlogService" version="1.0"/>
+	<!--交易管理  -->
+	<dubbo:reference id="businessService" interface="com.zcbspay.platform.manager.trade.service.BusinessService" version="1.0"/>
+	<dubbo:reference id="chnlDetaService" interface="com.zcbspay.platform.manager.trade.service.ChnlDetaService" version="1.0"/>
+	<dubbo:reference id="txnsLogService" interface="com.zcbspay.platform.manager.trade.service.TxnsLogService" version="1.0"/>
+	
 </beans>

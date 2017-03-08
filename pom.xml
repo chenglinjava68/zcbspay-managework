@@ -305,5 +305,9 @@
     <module>checkinfo</module>
     <module>checkinfo-service</module>
     <module>checkinfo-simple</module>
+    <module>trade</module>
+    <module>trade-api</module>
+    <module>trade-service</module>
+    <module>trade-simple</module>
 	</modules>
 </project>
