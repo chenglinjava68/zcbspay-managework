@@ -1,13 +1,23 @@
+/* 
+ * PojoMember.java  
+ * 
+ * version TODO
+ *
+ * 2015年9月7日 
+ * 
+ * Copyright (c) 2015,zlebank.All rights reserved.
+ * 
+ */
 package com.zcbspay.platform.manager.merchant.bean;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class MemberApplyBean implements Serializable{
-	private static final long serialVersionUID = 1535187233067875272L;
-	/**"主键，标示**/
-    private long selfId;
-    
+public  class MemberApplyBean implements Serializable{
+   
+	private static final long serialVersionUID = 2859944071626484303L;
+	private long selfId;
+    /**"主键，标示**/
     private long memId;
     /**会员ID**/
     private String memberId;

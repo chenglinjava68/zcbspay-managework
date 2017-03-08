@@ -1,24 +1,39 @@
 package com.zcbspay.platform.manager.merchant.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zcbspay.platform.manager.merchant.bean.MerchBean;
+import com.zcbspay.platform.manager.merchant.bean.CertType;
+import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
+import com.zcbspay.platform.manager.merchant.certhandler.BusiLicePicHandler;
+import com.zcbspay.platform.manager.merchant.certhandler.CertPicHandler;
+import com.zcbspay.platform.manager.merchant.certhandler.CorpFileFacePicHandler;
+import com.zcbspay.platform.manager.merchant.certhandler.CorpFileOppPicHandler;
+import com.zcbspay.platform.manager.merchant.certhandler.OrgCertPicHandler;
+import com.zcbspay.platform.manager.merchant.certhandler.SignFileFacePicHandler;
+import com.zcbspay.platform.manager.merchant.certhandler.SignFileOppPicHandler;
+import com.zcbspay.platform.manager.merchant.certhandler.TaxRegCertPicHandler;
+import com.zcbspay.platform.manager.merchant.dao.EnterpriseDetaDao;
 import com.zcbspay.platform.manager.merchant.dao.MerchDetaDAO;
+import com.zcbspay.platform.manager.merchant.pojo.PojoEnterpriseDetaApply;
 import com.zcbspay.platform.manager.merchant.pojo.PojoMerchDetaApply;
 import com.zcbspay.platform.manager.merchant.service.MerchDetaService;
 @Service("merchDetaService")
 @SuppressWarnings("all")
 public class MerchDetaServiceImpl implements MerchDetaService {
 
-	
+	 private final static Log log = LogFactory.getLog(MerchDetaServiceImpl.class);
 	@Autowired
 	private MerchDetaDAO merchDetaDAO;
+	@Autowired
+	private EnterpriseDetaDao enterpriseDetaDao;
 	
 	public List<?> queryMerchParent() {
 		return merchDetaDAO.queryMerchParent();
@@ -44,120 +59,130 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 		return merchDetaDAO.findMerchByPage(variables,page,rows);
 	}
 
-
-	@Override
-	public List<?> saveMerchDeta(MerchBean merchDeta) {
-//		 EnterpriseBean enterprise = merchDeta.getMember();
-//
-//        boolean isRepeat = merchDetaDAO.isRepeat(merchDeta.getMember().getEmail(), enterprise.getPhone(),enterprise.getInstiCode());
-//
-//        List<Map<String, String>> result = new ArrayList<Map<String, String>>();
-//        Map<String, String> resultMap = new HashMap<String, String>();
-//        if (isRepeat) {
-//            resultMap.put("RET", "fail");
-//            resultMap.put("INFO", "手机号或邮箱重复");
-//            result.add(resultMap);
-//            return result;
-//        }
-//
-//        MccListModel mccList = daoContainer.getMccListDAO().get(enterprise.getMccList());
-//        enterprise.setMcc(mccList.getMcc());
-		return merchDetaDAO.saveMerchDeta(merchDeta);
+	public List<?> saveMerchDeta(MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterprise) {
+		return merchDetaDAO.saveMerchDeta(merchDeta,enterprise);
 	}
 
-
-	@Override
 	public List<?> queryCounty(String pid) {
 		return merchDetaDAO.queryCounty(pid);
 	}
 
-	@Override
 	public List<?> queryBankNode(String bankName, Integer page, Integer rows) {
 		return merchDetaDAO.queryBankNode(bankName,page,rows);
 	}
 
-	@Override
 	public List<?> queryCashAll() {
 		return merchDetaDAO.queryCashAll();
 	}
 
-	@Override
 	public List<?> queryChnlnameAll() {
 		return merchDetaDAO.queryChnlnameAll();
 	}
 
-	@Override
 	public List<?> queryRouteAll() {
 		return merchDetaDAO.queryRouteAll();
 	}
 
-	@Override
 	public List<?> queryRiskType(String vid) {
 		return merchDetaDAO.queryRiskType(vid);
 	}
 
-	@Override
 	public List<?> querySplit(String vid) {
 		return merchDetaDAO.querySplit(vid);
 	}
 
-	@Override
 	public List<?> queryFee(String vid) {
 		return merchDetaDAO.queryFee(vid);
 	}
 
-	@Override
 	public List<?> querySetlcycleAll() {
 		return merchDetaDAO.querySetlcycleAll();
 	}
 
-	public List<?> restList(List<?> list){
-		List<MerchDetaApplyBean> newlist = new ArrayList<MerchDetaApplyBean>();
-		List<PojoMerchDetaApply> restList = (List<PojoMerchDetaApply>) list;
-		
-		for (PojoMerchDetaApply pojo : restList) {
-			MerchDetaApplyBean bean = new MerchDetaApplyBean();
-			
-			bean.setSelfId(pojo.getSelfId());
-			bean.setMerchId(pojo.getMerchId());
-			bean.setMemberId(pojo.getMemberId());
-			bean.setParent(pojo.getParent());
-			bean.setSetlCycle(pojo.getSetlCycle());
-			bean.setSetlType(pojo.getSetlType());
-			bean.setBankCode(pojo.getBankCode());
-			bean.setBankNode(pojo.getBankNode());
-			bean.setAccNum(pojo.getAccNum());
-			bean.setAccName(pojo.getAccName());
-			bean.setCharge(pojo.getCharge());
-			bean.setDeposit(pojo.getDeposit());
-			bean.setAgreemtStart(pojo.getAgreemtStart());
-			bean.setAgreemtEnd(pojo.getAgreemtEnd());
-			bean.setPrdtVer(pojo.getPrdtVer());
-			bean.setFeeVer(pojo.getFeeVer());
-			bean.setSpiltVer(pojo.getSpiltVer());
-			bean.setRiskVer(pojo.getRiskVer());
-			bean.setRoutVer(pojo.getRoutVer());
-			bean.setMerchStatus(pojo.getMerchStatus());
-			bean.setmInTime(pojo.getmInTime());
-			bean.setmInUser(pojo.getmInUser());
-			bean.setStexaUser(pojo.getStexaUser());
-			bean.setStexaTime(pojo.getStexaTime());
-			bean.setStexaOpt(pojo.getStexaOpt());
-			bean.setCvlexaUser(pojo.getCvlexaUser());
-			bean.setCvlexaTime(pojo.getCvlexaTime());
-			bean.setCvlexaOpt(pojo.getCvlexaOpt());
-			bean.setNotes(pojo.getNotes());
-			bean.setRemarks(pojo.getRemarks());
-			bean.setMemApplyId(pojo.getMemApplyId());
-			bean.setPayBankCode(pojo.getPayBankCode());
-			bean.setPayBankNode(pojo.getPayBankNode());
-			bean.setPayAccNum(pojo.getPayAccNum());
-			bean.setPayAccName(pojo.getPayAccName());
-			
-			newlist.add(bean);
-		}
-		return newlist;
+	public MerchDetaApplyBean getBean(Long selfId) {
+		MerchDetaApplyBean bean = new MerchDetaApplyBean();
+		PojoMerchDetaApply pojo = (PojoMerchDetaApply) merchDetaDAO.getBean(selfId).get(0);
+		BeanUtils.copyProperties(pojo, bean);
+		return bean;
 	}
+
+	@Override
+	public boolean upload(String merchApplyId, String path, CertType certType) {
+//
+        CertPicHandler certHandler = getCertHandler(certType);
+        if (certHandler == null) {
+            log.warn("upload to ftp get a exception.caused by:certHandler is null");
+            return false;
+        }
+        PojoEnterpriseDetaApply enterpriseDeta = (PojoEnterpriseDetaApply) enterpriseDetaDao.findById(merchApplyId).get(0);
+        enterpriseDeta = certHandler.decorate(enterpriseDeta,path);
+        if (enterpriseDeta == null) {
+            log.warn("upload to ftp get a exception.caused by:merch is not exist");
+            return false;
+        }
+        enterpriseDetaDao.update(enterpriseDeta);
+		return true;
+	}
+	private CertPicHandler getCertHandler(CertType certType) {
+        switch (certType) {
+            case TAXREGCERT :
+                return new TaxRegCertPicHandler();
+            case BUSILICE :
+                return new BusiLicePicHandler();
+            case ORGCERT :
+                return new OrgCertPicHandler();
+            case CORPFILE_FACE :
+                return new CorpFileFacePicHandler();
+            case CORPFILE_OPPOSITE :
+                return new CorpFileOppPicHandler();
+            case SIGNATORYFILE_FACE :
+                return new SignFileFacePicHandler();
+            case SIGNATORYFILE_OPPOSITE :
+                return new SignFileOppPicHandler();
+            default :
+                return null;
+        }
+    }
+
+	@Override
+	public boolean commitMerch(String merchApplyId) {
+		
+		return merchDetaDAO.commitMerch(merchApplyId);
+	}
+
+	@Override
+	public String downloadFromFtp(String merchApplyId, CertType certType) {
+		PojoEnterpriseDetaApply enterpriseDeta = (PojoEnterpriseDetaApply) enterpriseDetaDao.findById(merchApplyId).get(0);
+        CertPicHandler certPicHandler = getCertHandler(certType);
+        String fileName = certPicHandler.getFileName(enterpriseDeta);
+        if (fileName == null) {// not upload yet return "";
+            return "";
+        }
+		return fileName;
+	}
+
+	@Override
+	public List<?> saveChangeMerchDeta(String merchApplyId, MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterpriseDeta) {
+		return merchDetaDAO.saveChangeMerchDeta(merchApplyId,merchDeta,enterpriseDeta);
+	}
+
+	@Override
+	public String queryBankName(String bankNode, String bankCode) {
+		return merchDetaDAO.queryBankName(bankNode,bankCode);
+	}
+
+	@Override
+	public Map<String, Object> queryApplyMerchDeta(String merchApplyId, Long userId) {
+		return merchDetaDAO.queryApplyMerchDeta(merchApplyId,userId);
+	}
+
+	@Override
+	public List<Map<String, Object>> merchAudit(String merchApplyId, MerchDetaApplyBean merchDeta, String memId,
+			String flag, String isAgree) {
+		return merchDetaDAO.merchAudit(merchApplyId, merchDeta, memId, flag, isAgree);
+	}
+
+
 }
 
 

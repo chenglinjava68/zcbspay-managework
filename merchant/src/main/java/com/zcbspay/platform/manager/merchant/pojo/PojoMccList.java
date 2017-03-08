@@ -20,7 +20,7 @@ public class PojoMccList implements Serializable{
 	private String mccClass;
 	private String mcc;
 	private String status;
-	
+
 	@Id
 	public String getMccList() {
 		return mccList;
