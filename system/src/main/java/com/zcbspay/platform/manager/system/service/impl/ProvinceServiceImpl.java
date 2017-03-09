@@ -1,12 +1,15 @@
 package com.zcbspay.platform.manager.system.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.manager.system.bean.ProvinceBean;
 import com.zcbspay.platform.manager.system.dao.ProvinceDao;
+import com.zcbspay.platform.manager.system.pojo.PojoProvince;
 import com.zcbspay.platform.manager.system.service.ProvinceService;
 
 @Service("provinceService")
@@ -19,6 +22,11 @@ public class ProvinceServiceImpl implements ProvinceService {
 	@Override
 	public List<ProvinceBean> findAll() {
 		return  (List<ProvinceBean>) provinceDao.findAll();
+	}
+
+	@Override
+	public ProvinceBean findById(String pId) {
+		return provinceDao.findById(pId);
 	}
 
 }

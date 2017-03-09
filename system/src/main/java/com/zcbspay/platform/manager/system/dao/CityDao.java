@@ -14,4 +14,10 @@ public interface CityDao extends BaseDAO<PojoCity>{
 	 */
 	List<?> findNotMuniByPid(long pid);
 
+	/**
+	 * @param cCode
+	 * @return
+	 */
+	List<?> findByPid(String cCode);
+
 }

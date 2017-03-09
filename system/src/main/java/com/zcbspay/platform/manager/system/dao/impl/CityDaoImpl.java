@@ -13,11 +13,14 @@ public class CityDaoImpl extends HibernateBaseDAOImpl<PojoCity>  implements City
 
 	@Override
 	public List<?> findNotMuniByPid(long pId) {
-		
-		Object[] paramaters = null;
-		
-		String sql = "select ct from PojoCity ct where ct.PId = "+ pId;
-		return queryByHQL(sql,paramaters);
+		String sql = "select ct from PojoCity ct where ct.PId = ?";
+		return queryByHQL(sql,new Object[]{pId});
+	}
+
+	@Override
+	public List<?> findByPid(String cCode) {
+		String sql = "select ct from PojoCity ct where ct.CCode = ?";
+		return queryByHQL(sql,new Object[]{cCode});
 	}
 
 }
