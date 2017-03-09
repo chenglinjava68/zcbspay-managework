@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.manager.trade.bean.CnapsLogBean;
-import com.zcbspay.platform.manager.trade.bean.CollectBatchBean;
+import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
 import com.zcbspay.platform.manager.trade.bean.TxnsLogBean;
 import com.zcbspay.platform.manager.trade.dao.CnapsLogDao;
 import com.zcbspay.platform.manager.trade.dao.CollectBatchDao;
 import com.zcbspay.platform.manager.trade.dao.OrderInfoDao;
+import com.zcbspay.platform.manager.trade.dao.PaymentBatchDao;
 import com.zcbspay.platform.manager.trade.dao.TxnsLogDao;
 import com.zcbspay.platform.manager.trade.service.TxnsLogService;
 @Service("txnsLogService")
@@ -29,6 +30,9 @@ public class TxnsLogServiceImpl implements TxnsLogService{
 	
 	@Autowired
 	private CollectBatchDao collectBatchDao;
+	
+	@Autowired
+	private PaymentBatchDao paymentBatchDao;
 	
 	@Override
 	public Map<String, Object> getTxnsLogByPage(String page, String rows, TxnsLogBean values) {
@@ -51,12 +55,21 @@ public class TxnsLogServiceImpl implements TxnsLogService{
 		return canpsLogDao.getCnapsLogByPage(page,rows,values);
 	}
 	@Override
-	public Map<String, Object> getBepsCollectBatchByPage(String page, String rows, CollectBatchBean collectBatchBean) {
+	public Map<String, Object> getBepsCollectBatchByPage(String page, String rows, CollectAndPaymentBean collectBatchBean) {
 		return collectBatchDao.getBepsCollectBatchByPage(page,rows,collectBatchBean);
 	}
 	@Override
-	public Map<String, Object> queryDetail(String page, String rows, CollectBatchBean collectBatchBean) {
+	public Map<String, Object> queryDetail(String page, String rows, CollectAndPaymentBean collectBatchBean) {
 		return collectBatchDao.queryDetail(page,rows,collectBatchBean);
+	}
+	@Override
+	public Map<String, Object> queryPaymentDetail(String page, String rows, CollectAndPaymentBean collectBatchBean) {
+		return paymentBatchDao.queryPaymentDetail(page, rows, collectBatchBean);
+	}
+	@Override
+	public Map<String, Object> getBepsPaymentBatchByPage(String page, String rows,
+			CollectAndPaymentBean collectBatchBean) {
+		return paymentBatchDao.getBepsPaymentBatchByPage(page, rows, collectBatchBean);
 	}
 	
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zcbspay.platform.manager.trade.bean.CnapsLogBean;
-import com.zcbspay.platform.manager.trade.bean.CollectBatchBean;
+import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
 import com.zcbspay.platform.manager.trade.bean.TxnsLogBean;
 import com.zcbspay.platform.manager.trade.service.BusinessService;
@@ -85,6 +85,18 @@ public class TradeController {
 		return "trade/beps_collect_batch";
 	}
 	
+	/**
+	 * BEPS批量代付交易流水查询
+	 * @author: zhangshd
+	 * @param model
+	 * @return String
+	 * @date: 2017年3月8日 下午2:27:03 
+	 * @version v1.0
+	 */
+	@RequestMapping("showBepsPaymentBatch")
+	public String showBepsPaymentBatch(Model model) {
+		return "trade/beps_payment_batch";
+	}
 	
 	/**
 	 * 分页查询核心交易流水
@@ -113,10 +125,28 @@ public class TradeController {
 	 */
 	@ResponseBody
 	@RequestMapping("getBepsCollectBatchByPage")
-	public Map<String, Object> getBepsCollectBatchByPage(CollectBatchBean collectBatchBean, String page, String rows,
+	public Map<String, Object> getBepsCollectBatchByPage(CollectAndPaymentBean collectBatchBean, String page, String rows,
 			HttpServletRequest request) {
 		collectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
 		return txnsLogService.getBepsCollectBatchByPage(page, rows, collectBatchBean);
+	}
+	/**
+	 * BEPS批量代付交易流水查询分页查询
+	 * @author: zhangshd
+	 * @param values
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月7日 下午3:38:02 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getBepsPaymentBatchByPage")
+	public Map<String, Object> getBepsPaymentBatchByPage(CollectAndPaymentBean collectBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		collectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getBepsPaymentBatchByPage(page, rows, collectBatchBean);
 	}
 	
 	/**
@@ -131,11 +161,30 @@ public class TradeController {
 	 * @version v1.0
 	 */
 	@ResponseBody
-	@RequestMapping("queryDetail")
-	public Map<String, Object> queryDetail(CollectBatchBean collectBatchBean, String page, String rows,
+	@RequestMapping("queryCollectDetail")
+	public Map<String, Object> queryCollectDetail(CollectAndPaymentBean collectBatchBean, String page, String rows,
 			HttpServletRequest request) {
 		collectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
 		return txnsLogService.queryDetail(page, rows, collectBatchBean);
+	}
+	
+	/**
+	 * BEPS批量代付交易流水详细信息分页查询
+	 * @author: zhangshd
+	 * @param collectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月8日 下午2:39:04 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("queryPaymentDetail")
+	public Map<String, Object> queryPaymentDetail(CollectAndPaymentBean collectBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		collectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.queryPaymentDetail(page, rows, collectBatchBean);
 	}
 	
 	

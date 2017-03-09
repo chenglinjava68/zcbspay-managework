@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @date 2017年3月2日 16:09:43
  * @since
  */
-public class CollectBatchBean implements Serializable {
+public class CollectAndPaymentBean implements Serializable {
 	private Long userId;
 	private String batchNo;
 	public String getBatchNo() {

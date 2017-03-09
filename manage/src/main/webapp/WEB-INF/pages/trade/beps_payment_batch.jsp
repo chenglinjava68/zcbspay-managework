@@ -59,79 +59,86 @@ table tr td select {
 					</tr>
 					<tr>
 						<td>批次序号</td><td id="tbatchno"></td>
-						<td>转发日期</td><td id="ttransmitdate"></td>
+						<td>转发付款方日期</td><td id="ttransmitsenderdate"></td>
 					</tr>
 					<tr>
+						<td>转发收款方日期</td><td id="ttransmitreceiverdate"></td>
 						<td>回执期限</td><td id="treturnlimited"></td>
-						<td>付款行行号</td><td id="tdebtorbranchcode"></td>
 					</tr>
 					<tr>
+						<td>接收标识</td><td id="treceivetype"></td>
+						<td>合同（协议）号</td><td id="tendtoendidentification"></td>
+					</tr>
+					<tr>
+						<td>核验标识</td><td id="tcheckflag"></td>
+						<td>付款人名称</td><td id="tdebtorname"></td>
+					</tr>
+					<tr>
+						<td>付款人账号</td><td id="tdebtoraccountno"></td>
 						<td>付款清算行行号</td><td id="tdebtoragentcode"></td>
+					</tr>
+					<tr>
+						<td>付款行行号</td><td id="tdebtorbranchcode"></td>
 						<td>收款清算行行号</td><td id="tcreditoragentcode"></td>
 					</tr>
 					<tr>
-						<td>收款行行号</td><td id="tcreditorbranchcode"></td>
-						<td>收款人名称</td><td id="tcreditorname"></td>
-					</tr>
-					<tr>
-						<td>收款人账号</td><td id="tcreditoraccountno"></td>
 						<td>总金额</td><td id="ttotalamount"></td>
-					</tr>
-					<tr>
 						<td>业务类型编码</td><td id="tcategorypurposecode"></td>
-						<td>付款人数目</td><td id="tdebtornumber"></td>
 					</tr>
 					<tr>
-						<td>成功付款总笔数</td><td id="treceivingtotalnumber"></td>
-						<td>成功付款总金额</td><td id="treceivingtotalamount"></td>
+						<td>收款人数目</td><td id="tdebtornumber"></td>
+						<td>成功收款总笔数</td><td id="tsendingtotalnumber"></td>
 					</tr>
 					<tr>
-						<td>失败付款总笔数</td><td id="tfailtotalnumber"></td>
-						<td>失败付款总金额</td><td id="tfailtotalamount"></td>
+						<td>成功收款总金额</td><td id="tsendingtotalamount"></td>
+						<td>失败收款总笔数</td><td id="tfailtotalnumber"></td>
 					</tr>
 					<tr>
+						<td>失败收款总金额</td><td id="tfailtotalamount"></td>
 						<td>NPC处理状态</td><td id="tnpcprocessstatus"></td>
+					</tr>
+					<tr>
 						<td>NPC业务处理码</td><td id="tnpcprocesscode"></td>
-					</tr>
-					<tr>
 						<td>NPC拒绝信息</td><td id="tnpcrejectinformation"></td>
+					</tr>
+					<tr>
 						<td>NPC轧差日期</td><td id="tnpcnettingdate"></td>
-					</tr>
-					<tr>
 						<td>NPC轧差场次</td><td id="tnpcnettinground"></td>
+					</tr>
+					<tr>
 						<td>NPC清算日期/终态日期</td><td id="tnpcsettlementdate"></td>
-					</tr>
-					<tr>
 						<td>NPC接收时间</td><td id="tnpcreceivetime"></td>
+					</tr>
+					<tr>
 						<td>NPC转发时间</td><td id="tnpctransmittime"></td>
-					</tr>
-					<tr>
 						<td>应答状态</td><td id="trspstatus"></td>
-						<td>应答码</td><td id="trsprejectcode"></td>
 					</tr>
 					<tr>
-						<td>业务拒绝信息</td><td id="trsprejectinformation"></td>
+						<td>应答码</td><td id="trsprejectcode"></td>
 						<td>业务处理参与机构</td><td id="trspprocessparty"></td>
 					</tr>
 					<tr>
+						<td>业务拒绝信息</td><td id="trsprejectinformation"></td>
 						<td>业务应答时间</td><td id="trspdate"></td>
+					</tr>
+					<tr>
 						<td>参与机构业务状态</td><td id="tcomprocessstatus"></td>
-					</tr>
-					<tr>
 						<td>参与机构业务处理码</td><td id="tcomprocesscode"></td>
+					</tr>
+					<tr>
 						<td>拒绝业务的参与机构行号</td><td id="tcompartyidentification"></td>
-					</tr>
-					<tr>
 						<td>参与机构业务拒绝码</td><td id="tcompartyprocesscode"></td>
+					</tr>
+					<tr>
 						<td>参与机构业务拒绝信息</td><td id="tcomrejectinformation"></td>
-					</tr>
-					<tr>
 						<td>参与机构处理日期（终态日期）</td><td id="tcomprocessdate"></td>
-						<td>参与机构轧差场次</td><td id="tcomnettinground"></td>
 					</tr>
 					<tr>
+						<td>参与机构轧差场次</td><td id="tcomnettinground"></td>
 						<td>通用处理报文接收时间</td><td id="tcomdate"></td>
 					</tr>
+					<tr>
+
 				</table>
 			</div>
 		</div>
@@ -151,28 +158,31 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'trade/getBepsCollectBatchByPage',
+							url : 'trade/getBepsPaymentBatchByPage',
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
 								{field:'TID',title:'标识',width:120,align:'center'},
 								{field:'MSGID',title:'报文标识号',width:120,align:'center'},
 								{field:'BATCHNO',title:'批次序号',width:120,align:'center'},
-								{field:'TRANSMITDATE',title:'转发日期',width:120,align:'center'},
+								{field:'TRANSMITSENDERDATE',title:'转发付款方日期',width:120,align:'center'},
+								{field:'TRANSMITRECEIVERDATE',title:'转发收款方日期',width:120,align:'center'},
 								{field:'RETURNLIMITED',title:'回执期限',width:120,align:'center'},
-								{field:'DEBTORBRANCHCODE',title:'付款行行号',width:120,align:'center'},
+								{field:'RECEIVETYPE',title:'接收标识',width:120,align:'center'},
+								{field:'ENDTOENDIDENTIFICATION',title:'合同（协议）号',width:120,align:'center'},
+								{field:'CHECKFLAG',title:'核验标识',width:120,align:'center'},
+								{field:'DEBTORNAME',title:'付款人名称',width:120,align:'center'},
+								{field:'DEBTORACCOUNTNO',title:'付款人账号',width:120,align:'center'},
 								{field:'DEBTORAGENTCODE',title:'付款清算行行号',width:120,align:'center'},
+								{field:'DEBTORBRANCHCODE',title:'付款行行号',width:120,align:'center'},
 								{field:'CREDITORAGENTCODE',title:'收款清算行行号',width:120,align:'center'},
-								{field:'CREDITORBRANCHCODE',title:'收款行行号',width:120,align:'center'},
-								{field:'CREDITORNAME',title:'收款人名称',width:120,align:'center'},
-								{field:'CREDITORACCOUNTNO',title:'收款人账号',width:120,align:'center'},
 								{field:'TOTALAMOUNT',title:'总金额',width:120,align:'center'},
 								{field:'CATEGORYPURPOSECODE',title:'业务类型编码',width:120,align:'center'},
-								{field:'DEBTORNUMBER',title:'付款人数目',width:120,align:'center'},
-								{field:'RECEIVINGTOTALNUMBER',title:'成功付款总笔数',width:120,align:'center'},
-								{field:'RECEIVINGTOTALAMOUNT',title:'成功付款总金额',width:120,align:'center'},
-								{field:'FAILTOTALNUMBER',title:'失败付款总笔数',width:120,align:'center'},
-								{field:'FAILTOTALAMOUNT',title:'失败付款总金额',width:120,align:'center'},
+								{field:'DEBTORNUMBER',title:'收款人数目',width:120,align:'center'},
+								{field:'SENDINGTOTALNUMBER',title:'成功收款总笔数',width:120,align:'center'},
+								{field:'SENDINGTOTALAMOUNT',title:'成功收款总金额',width:120,align:'center'},
+								{field:'FAILTOTALNUMBER',title:'失败收款总笔数',width:120,align:'center'},
+								{field:'FAILTOTALAMOUNT',title:'失败收款总金额',width:120,align:'center'},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
 										return '<a href="javascript:queryDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
@@ -190,7 +200,7 @@ table tr td select {
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
-									url:'trade/queryCollectDetail?batchNo='+batchNo,	
+									url:'trade/queryPaymentDetail?batchNo='+batchNo,	
 									remoteSort: false,
 									idField:'TID',
 									columns:[
@@ -199,12 +209,10 @@ table tr td select {
 										{field:'BATCHNO',title:'批次序号',width:120,align:'center'},
 										{field:'TXID',title:'明细标识号',width:120,align:'center'},
 										{field:'PURPOSEPROPRIETARY',title:'业务种类编码',width:120,align:'center'},
-										{field:'DEBTORNAME',title:'付款人名称',width:120,align:'center'},
-										{field:'DEBTORACCOUNTNO',title:'付款人账号',width:120,align:'center'},
-										{field:'DEBTORBRANCHCODE',title:'付款行行号',width:120,align:'center'},
+										{field:'CREDITORNAME',title:'收款人名称',width:120,align:'center'},
+										{field:'CREDITORACCOUNTNO',title:'收款人账号',width:120,align:'center'},
+										{field:'CREDITORBRANCHCODE',title:'收款行行号',width:120,align:'center'},
 										{field:'AMOUNT',title:'交易金额',width:120,align:'center'},
-										{field:'ENDTOENDIDENTIFICATION',title:'合同（协议）号',width:120,align:'center'},
-										{field:'CHECKFLAG',title:'核验标识',width:120,align:'center'},
 										{field:'ADDINFO',title:'附言',width:120,align:'center'},
 										{field:'RSPSTATUS',title:'应答状态',width:120,align:'center'},
 										{field:'RSPREJECTCODE',title:'应答码',width:120,align:'center'},
@@ -232,19 +240,22 @@ table tr td select {
 		$("#ttid").html("");
 		$("#tmsgid").html("");
 		$("#tbatchno").html("");
-		$("#ttransmitdate").html("");
+		$("#ttransmitsenderdate").html("");
+		$("#ttransmitreceiverdate").html("");
 		$("#treturnlimited").html("");
-		$("#tdebtorbranchcode").html("");
+		$("#treceivetype").html("");
+		$("#tendtoendidentification").html("");
+		$("#tcheckflag").html("");
+		$("#tdebtorname").html("");
+		$("#tdebtoraccountno").html("");
 		$("#tdebtoragentcode").html("");
+		$("#tdebtorbranchcode").html("");
 		$("#tcreditoragentcode").html("");
-		$("#tcreditorbranchcode").html("");
-		$("#tcreditorname").html("");
-		$("#tcreditoraccountno").html("");
 		$("#ttotalamount").html("");
 		$("#tcategorypurposecode").html("");
 		$("#tdebtornumber").html("");
-		$("#treceivingtotalnumber").html("");
-		$("#treceivingtotalamount").html("");
+		$("#tsendingtotalnumber").html("");
+		$("#tsendingtotalamount").html("");
 		$("#tfailtotalnumber").html("");
 		$("#tfailtotalamount").html("");
 		$("#tnpcprocessstatus").html("");
@@ -257,8 +268,8 @@ table tr td select {
 		$("#tnpctransmittime").html("");
 		$("#trspstatus").html("");
 		$("#trsprejectcode").html("");
-		$("#trsprejectinformation").html("");
 		$("#trspprocessparty").html("");
+		$("#trsprejectinformation").html("");
 		$("#trspdate").html("");
 		$("#tcomprocessstatus").html("");
 		$("#tcomprocesscode").html("");
@@ -287,19 +298,22 @@ table tr td select {
 		$("#ttid").html(rows["TID"]);
 		$("#tmsgid").html(rows["MSGID"]);
 		$("#tbatchno").html(rows["BATCHNO"]);
-		$("#ttransmitdate").html(rows["TRANSMITDATE"]);
+		$("#ttransmitsenderdate").html(rows["TRANSMITSENDERDATE"]);
+		$("#ttransmitreceiverdate").html(rows["TRANSMITRECEIVERDATE"]);
 		$("#treturnlimited").html(rows["RETURNLIMITED"]);
-		$("#tdebtorbranchcode").html(rows["DEBTORBRANCHCODE"]);
+		$("#treceivetype").html(rows["RECEIVETYPE"]);
+		$("#tendtoendidentification").html(rows["ENDTOENDIDENTIFICATION"]);
+		$("#tcheckflag").html(rows["CHECKFLAG"]);
+		$("#tdebtorname").html(rows["DEBTORNAME"]);
+		$("#tdebtoraccountno").html(rows["DEBTORACCOUNTNO"]);
 		$("#tdebtoragentcode").html(rows["DEBTORAGENTCODE"]);
+		$("#tdebtorbranchcode").html(rows["DEBTORBRANCHCODE"]);
 		$("#tcreditoragentcode").html(rows["CREDITORAGENTCODE"]);
-		$("#tcreditorbranchcode").html(rows["CREDITORBRANCHCODE"]);
-		$("#tcreditorname").html(rows["CREDITORNAME"]);
-		$("#tcreditoraccountno").html(rows["CREDITORACCOUNTNO"]);
 		$("#ttotalamount").html(rows["TOTALAMOUNT"]);
 		$("#tcategorypurposecode").html(rows["CATEGORYPURPOSECODE"]);
 		$("#tdebtornumber").html(rows["DEBTORNUMBER"]);
-		$("#treceivingtotalnumber").html(rows["RECEIVINGTOTALNUMBER"]);
-		$("#treceivingtotalamount").html(rows["RECEIVINGTOTALAMOUNT"]);
+		$("#tsendingtotalnumber").html(rows["SENDINGTOTALNUMBER"]);
+		$("#tsendingtotalamount").html(rows["SENDINGTOTALAMOUNT"]);
 		$("#tfailtotalnumber").html(rows["FAILTOTALNUMBER"]);
 		$("#tfailtotalamount").html(rows["FAILTOTALAMOUNT"]);
 		$("#tnpcprocessstatus").html(rows["NPCPROCESSSTATUS"]);
@@ -312,8 +326,8 @@ table tr td select {
 		$("#tnpctransmittime").html(rows["NPCTRANSMITTIME"]);
 		$("#trspstatus").html(rows["RSPSTATUS"]);
 		$("#trsprejectcode").html(rows["RSPREJECTCODE"]);
-		$("#trsprejectinformation").html(rows["RSPREJECTINFORMATION"]);
 		$("#trspprocessparty").html(rows["RSPPROCESSPARTY"]);
+		$("#trsprejectinformation").html(rows["RSPREJECTINFORMATION"]);
 		$("#trspdate").html(rows["RSPDATE"]);
 		$("#tcomprocessstatus").html(rows["COMPROCESSSTATUS"]);
 		$("#tcomprocesscode").html(rows["COMPROCESSCODE"]);

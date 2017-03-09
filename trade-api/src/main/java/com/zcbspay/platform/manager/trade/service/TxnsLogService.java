@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zcbspay.platform.manager.trade.bean.CnapsLogBean;
-import com.zcbspay.platform.manager.trade.bean.CollectBatchBean;
+import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
 import com.zcbspay.platform.manager.trade.bean.TxnsLogBean;
 
@@ -65,7 +65,7 @@ public interface TxnsLogService {
 	 * @date: 2017年3月7日 下午3:38:02 
 	 * @version v1.0
 	 */
-	public Map<String, Object> getBepsCollectBatchByPage(String page, String rows, CollectBatchBean collectBatchBean);
+	public Map<String, Object> getBepsCollectBatchByPage(String page, String rows, CollectAndPaymentBean collectBatchBean);
 	/**
 	 * BEPS批量代收交易流水详细信息分页查询
 	 * @author: zhangshd
@@ -77,5 +77,30 @@ public interface TxnsLogService {
 	 * @date: 2017年3月7日 下午3:45:49 
 	 * @version v1.0
 	 */
-	public Map<String, Object> queryDetail(String page, String rows, CollectBatchBean collectBatchBean);
+	public Map<String, Object> queryDetail(String page, String rows, CollectAndPaymentBean collectBatchBean);
+	/**
+	 * BEPS批量代付交易流水详细信息分页查询
+	 * @author: zhangshd
+	 * @param collectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月8日 下午2:39:04 
+	 * @version v1.0
+	 */
+	public Map<String, Object> queryPaymentDetail(String page, String rows, CollectAndPaymentBean collectBatchBean);
+	/**
+	 * BEPS批量代付交易流水查询分页查询
+	 * @author: zhangshd
+	 * @param values
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月7日 下午3:38:02 
+	 * @version v1.0
+	 */
+	public Map<String, Object> getBepsPaymentBatchByPage(String page, String rows,
+			CollectAndPaymentBean collectBatchBean);
 }

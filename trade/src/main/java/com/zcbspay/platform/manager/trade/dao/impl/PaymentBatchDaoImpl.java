@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.dao.CollectBatchDao;
+import com.zcbspay.platform.manager.trade.dao.PaymentBatchDao;
 
 @Repository
-public class CollectBatchDaoImpl extends HibernateBaseDAOImpl<String> implements CollectBatchDao {
+public class PaymentBatchDaoImpl extends HibernateBaseDAOImpl<String> implements PaymentBatchDao {
 
 	@Override
-	public Map<String, Object> getBepsCollectBatchByPage(String page, String rows, CollectAndPaymentBean collectBatchBean) {
+	public Map<String, Object> getBepsPaymentBatchByPage(String page, String rows, CollectAndPaymentBean collectBatchBean) {
 		String[] columns = new String[]{
 				 "v_BATCHNO", 
 				 "v_user",
@@ -25,12 +26,12 @@ public class CollectBatchDaoImpl extends HibernateBaseDAOImpl<String> implements
 	        		collectBatchBean.getUserId(),
 	                page, rows};
 	        return executePageOracleProcedure(
-	               "{CALL PCK_T_CNAPS_COLLECT_BATCH_LOG.sel_T_CNAPS_COLLECT_BATCH_LOG(?,?,?,?,?,?)}", columns,
+	               "{CALL PCK_t_cnaps_payment_batch_log.sel_t_cnaps_payment_batch_log(?,?,?,?,?,?)}", columns,
 	               paramaters, "cursor0","v_total");
 	}
 
 	@Override
-	public Map<String, Object> queryDetail(String page, String rows, CollectAndPaymentBean collectBatchBean) {
+	public Map<String, Object> queryPaymentDetail(String page, String rows, CollectAndPaymentBean collectBatchBean) {
 		String[] columns = new String[]{
 				 "v_BATCHNO", 
 				 "v_user",
@@ -43,7 +44,7 @@ public class CollectBatchDaoImpl extends HibernateBaseDAOImpl<String> implements
 	        		collectBatchBean.getUserId(),
 	                page, rows};
 	        return executePageOracleProcedure(
-	               "{CALL PCK_T_CNAPS_COLLECT_DETA_LOG.sel_T_CNAPS_COLLECT_DETA_LOG(?,?,?,?,?,?)}", columns,
+	               "{CALL PCK_t_cnaps_payment_deta_log.sel_t_cnaps_payment_deta_log(?,?,?,?,?,?)}", columns,
 	               paramaters, "cursor0","v_total");
 	}
 
