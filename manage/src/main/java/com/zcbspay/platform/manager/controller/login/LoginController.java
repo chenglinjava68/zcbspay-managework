@@ -4,16 +4,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.system.service.FunctionService;
 import com.zcbspay.platform.manager.system.service.UserService;
+import com.zcbspay.platform.manager.utils.CookieUtils;
 import com.zcbspay.platform.manager.utils.MD5Util;
 
 @Controller
@@ -46,6 +51,40 @@ public class LoginController {
 	@Autowired
 	private FunctionService functionService;
 
+	@ResponseBody
+	@RequestMapping("/loginFailedCookie")
+	public HttpServletResponse loginFailedCookie(HttpServletRequest request,HttpServletResponse response) {
+        if (isNull(getCookie(request))) {
+            Cookie cookie = new Cookie("user.cookie", "1");
+            cookie.setMaxAge(60 * 60);
+            response.addCookie(cookie);
+        } else {
+            int count = Integer.valueOf(CookieUtils.getCookie(request));
+            Cookie[] cookies4 = request.getCookies();
+            for (Cookie cookie : cookies4) {
+                if (cookie.getName().equals("user.cookie")) {
+                    cookie.setValue(count + 1 + "");
+                    response.addCookie(cookie);
+                }
+            }
+        }
+        return response;
+	}
+
+    private boolean checkCookie() {
+        if (!isNull(getCookie(request))) {
+            int count = Integer.valueOf(CookieUtils.getCookie(request));
+            if (count > 5) {
+                Map<String, Object> variable = new HashMap<String, Object>();
+                variable.put("ret", "err");
+                variable.put("info", "您已经连续失败登录5次，一个小时内无法继续登录！");
+                return true;
+            }
+        }
+        return false;
+    }
+
+	
 	/**
 	 * 验证用户登录信息
 	 * @return
@@ -80,8 +119,6 @@ public class LoginController {
 		if (loginUser != null) {
 			if (loginUser.getLoginName().equals(user.getLoginName())
 					&& loginUser.getPwd().equals(MD5Util.MD5(passwordMark))) {
-
-//				session.put("LOGIN_USER", loginUser);
 				returnMap.put("ret", "success");
 			} else {
 				loginFlag = true;
@@ -108,8 +145,8 @@ public class LoginController {
         } else {
             funlist = functionService.findLoginFuntion(loginUser);
         }
-        checkPWDDate();
-        pwdDay = calcExpirationDay();
+        checkPWDDate(request);
+        pwdDay = calcExpirationDay(request);
        
         result.addObject("loginName",loginUser.getLoginName());
         result.addObject("funlist",funlist);
@@ -118,47 +155,90 @@ public class LoginController {
         return result;
     }
 	
-	// 操作栏
-//	public String querymenu() throws Exception {
-//		  UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
-//	        if (loginUser.getLoginName().equals("admin")) {
-//	            funlist = serviceContainer.getFunctionService().findFunction();
-//	        } else {
-//	            funlist = serviceContainer.getFunctionService().findLoginFuntion(
-//	                    getCurrentUser());
-//	        }
-//	        session.put("Authority", funlist);
-//	        checkPWDDate();
-//	        pwdDay = calcExpirationDay();
-//	        
-//		return "";
-//	}
+	 /**
+	  * 操作栏
+	  */
+	@ResponseBody
+	@RequestMapping("/querymenu")
+	public ModelAndView querymenu() throws Exception {
+		ModelAndView result=new ModelAndView("/index");
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+		if (loginUser.getLoginName().equals("admin")) {
+	        funlist = functionService.findFunction();
+	    } else {
+	        funlist = functionService.findLoginFuntion(loginUser);
+	    }
+	    session.put("Authority", funlist);
+	    checkPWDDate(request);
+	    pwdDay = calcExpirationDay(request);
+	    
+	    result.addObject("loginName",loginUser.getLoginName());
+        result.addObject("funlist",funlist);
+        result.addObject("pwdDay",pwdDay);
+        
+        return result;
+	}
 
 	/**
-	 * 检查密码有效期
-	 */
-	private void checkPWDDate() {
-
-	}
+     * 检查密码有效期
+     */
+    private void checkPWDDate(HttpServletRequest request) {
+//		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+//         pwdFlag=0;
+//         Timestamp pwdTime = (Timestamp) loginUser.getPwdValid();
+//         if(isNull(pwdTime)){
+//        	 pwdFlag=1;
+//         }else{
+//	         long time = pwdTime.getTime();//密码有效期
+//	         long currentTime = new Date().getTime();//当前时间
+//	         if(currentTime>time){
+//	        	 pwdFlag = 1;
+//	         }
+//         }
+    }
 
 	/**
 	 * 计算时间间隔
 	 * 
 	 * @return
 	 */
-	private int calcExpirationDay() {
-		return 0;
-	}
+	private int calcExpirationDay(HttpServletRequest request) {
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(new Date());
+        Calendar cal2 = Calendar.getInstance();
+        if (isNull(loginUser.getPwdValid())) {
+            cal2.setTime(new Date());
+        } else {
+            cal2.setTime(new Date(loginUser.getPwdValid().getTime()));
+        }
+        long l = cal2.getTimeInMillis() - cal1.getTimeInMillis();
+        int days = new Long(l / (1000 * 60 * 60 * 24)).intValue();
+        return days;
+    }
 
 	/**
 	 * 用户登出
-	 * 
 	 * @return
 	 */
-	public String logout() {
+    @ResponseBody
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		ModelAndView result=new ModelAndView("/login");
+		HttpSession session = request.getSession(true);
 
-		return "logout";
-	}
+        if (isNull(session.getAttribute("LOGIN_USER"))) {
+        	session.invalidate();
+        }
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("user.cookie")) {
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+        return result;
+    }
 
 	/**
 	 * 生成图片验证码
@@ -232,6 +312,34 @@ public class LoginController {
 		int b = fc + random.nextInt(bc - fc);
 		return new Color(r, g, b);
 	}
+	
+	public boolean isNull(Object value) {
+		if (value == null || value.toString().equals("")) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+	
+	// 得到cookie
+    public String getCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (CookieUtils.USER_COOKIE.equals(cookie.getName())) {
+                    String value = cookie.getValue();
+                    if (StringUtils.isNotBlank(value)) {
+                        String[] split = value.split(",");
+                        // String clientIp = split[0];
+                        String count = split[0];
+                        return count;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
 	public String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("x-forwarded-for");

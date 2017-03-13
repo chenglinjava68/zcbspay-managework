@@ -61,7 +61,7 @@ table tr td select {
 					singleSelect:true,
 					nowrap: false,
 					striped: true,
-					url:'pages/merchant/queryMerchModifyMerchantAction.action?flag='+flag,
+					url:'merchant/queryMerchModify?flag='+flag,
 					remoteSort: false,
 					columns:[
 					[
@@ -135,7 +135,7 @@ table tr td select {
 					singleSelect:true,
 					nowrap: false,
 					striped: true,
-					url:'pages/merchant/queryMerchModifyMerchantAction.action?flag='+flag,
+					url:'merchant/queryMerchModify?flag='+flag,
 					remoteSort: false,
 					columns:[
 					[
@@ -218,27 +218,27 @@ table tr td select {
 			});  
 		});
 		function search(){
-			//var url="pages/merchant/queryMerchMerchantAction.action?flag="+$("#flag").val();
+			//var url="merchant/queryMerch?flag="+$("#flag").val();
 			var data={
-					'merchDeta.member.memberId':$('#merchId_ins').val(),
-					'merchDeta.member.memberName':$('#memberName_ins').val(),					
+					'memberId':$('#merchId_ins').val(),
+					'memberName':$('#memberName_ins').val(),					
 					};
 			$('#test').datagrid('load',data);
 		}
 		//详情
 		function toMerchModifyDetail(id,isApply){
-			window.location.href= "<%=basePath%>" +'/pages/merchant/toMerchDetailMerchantAction.action?merchApplyId='+id;
+			window.location.href= "<%=basePath%>" +'merchant/toMerchDetail?merchApplyId='+id;
 			//window.event.returnValue = false;
 		}
 		//变更
 		function toMerchModifyEdit(id){
-			window.location.href= "<%=basePath%>" +'pages/merchant/toMerchModifyEditMerchantAction.action?merchApplyId='+id;
+			window.location.href= "<%=basePath%>" +'merchant/toMerchModifyEdit?merchApplyId='+id;
 			//window.event.returnValue = false;
 		}
 		//初审、复审 
 		function toMerchModifyAudit(merchApplyId){
 			flag=$('#flag_ins').val();
-			window.location.href= "<%=basePath%>" +'/pages/merchant/toMerchModifyDetailMerchantAction.action?merchApplyId='+merchApplyId+'&flag='+flag;
+			window.location.href= "<%=basePath%>" +'merchant/toMerchModifyDetail?merchApplyId='+merchApplyId+'&flag='+flag;
 			//window.event.returnValue = false;
 		}
 		function toActivateStatus(memberId) {
@@ -267,7 +267,7 @@ table tr td select {
 			$("#"+memberId).attr("value",120000);
 		}
 		function toUpload(merchApplyId){
-			window.location.href= "<%=basePath%>" +'/pages/merchant/toUploadModifyInfoMerchantAction.action?merchApplyId='+merchApplyId;
+			window.location.href= "<%=basePath%>" +'/merchant/toUploadModifyInfo?merchApplyId='+merchApplyId;
 		}
 	
 </script>

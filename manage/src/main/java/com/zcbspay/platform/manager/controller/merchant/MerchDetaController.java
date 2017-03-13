@@ -286,7 +286,6 @@ public class MerchDetaController {
             try {// 保留一小时
                 Thread.currentThread().sleep(1000 * 60 * 60);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             File file = new File(sPath);
@@ -611,27 +610,31 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/showMerchModify")
-    public String showMerchModify(String flag){
-        flag="4";
-        return "merch_modify_query";
+    public ModelAndView showMerchModify(String flag){
+    	// TODO Auto-generated catch block
+    	ModelAndView result = new ModelAndView("/merch/merch_modify_query");
+   	 	result.addObject("flag", "4");
+   	 	return result; 
     }
     /**
      * 商户变更初审
      */
     @ResponseBody
 	@RequestMapping("/merchModifyFirstCheck")
-    public String merchModifyFirstCheck(String flag){
-        flag="5";
-        return "merch_modify_query";
+    public ModelAndView merchModifyFirstCheck(String flag){
+    	ModelAndView result = new ModelAndView("/merch/merch_modify_query");
+    	result.addObject("flag", "5");
+    	return result;
     }
     /**
      * 商户变更复审
      */
     @ResponseBody
 	@RequestMapping("/merchModifySecondCheck")
-    public String merchModifySecondCheck(String flag){
-        flag="6";
-        return "merch_modify_query";
+    public ModelAndView merchModifySecondCheck(String flag){
+    	ModelAndView result = new ModelAndView("/merch/merch_modify_query");
+   	 	result.addObject("flag", "6");
+   	 	return result;
     }
     /**
      * 商户信息变更界面
@@ -639,18 +642,18 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/queryMerchModify")
-    public String queryMerchModify(){
-//        Map<String, Object> variables = new HashMap<String, Object>();
-//        variables.put("userId", currentUser.getUserId());
-//        if (merchDeta != null) {
-//            variables.put("merberId", enterpriseDeta.getMemberId());
-//            variables.put("merchName", enterpriseDeta.getMemberName());
-//        }
-//        variables.put("flag", flag);
-//        Map<String, Object> merchList = serviceContainer.getMerchDetaService()
-//                .findMerchModifyByPage(variables, getPage(), getRows());
-//        json_encode(merchList);
-        return null;
+    public Map<String, Object> queryMerchModify(MerchDetaApplyBean merchDeta, String memberId, 
+    		String memberName, Integer page, Integer rows,
+    		String merchStatus,String flag,HttpServletRequest request){
+        Map<String, Object> variables = new HashMap<String, Object>();
+        UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+        variables.put("userId", currentUser.getUserId());
+        if (merchDeta != null) {
+            variables.put("merberId", memberId);
+            variables.put("merchName", memberName);
+        }
+        variables.put("flag", flag);
+        return merchDetaService.findMerchByPage(variables, page, rows);
     }
     
     /**
@@ -659,16 +662,20 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/toMerchModifyEdit")
-    public String toMerchModifyEdit(){
-//        merchDeta = serviceContainer.getMerchDetaService().getBean(
-//                Long.parseLong(merchApplyId));
-//        oldBankName = serviceContainer.getMerchDetaService().queryBankName(
-//                merchDeta.getBankNode(), merchDeta.getBankCode());
-//
-//        charge = merchDeta.getCharge().toString();
-//        deposit = merchDeta.getDeposit().toString();
-
-        return "merch_modify_edit";    
+    public ModelAndView toMerchModifyEdit(MerchDetaApplyBean merchDeta,String merchApplyId,String oldBankName){
+    	ModelAndView result = new ModelAndView("/merch/merch_modify_edit");
+    	
+    	 merchDeta = merchDetaService.getBean(Long.parseLong(merchApplyId));
+	   	 EnterpriseDetaApplyBean enterpriseDeta = enterpriseDetaService.findById(merchDeta.getSelfId().toString()); 
+	   	 oldBankName = merchDetaService.queryBankName(merchDeta.getBankNode(), merchDeta.getBankCode()); 
+	   	 result.addObject("merchDeta", merchDeta); result.addObject("member", enterpriseDeta);
+	   	 
+	   	 result.addObject("oldBankName", oldBankName); 
+	   	 result.addObject("merchApplyId", merchApplyId); 
+	   	 result.addObject("charge", merchDeta.getCharge().toString()); 
+	   	 result.addObject("deposit", merchDeta.getDeposit().toString());
+	   	 
+   	 	return result;
     }
     
     /**
@@ -677,13 +684,20 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/toUploadModifyInfo")
-    public String toUploadModifyInfo(){
+    public ModelAndView toUploadModifyInfo(String merchApplyId){
+    	ModelAndView result = new ModelAndView("/merch/add/merch_modify_commit");
+        MerchDetaApplyBean merchDeta = merchDetaService.getBean(Long.parseLong(merchApplyId));
+        EnterpriseDetaApplyBean enterpriseDeta = enterpriseDetaService.findById(merchDeta.getSelfId().toString());
+        result.addObject("merchDeta", merchDeta); 
+        result.addObject("member", enterpriseDeta); 
+        result.addObject("merchApplyId", merchApplyId);
+        return result;
 //        merchDeta = serviceContainer.getMerchDetaService().getBean(
 //                Long.parseLong(merchApplyId));
 //        if (merchDeta == null) {
 //        }
 
-        return "toUploadModifyInfo";
+//        return "toUploadModifyInfo";
     }
     /**
      * 
@@ -692,7 +706,15 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/commitMerchModify")
-    public String commitMerchModify(){
+    public Map<String, String> commitMerchModify(String merchApplyId){
+    	Map<String, String> result = new HashMap<String, String>();
+        boolean isSucc = merchDetaService.commitMerch(merchApplyId);
+        if (isSucc) {
+            result.put("status", "OK");
+        } else {
+            result.put("status", "FAIL");
+        }
+        return result;
 //        Map<String, String> result = new HashMap<String, String>();
 //        IMerchDetaService merchDetaService = serviceContainer
 //                .getMerchDetaService();
@@ -704,7 +726,7 @@ public class MerchDetaController {
 //            result.put("status", "FAIL");
 //        }
 //        json_encode(result);
-        return null;
+//        return null;
     }
     
     /**
@@ -713,7 +735,35 @@ public class MerchDetaController {
      */
     @ResponseBody
 	@RequestMapping("/saveMerchModifyDeta")
-    public String saveMerchModifyDeta(){
+    public List<?> saveMerchModifyDeta(MerchDetaApplyBean merchDeta,EnterpriseDetaApplyBean enterpriseDeta,String merchApplyId,HttpServletRequest request) {
+            String codeANDnode = merchDeta.getBankNode();
+            if (!"".equals(codeANDnode) && null != codeANDnode) {
+                Object[] paramaters = codeANDnode.split(",");
+                merchDeta.setBankCode(paramaters[0].toString());
+                merchDeta.setBankNode(paramaters[1].toString());
+            }
+            if (enterpriseDeta.getIsDelegation() == null) {
+            	enterpriseDeta.setIsDelegation(0L);
+            }
+
+            if (charge == null || charge.equals("")) {
+                merchDeta.setCharge(Money.ZERO.toString());
+            } else {
+                merchDeta.setCharge(Money.valueOf(new BigDecimal(charge)
+                        .multiply(HUNDERED)).toString());
+            }
+
+            if (deposit == null || deposit.equals("")) {
+                merchDeta.setDeposit(Money.ZERO.toString());
+            } else {
+                merchDeta.setDeposit(Money.valueOf(new BigDecimal(deposit)
+                        .multiply(HUNDERED)).toString());
+            }
+
+            UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+            merchDeta.setmInUser(currentUser.getUserId());
+            return merchDetaService.saveChangeMerchDeta(merchApplyId, merchDeta, enterpriseDeta); 
+//            return merchDetaService.saveMerchDeta(merchDeta, enterpriseDeta);
 //        if (enterpriseDeta.getIsDelegation() == null) {
 //            enterpriseDeta.setIsDelegation(0L);
 //        }
@@ -740,25 +790,30 @@ public class MerchDetaController {
 //                .saveMerchModifyDeta(Long.parseLong(merchApplyId), merchDeta);
 //        merchDeta.setmInUser(currentUser.getUserId());
 //        json_encode(resultlist.get(0));
-        return null;
+//        return null;
         
     }
     /**
      * 变更信息的审核（初审、复审）
      * @return
      */
+    @ResponseBody
+	@RequestMapping("/toMerchModifyDetail")
+    public ModelAndView toMerchModifyDetail(String merchApplyId, HttpServletRequest request, String flag){
+    	ModelAndView result = new ModelAndView("/merch/merch_modify_detail"); 
+    	UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+    	Map<String, Object> merchMap = merchDetaService.queryApplyMerchDeta(merchApplyId, currentUser.getUserId()); 
+    	 result.addObject("merchMap", merchMap); 
+    	 result.addObject("flag", flag);
+    	return result;
     
-//    public String toMerchModifyDetail(){
 //        Long userId = currentUser.getUserId();
 //        merchMap = serviceContainer.getMerchDetaService().queryModifyMerchDeta(
 //                Long.parseLong(merchApplyId), userId);
 //        return "merch_modify_detail";  
-//    }
-//    public ServiceContainer getServiceContainer() {
-//        return serviceContainer;
-//    }
+    }
 
- //------------------------------------企业审核和查询----------------------------------------------------   
+// ------------------------------------企业审核和查询----------------------------------------------------   
     /**
      * 企业初审菜单
      * @param serviceContainer
@@ -766,6 +821,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/enterpriseFirstExam")
     public String enterpriseFirstExam(String flag){  
+    	// TODO Auto-generated catch block
         flag="2";
         return "enterprise_exam_query";       
     }

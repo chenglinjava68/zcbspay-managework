@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <jsp:include page="../../top.jsp"></jsp:include>
-<%@taglib prefix="s" uri="/struts-tags"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -44,34 +43,29 @@ table tr td font.current-step {
 		<div id="title" name="title" class="easyui-panel" title="商户修改 "
 			style="background: #fafafa;" iconCls="icon-save" collapsible="false">
 			<div style="padding-left: 5px; padding-right: 5px">
-				<form id="merchDetaForm"
-					action="pages/merchant/saveMerchModifyDetaMerchantAction.action"
-					method="post">
-					<input type="hidden" id="merchApplyId" name="merchApplyId"
-						value="${merchApplyId}" /> <input type="hidden"
-						id="coopInstiId_old" value="${merchDeta.member.coopInstiId}" /> <input
-						type="hidden" id="enterpriseInsti"
-						value="${merchDeta.member.enterpriseInsti}" /> <input
-						type="hidden" id="province_old"
-						value="${merchDeta.member.province}" /> <input type="hidden"
-						id="city_old" value="${merchDeta.member.city}" /> <input
-						type="hidden" id="county_old" value="${merchDeta.member.street}" />
-					<input type="hidden" id="setltype_old"
-						value="${merchDeta.setlType}" /> <input type="hidden"
-						id="setlcycle_old" value="${merchDeta.setlCycle}" /> <input
-						type="hidden" id="banknode_old" value="${merchDetabankNode}" /> <input
-						type="hidden" id="prdtver_old" value="${merchDeta.prdtVer}" /> <input
-						type="hidden" id="feever_old" value="${merchDeta.feeVer}" /> <input
-						type="hidden" id="spiltver_old" value="${merchDeta.spiltVer}" />
+				<form id="merchDetaForm" action="merchant/saveMerchModifyDeta" method="post">
+					<input type="hidden" id="merchApplyId" name="merchApplyId" value="${merchApplyId}" /> 
+					<input type="hidden" id="memId" name="memId" value="${member.memId}" /> 
+					<input type="hidden" id="merchId" name="merchId" value="${merchDeta.merchId}" /> 
+					<input type="hidden" id="enterpriseMemberId" name="enterpriseMemberId" value="${member.enterpriseMemberId}" /> 
+					<input type="hidden" id="coopInstiId_old" value="${member.coopInstiId}" />
+					<input type="hidden" id="enterpriseInsti" value="${member.enterpriseInsti}" /> 
+					<input type="hidden" id="province_old" value="${member.province}" /> 
+					<input type="hidden" id="city_old" value="${member.city}" /> 
+					<input type="hidden" id="county_old" value="${member.street}" />
+					<input type="hidden" id="setltype_old" value="${merchDeta.setlType}" /> 
+					<input type="hidden" id="setlcycle_old" value="${merchDeta.setlCycle}" /> 
+					<input type="hidden" id="banknode_old" value="${merchDeta.bankNode}" /> 
+					<input type="hidden" id="prdtver_old" value="${merchDeta.prdtVer}" /> 
+					<input type="hidden" id="feever_old" value="${merchDeta.feeVer}" /> 
+					<input type="hidden" id="spiltver_old" value="${merchDeta.spiltVer}" />
 					<input type="hidden" id="riskver_old" value="${merchDeta.riskVer}" />
 					<input type="hidden" id="routver_old" value="${merchDeta.routVer}" />
-					<input type="hidden" id="agreemtStart_old"
-						value="${merchDeta.agreemtStart}" /> <input type="hidden"
-						id="agreemtEnd_old" value="${merchDeta.agreemtEnd}" /> <input
-						type="hidden" id="mcclist_old" value="${merchDeta.member.mccList}" />
-					<input type="hidden" id="isDelegation_old"
-						value="${merchDeta.member.isDelegation}" /> <input type="hidden"
-						id="bankname_old" value="${oldBankName}" />
+					<input type="hidden" id="agreemtStart_old" value="${merchDeta.agreemtStart}" /> 
+					<input type="hidden" id="agreemtEnd_old" value="${merchDeta.agreemtEnd}" /> 
+					<input type="hidden" id="mcclist_old" value="${member.mccList}" />
+					<input type="hidden" id="isDelegation_old" value="${member.isDelegation}" /> 
+					<input type="hidden" id="bankname_old" value="${oldBankName}" />
 					<table width="100%">
 						<tr>
 							<td colspan="4" class="head-guide"><font
@@ -83,47 +77,46 @@ table tr td font.current-step {
 						<tr>
 							<td align="center" width="20%">企业名称</td>
 							<td width="30%"><input id="merName"
-								name="merchDeta.member.enterpriseName"
-								value="${merchDeta.member.enterpriseName}" required="true"
+								name="enterpriseName"
+								value="${member.enterpriseName}" required="true"
 								maxlength="30" style="width: 250px" class="easyui-validatebox"
 								validType="MerchLength[60]" /> <font color="red">*</font></td>
 							<td align="center">会员编号</td>
-							<td>${merchDeta.memberId}</td>
+							<td>${member.enterpriseMemberId}</td>
 						</tr>
 						<tr>
 							<td align="center">企业所在地</td>
-							<td colspan="3"><select id="province_ins"
-								class="easyui-validatebox" required="true"
-								name="merchDeta.member.province"
-								onchange="showCity('province_ins')" /></select> <select id="city_ins"
-								class="easyui-validatebox" required="true"
-								name="merchDeta.member.city" onchange="showCounty('city_ins')" /></select>
-								<select id="county_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.member.street" /></select> <font
+							<td colspan="3">
+							<select id="province_ins" class="easyui-validatebox" required="true" name="province"
+								onchange="showCity('province_ins')" /></select> 
+							<select id="city_ins"
+								class="easyui-validatebox" required="true" name="city" onchange="showCounty('city_ins')" />
+								</select>
+							<select id="county_ins" class="easyui-validatebox" required="true" name="street" /></select> <font
 								color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">联系手机号</td>
 							<td><input class="easyui-validatebox" maxlength="20"
 								validType="cellphonenum" required="true"
-								name="merchDeta.member.phone" value="${merchDeta.member.phone}" />
+								name="phone" value="${member.phone}" />
 								<font color="red">*</font></td>
 							<td align="center">邮箱</td>
-							<td><input name="merchDeta.member.email" maxlength="32"
+							<td><input name="email" maxlength="32"
 								validType="email" type="text" required="true"
-								class="easyui-validatebox" value="${merchDeta.member.email}" />
+								class="easyui-validatebox" value="${member.email}" />
 								<font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">地址</td>
 							<td><input class="easyui-validatebox" maxlength="256"
-								name="merchDeta.member.address" style="width: 300px"
-								value="${merchDeta.member.address}" /></td>
+								name="address" style="width: 300px"
+								value="${member.address}" /></td>
 							<td align="center">邮编编码</td>
 							<td><input class="easyui-validatebox"
 								validType="postcode[6]" maxlength="6"
-								name="merchDeta.member.postCode"
-								value="${merchDeta.member.postCode}" /></td>
+								name="postCode"
+								value="${member.postCode}" /></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -135,58 +128,53 @@ table tr td font.current-step {
 					</tr>-->
 						<tr>
 							<td align="center">营业执照号</td>
-							<td><input name="merchDeta.member.licenceNo" maxlength="15"
+							<td><input name="licenceNo" maxlength="15"
 								type="text" validType="licencenoMerLength[15]"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								required="true" class="easyui-validatebox"
-								value="${merchDeta.member.licenceNo}" /><font color="red">*</font>
+								value="${member.licenceNo}" /><font color="red">*</font>
 							</td>
 							<td align="center">组织机构代码号</td>
-							<td><input name="merchDeta.member.orgCode" maxlength="10"
+							<td><input name="orgCode" maxlength="10"
 								type="text" validType="orgLength[8]"
 								onkeyup="value=value.replace(/[^\d\-]/g,'')" required="true"
-								class="easyui-validatebox" value="${merchDeta.member.orgCode}" />
+								class="easyui-validatebox" value="${member.orgCode}" />
 								<font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">税务登记号</td>
-							<td><input name="merchDeta.member.taxno" maxlength="20"
+							<td><input name="taxno" maxlength="20"
 								type="text" required="true" validType="merLength[15]"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
-								class="easyui-validatebox" value="${merchDeta.member.taxno}" />
+								class="easyui-validatebox" value="${member.taxno}" />
 								<font color="red">*</font></td>
 							<td align="center">所属行业</td>
 							<td><select id="mcclist_ins" class="easyui-validatebox"
-								name="merchDeta.member.mccList"
-								value="${merchDeta.member.mccList}" required="true" /></select><font
+								name="mccList"
+								value="${member.mccList}" required="true" /></select><font
 								color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">企业网站地址</td>
-							<td><input name="merchDeta.member.website" maxlength="256"
+							<td><input name="website" maxlength="256"
 								type="text" validType="url" required="true"
-								class="easyui-validatebox" value="${merchDeta.member.website}" />
+								class="easyui-validatebox" value="${member.website}" />
 								<font color="red">*</font></td>
 							<td></td>
 							<td></td>
-							<!--  
-						<td align="center">ICP备案号</td>
-						<td>
-						 	<input name="merchDate.icp" maxlength="256" type="text"  required="true" class="easyui-validatebox" /> <font color="red">*</font>
-						</td>-->
 						</tr>
 						<tr>
 							<td align="center" id="psamORpass">法人姓名</td>
-							<td><input name="merchDeta.member.corporation"
+							<td><input name="corporation"
 								maxlength="16" type="text" required="true"
 								class="easyui-validatebox"
-								value="${merchDeta.member.corporation}" /> <font color="red">*</font>
+								value="${member.corporation}" /> <font color="red">*</font>
 							</td>
 							<td align="center">法人身份证号</td>
 							<td><input class="easyui-validatebox" required="true"
 								validType="cardNo[18]" maxlength="18"
-								name="merchDeta.member.corpNo"
-								value="${merchDeta.member.corpNo}" /> <font color="red">*</font>
+								name="corpNo"
+								value="${member.corpNo}" /> <font color="red">*</font>
 							</td>
 						</tr>
 
@@ -196,11 +184,11 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">商户清算类型</td>
 							<td><select id="setltype_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.setlType" /></select> <font color="red">*</font>
+								required="true" name="setlType" /></select> <font color="red">*</font>
 							</td>
 							<td align="center">商户清算周期</td>
 							<td><select id="setlcycle_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.setlCycle" /></select> <font color="red">*</font>
+								required="true" name="setlCycle" /></select> <font color="red">*</font>
 							</td>
 						</tr>
 						<tr>
@@ -211,20 +199,20 @@ table tr td font.current-step {
 								href="javascript:modifyBank()" style="color: blue">修改</a> <span
 								id="bank_info"> <select id="banknode_ins"
 									class="easyui-validatebox" required="true"
-									name="merchDeta.bankNode" style="width: 150px" /></select> <font
+									name="bankNode" style="width: 150px" /></select> <font
 									color="red">*</font> <input id="banknode_key" maxlength="16"
 									type="text" onclick="checkBankKey()" onchange="queryBankNode()" /></span>
 							</td>
 						</tr>
 						<tr>
 							<td align="center">开户账号</td>
-							<td><input name="merchDeta.accNum" maxlength="32"
+							<td><input name="accNum" maxlength="32"
 								required="true" type="text" validType="settleAccount"
 								class="easyui-validatebox" value="${merchDeta.accNum}" /> <font
 								color="red">*</font></td>
 							<td align="center">开户名</td>
 							<td><input class="easyui-validatebox" maxlength="30"
-								validType="accName" required="true" name="merchDeta.accName"
+								validType="accName" required="true" name="accName"
 								value="${merchDeta.accName}" /> <font color="red">*</font></td>
 						</tr>
 
@@ -234,7 +222,7 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">合作机构</td>
 							<td><select id="coop_insti_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.member.coopInstiId"
+								required="true" name="coopInstiId"
 								style="width: 150px" onchange="refreshProduct()" /></select> <font
 								color="red">*</font></td>
 							<td align="center" colspan="2"></td>
@@ -242,27 +230,27 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">产品</td>
-							<td><select id="prdtver_ins" name="merchDeta.prdtVer"
+							<td><select id="prdtver_ins" name="prdtVer"
 								class="easyui-validatebox" required="true" style="width: 150px"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
 							<td align="center">风控版本</td>
 							<td><select id="riskver" class="easyui-validatebox"
-								name="merchDeta.riskVer" required="true" /></select> <font color="red">*</font>
+								name="riskVer" required="true" /></select> <font color="red">*</font>
 							</td>
 						</tr>
 						<tr>
 							<td align="center">扣率版本</td>
 							<td><select id="feever_ins" class="easyui-validatebox"
-								required="true" name="merchDeta.feeVer" /></select> <font color="red">*</font>
+								required="true" name="feeVer" /></select> <font color="red">*</font>
 							</td>
 							<td align="center">分润版本</td>
-							<td><select name="merchDeta.spiltVer" maxlength="8"
+							<td><select name="spiltVer" maxlength="8"
 								id="spiltver" /></select></td>
 						</tr>
 						<tr>
 							<td align="center">路由版本</td>
 							<td><select id="routver_ins" class="easyui-validatebox"
-								name="merchDeta.routVer" style="width: 150px" required="true" /></select>
+								name="routVer" style="width: 150px" required="true" /></select>
 								<font color="red">*</font></td>
 							<td align="center"></td>
 							<td></td>
@@ -273,41 +261,41 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center"><input type="checkbox" id="isDelegation"
-								name="merchDeta.member.isDelegation"
+								name="isDelegation"
 								onchange="checkIsDelegation()" />是否授权人办理</td>
 							<td colspan="3"></td>
 						</tr>
 						<tr id="delegation">
 							<td align="center">委托人姓名</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								id="signatory" name="merchDeta.member.signatory"
-								value="${merchDeta.member.signatory}" /> <font color="red">*</font>
+								id="signatory" name="signatory"
+								value="${member.signatory}" /> <font color="red">*</font>
 							</td>
 							<td align="center">委托人身份证号</td>
 							<td><input class="easyui-validatebox" validType="cardNo[18]"
 								id="signCertNo" maxlength="18"
-								name="merchDeta.member.signCertNo"
-								value="${merchDeta.member.signCertNo}" /> <font color="red">*</font>
+								name="signCertNo"
+								value="${member.signCertNo}" /> <font color="red">*</font>
 							</td>
 						</tr>
 						<tr>
 							<td align="center">客户经理</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								name="merchDeta.member.custMgr"
-								value="${merchDeta.member.custMgr}" /></td>
+								name="custMgr"
+								value="${member.custMgr}" /></td>
 							<td align="center">客户经理部门</td>
-							<td><input name="merchDeta.member.custMgrDept"
+							<td><input name="custMgrDept"
 								maxlength="16" type="text"
-								value="${merchDeta.member.custMgrDept}" /></td>
+								value="${member.custMgrDept}" /></td>
 						</tr>
 						<tr>
 							<td align="center">合约开始日期</td>
-							<td><input name="merchDeta.agreemtStart" editable="false"
+							<td><input name="agreemtStart" editable="false"
 								maxlength="12" type="text" id="startDate"
 								value="${merchDeta.agreemtStart}" /></td>
 							<td align="center">合约终止日期</td>
 							<td><input class="easyui-validatebox" editable="false"
-								maxlength="32" name="merchDeta.agreemtEnd" id="endDate"
+								maxlength="32" name="agreemtEnd" id="endDate"
 								value="${merchDeta.agreemtEnd}" /></td>
 						</tr>
 						<tr>
@@ -326,34 +314,34 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">联系人姓名</td>
-							<td><input name="merchDeta.member.contact" maxlength="16"
+							<td><input name="contact" maxlength="16"
 								type="text" class="easyui-validatebox"
-								value="${merchDeta.member.contact}" />
+								value="${member.contact}" />
 							<td align="center">联系人地址</td>
-							<td><input name="merchDeta.member.contAddress"
+							<td><input name="contAddress"
 								maxlength="128" style="width: 250px" type="text"
 								class="easyui-validatebox"
-								value="${merchDeta.member.contAddress}" /></td>
+								value="${member.contAddress}" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人电话</td>
 							<td><input class="easyui-validatebox" maxlength="11"
-								validType="chinesetest" name="merchDeta.member.contPhone"
-								value="${merchDeta.member.contPhone}" /></td>
+								validType="chinesetest" name="contPhone"
+								value="${member.contPhone}" /></td>
 							<td align="center">联系人职位</td>
-							<td><input name="merchDeta.member.contTitle" maxlength="16"
-								type="text" value="${merchDeta.member.contTitle}" /></td>
+							<td><input name="contTitle" maxlength="16"
+								type="text" value="${member.contTitle}" /></td>
 						</tr>
 						<tr>
 							<td align="center">联系人邮箱</td>
 							<td><input class="easyui-validatebox" maxlength="16"
-								validType="email" name="merchDeta.member.contEmail"
-								value="${merchDeta.member.contEmail}" /></td>
+								validType="email" name="contEmail"
+								value="${member.contEmail}" /></td>
 
 
 							<td align="center">备注</td>
 							<td><input class="easyui-validatebox" maxlength="50"
-								name="merchDeta.notes" value="${merchDeta.notes}" /></td>
+								name="notes" value="${merchDeta.notes}" /></td>
 
 						</tr>
 					</table>
@@ -372,11 +360,13 @@ table tr td font.current-step {
 </body>
 
 <script>
-	  $(function() {
-			init();
-		});
+	$(function() {
+		init();
 		
-	  	function init(){
+	});
+
+	function init(){
+		
 	  		var oldbankname = $("#bankname_old").val();
 	  		$("#oldBankName_input").val(oldbankname);
 	  		showProvince();
@@ -400,7 +390,7 @@ table tr td font.current-step {
 			//$('#endDate').datebox('setValue',$('#agreemtEnd_old').val());
 			initDelegation();
 			$('#bank_info').hide();
-	  	}
+	  	};
 	  
 		function loadOrgan() {
 			var html = '<option value="">--请选择所属机构--</option>';
@@ -429,19 +419,21 @@ table tr td font.current-step {
 						return $('#merchDetaForm').form('validate');
 					},
 					success: function(json) {
-						json = eval('(' + json + ')');						
-						if (json.RET == "succ") {
-							$("#button_id").linkbutton('enable');
-							$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
-								if(data){
-									window.location.href= "<%=basePath%>" +'/pages/merchant/toUploadModifyInfoMerchantAction.action?merchApplyId='+json.INFO;
-								}
-								
-							});
-						} else {
-							$.messager.alert('提示', json.INFO);
-							$("#button_id").linkbutton('enable');
-						}
+						json = eval('(' + json + ')');	
+						$.each(json,function(key, value) {
+							if (value.RET == "succ") {
+								$("#button_id").linkbutton('enable');
+								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
+									if(data){
+										window.location.href= "<%=basePath%>" +'/merchant/toUploadModifyInfo?merchApplyId='+value.INFO;
+									}
+									
+								});
+							} else {
+								$.messager.alert('提示', value.INFO);
+								$("#button_id").linkbutton('enable');
+							}
+						});
 					}
 				});
 			}
@@ -451,17 +443,17 @@ table tr td font.current-step {
 			$.ajax({
 				async:false,
 				type: "POST",
-				url: "pages/merchant/queryProvinceMerchantAction.action",
+				url: "merchant/queryProvince",
 				dataType: "json",
 				success: function(json) {
 					var province = $('#province_old').val();
 					var html = "<option value=''>--请选择所属省--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.pId==province){
-							html += '<option value="' + value.pId + '" selected="selected">' + value.pName + '</option>';
+						if(value.P_ID==province){
+							html += '<option value="' + value.P_ID + '" selected="selected">' + value.P_NAME + '</option>';
 						}else{
-							html += '<option value="' + value.pId + '">' + value.pName + '</option>';
+							html += '<option value="' + value.P_ID + '">' + value.P_NAME + '</option>';
 						}
 					}) ;
 					$("#province_ins").html(html);
@@ -480,7 +472,7 @@ table tr td font.current-step {
 			$.ajax({
 				async:false,
 				type: "POST",
-				url: "pages/merchant/queryCityMerchantAction.action",
+				url: "merchant/queryCity",
 				data: "pid=" + pid,
 				dataType: "json",
 				success: function(json) {
@@ -488,10 +480,10 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择所属市--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.cId==city){
-							html += '<option value="' + value.cId + '" selected="selected">' + value.cName + '</option>';
-						}else{
-							html += '<option value="' + value.cId + '">' + value.cName + '</option>';
+						if(value.CId==city){
+							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
+						}else {
+							html += '<option value="' + value.CId + '">' + value.CName + '</option>';
 						}
 					});
 					if (type == 'province_ins') {
@@ -512,7 +504,7 @@ table tr td font.current-step {
 			$.ajax({
 				async:false,
 				type: "POST",
-				url: "pages/merchant/queryCountyMerchantAction.action",
+				url: "merchant/queryCounty",
 				data: "pid=" + pid,
 				dataType: "json",
 				success: function(json) {
@@ -554,7 +546,7 @@ table tr td font.current-step {
 			} 
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryBankNodeMerchantAction.action",
+				url: "merchant/queryBankNode",
 				data: "bankName=" + pid,
 				dataType: "json",
 				success: function(json) {
@@ -572,7 +564,7 @@ table tr td font.current-step {
 		function showMerchType(){
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryMerchTypeMerchantAction.action",
+				url: "merchant/queryMerchType",
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
@@ -591,7 +583,7 @@ table tr td font.current-step {
 		function showqueryTrade(){
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryTrateMerchantAction.action",
+				url: "merchant/queryTrate",
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
@@ -610,7 +602,7 @@ table tr td font.current-step {
 		function showMccList(){
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryMccListMccAction.action",
+				url: "merchant/queryMccList",
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
@@ -618,12 +610,11 @@ table tr td font.current-step {
 					var html = "<option value=''>--商户所属行业--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.mccList==mcclist){
-							html += '<option value="' + value.mccList + '" selected="selected">' + value.mccCont + '</option>';
+						if(value.MCCLIST==mcclist){
+							html += '<option value="' + value.MCCLIST + '" selected="selected">' + value.MCCCONT + '</option>';
 						}else{
-							html += '<option value="' + value.mccList + '">' + value.mccCont + '</option>';
+							html += '<option value="' + value.MCCLIST + '">' + value.MCCCONT + '</option>';
 						}
-						
 					}) ;
 					$("#mcclist_ins").html(html);
 		
@@ -735,17 +726,17 @@ table tr td font.current-step {
 			$.ajax({
 				async:false,
 				type: "POST",
-				url: "pages/coopinsti/queryCoopInstiProductCoopInstiAction.action?coopInstiId="+coopInstiId,
+				url: "merchant/queryProduct?coopInstiId="+coopInstiId,
 				dataType: "json",
 				success: function(json) {
 					var prdtver = $('#prdtver_old').val();
 					var html = "<option value=''>--请选择产品--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.prdtver==prdtver){
-							html += '<option value="' + value.prdtver + '" selected="selected">' + value.prdtname + '</option>';
+						if(value.PRDTVER==prdtver){
+							html += '<option value="' + value.PRDTVER + '" selected="selected">' + value.PRDTNAME + '</option>';
 						}else{
-							html += '<option value="' + value.prdtver + '">' + value.prdtname + '</option>';
+							html += '<option value="' + value.PRDTVER + '">' + value.PRDTNAME + '</option>';
 						}
 					}) ;
 					$("#prdtver_ins").html(html);
@@ -756,7 +747,7 @@ table tr td font.current-step {
 		function showCash() {
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryCashMerchantAction.action",
+				url: "merchant/queryCash",
 				dataType: "json",
 				success: function(json) {
 					var cashver =  $('#cashver_old').val();
@@ -777,7 +768,7 @@ table tr td font.current-step {
 		function showChnlname() {
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryRouteAllMerchantAction.action",
+				url: "merchant/queryRouteAll",
 				dataType: "json",
 				success: function(json) {
 					var routever =  $('#routver_old').val();
@@ -797,7 +788,7 @@ table tr td font.current-step {
 		function showSetlcycleAll() {
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/querySetlcycleAllMerchantAction.action",
+				url: "merchant/querySetlcycleAll",
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
@@ -820,16 +811,16 @@ table tr td font.current-step {
 		function showCoopInsti() {
 			$.ajax({
 				type: "POST",
-				url: "pages/coopinsti/queryAllCoopInstiAction.action",
+				url: "merchant/queryAll",
 				dataType: "json",
 				success: function(json) {
 					var merCoopInstiId = $('#coopInstiId_old').val();
 					var html = "<option value=''>--请选择合作机构--</option>";
 					$.each(json,function(key, value) {
-						if(value.id==merCoopInstiId){
-							html += '<option value="' + value.id + '" selected="selected">' + value.instiName + '</option>';
+						if(value.ID==merCoopInstiId){
+							html += '<option value="' + value.ID + '" selected="selected">' + value.INSTI_NAME + '</option>';
 						}else{
-							html += '<option value="' + value.id + '">' + value.instiName + '</option>';
+							html += '<option value="' + value.ID + '">' + value.INSTI_NAME + '</option>';
 						}
 						
 					}) ;
@@ -859,7 +850,7 @@ table tr td font.current-step {
 		function queryRiskType(pid) {
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryRiskTypeMerchantAction.action?vid=" + pid,
+				url: "merchant/queryRiskType?vid=" + pid,
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
@@ -883,7 +874,7 @@ table tr td font.current-step {
 			$.ajax({
 				async:false,
 				type: "POST",
-				url: "pages/merchant/querySplitMerchantAction.action?vid=" + pid,
+				url: "merchant/querySplit?vid=" + pid,
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
@@ -906,7 +897,7 @@ table tr td font.current-step {
 			$.ajax({
 				async:false,
 				type: "POST",
-				url: "pages/merchant/queryFeeMerchantAction.action?vid=" + pid,
+				url: "merchant/queryFee?vid=" + pid,
 				dataType: "json",
 				success: function(json) {
 					var feever = $('#feever_old').val();
@@ -926,7 +917,7 @@ table tr td font.current-step {
 		function showSetClearType() {
 			$.ajax({
 				type: "POST",
-				url: "pages/merchant/queryMerchClearTypeMerchantAction.action",
+				url: "merchant/queryMerchClearType",
 				data: "rand=" + new Date().getTime(),
 				dataType: "json",
 				success: function(json) {
@@ -979,7 +970,7 @@ table tr td font.current-step {
 		}
 		
 		function backToMerchIndex(){
-			window.location.href= "<%=basePath%>" +'pages/merchant/showMerchModifyMerchantAction.action';
+			window.location.href= "<%=basePath%>" +'merchant/showMerchModify';
 		}
 	</script>
 </html>

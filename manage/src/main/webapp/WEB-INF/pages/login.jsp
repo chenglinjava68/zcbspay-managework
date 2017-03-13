@@ -30,7 +30,7 @@
 
 <body id="loginbody">
 	<form id="theForm" action="" method="post">
-<%-- 	<form id="theForm" action="<%=basePath%>validateUserLoginAction.action" method="post"> --%>
+<%-- 	<form id="theForm" action="<%=basePath%>validateUser" method="post"> --%>
 		<div class="loginbody">
 			<span class="systemlogo"></span>
 			<div class="loginbox">
@@ -51,7 +51,7 @@
 									name="randcode" class="easyui-validatebox" maxlength="4" />
 							</div>
 							<div>
-								<img src="validateCodeLoginAction.action"
+								<img src="validateCode"
 									onclick="changeValidateCode(this)"
 									style="vertical-align: middle; cursor: pointer; position: relative; top: 2px"
 									alt="刷新验证码" id="rand_image" />
@@ -88,12 +88,12 @@
 					try{
 						window.parent.returnLogin()
 					}catch(err){ 
-						window.location.href="<%=basePath%>"+"pages/logoutAction.action?relogin=relogin";
+						window.location.href="<%=basePath%>"+"login/logout?relogin=relogin";
 					}
 						 
 					$("#info").html("操作超时,请重新登录");
 				} 
-				$('#rand_image').attr("src","validateCodeLoginAction.action?rand="+new Date().getTime());
+				$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
 				$("#pwd,#loginname,#randcode,#loginbody").keydown(function(event){
 					if(event.keyCode==13){
 						$('#theForm').form('submit', {  
@@ -103,13 +103,13 @@
 						    success:function(data){   
 						    	var json = eval('(' + data + ')')
 							    if(json.ret=='success'){
-					    			window.location="<%=basePath%>"+"pages/querymenuAction.action";
+					    			window.location="<%=basePath%>"+"login/querymenu";
 								}else if(json.ret=='err_user'){
 									$("#info").html(json.info);
-									$('#rand_image').attr("src","validateCodeLoginAction.action?rand="+new Date().getTime());
+									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
 									$.ajax({
 										type: "GET",
-									  	url: "loginFailedCookieLoginAction.action?rand="+new Date().getTime(),
+									  	url: "loginFailedCookie?rand="+new Date().getTime(),
 									 	dataType: "text",
 									 	success:function(text){
 							    			
@@ -117,7 +117,7 @@
 									});
 								}else{
 									$("#info").html(json.info);
-									$('#rand_image').attr("src","validateCodeLoginAction.action?rand="+new Date().getTime());
+									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
 								}
 						    }   
 						});  
@@ -140,7 +140,7 @@
 		        var timenow = new Date().getTime();   
 		           //每次请求需要一个不同的参数，否则可能会返回同样的验证码   
 		        //这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。   
-		        obj.src="validateCodeLoginAction.action?d="+timenow;   
+		        obj.src="login/validateCode?d="+timenow;   
 		    }   
 
 			$("#reset_btn").click(function(){
@@ -156,13 +156,13 @@
 				    success:function(data){   
 					    var json = eval('(' + data + ')');
 					    if(json.ret=='success'){
-			    			window.location="<%=basePath%>pages/querymenuAction.action";
+			    			window.location="<%=basePath%>" + "login/querymenu";
 						}else if(json.ret=='err_user'){
 							$("#info").html(json.info);
-							$('#rand_image').attr("src","validateCodeLoginAction.action?rand="+new Date().getTime());
+							$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
 							$.ajax({
 								type: "GET",
-							  	url: "loginFailedCookieLoginAction.action?rand="+new Date().getTime(),
+							  	url: "login/loginFailedCookie?rand="+new Date().getTime(),
 							 	dataType: "text",
 							 	success:function(text){
 					    			
@@ -170,7 +170,7 @@
 							});
 						}else{
 							$("#info").html(json.info);
-							$('#rand_image').attr("src","validateCodeLoginAction.action?rand="+new Date().getTime());
+							$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
 						}
 				    }   
 				});  

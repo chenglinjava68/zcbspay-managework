@@ -618,7 +618,6 @@ table tr td font.current-step {
 						}else{
 							html += '<option value="' + value.MCCLIST + '">' + value.MCCCONT + '</option>';
 						}
-						
 					}) ;
 					$("#mcclist_ins").html(html);
 		
