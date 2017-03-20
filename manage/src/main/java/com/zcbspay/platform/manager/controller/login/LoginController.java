@@ -91,7 +91,7 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping("/validateUser")
-	public Object validateUser(UserBean user,HttpServletRequest request,String randcode) {
+	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,String randcode) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		String rand = ""; 
 		HttpSession session = request.getSession(true);

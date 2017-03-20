@@ -573,7 +573,7 @@ table tr td select {
 				   async: false,
 				   dataType:"json",
 				   success: function(data){
-					   json = eval('(' + json + ')');
+					   json = eval("(" + data + ")");
 						 if(json.status=='OK'){
 							 $.messager.alert('提示',"删除成功");  
 						 }else{

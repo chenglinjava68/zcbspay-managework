@@ -292,23 +292,23 @@ table tr td select {
 		function deleteOrgan(organId){
 			$.messager.confirm('提示','您是否想要注销此机构?',function(r){   
 			   if (r){  
-				$.ajax({
-				   type: "POST",
-				   url: "organ/delete",
-// 				   url: "pages/system/deleteOrganAction.action",
-				   data: "organId="+organId,
-				   dataType:"json",
-				   success:function(json){
-						$.each(json, function(key,value){
-				    		$.messager.alert('提示',value.INFO);   
-				    		search();
-				    		closeAdd();
-						}) 
-				   
-				 	}
-				});
-				    }   
-				});  
+					$.ajax({
+					   type: "POST",
+					   url: "organ/delete",
+	// 				   url: "pages/system/deleteOrganAction.action",
+					   data: "organId="+organId,
+					   dataType:"json",
+					   success:function(json){
+							$.each(json, function(key,value){
+					    		$.messager.alert('提示',value.INFO);   
+					    		search();
+					    		closeAdd();
+							}) 
+					   
+					 	}
+					});
+				 }   
+			});  
 		}
 		function showOrgan(organId){	
 			$("#organForm").attr("action","organ/update");	

@@ -50,4 +50,10 @@ public interface MerchBankAccoutService {
 	 * @return
 	 */
 	BankInfoBean queryBankInfo(String bankNode);
+
+	/**
+	 * 查询总数
+	 * @return
+	 */
+	Integer findAll(MerchBankAccoutBean bankAccount);
 }

@@ -79,4 +79,9 @@ public class MerchBankAccoutServiceImpl implements MerchBankAccoutService {
 		BeanUtils.copyProperties(pojo, bean);
 		return bean;
 	}
+
+	@Override
+	public Integer findAll(MerchBankAccoutBean bankAccount) {
+		return merchBankAccountDao.findAll(bankAccount).size();
+	}
 }

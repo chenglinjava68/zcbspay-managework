@@ -47,23 +47,12 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	                "v_flag", "i_no", "i_perno"};
 
 	        Object[] paramaters = new Object[]{
-	                variables.containsKey("userId")
-	                        ? variables.get("userId")
-	                        : null,
-	                variables.containsKey("merberId")
-	                        ? variables.get("merberId")
-	                        : null,
-	                variables.containsKey("merchName")
-	                        ? variables.get("merchName")
-	                        : null,
-	                variables.containsKey("address")
-	                        ? variables.get("address")
-	                        : null,
-	                variables.containsKey("status")
-	                        ? variables.get("status")
-	                        : null,
-	                variables.containsKey("coopInstiId") ? variables
-	                        .get("coopInstiId") : null,
+	                variables.containsKey("userId") ? variables.get("userId") : null,
+	                variables.containsKey("merberId") ? variables.get("merberId") : null,
+	                variables.containsKey("merchName") ? variables.get("merchName") : null,
+	                variables.containsKey("address") ? variables.get("address") : null,
+	                variables.containsKey("status") ? variables.get("status") : null,
+	                variables.containsKey("coopInstiId") ? variables.get("coopInstiId") : null,
 	                variables.containsKey("flag") ? variables.get("flag") : null,
 	                page, rows};
 	        // busiAcctServiceImpl.openBusiAcct(member, busiAcct, userId)
