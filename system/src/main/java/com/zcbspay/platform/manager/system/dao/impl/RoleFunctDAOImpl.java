@@ -29,7 +29,8 @@ public class RoleFunctDAOImpl extends HibernateBaseDAOImpl<PojoRoleFunct> implem
 		Object[] paramaters = null;
 		String sql;
 		if(roleId != null){
-			sql = "select rm from PojoRoleFunct rm where rm.roleId=" + roleId;
+			sql = "select rm from PojoRoleFunct rm where rm.roleId=?";
+			paramaters = new Object[]{roleId};
 		}else{
 			sql = "select rm from PojoRoleFunct";
 		}
@@ -42,7 +43,10 @@ public class RoleFunctDAOImpl extends HibernateBaseDAOImpl<PojoRoleFunct> implem
 		String sql;
 		if(functList.size() > 0){
 			for(PojoRoleFunct roleFunct : functList){
-				sql = "insert into T_ROLE_FUNCT(ROLE_ID,FUNCT_ID) values ("+ roleFunct.getRoleId()+","+roleFunct.getFunctId()+")";
+				sql = "insert into T_ROLE_FUNCT(ROLE_ID,FUNCT_ID) values (?,?)";
+				paramaters = new Object[]{
+				"".equals(roleFunct.getRoleId()) ? null : roleFunct.getRoleId(),
+				"".equals(roleFunct.getFunctId()) ? null : roleFunct.getFunctId()};
 				queryBySQL(sql, paramaters);
 			}
 		}
@@ -52,16 +56,10 @@ public class RoleFunctDAOImpl extends HibernateBaseDAOImpl<PojoRoleFunct> implem
 	@Override
 	public List<?> findRoleFunctByRoleIds(List<Long> roleIdlist) {
 		Object[] paramaters = null;
-		String sql;
 		List<?> list = new ArrayList<PojoRoleFunct>();
-//		Criteria crite = this.getSession().createCriteria(PojoRoleFunct.class);
 		for(Long roleId : roleIdlist){
-			
-//			crite.add(Restrictions.eq("roleId",roleId));
-//			Object uniqueResult = crite.uniqueResult();
-//			RoleFunctBean roleFunct = BeanCopyUtil.copyBean(RoleFunctBean.class, uniqueResult);
-//			list.add(roleFunct);
-			sql = "select rm from PojoRoleFunct rm where rm.roleId=" + roleId;
+			String sql = "select rm from PojoRoleFunct rm where rm.roleId=?";
+			paramaters = new Object[]{roleId};
 			 list = queryByHQL(sql, paramaters);
 		}
 		return list;

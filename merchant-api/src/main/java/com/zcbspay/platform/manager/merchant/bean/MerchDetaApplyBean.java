@@ -67,7 +67,7 @@ public class MerchDetaApplyBean implements Serializable{
     private String notes;
     /**备注**/
     private String remarks;
-    /**会员申请ID**/
+//    /**门户用户激活状态**/
 //    private long memApplyId;
     /**付款卡清算行号**/
     private String payBankCode;
@@ -77,6 +77,10 @@ public class MerchDetaApplyBean implements Serializable{
     private String payAccNum;
     /**付款卡开户名**/
     private String payAccName;
+    /**会员类型，01-个人，02-企业，03-委托机构**/
+    private String memberType;
+    /**收费单位代码**/
+    private String chargingunit;
 	public Long getSelfId() {
 		return selfId;
 	}
@@ -292,6 +296,18 @@ public class MerchDetaApplyBean implements Serializable{
 	}
 	public void setPayAccName(String payAccName) {
 		this.payAccName = payAccName;
+	}
+	public String getMemberType() {
+		return memberType;
+	}
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
+	public String getChargingunit() {
+		return chargingunit;
+	}
+	public void setChargingunit(String chargingunit) {
+		this.chargingunit = chargingunit;
 	}
     
 }

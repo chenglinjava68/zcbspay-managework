@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.controller.system;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +93,6 @@ private static final long serialVersionUID = -5212979447414357931L;
 		
 		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
 		organ.setCreator(loginUser.getLoginName());
-		
 		return organService.saveOrgan(organ);
 	}
 	

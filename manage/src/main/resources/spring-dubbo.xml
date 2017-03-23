@@ -45,4 +45,7 @@
 	
 	<!-- 合同管理 -->
 	<dubbo:reference id="contractService" interface="com.zcbspay.platform.manager.merchant.service.ContractService" version="1.0"/>
+	
+	<!-- 委托机构 -->
+	<dubbo:reference id="agencyService" interface="com.zcbspay.platform.manager.merchant.service.AgencyService" version="1.0"/>
 </beans>

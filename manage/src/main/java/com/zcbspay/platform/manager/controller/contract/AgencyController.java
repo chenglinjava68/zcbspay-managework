@@ -1,11 +1,9 @@
-package com.zcbspay.platform.manager.controller.merchant;
+package com.zcbspay.platform.manager.controller.contract;
 
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,22 +30,22 @@ import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.service.CoopInstiService;
 import com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService;
 import com.zcbspay.platform.manager.merchant.service.MccListService;
-import com.zcbspay.platform.manager.merchant.service.MerchDetaService;
+import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.PojoProductService;
 import com.zcbspay.platform.manager.pojo.Money;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.system.service.CityService;
 import com.zcbspay.platform.manager.system.service.ProvinceService;
 @Controller
-@RequestMapping("/merchant")
+@RequestMapping("/agency")
 @SuppressWarnings("all")
-public class MerchDetaController {
+public class AgencyController {
     private String deposit;
     private String charge;
     private final static BigDecimal HUNDERED = new BigDecimal(100);
     
     @Autowired
-	private MerchDetaService merchDetaService;
+	private AgencyService agencyService;
     @Autowired
     private EnterpriseDetaService enterpriseDetaService;
     @Autowired
@@ -65,7 +63,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/show")
     public ModelAndView show(HttpServletRequest request) { 
-    	ModelAndView result = new ModelAndView("/merch/merch_query"); 
+    	ModelAndView result = new ModelAndView("/agency/merch_query"); 
     	result.addObject("flag", "1"); 
     	return result; 
     }
@@ -74,7 +72,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/showMerchAdd")
     public ModelAndView showMerchAdd(HttpServletRequest request) { 
-    	ModelAndView result = new ModelAndView("/merch/add/step_first_record"); 
+    	ModelAndView result = new ModelAndView("/agency/add/step_first_record"); 
     	return result; 
     }
 
@@ -82,7 +80,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/showMerchAuditQuery")
     public ModelAndView showMerchAuditQuery(HttpServletRequest request) { 
-    	ModelAndView result = new ModelAndView("/merch/merch_query"); 
+    	ModelAndView result = new ModelAndView("/agency/merch_query"); 
     	result.addObject("flag", "2"); 
     	return result;
     }
@@ -91,7 +89,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/showMerchReAuditQuery")
     public ModelAndView showMerchReAuditQuery(HttpServletRequest request) {
-    	 ModelAndView result = new ModelAndView("/merch/merch_query");
+    	 ModelAndView result = new ModelAndView("/agency/merch_query");
     	 result.addObject("flag", "3"); 
     	 return result; 
     }
@@ -100,7 +98,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toMerchAudit")
     public ModelAndView toMerchAudit(HttpServletRequest request) {
-    	 ModelAndView result = new ModelAndView("/merch/merch_detail");
+    	 ModelAndView result = new ModelAndView("/agency/merch_detail");
     	 result.addObject("flag", "5");
     	 return result; 
     }
@@ -109,7 +107,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/showMerchQueryAll")
     public ModelAndView showMerchQueryAll(HttpServletRequest request) {
-   	 ModelAndView result = new ModelAndView("/merch/merch_query_all");
+   	 ModelAndView result = new ModelAndView("/agency/merch_query_all");
    	 result.addObject("flag", "10");
    	 return result; 
    }
@@ -147,7 +145,7 @@ public class MerchDetaController {
 
         UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
         merchDeta.setmInUser(currentUser.getUserId());
-        return merchDetaService.saveMerchDeta(merchDeta, enterprise);
+        return agencyService.saveMerchDeta(merchDeta, enterprise);
     }
 
     /**
@@ -165,7 +163,7 @@ public class MerchDetaController {
         variables.put("merchName", memberName);
         variables.put("status", merchStatus);
         variables.put("flag", flag);
-        return merchDetaService.findMerchByPage(variables, page, rows);
+        return agencyService.findMerchByPage(variables, page, rows);
     }
     /**
      * 跳转到上传证件页面
@@ -173,8 +171,8 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toUpload")
     public ModelAndView toUpload(String merchApplyId) {
-        ModelAndView result = new ModelAndView("/merch/add/step_sec_upload");
-        MerchDetaApplyBean merchDeta = merchDetaService.getBean(Long.parseLong(merchApplyId));
+        ModelAndView result = new ModelAndView("/agency/add/step_sec_upload");
+        MerchDetaApplyBean merchDeta = agencyService.getBean(Long.parseLong(merchApplyId));
         EnterpriseDetaApplyBean enterpriseDeta = enterpriseDetaService.findById(merchDeta.getSelfId().toString());
         result.addObject("merchDeta", merchDeta); 
         result.addObject("member", enterpriseDeta); 
@@ -198,7 +196,7 @@ public class MerchDetaController {
         }
         CertType certType = CertType.format(certTypeCode);
         String fileNamea = fileUpload(certTypeCode,request,headImage);
-        boolean isSucc = merchDetaService.upload(merchApplyId,fileNamea, certType);
+        boolean isSucc = agencyService.upload(merchApplyId,fileNamea, certType);
         if (isSucc) {
             result.put("status", "OK");
         } else {
@@ -268,14 +266,14 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/downloadImgUrl")
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String merchApplyId, String certTypeCode) { 
-    	String filePath = merchDetaService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
-    	filePath = "javaCode/"+filePath;
-        Map<String, String> result = new HashMap<String, String>();
+    	 Map<String, String> result = new HashMap<String, String>();
+    	String filePath = agencyService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
         if (filePath == null) {
             result.put("status", "fail");
         } else if (filePath.equals("")) {
             result.put("status", "notExist");
         } else {
+        	filePath = "javaCode/"+filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }
@@ -290,10 +288,10 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toMerchChange")
     public ModelAndView toMerchChange(String merchApplyId, String oldBankName) {
-    	 ModelAndView result = new ModelAndView("/merch/merch_change");
-    	 MerchDetaApplyBean merchDeta = merchDetaService.getBean(Long.parseLong(merchApplyId));
+    	 ModelAndView result = new ModelAndView("/agency/merch_change");
+    	 MerchDetaApplyBean merchDeta = agencyService.getBean(Long.parseLong(merchApplyId));
     	 EnterpriseDetaApplyBean enterpriseDeta = enterpriseDetaService.findById(merchDeta.getSelfId().toString()); 
-    	 oldBankName = merchDetaService.queryBankName(merchDeta.getBankNode(), merchDeta.getBankCode()); 
+    	 oldBankName = agencyService.queryBankName(merchDeta.getBankNode(), merchDeta.getBankCode()); 
     	 result.addObject("merchDeta", merchDeta); result.addObject("member", enterpriseDeta);
     	 result.addObject("oldBankName", oldBankName); 
     	 result.addObject("merchApplyId", merchApplyId); 
@@ -371,7 +369,7 @@ public class MerchDetaController {
 
         UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
         merchDeta.setmInUser(currentUser.getUserId()); 
-        List<?> resultlist = merchDetaService.saveChangeMerchDeta(merchApplyId, merchDeta, enterpriseDeta); 
+        List<?> resultlist = agencyService.saveChangeMerchDeta(merchApplyId, merchDeta, enterpriseDeta); 
         return resultlist; 
     }
 
@@ -383,7 +381,7 @@ public class MerchDetaController {
 	@RequestMapping("/commitMerch")
     public Map<String, String> commitMerch(String merchApplyId) {
         Map<String, String> result = new HashMap<String, String>();
-        boolean isSucc = merchDetaService.commitMerch(merchApplyId);
+        boolean isSucc = agencyService.commitMerch(merchApplyId);
         if (isSucc) {
             result.put("status", "OK");
         } else {
@@ -399,9 +397,9 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toMerchDetail")
     public ModelAndView toMerchDetail(String merchApplyId, HttpServletRequest request, String flag) { 
-    	ModelAndView result = new ModelAndView("/merch/merch_detail"); 
+    	ModelAndView result = new ModelAndView("/agency/merch_detail"); 
     	UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
-    	Map<String, Object> merchMap = merchDetaService.queryApplyMerchDeta(merchApplyId, currentUser.getUserId()); 
+    	Map<String, Object> merchMap = agencyService.queryApplyMerchDeta(merchApplyId, currentUser.getUserId()); 
     	 result.addObject("merchMap", merchMap); 
     	 result.addObject("flag", flag);
     	return result; 
@@ -413,9 +411,9 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toMerchModify")
     public ModelAndView toMerchModify(String merchApplyId, HttpServletRequest request, String flag) { 
-    	ModelAndView result = new ModelAndView("/merch/merch_detail"); 
+    	ModelAndView result = new ModelAndView("/agency/merch_detail"); 
     	UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
-    	Map<String, Object> merchMap = merchDetaService.queryApplyMerchDeta(merchApplyId, currentUser.getUserId()); 
+    	Map<String, Object> merchMap = agencyService.queryApplyMerchDeta(merchApplyId, currentUser.getUserId()); 
     	 result.addObject("merchMap", merchMap); 
     	 result.addObject("flag", flag);
     	return result; 
@@ -447,7 +445,7 @@ public class MerchDetaController {
             merchDeta.setCvlexaUser(currentUser.getUserId());
         }
         EnterpriseDetaApplyBean deta = enterpriseDetaService.findById(merchApplyId);
-        List<Map<String, Object>> resultlist = merchDetaService.merchAudit(merchApplyId, merchDeta, deta.getMemId(), flag, isAgree);
+        List<Map<String, Object>> resultlist = agencyService.merchAudit(merchApplyId, merchDeta, deta.getMemId(), flag, isAgree);
         if(flag.equals("6")){
             resultlist.get(0).put("FLAG", "复审通过");
         }else{
@@ -465,7 +463,7 @@ public class MerchDetaController {
     public String loadMerchMk() {
 //        if (memberId != null && !memberId.equals("")) {
 //        }
-//        merchMap = serviceContainer.getMerchDetaService().loadMerchMk(memberId);
+//        merchMap = serviceContainer.getagencyService().loadMerchMk(memberId);
 //        if (merchMap == null) {
 //            json_encode("没有密钥");
 //            return null;
@@ -480,7 +478,7 @@ public class MerchDetaController {
 	@RequestMapping("/toOfficalMerchDetail")
     public String toOfficalMerchDetail(){
 //        Long userId = currentUser.getUserId();
-//        merchMap = serviceContainer.getMerchDetaService().queryMerchDeta(
+//        merchMap = serviceContainer.getagencyService().queryMerchDeta(
 //                Long.parseLong(merchId), userId);
         return "merch_detail";
     }
@@ -509,7 +507,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryCounty")
     public List<?> queryCounty(String pid) {
-    	return merchDetaService.queryCounty(pid);
+    	return agencyService.queryCounty(pid);
     }
 
     /**
@@ -518,7 +516,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryTrate")
     public List<?> queryTrate() {
-    	return merchDetaService.queryTrade();
+    	return agencyService.queryTrade();
     }
     /**
      * 商户类型
@@ -526,7 +524,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryMerchType")
     public List<?> queryMerchType() {
-    	return merchDetaService.queryMerchType();
+    	return agencyService.queryMerchType();
     }
 
     /**
@@ -535,7 +533,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryMerchClearType")
     public List<?> queryMerchClearType() {
-    	return merchDetaService.querysetltype();
+    	return agencyService.querysetltype();
     }
 
     /**
@@ -544,7 +542,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/showMerchParent")
     public List<?> showMerchParent() {
-    	return merchDetaService.queryMerchParent();
+    	return agencyService.queryMerchParent();
     }
 
     /**
@@ -553,7 +551,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryBankNode")
     public List<?> queryBankNode(String bankName, Integer page, Integer rows) { 
-    	return merchDetaService.queryBankNode(bankName, page, rows);
+    	return agencyService.queryBankNode(bankName, page, rows);
      }
 
     /**
@@ -563,7 +561,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryCash")
     public List<?> queryCash() {
-    	return merchDetaService.queryCashAll();
+    	return agencyService.queryCashAll();
     }
 
     /**
@@ -572,7 +570,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryChnlnameAll")
     public List<?> queryChnlnameAll() {
-    	return merchDetaService.queryChnlnameAll();
+    	return agencyService.queryChnlnameAll();
     }
 
     /**
@@ -581,7 +579,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryRouteAll")
     public List<?> queryRouteAll() {
-    	return merchDetaService.queryRouteAll();
+    	return agencyService.queryRouteAll();
     }
 
     /**
@@ -590,7 +588,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryRiskType")
     public List<?> queryRiskType(String vid) {
-    	return merchDetaService.queryRiskType(vid);
+    	return agencyService.queryRiskType(vid);
     }
 
     /**
@@ -599,7 +597,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/querySplit")
     public List<?> querySplit(String vid) {
-    	return merchDetaService.querySplit(vid);
+    	return agencyService.querySplit(vid);
     }
 
     /**
@@ -608,7 +606,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/queryFee")
     public List<?> queryFee(String vid) {
-    	return merchDetaService.queryFee(vid);
+    	return agencyService.queryFee(vid);
     }
 
     /**
@@ -617,7 +615,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/querySetlcycleAll")
     public List<?> querySetlcycleAll() {
-    	return merchDetaService.querySetlcycleAll();
+    	return agencyService.querySetlcycleAll();
     }
     
     /**
@@ -653,7 +651,7 @@ public class MerchDetaController {
 	@RequestMapping("/showMerchModify")
     public ModelAndView showMerchModify(String flag){
     	// TODO Auto-generated catch block
-    	ModelAndView result = new ModelAndView("/merch/merch_modify_query");
+    	ModelAndView result = new ModelAndView("/agency/merch_modify_query");
    	 	result.addObject("flag", "4");
    	 	return result; 
     }
@@ -663,7 +661,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/merchModifyFirstCheck")
     public ModelAndView merchModifyFirstCheck(String flag){
-    	ModelAndView result = new ModelAndView("/merch/merch_modify_query");
+    	ModelAndView result = new ModelAndView("/agency/merch_modify_query");
     	result.addObject("flag", "5");
     	return result;
     }
@@ -673,7 +671,7 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/merchModifySecondCheck")
     public ModelAndView merchModifySecondCheck(String flag){
-    	ModelAndView result = new ModelAndView("/merch/merch_modify_query");
+    	ModelAndView result = new ModelAndView("/agency/merch_modify_query");
    	 	result.addObject("flag", "6");
    	 	return result;
     }
@@ -694,7 +692,7 @@ public class MerchDetaController {
             variables.put("merchName", memberName);
         }
         variables.put("flag", flag);
-        return merchDetaService.findMerchByPage(variables, page, rows);
+        return agencyService.findMerchByPage(variables, page, rows);
     }
     
     /**
@@ -704,11 +702,11 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toMerchModifyEdit")
     public ModelAndView toMerchModifyEdit(MerchDetaApplyBean merchDeta,String merchApplyId,String oldBankName){
-    	ModelAndView result = new ModelAndView("/merch/merch_modify_edit");
+    	ModelAndView result = new ModelAndView("/agency/merch_modify_edit");
     	
-    	 merchDeta = merchDetaService.getBean(Long.parseLong(merchApplyId));
+    	 merchDeta = agencyService.getBean(Long.parseLong(merchApplyId));
 	   	 EnterpriseDetaApplyBean enterpriseDeta = enterpriseDetaService.findById(merchDeta.getSelfId().toString()); 
-	   	 oldBankName = merchDetaService.queryBankName(merchDeta.getBankNode(), merchDeta.getBankCode()); 
+	   	 oldBankName = agencyService.queryBankName(merchDeta.getBankNode(), merchDeta.getBankCode()); 
 	   	 result.addObject("merchDeta", merchDeta); result.addObject("member", enterpriseDeta);
 	   	 
 	   	 result.addObject("oldBankName", oldBankName); 
@@ -726,14 +724,14 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toUploadModifyInfo")
     public ModelAndView toUploadModifyInfo(String merchApplyId){
-    	ModelAndView result = new ModelAndView("/merch/add/merch_modify_commit");
-        MerchDetaApplyBean merchDeta = merchDetaService.getBean(Long.parseLong(merchApplyId));
+    	ModelAndView result = new ModelAndView("/agency/add/merch_modify_commit");
+        MerchDetaApplyBean merchDeta = agencyService.getBean(Long.parseLong(merchApplyId));
         EnterpriseDetaApplyBean enterpriseDeta = enterpriseDetaService.findById(merchDeta.getSelfId().toString());
         result.addObject("merchDeta", merchDeta); 
         result.addObject("member", enterpriseDeta); 
         result.addObject("merchApplyId", merchApplyId);
         return result;
-//        merchDeta = serviceContainer.getMerchDetaService().getBean(
+//        merchDeta = serviceContainer.getagencyService().getBean(
 //                Long.parseLong(merchApplyId));
 //        if (merchDeta == null) {
 //        }
@@ -749,7 +747,7 @@ public class MerchDetaController {
 	@RequestMapping("/commitMerchModify")
     public Map<String, String> commitMerchModify(String merchApplyId){
     	Map<String, String> result = new HashMap<String, String>();
-        boolean isSucc = merchDetaService.commitMerch(merchApplyId);
+        boolean isSucc = agencyService.commitMerch(merchApplyId);
         if (isSucc) {
             result.put("status", "OK");
         } else {
@@ -757,9 +755,9 @@ public class MerchDetaController {
         }
         return result;
 //        Map<String, String> result = new HashMap<String, String>();
-//        IMerchDetaService merchDetaService = serviceContainer
-//                .getMerchDetaService();
-//        boolean isSucc = merchDetaService.commitMerchModify(Long
+//        IagencyService agencyService = serviceContainer
+//                .getagencyService();
+//        boolean isSucc = agencyService.commitMerchModify(Long
 //                .parseLong(merchApplyId));
 //        if (isSucc) {
 //            result.put("status", "OK");
@@ -803,8 +801,8 @@ public class MerchDetaController {
 
             UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
             merchDeta.setmInUser(currentUser.getUserId());
-            return merchDetaService.saveChangeMerchDeta(merchApplyId, merchDeta, enterpriseDeta); 
-//            return merchDetaService.saveMerchDeta(merchDeta, enterpriseDeta);
+            return agencyService.saveChangeMerchDeta(merchApplyId, merchDeta, enterpriseDeta); 
+//            return agencyService.saveMerchDeta(merchDeta, enterpriseDeta);
 //        if (enterpriseDeta.getIsDelegation() == null) {
 //            enterpriseDeta.setIsDelegation(0L);
 //        }
@@ -827,7 +825,7 @@ public class MerchDetaController {
 //                    .multiply(HUNDERED)));
 //        }
 //
-//        List<?> resultlist = serviceContainer.getMerchDetaService()
+//        List<?> resultlist = serviceContainer.getagencyService()
 //                .saveMerchModifyDeta(Long.parseLong(merchApplyId), merchDeta);
 //        merchDeta.setmInUser(currentUser.getUserId());
 //        json_encode(resultlist.get(0));
@@ -841,15 +839,15 @@ public class MerchDetaController {
     @ResponseBody
 	@RequestMapping("/toMerchModifyDetail")
     public ModelAndView toMerchModifyDetail(String merchApplyId, HttpServletRequest request, String flag){
-    	ModelAndView result = new ModelAndView("/merch/merch_modify_detail"); 
+    	ModelAndView result = new ModelAndView("/agency/merch_modify_detail"); 
     	UserBean currentUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
-    	Map<String, Object> merchMap = merchDetaService.queryApplyMerchDeta(merchApplyId, currentUser.getUserId()); 
+    	Map<String, Object> merchMap = agencyService.queryApplyMerchDeta(merchApplyId, currentUser.getUserId()); 
     	 result.addObject("merchMap", merchMap); 
     	 result.addObject("flag", flag);
     	return result;
     
 //        Long userId = currentUser.getUserId();
-//        merchMap = serviceContainer.getMerchDetaService().queryModifyMerchDeta(
+//        merchMap = serviceContainer.getagencyService().queryModifyMerchDeta(
 //                Long.parseLong(merchApplyId), userId);
 //        return "merch_modify_detail";  
     }
@@ -904,7 +902,7 @@ public class MerchDetaController {
 //            variables.put("enterpriseStatus", enterprise.getEnterpriseStatus());//状态
 //        }
 //        variables.put("flag", flag);
-//        Map<String, Object> enterpriseList = serviceContainer.getMerchDetaService()
+//        Map<String, Object> enterpriseList = serviceContainer.getagencyService()
 //                .findEnterpriseByPage(variables, getPage(), getRows());
 //        json_encode(enterpriseList);
         return null;
@@ -917,7 +915,7 @@ public class MerchDetaController {
 	@RequestMapping("/toEnterpriseDetail")
     public String toEnterpriseDetail(){
 //        Long userId = currentUser.getUserId();
-//        enterpriseDeta = serviceContainer.getMerchDetaService().queryEnterpriseExamDeta
+//        enterpriseDeta = serviceContainer.getagencyService().queryEnterpriseExamDeta
 //                (Long.parseLong(enterpriseApplyId),userId);
         return "enterpriseFirstExam"; 
     }
@@ -944,7 +942,7 @@ public class MerchDetaController {
 //        }
 //
 //        variables.put("flag", flag);
-//        Map<String, Object> merchList = serviceContainer.getMerchDetaService()
+//        Map<String, Object> merchList = serviceContainer.getagencyService()
 //                .findMerchByPage(variables, getPage(), getRows());
 //        json_encode(merchList);
         return null;
@@ -967,7 +965,7 @@ public class MerchDetaController {
 //            enterprise.setCvlexaUser(currentUser.getUserId());
 //        }        
 //        List<Map<String, Object>> resultlist = (List<Map<String, Object>>) serviceContainer
-//        .getMerchDetaService().enterpriseAudit(Long.parseLong(enterpriseApplyId),
+//        .getagencyService().enterpriseAudit(Long.parseLong(enterpriseApplyId),
 //              enterprise, flag, isAgree);
         return null;
     } 

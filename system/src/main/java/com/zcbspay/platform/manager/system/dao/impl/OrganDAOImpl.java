@@ -29,8 +29,7 @@ public class OrganDAOImpl extends HibernateBaseDAOImpl<PojoOrgan> implements Org
 				"".equals(organ.getCreator()) ? null : organ.getCreator(),
 				"".equals(organ.getNotes()) ? null : organ.getNotes(),
 				"".equals(organ.getRemarks()) ? null : organ.getRemarks() };
-		return executeOracleProcedure(
-				"{CALL PCK_T_ORGAN.ins_t_organ(?,?,?,?,?,?,?,?,?)}",columns,
+		return executeOracleProcedure("{CALL PCK_T_ORGAN.ins_t_organ(?,?,?,?,?,?,?,?,?)}",columns,
 				paramaters, "cursor0");
 	}
 
@@ -50,8 +49,7 @@ public class OrganDAOImpl extends HibernateBaseDAOImpl<PojoOrgan> implements Org
 				"".equals(organ.getNotes()) ? null : organ.getNotes(),
 				"".equals(organ.getRemarks()) ? null : organ.getRemarks() };
 		
-		return executeOracleProcedure(
-				"{CALL PCK_T_ORGAN.upt_t_organ(?,?,?,?,?,?,?,?,?,?,?)}",columns,
+		return executeOracleProcedure("{CALL PCK_T_ORGAN.upt_t_organ(?,?,?,?,?,?,?,?,?,?,?)}",columns,
 				paramaters, "cursor0");
 	}
 	
@@ -65,22 +63,16 @@ public class OrganDAOImpl extends HibernateBaseDAOImpl<PojoOrgan> implements Org
 		paramaters[1] = variables.containsKey("organName")?variables.get("organName"):null;
 		paramaters[2] = page;
 		paramaters[3] = rows;
-		/*return executeOracleProcedure(
-				"{CALL PCK_T_ORGAN.sel_t_organ(?,?,?,?,?)}",columns,
-				paramaters, "cursor0");*/
 		return executePageOracleProcedure("{CALL PCK_T_ORGAN.sel_t_organ(?,?,?,?,?,?)}",columns,
 				paramaters, "cursor0","v_total");
 	}
 
 	public long findOrganByPageCount(Map<String, Object> variables) {
-		String[] columns = new String[]{
-				"v_organ_code","v_organ_name"
-		};
+		String[] columns = new String[]{"v_organ_code","v_organ_name"};
 		Object[] paramaters = new Object[2];
 		paramaters[0] = variables.containsKey("organCode")?variables.get("organCode"):null;
 		paramaters[1] = variables.containsKey("organName")?variables.get("organName"):null;
-		Object total = executeOracleProcedure(
-				"{CALL PCK_T_ORGAN.sel_t_organ_num(?,?,?)}",columns,
+		Object total = executeOracleProcedure("{CALL PCK_T_ORGAN.sel_t_organ_num(?,?,?)}",columns,
 				paramaters, "cursor0").get(0).get("TOTAL");
 		return Long.valueOf(total.toString());
 	}
@@ -88,15 +80,15 @@ public class OrganDAOImpl extends HibernateBaseDAOImpl<PojoOrgan> implements Org
 	public List<?> deleteOrgan(Long organId) {
 		String[] columns = new String[] { "v_organ_id" };
 		Object[] paramaters = new Object[] {organId};
-		return executeOracleProcedure(
-				"{CALL PCK_T_ORGAN.del_t_organ(?,?)}",columns,
-				paramaters, "cursor0");	}
+		return executeOracleProcedure("{CALL PCK_T_ORGAN.del_t_organ(?,?)}",columns,
+				paramaters, "cursor0");	
+	}
 	
 	public List<?> findAll() {
 		Object[] paramaters = null;
 		String sql = "select * from T_ORGAN";
 		return queryBySQL(sql,paramaters);
-		}
+	}
 	
 	public List<?> queryBy(String string, Object[] objects){
 		Object[] paramaters = null;
@@ -119,7 +111,8 @@ public class OrganDAOImpl extends HibernateBaseDAOImpl<PojoOrgan> implements Org
 		if(organId == null){
 			sql = "select rm from PojoOrgan rm where rm.status='00'";
 		}else{
-			sql = "select rm from PojoOrgan rm where rm.status='00' and rm.organId=" + organId;
+			sql = "select rm from PojoOrgan rm where rm.status='00' and rm.organId=?";
+			paramaters = new Object[]{organId};
 		}
 		return queryByHQL(sql, paramaters);
 	}

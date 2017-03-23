@@ -151,6 +151,7 @@ public class ContractController {
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String tId, String certTypeCode) { 
     	ContractBean bean = contractService.findById(tId);
     	String filePath = bean.getFileAddress();
+    	filePath = "javaCode/"+filePath;
         Map<String, String> result = new HashMap<String, String>();
         if (bean == null) {
             result.put("status", "fail");
@@ -175,10 +176,10 @@ public class ContractController {
     		
 			MultipartHttpServletRequest mhr = (MultipartHttpServletRequest) request;
 			//创建子目录
-			DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
-			String dirs = df.format(new Date().getTime());
+//			DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
+//			String dirs = df.format(new Date().getTime());
 			//获取路径
-			String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\"+dirs;
+			String uploadDir = request.getSession().getServletContext().getRealPath("/")+"javaCode\\";
 			//如果目录不存在，创建一个目录
 			if (!new File(uploadDir).exists()) {
 				File dir = new File(uploadDir);
@@ -197,9 +198,10 @@ public class ContractController {
 //					String fileName = rename(resFileName);
 					//路径＋文件名
 					File outFile = new File(uploadDir+"/"+resFileName);
+					String path = "javaCode/"+resFileName;
 					mf.transferTo(outFile);
 					result.put("status", "OK");
-					result.put("path", outFile.toString());
+					result.put("path", path);
 					result.put("fileName", resFileName);
 				}else{
 					result.put("status", "FAIL");

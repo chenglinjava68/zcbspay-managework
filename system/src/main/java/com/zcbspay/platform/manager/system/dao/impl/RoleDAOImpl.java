@@ -22,12 +22,9 @@ public class RoleDAOImpl extends HibernateBaseDAOImpl<PojoRole> implements RoleD
 		String[] columns = new String[] { "v_role_name", "v_organ_id",
 				"v_dept_id","i_no","i_perno" };
 		Object[] paramaters = new Object[5];
-		paramaters[0] = variables.containsKey("roleName") ? variables
-				.get("roleName") : null;
-		paramaters[1] = variables.containsKey("organId") ? variables
-				.get("organId") : null;
-		paramaters[2] = variables.containsKey("deptId") ? variables
-				.get("deptId") : null;
+		paramaters[0] = variables.containsKey("roleName") ? variables.get("roleName") : null;
+		paramaters[1] = variables.containsKey("organId") ? variables.get("organId") : null;
+		paramaters[2] = variables.containsKey("deptId") ? variables.get("deptId") : null;
 		paramaters[3] = page;
 		paramaters[4] = rows;
 		return executePageOracleProcedure("{CALL PCK_T_ROLE.sel_t_role(?,?,?,?,?,?,?)}",columns,
@@ -38,15 +35,11 @@ public class RoleDAOImpl extends HibernateBaseDAOImpl<PojoRole> implements RoleD
 		String[] columns = new String[] { "v_role_name", "v_organ_id",
 				"v_dept_id"};
 		Object[] paramaters = new Object[3];
-		paramaters[0] = variables.containsKey("roleName") ? variables
-				.get("roleName") : null;
-		paramaters[1] = variables.containsKey("organId") ? variables
-				.get("organId") : null;
-		paramaters[2] = variables.containsKey("deptId") ? variables
-				.get("deptId") : null;
+		paramaters[0] = variables.containsKey("roleName") ? variables.get("roleName") : null;
+		paramaters[1] = variables.containsKey("organId") ? variables.get("organId") : null;
+		paramaters[2] = variables.containsKey("deptId") ? variables.get("deptId") : null;
 		
-		Object total = executeOracleProcedure(
-				"{CALL PCK_T_ROLE.sel_t_role_num(?,?,?,?)}", columns,
+		Object total = executeOracleProcedure("{CALL PCK_T_ROLE.sel_t_role_num(?,?,?,?)}", columns,
 				paramaters, "cursor0").get(0).get("TOTAL");
 		return Long.valueOf(total.toString());
 	}
@@ -62,8 +55,7 @@ public class RoleDAOImpl extends HibernateBaseDAOImpl<PojoRole> implements RoleD
 				"".equals(role.getCreator()) ? null : role.getCreator(),
 				"".equals(role.getNotes()) ? null : role.getNotes(),
 				"".equals(role.getRemarks()) ? null : role.getRemarks() };
-		return executeOracleProcedure(
-				"{CALL PCK_T_ROLE.ins_t_role(?,?,?,?,?,?,?)}", columns,
+		return executeOracleProcedure("{CALL PCK_T_ROLE.ins_t_role(?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0");
 	}
 
@@ -78,25 +70,21 @@ public class RoleDAOImpl extends HibernateBaseDAOImpl<PojoRole> implements RoleD
 				"".equals(role.getCreator()) ? null : role.getCreator(),
 				"".equals(role.getNotes()) ? null : role.getNotes(),
 				"".equals(role.getRemarks()) ? null : role.getRemarks() };
-		return executeOracleProcedure(
-				"{CALL PCK_T_ROLE.upt_t_role(?,?,?,?,?,?,?,?)}", columns,
+		return executeOracleProcedure("{CALL PCK_T_ROLE.upt_t_role(?,?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0");
 	}
 
 	public List<?> deleteRole(Long roleId) {
 		String[] columns = new String[] { "v_role_id"};
 		Object[] paramaters = new Object[] {roleId};
-		return executeOracleProcedure(
-				"{CALL PCK_T_ROLE.del_t_role(?,?)}", columns,
+		return executeOracleProcedure("{CALL PCK_T_ROLE.del_t_role(?,?)}", columns,
 				paramaters, "cursor0");
 	}
 
 	@Override
 	public RoleBean getSingleById(Long roleId) {
-		Criteria crite = this.getSession().createCriteria(
-				PojoRole.class);
+		Criteria crite = this.getSession().createCriteria(PojoRole.class);
 		crite.add(Restrictions.eq("roleId", roleId));
-		
 		Object uniqueResult = crite.uniqueResult();
 		return BeanCopyUtil.copyBean(RoleBean.class, uniqueResult);
 	}
@@ -106,7 +94,8 @@ public class RoleDAOImpl extends HibernateBaseDAOImpl<PojoRole> implements RoleD
 		Object[] paramaters = null;
 		String sql;
 		if(deptId != null){
-			sql = "select rm from PojoRole rm where rm.status='00' and rm.deptId=" + deptId;
+			sql = "select rm from PojoRole rm where rm.status='00' and rm.deptId=?";
+			paramaters = new Object[]{deptId};
 		}else{
 			sql = "select rm from PojoRole rm where rm.status='00'";
 		}
@@ -117,7 +106,6 @@ public class RoleDAOImpl extends HibernateBaseDAOImpl<PojoRole> implements RoleD
 	public List<PojoRole> findAll() {
 		Object[] paramaters = null;
 		String sql = "select rm from PojoRole rm";
-		
 		List<PojoRole> list = (List<PojoRole>) queryByHQL(sql, paramaters);
 		return list;
 	}

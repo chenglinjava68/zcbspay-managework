@@ -55,8 +55,7 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 				.get("organId") : null;
 		paramaters[4] = variables.containsKey("deptId") ? variables
 				.get("deptId") : null;
-		Object total = executeOracleProcedure(
-				"{CALL PCK_T_USER.sel_t_user_num(?,?,?,?,?,?)}", columns,
+		Object total = executeOracleProcedure("{CALL PCK_T_USER.sel_t_user_num(?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0").get(0).get("TOTAL");
 		return Long.valueOf(total.toString());
 	}
@@ -78,8 +77,7 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 				"".equals(user.getIsadmin()) ? null : user.getIsadmin(),
 				"".equals(user.getNotes()) ? null : user.getNotes(),
 				"".equals(user.getRemarks()) ? null : user.getRemarks() };
-		return executeOracleProcedure(
-				"{CALL PCK_T_USER.ins_t_user(?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+		return executeOracleProcedure("{CALL PCK_T_USER.ins_t_user(?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0");
 	}
 
@@ -102,16 +100,14 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 				"".equals(user.getStatus()) ? null : user.getStatus(),
 				"".equals(user.getNotes()) ? null : user.getNotes(),
 				"".equals(user.getRemarks()) ? null : user.getRemarks() };
-		return executeOracleProcedure(
-				"{CALL PCK_T_USER.upt_t_user(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+		return executeOracleProcedure("{CALL PCK_T_USER.upt_t_user(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0");
 	}
 
 	@Override
 	@Transactional(readOnly=true)
 	public UserBean getLoginUser(UserBean user) {
-		Criteria crite = this.getSession().createCriteria(
-				PojoUser.class);
+		Criteria crite = this.getSession().createCriteria(PojoUser.class);
 		crite.add(Restrictions.eq("loginName", user.getLoginName()));
 		crite.add(Restrictions.eq("status", user.getStatus()));
 		crite.add(Restrictions.eq("pwd",user.getPwd()));
@@ -122,8 +118,7 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 
 	@Override
 	public UserBean getSingleById(Long userId) {
-		Criteria crite = this.getSession().createCriteria(
-				PojoUser.class);
+		Criteria crite = this.getSession().createCriteria(PojoUser.class);
 		crite.add(Restrictions.eq("userId",userId));
 		Object uniqueResult = crite.uniqueResult();
 		return BeanCopyUtil.copyBean(UserBean.class, uniqueResult);
@@ -134,9 +129,11 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 		Object[] paramaters = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-//		update T_USER  set PWD= '123456',PWD_VALID='' where user_ID = 28
-		String sql = "update T_USER set PWD='"+user.getPwd()+"',PWD_VALID=(Date '"+sdf.format(date)+"') where USER_ID="+user.getUserId();
-//		String sql = "update PojoUser u set u.pwd='"+user.getPwd()+"',u.pwdValid=(Date '"+sdf.format(date)+"') where u.userId ="+user.getUserId();
+		String sql = "update T_USER set PWD=?,PWD_VALID=(Date ?) where USER_ID=?";
+		paramaters = new Object[]{
+				"".equals(user.getPwd()) ? null : user.getPwd(),
+				"".equals(sdf.format(date)) ? null : sdf.format(date),
+				"".equals(user.getUserId()) ? null : user.getUserId()};
 		updateBySQL(sql, paramaters);
 	}
 }

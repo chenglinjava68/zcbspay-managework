@@ -20,8 +20,8 @@ public class UserRoleDAOImpl extends HibernateBaseDAOImpl<PojoUserRole> implemen
 
 	@Override
 	public List<?> findByProperty(Long userId) {
-		Object[] paramaters = null;
-		String sql = "select u from PojoUserRole u where u.userId ="+ userId;
+		String sql = "select u from PojoUserRole u where u.userId =?";
+		Object[] paramaters = new Object[]{userId};
 		return queryByHQL(sql, paramaters);
 	}
 
@@ -31,7 +31,11 @@ public class UserRoleDAOImpl extends HibernateBaseDAOImpl<PojoUserRole> implemen
 		String sql;
 		if(list.size() > 0){
 			for(PojoUserRole userFunct : list){
-				sql = "insert into T_USER_ROLE(USER_ROLE_ID,USER_ID,ROLE_ID) values ("+ userFunct.getUserRoleId()+","+ userFunct.getUserId()+","+userFunct.getRoleId()+")";
+				sql = "insert into T_USER_ROLE(USER_ROLE_ID,USER_ID,ROLE_ID) values (?,?,?)";
+				paramaters = new Object[]{
+						"".equals(userFunct.getUserRoleId()) ? null : userFunct.getUserRoleId(),
+						"".equals(userFunct.getUserId()) ? null : userFunct.getUserId(),
+						"".equals(userFunct.getRoleId()) ? null : userFunct.getRoleId()};
 				queryBySQL(sql, paramaters);
 			}
 		}

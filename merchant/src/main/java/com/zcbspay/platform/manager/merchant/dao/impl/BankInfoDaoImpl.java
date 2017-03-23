@@ -13,8 +13,8 @@ public class BankInfoDaoImpl extends HibernateBaseDAOImpl<PojoBankInfo> implemen
 
 	@Override
 	public List<?> queryBankInfo(String bankNode) {
-		String sql = "select po from PojoBankInfo po where po.bankNode="+bankNode;
-		return queryByHQL(sql, null);
+		String sql = "select po from PojoBankInfo po where po.bankNode=?";
+		return queryByHQL(sql, new Object[]{bankNode});
 	}
 
 

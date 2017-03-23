@@ -31,34 +31,23 @@ public class ParaDicDAOImpl extends HibernateBaseDAOImpl<PojoParaDic> implements
                 paradic.getHasSub(), paradic.getStatus(), paradic.getRemarks()};
         String[] columns = new String[]{"v_para_code", "v_parent_id",
                 "v_para_name", "v_has_sub", "v_status", "v_remarks"};
-        Object total = executeOracleProcedure(
-                        "{CALL MODI_T_PARA_DIC.ins_t_para_dic(?,?,?,?,?,?,?)}",
-                        columns, paramaters, "cursor0").get(0).get("INFO");
-        return (String) total;
+        return (String) executeOracleProcedure("{CALL MODI_T_PARA_DIC.ins_t_para_dic(?,?,?,?,?,?,?)}",
+                columns, paramaters, "cursor0").get(0).get("INFO");
 
     }
     // 分页查询参数
-    public List<?> queryParaDicList(String parentid,
-            String paraname,
-            String status,
-            int page,
-            int rows) {
+    public List<?> queryParaDicList(String parentid,String paraname,String status,int page,int rows) {
         Object[] paramaters = new Object[]{parentid, paraname, "1", page, rows};
-        String[] columns = new String[]{"v_parent_id", "v_para_name",
-                "v_status", "i_no", "i_perno"};
-        return executeOracleProcedure(
-                "{CALL MODI_T_PARA_DIC.sel_t_para_dic(?,?,?,?,?,?)}", columns,
+        String[] columns = new String[]{"v_parent_id", "v_para_name","v_status", "i_no", "i_perno"};
+        return executeOracleProcedure("{CALL MODI_T_PARA_DIC.sel_t_para_dic(?,?,?,?,?,?)}", columns,
                 paramaters, "cursor0");
     }
     // 分页查询参数信息总条数
-    public Long queryParaDicCount(String parentid,
-            String paraname,
-            String status) {
+    public Long queryParaDicCount(String parentid,String paraname,String status) {
+    	
         Object[] paramaters = new Object[]{parentid, paraname, "1"};
-        String[] columns = new String[]{"v_parent_id", "v_para_name",
-                "v_status"};
-        Object total = executeOracleProcedure(
-                        "{CALL MODI_T_PARA_DIC.sel_t_para_dic_num(?,?,?,?)}",
+        String[] columns = new String[]{"v_parent_id", "v_para_name","v_status"};
+        Object total = executeOracleProcedure("{CALL MODI_T_PARA_DIC.sel_t_para_dic_num(?,?,?,?)}",
                         columns, paramaters, "cursor0").get(0).get("TOTAL");
         return Long.valueOf(total.toString());
     }
@@ -70,10 +59,8 @@ public class ParaDicDAOImpl extends HibernateBaseDAOImpl<PojoParaDic> implements
                 paradic.getRemarks()};
         String[] columns = new String[]{"v_tid", "v_para_code", "v_parent_id",
                 "v_para_name", "v_has_sub", "v_status", "v_remarks"};
-        Object total = executeOracleProcedure(
-                        "{CALL MODI_T_PARA_DIC.upt_t_para_dic(?,?,?,?,?,?,?,?)}",
-                        columns, paramaters, "cursor0").get(0).get("INFO");
-        return (String) total;
+        return (String) executeOracleProcedure("{CALL MODI_T_PARA_DIC.upt_t_para_dic(?,?,?,?,?,?,?,?)}",
+                columns, paramaters, "cursor0").get(0).get("INFO");
 
     }
 }
