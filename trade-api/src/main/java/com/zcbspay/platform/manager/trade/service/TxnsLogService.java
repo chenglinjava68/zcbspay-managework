@@ -103,4 +103,30 @@ public interface TxnsLogService {
 	 */
 	public Map<String, Object> getBepsPaymentBatchByPage(String page, String rows,
 			CollectAndPaymentBean collectBatchBean);
+	/**
+	 * BEPS实时代付交易流水查询
+	 * @author: zhangshd
+	 * @param collectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月9日 上午11:27:29 
+	 * @version v1.0
+	 */
+	public Map<String, Object> getBepsPaymentSingleByPage(String page, String rows,
+			CollectAndPaymentBean collectBatchBean);
+	/**
+	 * BEPS实时代收交易流水查询
+	 * @author: zhangshd
+	 * @param collectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月9日 上午11:27:13 
+	 * @version v1.0
+	 */
+	public Map<String, Object> getBepsCollectSingleByPage(String page, String rows,
+			CollectAndPaymentBean collectBatchBean);
 }

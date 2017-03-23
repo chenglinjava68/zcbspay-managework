@@ -23,6 +23,13 @@ import java.io.Serializable;
 public class CollectAndPaymentBean implements Serializable {
 	private Long userId;
 	private String batchNo;
+	private String msgId;
+	public String getMsgId() {
+		return msgId;
+	}
+	public void setMsgId(String msgId) {
+		this.msgId = msgId;
+	}
 	public String getBatchNo() {
 		return batchNo;
 	}

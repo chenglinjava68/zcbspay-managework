@@ -131,6 +131,7 @@ table tr td select {
 					</tr>
 					<tr>
 					<td>交易流水号</td><td id="ttxnseqno"></td>
+					<td>接受标识</td><td id="treceivetype"></td>
 					</tr>
 				</table>
 			</div>
@@ -151,12 +152,13 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'trade/getBepsCollectBatchByPage',
+							url : 'trade/getBepsPaymentSingleByPage',
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
 								{field:'TID',title:'标识',width:120,align:'center'},
 								{field:'MSGID',title:'报文标识号',width:120,align:'center'},
+								{field:'RECEIVETYPE',title:'接受标识',width:120,align:'center'},
 								{field:'BATCHNO',title:'批次序号',width:120,align:'center'},
 								{field:'TXID',title:'明细标识号',width:120,align:'center'},
 								{field:'DEBTORNAME',title:'付款人名称',width:120,align:'center'},
@@ -172,28 +174,6 @@ table tr td select {
 								{field:'PURPOSEPROPRIETARY',title:'业务种类编码',width:120,align:'center'},
 								{field:'ENDTOENDIDENTIFICATION',title:'合同（协议）号',width:120,align:'center'},
 								{field:'CHECKFLAG',title:'核验标识',width:120,align:'center'},
-								{field:'NPCPROCESSSTATUS',title:'NPC处理状态',width:120,align:'center'},
-								{field:'NPCPROCESSCODE',title:'NPC业务处理码',width:120,align:'center'},
-								{field:'NPCREJECTINFORMATION',title:'NPC拒绝信息',width:120,align:'center'},
-								{field:'NPCNETTINGDATE',title:'NPC轧差日期',width:120,align:'center'},
-								{field:'NPCNETTINGROUND',title:'NPC轧差场次',width:120,align:'center'},
-								{field:'NPCSETTLEMENTDATE',title:'NPC清算日期/终态日期',width:120,align:'center'},
-								{field:'NPCRECEIVETIME',title:'NPC接收时间',width:120,align:'center'},
-								{field:'NPCTRANSMITTIME',title:'NPC转发时间',width:120,align:'center'},
-								{field:'RSPSTATUS',title:'应答状态',width:120,align:'center'},
-								{field:'RSPREJECTCODE',title:'应答码',width:120,align:'center'},
-								{field:'RSPPROCESSPARTY',title:'业务处理参与机构',width:120,align:'center'},
-								{field:'RSPREJECTINFORMATION',title:'业务拒绝信息',width:120,align:'center'},
-								{field:'RSPDATE',title:'业务应答时间',width:120,align:'center'},
-								{field:'COMPROCESSSTATUS',title:'参与机构业务状态',width:120,align:'center'},
-								{field:'COMPROCESSCODE',title:'参与机构业务处理码',width:120,align:'center'},
-								{field:'COMPARTYIDENTIFICATION',title:'拒绝业务的参与机构行号',width:120,align:'center'},
-								{field:'COMPARTYPROCESSCODE',title:'参与机构业务拒绝码',width:120,align:'center'},
-								{field:'COMREJECTINFORMATION',title:'参与机构业务拒绝信息',width:120,align:'center'},
-								{field:'COMPROCESSDATE',title:'参与机构处理日期（终态日期）',width:120,align:'center'},
-								{field:'COMNETTINGROUND',title:'参与机构轧差场次',width:120,align:'center'},
-								{field:'COMDATE',title:'通用处理报文接收时间',width:120,align:'center'},
-								{field:'TXNSEQNO',title:'交易流水号',width:120,align:'center'},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
 										return '<a href="javascript:queryDetail(\''+rec.TID+'\')" style="color:blue;margin-left:10px">详细信息</a>';
@@ -216,6 +196,7 @@ table tr td select {
 	function queryDetail(batchNo){
 		$("#ttid").html("");
 		$("#tmsgid").html("");
+		$("#treceivetype").html("");
 		$("#tbatchno").html("");
 		$("#ttxid").html("");
 		$("#tdebtorname").html("");
@@ -271,6 +252,7 @@ table tr td select {
 		var rows = $('#test').datagrid('getSelected');
 		$("#ttid").html(rows["TID"]);
 		$("#tmsgid").html(rows["MSGID"]);
+		$("#treceivetype").html(rows["RECEIVETYPE"]);
 		$("#tbatchno").html(rows["BATCHNO"]);
 		$("#ttxid").html(rows["TXID"]);
 		$("#tdebtorname").html(rows["DEBTORNAME"]);

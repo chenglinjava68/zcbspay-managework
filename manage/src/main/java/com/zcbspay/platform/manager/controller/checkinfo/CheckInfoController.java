@@ -17,10 +17,10 @@ import com.zcbspay.platform.cnaps.application.bean.DetailCheckPaymentInformation
 import com.zcbspay.platform.cnaps.application.bean.ResultBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckMessageBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckPaymentBean;
-import com.zcbspay.platform.manager.checkinfo.bean.ChannelFileBean;
-import com.zcbspay.platform.manager.checkinfo.service.ChannelFileService;
-import com.zcbspay.platform.manager.checkinfo.service.CheckInfoService;
-import com.zcbspay.platform.manager.checkinfo.service.UploadlogService;
+import com.zcbspay.platform.manager.reconcilication.bean.ChannelFileBean;
+import com.zcbspay.platform.manager.reconcilication.service.ChannelFileService;
+import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
+import com.zcbspay.platform.manager.reconcilication.service.UploadlogService;
 import com.zcbspay.platform.manager.utils.JsonUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
 

@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.controller.trade;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,22 @@ public class TradeController {
 		return "trade/beps_payment_batch";
 	}
 	
+	
+	
+	
+	@RequestMapping("showBepsPaymentSingle")
+	public String showBepsPaymentSingle(Model model) {
+		return "trade/beps_payment_single";
+	}
+	
+	
+	
+	
+	@RequestMapping("showBepsCollectSingle")
+	public String showBepsCollectSingle(Model model) {
+		return "trade/beps_collect_single";
+	}
+	
 	/**
 	 * 分页查询核心交易流水
 	 * @author: zhangshd
@@ -147,6 +164,47 @@ public class TradeController {
 			HttpServletRequest request) {
 		collectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
 		return txnsLogService.getBepsPaymentBatchByPage(page, rows, collectBatchBean);
+	}
+	
+	
+	
+	/**
+	 * BEPS实时代付交易流水查询
+	 * @author: zhangshd
+	 * @param collectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月9日 上午11:27:29 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getBepsPaymentSingleByPage")
+	public Map<String, Object> getBepsPaymentSingleByPage(CollectAndPaymentBean collectBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		collectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getBepsPaymentSingleByPage(page, rows, collectBatchBean);
+	}
+	
+	
+	/**
+	 * BEPS实时代收交易流水查询
+	 * @author: zhangshd
+	 * @param collectBatchBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月9日 上午11:27:13 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getBepsCollectSingleByPage")
+	public Map<String, Object> getBepsCollectSingleByPage(CollectAndPaymentBean collectBatchBean, String page, String rows,
+			HttpServletRequest request) {
+		collectBatchBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getBepsCollectSingleByPage(page, rows, collectBatchBean);
 	}
 	
 	/**

@@ -33,15 +33,15 @@
 	<!-- 业务和扣率 -->
 	<dubbo:reference id="productService" interface="com.zcbspay.platform.manager.business.service.ProductService" version="1.0"/>
 	<dubbo:reference id="feeService" interface="com.zcbspay.platform.manager.business.service.FeeService" version="1.0"/>
-	
+	<dubbo:reference id="routeService" interface="com.zcbspay.platform.manager.business.service.RouteService" version="1.0"/>
 	<!-- 风控 -->
 	<dubbo:reference id="riskService" interface="com.zcbspay.platform.manager.risk.service.RiskService" version="1.0"/>
 	<dubbo:reference id="cardHolderBlackService" interface="com.zcbspay.platform.manager.risk.service.CardHolderBlackService" version="1.0"/>
 	<dubbo:reference id="limitPerdayService" interface="com.zcbspay.platform.manager.risk.service.LimitPerdayService" version="1.0"/>
 	<!-- 对账 -->
-	<dubbo:reference id="checkInfoService" interface="com.zcbspay.platform.manager.checkinfo.service.CheckInfoService" version="1.0"/>
-	<dubbo:reference id="channelFileService" interface="com.zcbspay.platform.manager.checkinfo.service.ChannelFileService" version="1.0"/>
-	<dubbo:reference id="uploadlogService" interface="com.zcbspay.platform.manager.checkinfo.service.UploadlogService" version="1.0"/>
+	<dubbo:reference id="checkInfoService" interface="com.zcbspay.platform.manager.reconcilication.service.CheckInfoService" version="1.0"/>
+	<dubbo:reference id="channelFileService" interface="com.zcbspay.platform.manager.reconcilication.service.ChannelFileService" version="1.0"/>
+	<dubbo:reference id="uploadlogService" interface="com.zcbspay.platform.manager.reconcilication.service.UploadlogService" version="1.0"/>
 	<!--交易管理  -->
 	<dubbo:reference id="businessService" interface="com.zcbspay.platform.manager.trade.service.BusinessService" version="1.0"/>
 	<dubbo:reference id="chnlDetaService" interface="com.zcbspay.platform.manager.trade.service.ChnlDetaService" version="1.0"/>

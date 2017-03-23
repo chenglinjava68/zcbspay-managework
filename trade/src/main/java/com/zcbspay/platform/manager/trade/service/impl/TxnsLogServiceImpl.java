@@ -12,8 +12,10 @@ import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
 import com.zcbspay.platform.manager.trade.bean.TxnsLogBean;
 import com.zcbspay.platform.manager.trade.dao.CnapsLogDao;
 import com.zcbspay.platform.manager.trade.dao.CollectBatchDao;
+import com.zcbspay.platform.manager.trade.dao.CollectSingleDao;
 import com.zcbspay.platform.manager.trade.dao.OrderInfoDao;
 import com.zcbspay.platform.manager.trade.dao.PaymentBatchDao;
+import com.zcbspay.platform.manager.trade.dao.PaymentSingleDao;
 import com.zcbspay.platform.manager.trade.dao.TxnsLogDao;
 import com.zcbspay.platform.manager.trade.service.TxnsLogService;
 @Service("txnsLogService")
@@ -33,6 +35,13 @@ public class TxnsLogServiceImpl implements TxnsLogService{
 	
 	@Autowired
 	private PaymentBatchDao paymentBatchDao;
+	
+	@Autowired
+	private PaymentSingleDao paymentSingleDao;
+	
+	@Autowired
+	private CollectSingleDao collectSingleDao;
+	
 	
 	@Override
 	public Map<String, Object> getTxnsLogByPage(String page, String rows, TxnsLogBean values) {
@@ -70,6 +79,16 @@ public class TxnsLogServiceImpl implements TxnsLogService{
 	public Map<String, Object> getBepsPaymentBatchByPage(String page, String rows,
 			CollectAndPaymentBean collectBatchBean) {
 		return paymentBatchDao.getBepsPaymentBatchByPage(page, rows, collectBatchBean);
+	}
+	@Override
+	public Map<String, Object> getBepsPaymentSingleByPage(String page, String rows,
+			CollectAndPaymentBean collectBatchBean) {
+		return paymentSingleDao.getBepsPaymentSingleByPage(page, rows, collectBatchBean);
+	}
+	@Override
+	public Map<String, Object> getBepsCollectSingleByPage(String page, String rows,
+			CollectAndPaymentBean collectBatchBean) {
+		return collectSingleDao.getBepsCollectSingleByPage(page, rows, collectBatchBean);
 	}
 	
 }

@@ -301,10 +301,10 @@
     <module>business</module>
     <module>business-service</module>
     <module>business-simple</module>
-    <module>checkinfo-api</module>
-    <module>checkinfo</module>
-    <module>checkinfo-service</module>
-    <module>checkinfo-simple</module>
+    <module>reconcilication-api</module>
+    <module>reconcilication</module>
+    <module>reconcilication-service</module>
+    <module>reconcilication-simple</module>
     <module>trade</module>
     <module>trade-api</module>
     <module>trade-service</module>
