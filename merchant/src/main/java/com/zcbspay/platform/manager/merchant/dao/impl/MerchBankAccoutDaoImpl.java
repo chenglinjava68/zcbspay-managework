@@ -17,11 +17,15 @@ public class MerchBankAccoutDaoImpl extends HibernateBaseDAOImpl<PojoMerchBankAc
 
 	@Override
 	public List<?> findAllAccout(MerchBankAccoutBean bankAccount, int page, int rows) {
-		String sql = "select * from T_MERCH_BANK_ACCOUNT where MERCHNO like ? and ACCOUNTNO like ? and ACCOUNTNAME like ?";
+		int count = page * rows;
+		int num = page - 1;
+		int num2 = num * rows;
+		String sql = "select * from ( select  t.*, rownum RN from T_MERCH_BANK_ACCOUNT t where MERCHNO like ? and ACCOUNTNO like ? and ACCOUNTNAME like ? ) where RN between ? and ?";
 		Object[] paramaters = new Object[] {
 				bankAccount.getMerchNo() == null ? "%%" : "%"+bankAccount.getMerchNo()+"%",
 				bankAccount.getAccoutNo() == null  ? "%%" : "%"+bankAccount.getAccoutNo()+"%",
-				bankAccount.getAccoutName() == null  ? "%%" : "%"+bankAccount.getAccoutName()+"%"};
+				bankAccount.getAccoutName() == null  ? "%%" : "%"+bankAccount.getAccoutName()+"%",
+				num2,count	};
 		return queryBySQL(sql, paramaters);
 	}
 
@@ -62,5 +66,15 @@ public class MerchBankAccoutDaoImpl extends HibernateBaseDAOImpl<PojoMerchBankAc
 		String sql = "update PojoMerchBankAccout po set po.status='00' where po.tId=?";
 		updateByHQL(sql, new Object[]{Long.parseLong(tId)});
 		
+	}
+
+	@Override
+	public List<?> findAll(MerchBankAccoutBean bankAccount) {
+		String sql = "select  t.*, rownum RN from T_MERCH_BANK_ACCOUNT t where MERCHNO like ? and ACCOUNTNO like ? and ACCOUNTNAME like ? ";
+		Object[] paramaters = new Object[] {
+				bankAccount.getMerchNo() == null ? "%%" : "%"+bankAccount.getMerchNo()+"%",
+				bankAccount.getAccoutNo() == null ? "%%" : "%"+bankAccount.getAccoutNo()+"%",
+				bankAccount.getAccoutName() == null ? "%%" : "%"+bankAccount.getAccoutName()+"%"};
+		return queryBySQL(sql, paramaters);
 	}
 }

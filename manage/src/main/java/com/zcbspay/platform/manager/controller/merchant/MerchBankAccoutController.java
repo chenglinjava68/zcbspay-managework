@@ -24,7 +24,7 @@ import com.zcbspay.platform.manager.system.service.ProvinceService;
 @RequestMapping("/bankaccout")
 @SuppressWarnings("all")
 public class MerchBankAccoutController {
-//
+	
 	@Autowired
 	private MerchBankAccoutService merchBankAccoutService;
 	@Autowired
@@ -43,13 +43,18 @@ public class MerchBankAccoutController {
 	 * 查询
 	 * @param bankAccout
 	 * @param page
-	 * @param rows
+	 * @param rows "total":12,"rows"
 	 * @return
 	 */
 	@ResponseBody
     @RequestMapping("/query")
-	public List<?> query(MerchBankAccoutBean bankAccout,int page,int rows){
-		return merchBankAccoutService.findAllAccout(bankAccout,page, rows);
+	public Map<String, Object> query(MerchBankAccoutBean bankAccout,int page,int rows){
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<?> list = merchBankAccoutService.findAllAccout(bankAccout,page, rows);
+		Integer total= merchBankAccoutService.findAll(bankAccout);
+		result.put("total", total);
+		result.put("rows", list);
+		return result;
 	}
 	
 	/**

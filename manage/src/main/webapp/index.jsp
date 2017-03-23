@@ -84,7 +84,7 @@
 					try{
 						window.parent.returnLogin()
 					}catch(err){ 
-						window.location.href="<%=basePath%>"+"pages/logoutAction.action?relogin=relogin";
+						window.location.href="<%=basePath%>"+"login/logout?relogin=relogin";
 					}
 						 
 					$("#info").html("操作超时,请重新登录");

@@ -45,6 +45,18 @@
 			<artifactId>guava</artifactId>
 			<version>19.0</version>
 		</dependency>
+		<!-- 上传图片组件依赖  start-->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.2.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		<!-- 上传图片组件依赖  end-->
 	</dependencies>
 	<scm>
 		<connection>scm:git://${git.project}}</connection>
@@ -290,8 +302,10 @@
     <module>common</module>
     <module>system</module>
     <module>system-api</module>
+    <module>system-service</module>
     <module>merchant</module>
     <module>merchant-api</module>
+    <module>merchant-service</module>
     <module>system-simple</module>
     <module>risk-api</module>
     <module>risk</module>
@@ -309,5 +323,8 @@
     <module>trade-api</module>
     <module>trade-service</module>
     <module>trade-simple</module>
+    <module>contract</module>
+    <module>contract-api</module>
+    <module>contract-service</module>
 	</modules>
 </project>

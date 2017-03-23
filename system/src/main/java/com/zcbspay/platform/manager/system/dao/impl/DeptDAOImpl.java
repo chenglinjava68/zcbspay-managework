@@ -113,7 +113,8 @@ public class DeptDAOImpl extends HibernateBaseDAOImpl<PojoDept> implements DeptD
 		Object[] paramaters = null;
 		 String sql ;
 		if (organId != null) {
-			 sql = "select rm from PojoDept rm where rm.status='00' and rm.organId=" + organId;
+			 sql = "select rm from PojoDept rm where rm.status='00' and rm.organId=?";
+			 paramaters = new Object[] {organId};
 		}else{
 			 sql = "select rm from PojoDept rm where rm.status='00'";
 		}

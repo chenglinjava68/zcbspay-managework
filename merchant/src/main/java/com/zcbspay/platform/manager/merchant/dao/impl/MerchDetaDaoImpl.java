@@ -47,32 +47,17 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	                "v_flag", "i_no", "i_perno"};
 
 	        Object[] paramaters = new Object[]{
-	                variables.containsKey("userId")
-	                        ? variables.get("userId")
-	                        : null,
-	                variables.containsKey("merberId")
-	                        ? variables.get("merberId")
-	                        : null,
-	                variables.containsKey("merchName")
-	                        ? variables.get("merchName")
-	                        : null,
-	                variables.containsKey("address")
-	                        ? variables.get("address")
-	                        : null,
-	                variables.containsKey("status")
-	                        ? variables.get("status")
-	                        : null,
-	                variables.containsKey("coopInstiId") ? variables
-	                        .get("coopInstiId") : null,
+	                variables.containsKey("userId") ? variables.get("userId") : null,
+	                variables.containsKey("merberId") ? variables.get("merberId") : null,
+	                variables.containsKey("merchName") ? variables.get("merchName") : null,
+	                variables.containsKey("address") ? variables.get("address") : null,
+	                variables.containsKey("status") ? variables.get("status") : null,
+	                variables.containsKey("coopInstiId") ? variables.get("coopInstiId") : null,
 	                variables.containsKey("flag") ? variables.get("flag") : null,
 	                page, rows};
-	        // busiAcctServiceImpl.openBusiAcct(member, busiAcct, userId)
-	        return executePageOracleProcedure(
-	                "{CALL PCK_MERCH.sel_t_merchant(?,?,?,?,?,?,?,?,?,?,?)}",
+	        return executePageOracleProcedure("{CALL PCK_MERCH.sel_t_merchant(?,?,?,?,?,?,?,?,?,?,?)}",
 	                columns, paramaters, "cursor0", "v_total");
-
 	}
-
 
 	@Override
 	public List<Map<String, String>> saveMerchDeta(MerchDetaApplyBean merch,EnterpriseDetaApplyBean enterprise) {
@@ -87,10 +72,6 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
             result.add(resultMap);
             return result;
         }
-
-//        PojoMccList mccList = mccListDAO.get(enterprise.getMccList());
-//        enterprise.setMcc(mccList.getMcc());
-
         String[] columns = new String[]{"v_parent", "v_setlcycle",
                 "v_setltype", "v_bankcode", "v_banknode", "v_accnum",
                 "v_accname", "v_charge", "v_deposit", "v_agreemt_start",
@@ -106,7 +87,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
                 "v_contemail_e", "v_contaddress_e", "v_contpost_e",
                 "v_custfrom_e", "v_custmgr_e", "v_custmgrdept_e",
                 "v_isdelegation_e", "v_signatory_e", "v_signcertno_e",
-                "v_notes_e", "v_remarks_e"};
+                "v_CHARGINGUNIT","v_notes_e", "v_remarks_e"};
         Object[] paramaters = null;
 		try {
 			paramaters = new Object[]{
@@ -133,71 +114,45 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 			     	"".equals(merch.getPayBankNode()) ? null : merch.getPayBankNode(),
 			     	"".equals(merch.getPayAccNum()) ? null : merch.getPayAccNum(),
 			     	"".equals(merch.getPayAccName()) ? null : merch.getPayAccName(),	
-			        "".equals(enterprise.getEnterpriseName()) ? null : enterprise
-			                .getEnterpriseName(),
-			        "".equals(enterprise.getCoopInstiId()) ? null : enterprise
-			                .getCoopInstiId(),
+			        "".equals(enterprise.getEnterpriseName()) ? null : enterprise.getEnterpriseName(),
+			        "".equals(enterprise.getCoopInstiId()) ? null : enterprise.getCoopInstiId(),
 			        "".equals(enterprise.getPhone()) ? null : enterprise.getPhone(),
 			        "".equals(enterprise.getMcc()) ? null : enterprise.getMcc(),
-			        "".equals(enterprise.getMccList()) ? null : enterprise
-			                .getMccList(),
-			        "".equals(enterprise.getEnterpriseInsti()) ? null : enterprise
-			                .getEnterpriseInsti(),
-			        "".equals(enterprise.getProvince()) ? null : enterprise
-			                .getProvince(),
+			        "".equals(enterprise.getMccList()) ? null : enterprise.getMccList(),
+			        "".equals(enterprise.getEnterpriseInsti()) ? null : enterprise.getEnterpriseInsti(),
+			        "".equals(enterprise.getProvince()) ? null : enterprise.getProvince(),
 			        "".equals(enterprise.getCity()) ? null : enterprise.getCity(),
-			        "".equals(enterprise.getStreet()) ? null : enterprise
-			                .getStreet(),
-			        "".equals(enterprise.getPostCode()) ? null : enterprise
-			                .getPostCode(),
-			        "".equals(enterprise.getAddress()) ? null : enterprise
-			                .getAddress(),
+			        "".equals(enterprise.getStreet()) ? null : enterprise.getStreet(),
+			        "".equals(enterprise.getPostCode()) ? null : enterprise.getPostCode(),
+			        "".equals(enterprise.getAddress()) ? null : enterprise.getAddress(),
 			        "".equals(enterprise.getEmail()) ? null : enterprise.getEmail(),
-			        "".equals(enterprise.getWebsite()) ? null : enterprise
-			                .getWebsite(),
-			        "".equals(enterprise.getCardType()) ? null : enterprise
-			                .getCardType(),
+			        "".equals(enterprise.getWebsite()) ? null : enterprise.getWebsite(),
+			        "".equals(enterprise.getCardType()) ? null : enterprise.getCardType(),
 			        "".equals(enterprise.getTaxno()) ? null : enterprise.getTaxno(),
-			        "".equals(enterprise.getLicenceNo()) ? null : enterprise
-			                .getLicenceNo(),
-			        "".equals(enterprise.getOrgCode()) ? null : enterprise
-			                .getOrgCode(),
-			        "".equals(enterprise.getCorporation()) ? null : enterprise
-			                .getCorporation(),
-			        "".equals(enterprise.getCorpNo()) ? null : enterprise
-			                .getCorpNo(),
-			        "".equals(enterprise.getContact()) ? null : enterprise
-			                .getContact(),
-			        "".equals(enterprise.getContPhone()) ? null : enterprise
-			                .getContPhone(),
-			        "".equals(enterprise.getContTitle()) ? null : enterprise
-			                .getContTitle(),
-			        "".equals(enterprise.getContEmail()) ? null : enterprise
-			                .getContEmail(),
-			        "".equals(enterprise.getContAddress()) ? null : enterprise
-			                .getContAddress(),
-			        "".equals(enterprise.getContPost()) ? null : enterprise
-			                .getContPost(),
-			        "".equals(enterprise.getCustFrom()) ? null : enterprise
-			                .getCustFrom(),
-			        "".equals(enterprise.getCustMgr()) ? null : enterprise
-			                .getCustMgr(),
-			        "".equals(enterprise.getCustMgrDept()) ? null : enterprise
-			                .getCustMgrDept(),
-			        "".equals(enterprise.getIsDelegation()) ? null : enterprise
-			                .getIsDelegation(),
-			        "".equals(enterprise.getSignatory()) ? null : enterprise
-			                .getSignatory(),
-			        "".equals(enterprise.getSignCertNo()) ? null : enterprise
-			                .getSignCertNo(),
+			        "".equals(enterprise.getLicenceNo()) ? null : enterprise.getLicenceNo(),
+			        "".equals(enterprise.getOrgCode()) ? null : enterprise.getOrgCode(),
+			        "".equals(enterprise.getCorporation()) ? null : enterprise.getCorporation(),
+			        "".equals(enterprise.getCorpNo()) ? null : enterprise.getCorpNo(),
+			        "".equals(enterprise.getContact()) ? null : enterprise.getContact(),
+			        "".equals(enterprise.getContPhone()) ? null : enterprise.getContPhone(),
+			        "".equals(enterprise.getContTitle()) ? null : enterprise.getContTitle(),
+			        "".equals(enterprise.getContEmail()) ? null : enterprise.getContEmail(),
+			        "".equals(enterprise.getContAddress()) ? null : enterprise.getContAddress(),
+			        "".equals(enterprise.getContPost()) ? null : enterprise.getContPost(),
+			        "".equals(enterprise.getCustFrom()) ? null : enterprise.getCustFrom(),
+			        "".equals(enterprise.getCustMgr()) ? null : enterprise.getCustMgr(),
+			        "".equals(enterprise.getCustMgrDept()) ? null : enterprise.getCustMgrDept(),
+			        "".equals(enterprise.getIsDelegation()) ? null : enterprise.getIsDelegation(),
+			        "".equals(enterprise.getSignatory()) ? null : enterprise.getSignatory(),
+			        "".equals(enterprise.getSignCertNo()) ? null : enterprise.getSignCertNo(),
+			        "".equals(merch.getChargingunit()) ? null : merch.getChargingunit(),
 			        "".equals(enterprise.getNotes()) ? null : enterprise.getNotes(),
-			        "".equals(enterprise.getRemarks()) ? null : enterprise
-			                .getRemarks()};
+			        "".equals(enterprise.getRemarks()) ? null : enterprise.getRemarks()};
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
         List<?> dbResult = executeOracleProcedure(
-                        "{CALL PCK_MERCH.pro_i_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
+                        "{CALL PCK_MERCH.pro_i_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
                         columns, paramaters, "cursor0");
         if (dbResult == null || dbResult.get(0) == null) {
             resultMap.clear();
@@ -205,7 +160,6 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
             resultMap.put("INFO", "操作失败,请联系技术人员");
             result.add(resultMap);
         } else {
-           
             resultMap = (Map<String, String>) dbResult.get(0);
         }
         result.add(resultMap);
@@ -217,8 +171,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 		String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = pid;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_county(?,?)}", columns, paramaters,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_county(?,?)}", columns, paramaters,
                 "cursor0");
     }
 
@@ -227,8 +180,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = 1;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_dic_MERCHTYPE(?,?)}", columns,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_dic_MERCHTYPE(?,?)}", columns,
                 paramaters, "cursor0");
     }
 	@Override
@@ -236,8 +188,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = 1;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_dic_TRADE(?,?)}", columns,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_dic_TRADE(?,?)}", columns,
                 paramaters, "cursor0");
     }
 
@@ -246,8 +197,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = 1;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_setltype(?,?)}", columns,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_setltype(?,?)}", columns,
                 paramaters, "cursor0");
     }
 
@@ -260,8 +210,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         paramaters[1] = null;
         paramaters[2] = "1";
         paramaters[3] = "10";
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_t_bank_info(?,?,?,?,?)}", columns,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_t_bank_info(?,?,?,?,?)}", columns,
                 paramaters, "cursor0");
     }
 
@@ -270,8 +219,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = 1;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_cash(?,?)}", columns, paramaters,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_cash(?,?)}", columns, paramaters,
                 "cursor0");
     }
 
@@ -280,8 +228,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = 1;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_chnlname(?,?)}", columns,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_chnlname(?,?)}", columns,
                 paramaters, "cursor0");
     }
     @Override
@@ -289,8 +236,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = 1;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_route(?,?)}", columns, paramaters,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_route(?,?)}", columns, paramaters,
                 "cursor0");
     }
 
@@ -299,8 +245,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = 1;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_dic_setl_cycle(?,?)}", columns,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_dic_setl_cycle(?,?)}", columns,
                 paramaters, "cursor0");
     }
 
@@ -310,8 +255,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = pid;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_split(?,?)}", columns, paramaters,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_split(?,?)}", columns, paramaters,
                 "cursor0");
     }
 
@@ -332,15 +276,20 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = pid;
-        return executeOracleProcedure(
-                "{CALL  PCK_FOR_SELECT.sel_fee(?,?)}", columns, paramaters,
+        return executeOracleProcedure("{CALL  PCK_FOR_SELECT.sel_fee(?,?)}", columns, paramaters,
                 "cursor0");
     }
 
     public boolean isRepeat(String email, String cellphone, Long coopInstiId) {
         String sql="select * from t_merch_deta t inner join t_member tp on t.member_id=tp.member_id where"
-        		+ " tp.insti_code="+coopInstiId+" and (tp.email='"+email+"' or tp.phone="+cellphone+")";
-        if(queryBySQL(sql,null) != null){
+        		+ " tp.insti_code=? and (tp.email=? or tp.phone=?)";
+        
+        Object[] paramaters = new Object[]{
+        		"".equals(coopInstiId) ? null : coopInstiId,
+        		"".equals(email) ? null : email,
+        		"".equals(cellphone) ? null : cellphone};
+        
+        if(queryBySQL(sql,paramaters) != null){
             return true;
         } else {
             return false;
@@ -348,8 +297,8 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
     }
     @Override
 	public List<?> getBean(Long selfId) {
-		String sql = "select u from PojoMerchDetaApply u where u.selfId="+ selfId;
-		return queryByHQL(sql, null);
+		String sql = "select u from PojoMerchDetaApply u where u.selfId=?";
+		return queryByHQL(sql, new Object[]{selfId});
 		
 	}
 
@@ -385,10 +334,6 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	    targDir = targDir + "/" + MerchDeta.getMemberId();
 	    if (fouce || !checkLocalExist(targDir, fileName)) {// not exist in local
 	        try {
-	//            ftpClientFactory.getFtpClient().download(getMerchCertPath(MerchDeta.getMemberId()),fileName, targDir, fileName);
-	//            if (!checkLocalExist(targDir, fileName)) {
-	//                return null;
-	//            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            log.warn("download from ftp get a exception.caused by:" + e.getMessage());
@@ -447,9 +392,12 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	        }
 
 	        PojoMerchDetaApply oldMerchApplyInfo = (PojoMerchDetaApply) getBean(Long.parseLong(merchApplyId)).get(0);
+	        
+	        if(oldMerchApplyInfo == null){
+	        	return null;
+	        }
 
-	        if (merchDeta.getBankNode() == null
-	                || merchDeta.getBankNode().equals("")) {
+	        if (merchDeta.getBankNode() == null || merchDeta.getBankNode().equals("")) {
 	            merchDeta.setBankCode(oldMerchApplyInfo.getBankCode());
 	            merchDeta.setBankNode(oldMerchApplyInfo.getBankNode());
 	        } else {
@@ -482,7 +430,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	                "v_contemail_e", "v_contaddress_e", "v_contpost_e",
 	                "v_custfrom_e", "v_custmgr_e", "v_custmgrdept_e",
 	                "v_isdelegation_e", "v_signatory_e", "v_signcertno_e",
-	                "v_notes_e", "v_remarks_e"};
+	                "v_CHARGINGUNIT","v_notes_e", "v_remarks_e"};
 	        Object[] paramaters = null;
 			try {
 				paramaters = new Object[]{
@@ -490,7 +438,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 				        merchDeta.getMerchId(),
 				        enterpriseDeta.getMemId(),
 				        enterpriseDeta.getEnterpriseMemberId(),
-				        "".equals(merchDeta.getParent()) ? null : "".equals(merchDeta.getParent()),
+				        "".equals(merchDeta.getParent()) ? null : merchDeta.getParent(),
 				        "".equals(merchDeta.getSetlCycle()) ? null : merchDeta.getSetlCycle(),
 				        "".equals(merchDeta.getSetlType()) ? null : merchDeta.getSetlType(),
 				        "".equals(merchDeta.getBankCode()) ? null : merchDeta.getBankCode(),
@@ -546,13 +494,14 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 				        "".equals(enterpriseDeta.getIsDelegation()) ? null : enterpriseDeta.getIsDelegation(),
 				        "".equals(enterpriseDeta.getSignatory()) ? null : enterpriseDeta.getSignatory(),
 				        "".equals(enterpriseDeta.getSignCertNo()) ? null : enterpriseDeta.getSignCertNo(),
+				        "".equals(merchDeta.getChargingunit()) ? null : merchDeta.getChargingunit(),
 				        "".equals(enterpriseDeta.getNotes()) ? null : enterpriseDeta.getNotes(),
 				        "".equals(enterpriseDeta.getRemarks()) ? null : enterpriseDeta.getRemarks()};
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 	        List<?> dbResult = executeOracleProcedure(
-	                        "{CALL PCK_MERCH.pro_u_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
+	                        "{CALL PCK_MERCH.pro_u_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
 	                        columns, paramaters, "cursor0");
 	        if (dbResult == null || dbResult.get(0) == null) {
 	            resultMap.clear();
@@ -567,8 +516,14 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	}
 	 public boolean hasSame(String email, String cellphone, String coopInstiId,String memberId) {
 	        String sql="select * from t_merch_deta t inner join t_member tp on t.member_id=tp.member_id where"
-	        		+ " tp.insti_code="+coopInstiId+" and (tp.email='"+email+"' or tp.phone="+cellphone+") and t.member_id="+ memberId;
-	        if(queryBySQL(sql,null) != null){
+	        		+ " tp.insti_code=? and (tp.email=? or tp.phone=?) and t.member_id=?";
+	        Object[] paramaters = new Object[]{
+	        		"".equals(coopInstiId) ? null : coopInstiId,
+	        		"".equals(email) ? null : email,
+	        		"".equals(cellphone) ? null : cellphone,
+	        		"".equals(memberId) ? null : memberId};
+	        
+	        if(queryBySQL(sql,paramaters) != null){
 	            return true;
 	        } else {
 	            return false;
@@ -602,13 +557,17 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	@Override
 	public Map<String, Object> queryApplyMerchDeta(String merchApplyId, Long userId) {
 		PojoMerchDetaApply pojoMerchApply = (PojoMerchDetaApply) getBean(Long.parseLong(merchApplyId)).get(0);
+		
+		if(pojoMerchApply == null){
+        	return null;
+        }
+		
         String[] columns = new String[]{"v_user", "v_self_id", "v_merch_id"};
         Object[] paramaters = new Object[3];
         paramaters[0] = userId;
         paramaters[1] = pojoMerchApply.getSelfId();
         paramaters[2] = pojoMerchApply.getMerchId();
-        return (Map<String, Object>) executeOracleProcedure(
-                "{CALL  PCK_MERCH.sel_t_merchant_apply_deta(?,?,?,?)}",
+        return (Map<String, Object>) executeOracleProcedure("{CALL  PCK_MERCH.sel_t_merchant_apply_deta(?,?,?,?)}",
                 columns, paramaters, "cursor0").get(0);
 	}
 
@@ -637,14 +596,18 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
         paramaters[2] = merchApplyId;
         paramaters[4] = isAgree;
         paramaters[5] = null;
-        List<Map<String, Object>> resultlist = executeOracleProcedure(
-                "{CALL  PCK_MERCH.exam_merch_deta(?,?,?,?,?,?,?)}", columns,
+        List<Map<String, Object>> resultlist = executeOracleProcedure("{CALL  PCK_MERCH.exam_merch_deta(?,?,?,?,?,?,?)}", columns,
                 paramaters, "cursor0");
         String mark = (String) resultlist.get(0).get("INFO");
 
         if (mark.equals("操作成功!") && isAgree.equals("0") && flag.equals("3")) {
             // 复审通过，flag=3
-            PojoMerchDetaApply pojoMerchDetaApply = (PojoMerchDetaApply) getBean(Long.parseLong(merchApplyId)).get(0);;
+            PojoMerchDetaApply pojoMerchDetaApply = (PojoMerchDetaApply) getBean(Long.parseLong(merchApplyId)).get(0);
+            
+            if(pojoMerchDetaApply == null){
+            	return null;
+            }
+            
             Map<String, Object> variables = new HashMap<String, Object>();
             variables.put("merberId", pojoMerchDetaApply.getMemberId());
             // 商户秘钥
@@ -699,20 +662,14 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
                 "v_localprikey", "v_storgetype", "v_keyflag", "v_notes",
                 "v_remarks"};
         Object[] paramaters = new Object[]{
-                variables.containsKey("merberId")
-                        ? variables.get("merberId")
-                        : null,
+                variables.containsKey("merberId") ? variables.get("merberId") : null,
                 "01",
-                variables.containsKey("memberpubkey") ? variables
-                        .get("memberpubkey") : null,
-                variables.containsKey("memberprikey") ? variables
-                        .get("memberprikey") : null,
-                variables.containsKey("localpubkey") ? variables
-                        .get("localpubkey") : null,
-                variables.containsKey("localprikey") ? variables
-                        .get("localprikey") : null, "01", "1", null, null};
-        return executeOracleProcedure(
-                        "{CALL  PCK_T_MERCH_MK.pro_i_t_merch_mk(?,?,?,?,?,?,?,?,?,?,?)}",
+                variables.containsKey("memberpubkey") ? variables.get("memberpubkey") : null,
+                variables.containsKey("memberprikey") ? variables.get("memberprikey") : null,
+                variables.containsKey("localpubkey") ? variables.get("localpubkey") : null,
+                variables.containsKey("localprikey") ? variables.get("localprikey") : null,
+                		"01", "1", null, null};
+        return executeOracleProcedure("{CALL  PCK_T_MERCH_MK.pro_i_t_merch_mk(?,?,?,?,?,?,?,?,?,?,?)}",
                         columns, paramaters, "cursor0");
     }
 }

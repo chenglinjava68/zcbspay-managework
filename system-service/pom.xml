@@ -30,11 +30,6 @@
 			<artifactId>system</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>com.zcbspay.platform.manager</groupId>
-			<artifactId>merchant</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<finalName>system-service</finalName>

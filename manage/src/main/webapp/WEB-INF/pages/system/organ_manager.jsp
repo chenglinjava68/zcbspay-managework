@@ -187,7 +187,6 @@ table tr td select {
 		}
 		function showAdd(){	
 			$("#organForm").attr("action","organ/save");
-// 			$("#organForm").attr("action","pages/system/saveOrganAction.action");
 			$('#w').window({
 				title: '新增机构',
 				top:100,
@@ -221,23 +220,24 @@ table tr td select {
 				    	$('#btn_submit').linkbutton('disable');		
 						return true;
 					}
-			    
 			        return false;   
 			    },   
 			    success:function(data){  
-			    	var json = eval('(' + data + ')')
+			    	var json = eval('(' + data + ')');
 			    	$.each(json, function(key,value){
-			    		$.messager.alert('提示',value.INFO); 
-			    		if(value.RET='succ'){
+			    		if(value.RET != 'succ'){
+		    				$.messager.alert('提示',"操作失败!");
 			    			search();
 				    		closeAdd();
-				    	}  
+				    	}else{
+				    		$.messager.alert('提示',value.INFO); 
+				    		search();
+				    		closeAdd();
+				    	}
 			    		$('#btn_submit').linkbutton('enable');		
 					}) 
-			        
 			    }   
 			});  
-			
 		}
 		function showProvince(){		
 			$.ajax({
@@ -292,32 +292,30 @@ table tr td select {
 		function deleteOrgan(organId){
 			$.messager.confirm('提示','您是否想要注销此机构?',function(r){   
 			   if (r){  
-				$.ajax({
-				   type: "POST",
-				   url: "organ/delete",
-// 				   url: "pages/system/deleteOrganAction.action",
-				   data: "organId="+organId,
-				   dataType:"json",
-				   success:function(json){
-						$.each(json, function(key,value){
-				    		$.messager.alert('提示',value.INFO);   
-				    		search();
-				    		closeAdd();
-						}) 
-				   
-				 	}
-				});
-				    }   
-				});  
+					$.ajax({
+					   type: "POST",
+					   url: "organ/delete",
+	// 				   url: "pages/system/deleteOrganAction.action",
+					   data: "organId="+organId,
+					   dataType:"json",
+					   success:function(json){
+							$.each(json, function(key,value){
+					    		$.messager.alert('提示',value.INFO);   
+					    		search();
+					    		closeAdd();
+							}) 
+					   
+					 	}
+					});
+				 }   
+			});  
 		}
 		function showOrgan(organId){	
 			$("#organForm").attr("action","organ/update");	
-// 			$("#organForm").attr("action","pages/system/updateOrganAction.action");	
 			$("#org_code").attr('class','easyui-validatebox');
 			$.ajax({
 			   type: "POST",
 			   url: "organ/getSingleById",
-// 			   url: "pages/system/getSingleByIdOrganAction.action",
 			   data: "organId="+organId,
 			   dataType:"json",
 			   success: function(json){
@@ -328,7 +326,6 @@ table tr td select {
 				})
 		   		$("#org_city").html(html);
 				$("#org_code").val(json.organModel.organCode);
-				$("#org_code").attr('disabled','disabled');
 				$("#org_name").val(json.organModel.organName);
 				$("#org_super").val(json.organModel.superid);
 				$("#org_province").val(json.organModel.province);
@@ -352,7 +349,6 @@ table tr td select {
 				height: 240
 			});
 			$('#btn_submit').linkbutton('enable');	
-			//alert($("#organForm").attr("action"));
 		}
 					
 	</script>

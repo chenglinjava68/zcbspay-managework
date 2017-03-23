@@ -13,6 +13,21 @@
         <dependent-module archiveName="common-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/common/common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="support-signature-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/support-signature/support-signature">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="support-signaturn-api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/support-signature-api/support-signature-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="support-common-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/support-common/support-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="support-order-query-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/support-order-query/support-order-query">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="support-order-query-api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/support-order-query-api/support-order-query-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/business-service/target/classes"/>
         <property name="context-root" value="business-service"/>
     </wb-module>

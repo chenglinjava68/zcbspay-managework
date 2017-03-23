@@ -13,8 +13,8 @@ public class EnterpriseDetaDaoImpl extends HibernateBaseDAOImpl<PojoEnterpriseDe
 
 	@Override
 	public List<?> findById(String selfId) {
-		String hql = "select p from PojoEnterpriseDetaApply p where p.selfId="+selfId;
-		return queryByHQL(hql,null);
+		String hql = "select p from PojoEnterpriseDetaApply p where p.selfId=?";
+		return queryByHQL(hql,new Object[]{selfId});
 	}
 
 }

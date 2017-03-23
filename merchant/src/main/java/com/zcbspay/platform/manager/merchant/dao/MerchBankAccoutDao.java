@@ -44,5 +44,11 @@ public interface MerchBankAccoutDao extends BaseDAO<PojoMerchBankAccout> {
 	 */
 	void delect(String tId);
 
+	/**
+	 * 查询总数
+	 * @return
+	 */
+	List<?> findAll(MerchBankAccoutBean bankAccount);
+
 
 }

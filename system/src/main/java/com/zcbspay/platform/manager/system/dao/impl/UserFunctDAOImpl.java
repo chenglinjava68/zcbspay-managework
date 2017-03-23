@@ -20,8 +20,8 @@ public class UserFunctDAOImpl extends HibernateBaseDAOImpl<PojoUserFunct> implem
 
 	@Override
 	public List<?> findByProperty(Long userId) {
-		Object[] paramaters = null;
-		String sql = "select u from PojoUserFunct u where u.userId ="+ userId;
+		String sql = "select u from PojoUserFunct u where u.userId =?";
+		Object[] paramaters = new Object[]{userId};
 		return queryByHQL(sql, paramaters);
 	}
 
@@ -31,7 +31,10 @@ public class UserFunctDAOImpl extends HibernateBaseDAOImpl<PojoUserFunct> implem
 		String sql;
 		if(list.size() > 0){
 			for(PojoUserFunct userFunct : list){
-				sql = "insert into T_USER_FUNCT(USER_ID,FUNCT_ID) values ("+ userFunct.getUserId()+","+userFunct.getFunctId()+")";
+				sql = "insert into T_USER_FUNCT(USER_ID,FUNCT_ID) values (?,?)";
+				paramaters = new Object[]{
+						"".equals(userFunct.getUserId()) ? null : userFunct.getUserId(),
+						"".equals(userFunct.getFunctId()) ? null : userFunct.getFunctId()};
 				queryBySQL(sql, paramaters);
 			}
 		}

@@ -113,13 +113,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.confirm('操作', '确认退出?',
 				function(r) {
 					if (r) {
-						window.parent.location.href = "<%=basePath%>" + "/pages/logoutAction.action";
+						window.parent.location.href = "<%=basePath%>" + "login/logout";
 					}
 				});
 			}
 			
 			function returnLogin() {
-				window.parent.location.href = "<%=basePath%>" + "/pages/logoutAction.action";
+				window.parent.location.href = "<%=basePath%>" + "login/logout";
 			}
 			
 			function showPassword() {
@@ -336,7 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div region="center" border="false"
 				style="background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm"
-					action="pages/system/changePasswordUserAction.action" method="post">
+					action="system/changePassword" method="post">
 
 					<table width="100%" style="margin-top: 5px">
 						<tr>

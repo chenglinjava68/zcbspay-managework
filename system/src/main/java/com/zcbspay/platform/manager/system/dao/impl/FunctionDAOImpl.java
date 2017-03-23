@@ -25,14 +25,6 @@ public class FunctionDAOImpl extends HibernateBaseDAOImpl<PojoFunction> implemen
 	
 	@Transactional(readOnly=true)
 	public List<?> existUserAndRoleFunct(Long userId,Long fid){
-		/*String queryString = "select" +
-			"t.user_id,trf.funct_id rolefunct,tuf.funct_id userfunct" +
-		"from" +
-			"t_user t" +
-			"left join t_role_funct trf on t.role_id = trf.role_id"+
-			"left join t_user_funct tuf on t.user_id = tuf.user_id"+
-		"where" +
-			"t.user_id=? and (trf.funct_id=? or tuf.funct_id=?)";*/
 		StringBuffer queryString = new StringBuffer("select ");
 		queryString.append("t.user_id,trf.funct_id rolefunct,tuf.funct_id userfunct ");
 		queryString.append("from ");
@@ -50,8 +42,7 @@ public class FunctionDAOImpl extends HibernateBaseDAOImpl<PojoFunction> implemen
 		
 		String[] columns = new String[] { "v_user"};
 		Object[] paramaters = new Object[] { "".equals(loginuser.getUserId()) ? null : loginuser.getUserId()};
-		return executeOracleProcedure(
-				"{CALL pro_funct_by_user(?,?)}", columns,
+		return executeOracleProcedure("{CALL pro_funct_by_user(?,?)}", columns,
 				paramaters, "cursor0");
 	}
 }

@@ -176,7 +176,7 @@ public class CheckInfoController {
 	public Map<String, Object> queryFail(HttpServletRequest request,String page,String rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("proid", request.getParameter("proid")); 
-        variables.put("user",UserHelper.getCurrentUser(request).getUserId());
+        variables.put("user",UserHelper.getCurrentUser(request));
         Map<String, Object> failList = uploadlogService.queryFail(variables, page,rows);
         return failList;
 	}
@@ -194,7 +194,7 @@ public class CheckInfoController {
 	public Map<String, Object> querySuccess(HttpServletRequest request,String page,String rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("proid", request.getParameter("proid")); 
-        variables.put("user",UserHelper.getCurrentUser(request).getUserId());
+        variables.put("user",UserHelper.getCurrentUser(request));
         Map<String, Object> failList = uploadlogService.querySuccess(variables, page,rows);
         return failList;
 	}
