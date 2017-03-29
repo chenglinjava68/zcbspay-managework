@@ -1,26 +1,38 @@
 package com.zcbspay.platform.manager.controller.checkinfo;
 
+import java.io.File;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.cnaps.application.bean.DetailCheckPaymentInformation;
 import com.zcbspay.platform.cnaps.application.bean.ResultBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckMessageBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckPaymentBean;
 import com.zcbspay.platform.manager.reconcilication.bean.ChannelFileBean;
+import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 import com.zcbspay.platform.manager.reconcilication.service.ChannelFileService;
 import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
 import com.zcbspay.platform.manager.reconcilication.service.UploadlogService;
+import com.zcbspay.platform.manager.utils.CSVUtils;
 import com.zcbspay.platform.manager.utils.JsonUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
 
@@ -61,6 +73,13 @@ public class CheckInfoController {
 	@RequestMapping("showStartCheck")
 	public String showStartCheck() {
 		return "checkinfo/file_start";
+	}
+	
+	
+	
+	@RequestMapping("showFileUpload")
+	public String showFileUpload() {
+		return "checkinfo/file_upload";
 	}
 
 	/**
@@ -200,5 +219,73 @@ public class CheckInfoController {
 	}
 	
 	
+	/**
+	 * 上传CSV文件并解析到数据库
+	 * @param request
+	 * @param fileUp 用户上传的input的name
+	 * @param httpSession
+	 * @return
+	 */
+	@RequestMapping(value="csvimport",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> csvImport(HttpServletRequest request,HttpSession session,String instiid,
+	        @RequestParam("orderCSV")MultipartFile fileUp,  HttpServletResponse response) {
+	    Map<String, Object> resMap = new HashMap<String, Object>();
+	    if(fileUp==null || fileUp.isEmpty()){
+	        resMap.put("error", "上传文件为空或没有数据");
+	        return resMap;
+	    }
+	    try {
+	        boolean localhost = request.getRequestURL().toString().contains("localhost");
+	        String rootPath=localhost?request.getSession().getServletContext().getRealPath("/"):
+	               "/";//获取项目根目录
+	        File dir = new File(rootPath+"\\orderData\\");
+	        if(!dir.exists()){//目录不存在则创建
+	             dir.mkdir();
+	        }
+	        File fileServer = new File(rootPath+"\\orderData\\"
+	                +(new Random().nextInt(100000)+100000)+fileUp.getOriginalFilename());
+	        String fileName= fileUp.getOriginalFilename();	        
+	        fileUp.transferTo(fileServer);
+	        List<String> orderInfoList = CSVUtils.importCsv(fileServer);
+	        if(orderInfoList==null || orderInfoList.size()<=1 || orderInfoList.size()>10000){
+	            resMap.put("error", "上传文件无数据或数据量过大");
+	            return resMap;
+	        }
+	        String[] files=fileName.split("_");
+	        String organization=files[0];
+	        String date=files[1];
+	        String busiType=files[2];
+	        List<ChnTxnBean> list=new ArrayList<>();
+	        for (int i = 1; i < orderInfoList.size(); i++) {
+	        	String row=orderInfoList.get(i);
+	        	ChnTxnBean chnTxnBean=new ChnTxnBean();
+				String[] cell=row.split(",");
+				chnTxnBean.setInstiid(instiid);//TODO 这需要数据库获取,service中获取就可以
+				chnTxnBean.setBusicode(busiType.contains("D")?"11000001":"11000002");//TODO:这里出现的是C或者D  需要对应成数据库编码
+				chnTxnBean.setChargingunit(organization);
+				chnTxnBean.setTransdate(cell[0]);
+				chnTxnBean.setTxid(cell[1]);
+				chnTxnBean.setCreditorbranchcode(cell[5]);
+				chnTxnBean.setCreditoraccountno(cell[6]);
+				chnTxnBean.setCreditorname(cell[7]);
+				chnTxnBean.setDebtorbranchcode(cell[2]);
+				chnTxnBean.setDebtoraccountno(cell[3]);
+				chnTxnBean.setDebtorname(cell[4]);
+				chnTxnBean.setCurrencysymbol("156");
+				chnTxnBean.setAmount(cell[8]);
+				chnTxnBean.setBillnumber(cell[9]);
+				chnTxnBean.setRspcode(cell[10]);
+				chnTxnBean.setSettledate(cell[13]);
+				list.add(chnTxnBean);
+			}
+	        String returnStr=uploadlogService.importBatch(list);
+	        resMap.put("msg", returnStr);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        resMap.put("msg", "出错");
+	    }
+	    return resMap;
+	}
 	
 }

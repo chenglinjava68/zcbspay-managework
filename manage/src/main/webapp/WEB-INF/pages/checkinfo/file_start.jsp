@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<meta http-equiv="Content-Type" content="text/html; charset="utf-8">
 <jsp:include page="../../top.jsp"></jsp:include>
 <%
 String path = request.getContextPath();
@@ -59,10 +60,7 @@ table tr td select {
 			</form>
 		</div>
 		<div style="margin-top: 5px">
-
 			<table id="test"></table>
-
-
 		</div>
 		<div>
 			<form id="check" method="post" action="">
@@ -74,11 +72,17 @@ table tr td select {
 </body>
 
 <script>
+
+
+
 	$(function(){
 	  	  $('#startDate,#endDate').datebox({   
 	      }); 
 	  	queryChannel();
-	}); 	  
+	}); 	
+	
+	
+	
 	
 	
 	function queryChannel() {

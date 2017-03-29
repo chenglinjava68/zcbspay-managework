@@ -20,6 +20,11 @@
         </property>  
     </bean>
     
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"  
+    		p:defaultEncoding="UTF-8"
+            >
+    </bean>
+    
 	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
 	<context:component-scan base-package="com.zcbspay.platform.manager.controller" />
 	<!-- 开启controller注解支持 -->

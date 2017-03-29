@@ -3,6 +3,8 @@ package com.zcbspay.platform.manager.reconcilication.service;
 import java.util.List;
 import java.util.Map;
 
+import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
+
 public interface UploadlogService {
 	/**
 	 * 任务分页查询（新增任务，开始对账）
@@ -49,4 +51,13 @@ public interface UploadlogService {
 	 * @version v1.0
 	 */
 	public Map<String, Object> querySuccess(Map<String, Object> variables, String page, String rows);
+	/**
+	 * 批量导入
+	 * @author: zhangshd
+	 * @param list void
+	 * @date: 2017年3月28日 下午7:40:41 
+	 * @version v1.0
+	 * @return 
+	 */
+	public String importBatch(List<ChnTxnBean> list);
 }

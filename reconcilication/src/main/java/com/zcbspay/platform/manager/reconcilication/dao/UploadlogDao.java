@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.zcbspay.platform.manager.dao.BaseDAO;
 import com.zcbspay.platform.manager.reconcilication.bean.ChannelFileBean;
+import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 
 public interface UploadlogDao extends BaseDAO<ChannelFileBean>{
 
@@ -52,6 +53,14 @@ public interface UploadlogDao extends BaseDAO<ChannelFileBean>{
 	 * @version v1.0
 	 */
 	public Map<String, Object> querySuccess(Map<String, Object> variables, String page, String rows);
+	/**
+	 * @author: zhangshd
+	 * @param list
+	 * @return Object
+	 * @date: 2017年3月28日 下午7:44:04 
+	 * @version v1.0
+	 */
+	public Object importBatch(List<ChnTxnBean> list);
 
 
 }

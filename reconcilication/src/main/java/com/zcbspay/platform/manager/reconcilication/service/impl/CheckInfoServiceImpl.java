@@ -24,7 +24,7 @@ import com.zcbspay.platform.manager.utils.DateUtils;
 public class CheckInfoServiceImpl implements CheckInfoService {
 
 	
-	//@Autowired
+	@Autowired
 	private CheckBillService checkBillService;
 	
 	@Override
