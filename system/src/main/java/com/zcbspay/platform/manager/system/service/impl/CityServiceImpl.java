@@ -19,7 +19,7 @@ public class CityServiceImpl implements CityService {
 	private CityDao cityDao;
 	
 	@Override
-	public List<?> findNotMuniByPid(long pid) {
+	public List<?> findNotMuniByPid(Long pid) {
 		return cityDao.findNotMuniByPid(pid);
 	}
 

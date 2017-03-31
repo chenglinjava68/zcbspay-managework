@@ -474,10 +474,10 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择所属市--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.CId==city){
-							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
-						}else {
-							html += '<option value="' + value.CId + '">' + value.CName + '</option>';
+						if(value.C_ID==city){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
+						}else{
+							html += '<option value="' + value.C_ID + '">' + value.C_NAME + '</option>';
 						}
 					});
 					if (type == 'province_ins') {

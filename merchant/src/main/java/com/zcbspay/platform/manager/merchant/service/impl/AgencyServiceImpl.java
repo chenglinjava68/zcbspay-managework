@@ -63,7 +63,7 @@ public class AgencyServiceImpl implements AgencyService {
 		return agencyDAO.saveMerchDeta(merchDeta,enterprise);
 	}
 
-	public List<?> queryCounty(String pid) {
+	public List<?> queryCounty(Long pid) {
 		return agencyDAO.queryCounty(pid);
 	}
 

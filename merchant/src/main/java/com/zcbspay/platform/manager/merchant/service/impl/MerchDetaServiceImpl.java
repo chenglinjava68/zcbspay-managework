@@ -63,7 +63,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 		return merchDetaDAO.saveMerchDeta(merchDeta,enterprise);
 	}
 
-	public List<?> queryCounty(String pid) {
+	public List<?> queryCounty(Long pid) {
 		return merchDetaDAO.queryCounty(pid);
 	}
 

@@ -27,11 +27,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
+import com.zcbspay.platform.manager.merchant.bean.MerchRateConfigBean;
 import com.zcbspay.platform.manager.merchant.service.CoopInstiService;
 import com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService;
 import com.zcbspay.platform.manager.merchant.service.MccListService;
+import com.zcbspay.platform.manager.merchant.service.MerchRateConfigService;
 import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.PojoProductService;
+import com.zcbspay.platform.manager.merchant.service.ProdCaseService;
+import com.zcbspay.platform.manager.merchant.service.RateAllService;
 import com.zcbspay.platform.manager.pojo.Money;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.system.service.CityService;
@@ -59,6 +63,12 @@ public class AgencyController {
     @Autowired
     private PojoProductService pojoProductService;
 
+    @Autowired
+	private ProdCaseService prodCaseService;
+    @Autowired
+    private RateAllService rateAllService;
+    @Autowired
+    private MerchRateConfigService merchRateConfigService;
     // 商户信息管理页面
     @ResponseBody
 	@RequestMapping("/show")
@@ -497,8 +507,8 @@ public class AgencyController {
      */
     @ResponseBody
 	@RequestMapping("/queryCity")
-    public List<?> queryCity(Long pid) {
-    	return cityService.findNotMuniByPid(pid.longValue());
+    public List<?> queryCity(String pid) {
+    	return cityService.findNotMuniByPid(Long.parseLong(pid));
     }
 
     /**
@@ -507,7 +517,7 @@ public class AgencyController {
     @ResponseBody
 	@RequestMapping("/queryCounty")
     public List<?> queryCounty(String pid) {
-    	return agencyService.queryCounty(pid);
+    	return agencyService.queryCounty(Long.parseLong(pid));
     }
 
     /**
@@ -640,6 +650,103 @@ public class AgencyController {
 	@RequestMapping("/queryProduct")
     public List<?> queryProduct(long coopInstiId){
     	return pojoProductService.queryProduct(coopInstiId);
+    }
+    
+    @ResponseBody
+	@RequestMapping("/showProdCase")
+    public ModelAndView showProdCase(String prdtVer,String memberId) { 
+    	ModelAndView result = new ModelAndView("/merch/merch_product"); 
+    	result.addObject("memberId", memberId); 
+    	return result; 
+    }
+    /**
+     * 查询业务计费列表
+     * @return
+     */
+    @ResponseBody
+	@RequestMapping("/findRateConfig")
+	public List<?> findRateConfig(String memberId) {
+    	// TODO Auto-generated catch block
+    	return merchRateConfigService.findRateConfig(memberId);
+	}
+    
+    /**
+     * 新增计费方式
+     * @param merchRate
+     * @param request
+     * @return
+     */
+    @ResponseBody
+	@RequestMapping("/addRateConfig")
+	public List<?> addRateConfig(MerchRateConfigBean merchRate,HttpServletRequest request) {
+    	UserBean user = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+    	MerchDetaApplyBean merchDeta = agencyService.getBean(Long.parseLong(merchRate.getMemberId()));
+    	merchRate.setMemberId(merchDeta.getMemberId());
+    	merchRate.setInUser(user.getUserId());
+    	return merchRateConfigService.addRateConfig(merchRate);
+	}
+    
+    @ResponseBody
+	@RequestMapping("/findRateById")
+    public MerchRateConfigBean findRateById(String memberId, String busiCode) {
+        MerchDetaApplyBean merchDeta = agencyService.getBean(Long.parseLong(memberId));
+        memberId = merchDeta.getMemberId();
+        return merchRateConfigService.findParaById(memberId,busiCode);
+    }
+    
+    /**
+     * 修改计费方式
+     * @param merchRate
+     * @param request
+     * @return
+     */
+    @ResponseBody
+	@RequestMapping("/updateRateConfig")
+	public List<?> updateRateConfig(MerchRateConfigBean merchRate,HttpServletRequest request) {
+    	UserBean user = (UserBean)request.getSession().getAttribute("LOGIN_USER");
+    	merchRate.setInUser(user.getUserId());
+    	return merchRateConfigService.updateRateConfig(merchRate);
+	}
+    
+    /**
+	 * 查询扣率类型
+	 * @return
+	 */
+    @ResponseBody
+	@RequestMapping("/findParaDic")
+	public List<?> findParaDic() {
+    	return prodCaseService.findParaDic();
+	}
+    /**
+     * 查询扣率详细类型
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/findParaDicById")
+    public List<?> findParaDicById(String rateMethod) {
+    	return  prodCaseService.findParaById(rateMethod);
+    }
+    
+    /**
+     * 查询扣率信息
+     * @return
+     */
+    @ResponseBody
+	@RequestMapping("/findParaDesc")
+	public List<?> findParaDesc(String paraCode) {
+    	if (paraCode.equals(0)) {
+			return null;
+		}
+    	return rateAllService.findParaDesc(paraCode);
+	}
+    /**
+     * 查询扣率详细信息
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/findParaDescById")
+    public List<?> findParaDescById(String rateMethod,String rateId) {
+    	return rateAllService.findParaById(Long.parseLong(rateMethod),Long.parseLong(rateId));
     }
     
 //*********************************商户信息变更*******************************************

@@ -285,7 +285,7 @@ table tr td font.current-step {
 	<div region="south" border="false"
 		style="text-align: center; padding: 5px 0;">
 		<c:if test="${flag==2||flag==3}">
-			<a href="javascript:merchAudit('0');" id="button_ins1"
+			<a href="javascript:DetailParaDic('0');" id="button_ins1"
 				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
 			<a href="javascript:merchAudit('9');" id="button_ins2"
 				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
@@ -359,6 +359,10 @@ table tr td font.current-step {
 				}
 			});
 		}
+		function DetailParaDic(result) {
+			 var memberId = $("#merchApplyId").val();
+			 window.location.href= "<%=basePath%>" +'agency/showProdCase?memberId='+ memberId;
+		  }
 	</script>
 </body>
 

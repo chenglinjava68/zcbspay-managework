@@ -12,9 +12,9 @@ import com.zcbspay.platform.manager.system.pojo.PojoCity;
 public class CityDaoImpl extends HibernateBaseDAOImpl<PojoCity>  implements CityDao {
 
 	@Override
-	public List<?> findNotMuniByPid(long pId) {
-		String sql = "select ct from PojoCity ct where ct.PId = ?";
-		return queryByHQL(sql,new Object[]{pId});
+	public List<?> findNotMuniByPid(Long pId) {
+		String sql = "select * from T_CITY ct where ct.P_ID = ?";
+		return queryBySQL(sql,new Object[]{pId});
 	}
 
 	@Override

@@ -55,7 +55,7 @@ public interface AgencyService {
 	 * @param pid
 	 * @return
 	 */
-	public List<?> queryCounty(String pid);
+	public List<?> queryCounty(Long pid);
 
 	/**
 	 * 关键字查询开户行

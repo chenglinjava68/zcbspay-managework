@@ -429,13 +429,11 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择所属市--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.CId!=pid){
-							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
-						}else if(value.CId==city){
-							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
+						if(value.C_ID!=pid){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
+						}else if(value.C_ID==city){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
 						}
-						//alert(value.roleName);
-// 						html += '<option value="' + value.CId + '">' + value.CName + '</option>';
 					});
 					if (type == 'province_ins') {
 						$("#city_ins").html(html);
