@@ -326,5 +326,6 @@
     <module>contract</module>
     <module>contract-api</module>
     <module>contract-service</module>
+    <module>merchant-simple</module>
 	</modules>
 </project>
