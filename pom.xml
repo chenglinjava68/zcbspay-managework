@@ -323,8 +323,5 @@
     <module>trade-query-api</module>
     <module>trade-query-service</module>
     <module>trade-query-simple</module>
-    <module>contract</module>
-    <module>contract-api</module>
-    <module>contract-service</module>
 	</modules>
 </project>
