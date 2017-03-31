@@ -3,12 +3,16 @@ package com.zcbspay.platform.manager.trade.service;
 import java.util.List;
 import java.util.Map;
 
+import com.zcbspay.platform.manager.trade.bean.BatchCollectOrderBean;
+import com.zcbspay.platform.manager.trade.bean.BatchPaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.CnapsLogBean;
 import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
+import com.zcbspay.platform.manager.trade.bean.RealTimeCollectOrderBean;
+import com.zcbspay.platform.manager.trade.bean.RealTimePaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.TxnsLogBean;
 
-public interface TxnsLogService {
+public interface TradeService {
 	/**
 	 * 分页查询交易流水
 	 * @author: zhangshd
@@ -129,4 +133,56 @@ public interface TxnsLogService {
 	 */
 	public Map<String, Object> getBepsCollectSingleByPage(String page, String rows,
 			CollectAndPaymentBean collectBatchBean);
+	/**
+	 * 实时代付订单查询
+	 * @author: zhangshd
+	 * @param page
+	 * @param rows
+	 * @param realTimePaymentOrderBean
+	 * @return Map<String,Object>
+	 * @date: 2017年3月30日 下午2:47:09 
+	 * @version v1.0
+	 */
+	public Map<String, Object> getRealTimePaymentOrderByPage(String page, String rows,
+			RealTimePaymentOrderBean realTimePaymentOrderBean);
+	/**
+	 * 实时代收订单查询
+	 * @author: zhangshd
+	 * @param page
+	 * @param rows
+	 * @param realTimePaymentOrderBean
+	 * @return Map<String,Object>
+	 * @date: 2017年3月30日 下午2:47:09 
+	 * @version v1.0
+	 */
+	public Map<String, Object> getRealTimeCollectOrderByPage(String page, String rows,
+			RealTimeCollectOrderBean realTimeCollectOrderBean);
+	/**
+	 * 批量代付订单查询
+	 * @author: zhangshd
+	 * @param page
+	 * @param rows
+	 * @param realTimePaymentOrderBean
+	 * @return Map<String,Object>
+	 * @date: 2017年3月30日 下午2:47:09 
+	 * @version v1.0
+	 */
+	public Map<String, Object> getBatchPaymentOrderByPage(String page, String rows,
+			BatchPaymentOrderBean batchPaymentOrderBean);
+	/**
+	 * 批量代收订单查询
+	 * @author: zhangshd
+	 * @param page
+	 * @param rows
+	 * @param realTimePaymentOrderBean
+	 * @return Map<String,Object>
+	 * @date: 2017年3月30日 下午2:47:09 
+	 * @version v1.0
+	 */
+	public Map<String, Object> getBatchCollectOrderByPage(String page, String rows,
+			BatchCollectOrderBean batchCollectOrderBean);
+	public Map<String, Object> getCollectOrderDetaByBatchNo(String page, String rows,
+			BatchCollectOrderBean batchCollectOrderBean);
+	public Map<String, Object> getPaymentOrderDetaByBatchNo(String page, String rows,
+			BatchPaymentOrderBean batchPaymentOrderBean);
 }

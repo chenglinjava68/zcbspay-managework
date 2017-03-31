@@ -6,20 +6,26 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zcbspay.platform.manager.trade.bean.BatchCollectOrderBean;
+import com.zcbspay.platform.manager.trade.bean.BatchPaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.CnapsLogBean;
 import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
+import com.zcbspay.platform.manager.trade.bean.RealTimeCollectOrderBean;
+import com.zcbspay.platform.manager.trade.bean.RealTimePaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.TxnsLogBean;
 import com.zcbspay.platform.manager.trade.dao.CnapsLogDao;
 import com.zcbspay.platform.manager.trade.dao.CollectBatchDao;
 import com.zcbspay.platform.manager.trade.dao.CollectSingleDao;
+import com.zcbspay.platform.manager.trade.dao.OrderCollectDao;
 import com.zcbspay.platform.manager.trade.dao.OrderInfoDao;
+import com.zcbspay.platform.manager.trade.dao.OrderPaymentDao;
 import com.zcbspay.platform.manager.trade.dao.PaymentBatchDao;
 import com.zcbspay.platform.manager.trade.dao.PaymentSingleDao;
 import com.zcbspay.platform.manager.trade.dao.TxnsLogDao;
-import com.zcbspay.platform.manager.trade.service.TxnsLogService;
-@Service("txnsLogService")
-public class TxnsLogServiceImpl implements TxnsLogService{
+import com.zcbspay.platform.manager.trade.service.TradeService;
+@Service("tradeService")
+public class TradeServiceImpl implements TradeService{
 
 	@Autowired
 	private TxnsLogDao txnsLogDao;
@@ -42,6 +48,10 @@ public class TxnsLogServiceImpl implements TxnsLogService{
 	@Autowired
 	private CollectSingleDao collectSingleDao;
 	
+	@Autowired
+	private OrderCollectDao orderCollectDao;
+	@Autowired
+	private OrderPaymentDao orderPaymentDao;
 	
 	@Override
 	public Map<String, Object> getTxnsLogByPage(String page, String rows, TxnsLogBean values) {
@@ -89,6 +99,36 @@ public class TxnsLogServiceImpl implements TxnsLogService{
 	public Map<String, Object> getBepsCollectSingleByPage(String page, String rows,
 			CollectAndPaymentBean collectBatchBean) {
 		return collectSingleDao.getBepsCollectSingleByPage(page, rows, collectBatchBean);
+	}
+	@Override
+	public Map<String, Object> getRealTimePaymentOrderByPage(String page, String rows,
+			RealTimePaymentOrderBean realTimePaymentOrderBean) {
+		return orderPaymentDao.getRealTimePaymentOrderByPage(page,rows,realTimePaymentOrderBean);
+	}
+	@Override
+	public Map<String, Object> getRealTimeCollectOrderByPage(String page, String rows,
+			RealTimeCollectOrderBean realTimeCollectOrderBean) {
+		return orderCollectDao.getRealTimeCollectOrderByPage(page,rows,realTimeCollectOrderBean);
+	}
+	@Override
+	public Map<String, Object> getBatchPaymentOrderByPage(String page, String rows,
+			BatchPaymentOrderBean batchPaymentOrderBean) {
+		return orderPaymentDao.getBatchPaymentOrderByPage(page,rows,batchPaymentOrderBean);
+	}
+	@Override
+	public Map<String, Object> getBatchCollectOrderByPage(String page, String rows,
+			BatchCollectOrderBean batchCollectOrderBean) {
+		return orderCollectDao.getBatchCollectOrderByPage(page,rows,batchCollectOrderBean);
+	}
+	@Override
+	public Map<String, Object> getCollectOrderDetaByBatchNo(String page, String rows,
+			BatchCollectOrderBean batchCollectOrderBean) {
+		return orderCollectDao.getCollectOrderDetaByBatchNo(page,rows,batchCollectOrderBean);
+	}
+	@Override
+	public Map<String, Object> getPaymentOrderDetaByBatchNo(String page, String rows,
+			BatchPaymentOrderBean batchPaymentOrderBean) {
+		return orderPaymentDao.getPaymentOrderDetaByBatchNo(page,rows,batchPaymentOrderBean);
 	}
 	
 }

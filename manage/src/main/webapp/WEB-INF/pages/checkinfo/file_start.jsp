@@ -30,10 +30,6 @@ table tr td select {
 						<td align="center">对账机构</td>
 						<td colspan="1"><select id="instiid_ins"
 							class="easyui-validatebox" name="instiid">
-								<!-- <option value=''>请选择</option>
-						          <option value='96000001'>融宝快捷支付</option>
-						          <option value='98000001'>证联支付</option>
-						          <option value='97000001'>中信网银</option> -->
 						</select></td>
 						<td align="center" colspan="2" id="uploadbutton"><a
 							class="easyui-linkbutton" iconCls="icon-ok"

@@ -24,9 +24,19 @@ table tr td select {
 					<tr>
 						<td align="right">批次序号</td>
 						<td align="left" style="padding-left: 5px"><input
-							id="batchNo" maxlength="8" /></td>
+							id="batchnos"  /></td>
+						<td align="right">合作机构号</td>
+						<td align="left" style="padding-left: 5px"><input
+							id="merids"  /></td>
 					</tr>
 					<tr>
+						<td align="right" width="10%">起止时间</td>
+						<td style="padding-left: 5px"><input id="stime" type="text"
+							style="width: 120PX" class="easyui-datetimebox"
+							data-options="showSeconds:false" name="stime"></input> 至<input
+							id=etime type="text" style="width: 120PX"
+							class="easyui-datetimebox" data-options="showSeconds:false"
+							name="etime"></input></td>
 					</tr>
 					<tr>
 						<td align="right"></td>
@@ -116,7 +126,7 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'trade/getBepsCollectBatchByPage',
+							url : 'trade/getBatchPaymentOrderByPage',
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
@@ -140,8 +150,6 @@ table tr td select {
 								{field:'STATUS',title:'状态',width:120,align:'center'},
 								{field:'ORDERCOMMITIME',title:'订单提交时间',width:120,align:'center'},
 								{field:'SYNCNOTIFY',title:'异步通知结果',width:120,align:'center'},
-								{field:'NOTES',title:'备注',width:120,align:'center'},
-								{field:'REMARKS',title:'备注',width:120,align:'center'},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
 										return '<a href="javascript:queryDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
@@ -159,7 +167,7 @@ table tr td select {
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
-									url:'trade/queryCollectDetail?batchNo='+batchNo,	
+									url:'trade/getPaymentOrderDetaByBatchNo?batchno='+batchNo,	
 									remoteSort: false,
 									idField:'TID',
 									columns:[
@@ -183,8 +191,6 @@ table tr td select {
 										{field:'RESPMSG',title:'应答信息',width:120,align:'center'},
 										{field:'RELATETRADETXN',title:'关联交易序列号',width:120,align:'center'},
 										{field:'STATUS',title:'状态',width:120,align:'center'},
-										{field:'NOTES',title:'备注',width:120,align:'center'},
-										{field:'REMARKS',title:'备注',width:120,align:'center'},
 									]],
 									pagination:true,
 									rownumbers:true,
@@ -197,7 +203,10 @@ table tr td select {
 
 	function search() {
 		var data = {
-			"batchNo" : $('#batchNo').val(),
+			"batchno" : $('#batchnos').val(),
+			"merid" : $('#merids').val(),
+			"stime" : $('#stime').datebox('getValue'),
+			"etime" : $('#etime').datebox('getValue')
 		}
 		$('#test').datagrid('load', data);
 	}
