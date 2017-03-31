@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
  * @since 
  */
 public class TxnsLogBean implements Serializable{
-    /**交易序列号[证联金融所用：关联各子流水表]**/
+    /**交易序列号**/
     private String txnseqno;
     /**业务代码**/
     private String busicode;

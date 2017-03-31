@@ -13,13 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zcbspay.platform.manager.trade.bean.BatchCollectOrderBean;
+import com.zcbspay.platform.manager.trade.bean.BatchPaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.CnapsLogBean;
 import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
 import com.zcbspay.platform.manager.trade.bean.OrderInfoBean;
+import com.zcbspay.platform.manager.trade.bean.RealTimeCollectOrderBean;
+import com.zcbspay.platform.manager.trade.bean.RealTimePaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.TxnsLogBean;
 import com.zcbspay.platform.manager.trade.service.BusinessService;
 import com.zcbspay.platform.manager.trade.service.ChnlDetaService;
-import com.zcbspay.platform.manager.trade.service.TxnsLogService;
+import com.zcbspay.platform.manager.trade.service.TradeService;
 import com.zcbspay.platform.manager.utils.UserHelper;
 
 @Controller
@@ -33,7 +37,7 @@ public class TradeController {
 	private ChnlDetaService chnlDetaService;
 
 	@Autowired
-	private TxnsLogService txnsLogService;
+	private TradeService txnsLogService;
 
 	/**
 	 * 核心交易流水查询页面
@@ -115,6 +119,58 @@ public class TradeController {
 		return "trade/beps_collect_single";
 	}
 	
+	
+	/**
+	 * 实时代收界面
+	 * @author: zhangshd
+	 * @param model
+	 * @return String
+	 * @date: 2017年3月29日 下午5:08:51 
+	 * @version v1.0
+	 */
+	@RequestMapping("showRealtimeCollect")
+	public String showRealtimeCollect(Model model) {
+		return "trade/single_collect_order_query";
+	}
+	
+	/**
+	 * 实时代付界面
+	 * @author: zhangshd
+	 * @param model
+	 * @return String
+	 * @date: 2017年3月29日 下午5:09:06 
+	 * @version v1.0
+	 */
+	@RequestMapping("showRealtimePayment")
+	public String showRealtimePayment(Model model) {
+		return "trade/single_payment_order_query";
+	}
+	
+	/**
+	 * 批量代收界面
+	 * @author: zhangshd
+	 * @param model
+	 * @return String
+	 * @date: 2017年3月29日 下午5:09:13 
+	 * @version v1.0
+	 */
+	@RequestMapping("showBatchCollect")
+	public String showBatchCollect(Model model) {
+		return "trade/batch_collect_order_query";
+	}
+	/**
+	 * 批量代付界面
+	 * @author: zhangshd
+	 * @param model
+	 * @return String
+	 * @date: 2017年3月29日 下午5:09:22 
+	 * @version v1.0
+	 */
+	@RequestMapping("showBatchPayment")
+	public String showBatchPayment(Model model) {
+		return "trade/batch_payment_order_query";
+	}
+	
 	/**
 	 * 分页查询核心交易流水
 	 * @author: zhangshd
@@ -187,6 +243,99 @@ public class TradeController {
 		return txnsLogService.getBepsPaymentSingleByPage(page, rows, collectBatchBean);
 	}
 	
+	
+	
+	/**
+	 * 实时代付订单查询
+	 * @author: zhangshd
+	 * @param realTimePaymentOrderBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月29日 下午6:01:30 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getRealTimePaymentOrderByPage")
+	public Map<String, Object> getRealTimePaymentOrderByPage(RealTimePaymentOrderBean realTimePaymentOrderBean, String page, String rows,
+			HttpServletRequest request) {
+		realTimePaymentOrderBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getRealTimePaymentOrderByPage(page, rows, realTimePaymentOrderBean);
+	}
+	/**
+	 * 实时代收订单查询
+	 * @author: zhangshd
+	 * @param realTimeCollectOrderBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月29日 下午6:01:56 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getRealTimeCollectOrderByPage")
+	public Map<String, Object> getRealTimeCollectOrderByPage(RealTimeCollectOrderBean realTimeCollectOrderBean, String page, String rows,
+			HttpServletRequest request) {
+		realTimeCollectOrderBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getRealTimeCollectOrderByPage(page, rows, realTimeCollectOrderBean);
+	}
+	
+	
+	/**
+	 * 实时代付订单查询
+	 * @author: zhangshd
+	 * @param realTimePaymentOrderBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月29日 下午6:01:30 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getBatchPaymentOrderByPage")
+	public Map<String, Object> getBatchPaymentOrderByPage(BatchPaymentOrderBean batchPaymentOrderBean, String page, String rows,
+			HttpServletRequest request) {
+		batchPaymentOrderBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getBatchPaymentOrderByPage(page, rows, batchPaymentOrderBean);
+	}
+	/**
+	 * 实时代收订单查询
+	 * @author: zhangshd
+	 * @param realTimeCollectOrderBean
+	 * @param page
+	 * @param rows
+	 * @param request
+	 * @return Map<String,Object>
+	 * @date: 2017年3月29日 下午6:01:56 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("getBatchCollectOrderByPage")
+	public Map<String, Object> getBatchCollectOrderByPage(BatchCollectOrderBean batchCollectOrderBean, String page, String rows,
+			HttpServletRequest request) {
+		batchCollectOrderBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getBatchCollectOrderByPage(page, rows, batchCollectOrderBean);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("getCollectOrderDetaByBatchNo")
+	public Map<String, Object> getCollectOrderDetaByBatchNo(BatchCollectOrderBean batchCollectOrderBean, String page, String rows,
+			HttpServletRequest request) {
+		batchCollectOrderBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getCollectOrderDetaByBatchNo(page, rows, batchCollectOrderBean);
+	}
+	
+	@ResponseBody
+	@RequestMapping("getPaymentOrderDetaByBatchNo")
+	public Map<String, Object> getPaymentOrderDetaByBatchNo(BatchPaymentOrderBean batchPaymentOrderBean, String page, String rows,
+			HttpServletRequest request) {
+		batchPaymentOrderBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+		return txnsLogService.getPaymentOrderDetaByBatchNo(page, rows, batchPaymentOrderBean);
+	}
 	
 	/**
 	 * BEPS实时代收交易流水查询

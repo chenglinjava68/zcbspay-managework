@@ -323,5 +323,6 @@
     <module>trade-query-api</module>
     <module>trade-query-service</module>
     <module>trade-query-simple</module>
+    <module>merchant-simple</module>
 	</modules>
 </project>

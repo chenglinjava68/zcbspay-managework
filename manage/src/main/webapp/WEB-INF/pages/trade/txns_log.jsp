@@ -116,7 +116,7 @@ table tr td select {
 				<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo"
 					border="1">
 					<tr>
-						<td>交易序列号[证联金融所用：关联各子流水表]</td>
+						<td>交易序列号</td>
 						<td id="ttxnseqno"></td>
 						<td>交易日期</td>
 						<td id="ttxndate"></td>
@@ -242,7 +242,7 @@ table tr td select {
 						<td id="tappordfintime"></td>
 					</tr>
 					<tr>
-						<td>交易查询流水[证联金融返给客户端流水vs交易序列号]</td>
+						<td>交易查询流水</td>
 						<td id="ttradeseltxn"></td>
 						<td>中心应答码</td>
 						<td id="tretcode"></td>
