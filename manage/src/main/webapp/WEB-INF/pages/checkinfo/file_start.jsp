@@ -102,7 +102,7 @@ table tr td select {
 		$('#test').datagrid({
 			title:'任务列表',
 			iconCls:'icon-save',
-			height:200,
+			height:400,
 			singleSelect:true,
 			nowrap: false,
 			striped: true,
