@@ -12,7 +12,7 @@ public interface CityDao extends BaseDAO<PojoCity>{
 	 * @param pid	城市ID
 	 * @return
 	 */
-	List<?> findNotMuniByPid(long pid);
+	List<?> findNotMuniByPid(Long pid);
 
 	/**
 	 * @param cCode

@@ -10,7 +10,7 @@ public interface CityService {
 	 * @param pid
 	 * @return
 	 */
-	public List<?> findNotMuniByPid(long pid);
+	public List<?> findNotMuniByPid(Long pid);
 
 	/**
 	 * 
@@ -18,4 +18,6 @@ public interface CityService {
 	 * @return
 	 */
 	public CityBean findByPid(String CCode);
+	
 }
+

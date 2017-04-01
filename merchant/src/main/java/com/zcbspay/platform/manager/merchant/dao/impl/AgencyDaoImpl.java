@@ -167,7 +167,7 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
     }
 
 	@Override
-	public List<?> queryCounty(String pid) {
+	public List<?> queryCounty(Long pid) {
 		String[] columns = new String[]{"v_in"};
         Object[] paramaters = new Object[1];
         paramaters[0] = pid;

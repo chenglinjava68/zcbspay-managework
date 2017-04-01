@@ -122,11 +122,6 @@ table tr td font.current-step {
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
-						<!--  
-					<tr> 
-						<td align="center">企业类型</td>
-						<td> 企业</td><td></td><td></td>
-					</tr>-->
 						<tr>
 							<td align="center">营业执照号</td>
 							<td><input name="licenceNo" maxlength="15"
@@ -162,11 +157,6 @@ table tr td font.current-step {
 								<font color="red">*</font></td>
 							<td></td>
 							<td></td>
-							<!--  
-						<td align="center">ICP备案号</td>
-						<td>
-						 	<input name="merchDate.icp" maxlength="256" type="text"  required="true" class="easyui-validatebox" /> <font color="red">*</font>
-						</td>-->
 						</tr>
 						<tr>
 							<td align="center" id="psamORpass">法人姓名</td>
@@ -229,34 +219,36 @@ table tr td font.current-step {
 								required="true" name="coopInstiId" 
 								style="width: 150px" onchange="refreshProduct()" /></select> <font
 								color="red">*</font></td>
-							<td align="center" colspan="2"></td>
-
-						</tr>
-						<tr>
 							<td align="center">产品</td>
 							<td><select id="prdtver_ins" class="easyui-validatebox"
 								required="true" name="prdtVer" style="width: 150px"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
-							<td align="center">风控版本</td>
-							<td><select name="riskVer" maxlength="8"
-								required="true" id="riskver" /></select> <font color="red">*</font></td>
 						</tr>
-						<tr>
-							<td align="center">扣率版本</td>
-							<td><select id="feever_ins" class="easyui-validatebox" required="true" name="feeVer"/></select> 
-								<font color="red">*</font>
-							</td>
-							<td align="center">分润版本</td>
-							<td><select name="spiltVer" maxlength="8" id="spiltver" /></select></td>
-						</tr>
-						<tr>
-							<td align="center">路由版本</td>
-							<td><select id="routver_ins" class="easyui-validatebox"
-								name="routVer" style="width: 150px" required="true" /></select>
-								<font color="red">*</font></td>
-							<td align="center"></td>
-							<td></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td align="center">产品</td> -->
+<!-- 							<td><select id="prdtver_ins" class="easyui-validatebox" -->
+<!-- 								required="true" name="prdtVer" style="width: 150px" -->
+<!-- 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td> -->
+<!-- 							<td align="center">风控版本</td> -->
+<!-- 							<td><select name="riskVer" maxlength="8" -->
+<!-- 								required="true" id="riskver" /></select> <font color="red">*</font></td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td align="center">扣率版本</td> -->
+<!-- 							<td><select id="feever_ins" class="easyui-validatebox" required="true" name="feeVer"/></select>  -->
+<!-- 								<font color="red">*</font> -->
+<!-- 							</td> -->
+<!-- 							<td align="center">分润版本</td> -->
+<!-- 							<td><select name="spiltVer" maxlength="8" id="spiltver" /></select></td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td align="center">路由版本</td> -->
+<!-- 							<td><select id="routver_ins" class="easyui-validatebox" -->
+<!-- 								name="routVer" style="width: 150px" required="true" /></select> -->
+<!-- 								<font color="red">*</font></td> -->
+<!-- 							<td align="center"></td> -->
+<!-- 							<td></td> -->
+<!-- 						</tr> -->
 
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -483,10 +475,10 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择所属市--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.CId==city){
-							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
-						}else {
-							html += '<option value="' + value.CId + '">' + value.CName + '</option>';
+						if(value.C_ID==city){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
+						}else{
+							html += '<option value="' + value.C_ID + '">' + value.C_NAME + '</option>';
 						}
 					});
 					if (type == 'province_ins') {
@@ -582,25 +574,6 @@ table tr td font.current-step {
 				}
 			});
 		}
-		/*
-		function showqueryTrade(){
-			$.ajax({
-				type: "POST",
-				url: "merchant/queryTrate",
-				data: "rand=" + new Date().getTime(),
-				dataType: "json",
-				success: function(json) {
-					var html = "<option value=''>--请选择所属行业--</option>";
-					$.each(json,
-					function(key, value) {
-						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
-					});
-					$("#trade_ins").html(html);
-		
-				}
-			});
-		}*/
-		 
 		
 		function showMccList(){
 			$.ajax({

@@ -105,11 +105,6 @@ table tr td font.current-step {
 							<td>${merchMap.WEBSITE}</td>
 							<td></td>
 							<td></td>
-							<!--  
-						<td align="center">ICP备案号</td>
-						<td>
-						 	<input name="merchDate.icp" maxlength="256" type="text"  required="true" class="easyui-validatebox" /> <font color="red">*</font>
-						</td>-->
 						</tr>
 						<tr>
 							<td align="center" id="psamORpass">法人姓名<font color="red">*</font></td>
@@ -145,27 +140,9 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">合作机构<font color="red">*</font></td>
 							<td>${merchMap.INSTI_NAME}</td>
-							<td align="center" colspan="2"></td>
-						</tr>
-						<tr>
 							<td align="center">产品<font color="red">*</font></td>
 							<td>${merchMap.PRDTNAME}</td>
-							<td align="center">风控版本<font color="red">*</font></td>
-							<td>${merchMap.RISKNAME}</td>
 						</tr>
-						<tr>
-							<td align="center">扣率版本<font color="red">*</font></td>
-							<td>${merchMap.FEENAME}</td>
-							<td align="center">分润版本</td>
-							<td>${merchMap.SPLITNAME}</td>
-						</tr>
-						<tr>
-							<td align="center">路由版本</td>
-							<td>${merchMap.ROUTNAME}</td>
-							<td></td>
-							<td></td>
-						</tr>
-
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
@@ -290,7 +267,7 @@ table tr td font.current-step {
 	<div region="south" border="false"
 		style="text-align: center; padding: 5px 0;">
 		<c:if test="${flag==2||flag==3}">
-			<a href="javascript:merchAudit('0');" id="button_ins1"
+			<a href="javascript:DetailParaDic('0');" id="button_ins1"
 				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
 			<a href="javascript:merchAudit('9');" id="button_ins2"
 				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
@@ -364,6 +341,11 @@ table tr td font.current-step {
 				}
 			});
 		}
+		
+		 function DetailParaDic(result) {
+			 var memberId = $("#merchApplyId").val();
+			 window.location.href= "<%=basePath%>" +'merchant/showProdCase?memberId='+ memberId;
+		  }
 	</script>
 </body>
 

@@ -30,6 +30,11 @@
 	<dubbo:reference id="pojoProductService" interface="com.zcbspay.platform.manager.merchant.service.PojoProductService" version="1.0" />
 	<dubbo:reference id="merchBankAccoutService" interface="com.zcbspay.platform.manager.merchant.service.MerchBankAccoutService" version="1.0" />
 	
+	<!-- 商户计费 -->
+	<dubbo:reference id="prodCaseService" interface="com.zcbspay.platform.manager.merchant.service.ProdCaseService" version="1.0" />
+	<dubbo:reference id="merchRateConfigService" interface="com.zcbspay.platform.manager.merchant.service.MerchRateConfigService" version="1.0" />
+	<dubbo:reference id="rateAllService" interface="com.zcbspay.platform.manager.merchant.service.RateAllService" version="1.0" />
+	
 	<!-- 业务和扣率 -->
 	<dubbo:reference id="productService" interface="com.zcbspay.platform.manager.business.service.ProductService" version="1.0"/>
 	<dubbo:reference id="feeService" interface="com.zcbspay.platform.manager.business.service.FeeService" version="1.0"/>

@@ -323,7 +323,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div region="south" border="false"
 		style="height: 25px; padding: 5px; background: #E0ECFF; text-align: center">
-		中创标石</div>
+		宜赋通有限责任公司</div>
 
 	<div region="center">
 		<div class="easyui-tabs" fit="true" border="false" id="tt"

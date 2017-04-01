@@ -39,7 +39,7 @@ public interface AgencyDao extends BaseDAO<PojoMerchDetaApply>{
 	 * @param pid
 	 * @return
 	 */
-	List<?> queryCounty(String pid);
+	List<?> queryCounty(Long pid);
 
 	/**
 	 * 所属行业

@@ -87,9 +87,9 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">企业所在地</td>
 							<td colspan="3">
-							<select id="province_ins" class="easyui-validatebox" required="true" name="province"
-								onchange="showCity('province_ins')" /></select> 
-							<select id="city_ins"
+							<select id="bnkProvince_ins" class="easyui-validatebox" required="true" name="province"
+								onchange="showCity('bnkProvince_ins')" /></select> 
+							<select id="bnkCity_ins"
 								class="easyui-validatebox" required="true" name="city" onchange="showCounty('city_ins')" />
 								</select>
 							<select id="county_ins" class="easyui-validatebox" required="true" name="street" /></select> <font
@@ -463,11 +463,13 @@ table tr td font.current-step {
 		
 		function showCity(type) {
 			var pid;
+			var pid;
 			if (type == 'province_ins') {
 				pid = $("#province_ins").val();
 			} else {
 				pid = $("#bnkProvince_ins").val();
 			}
+		
 		
 			$.ajax({
 				async:false,
@@ -480,10 +482,10 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择所属市--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.CId==city){
-							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
-						}else {
-							html += '<option value="' + value.CId + '">' + value.CName + '</option>';
+						if(value.C_ID==city){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
+						}else{
+							html += '<option value="' + value.C_ID + '">' + value.C_NAME + '</option>';
 						}
 					});
 					if (type == 'province_ins') {
