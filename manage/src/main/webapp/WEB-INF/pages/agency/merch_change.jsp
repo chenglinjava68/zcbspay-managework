@@ -220,35 +220,11 @@ table tr td font.current-step {
 								required="true" name="coopInstiId" 
 								style="width: 150px" onchange="refreshProduct()" /></select> <font
 								color="red">*</font></td>
-							<td align="center" colspan="2"></td>
-
-						</tr>
-						<tr>
 							<td align="center">产品</td>
 							<td><select id="prdtver_ins" class="easyui-validatebox"
 								required="true" name="prdtVer" style="width: 150px"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
-							<td align="center">风控版本</td>
-							<td><select name="riskVer" maxlength="8"
-								required="true" id="riskver" /></select> <font color="red">*</font></td>
 						</tr>
-						<tr>
-							<td align="center">扣率版本</td>
-							<td><select id="feever_ins" class="easyui-validatebox" required="true" name="feeVer"/></select> 
-								<font color="red">*</font>
-							</td>
-							<td align="center">分润版本</td>
-							<td><select name="spiltVer" maxlength="8" id="spiltver" /></select></td>
-						</tr>
-						<tr>
-							<td align="center">路由版本</td>
-							<td><select id="routver_ins" class="easyui-validatebox"
-								name="routVer" style="width: 150px" required="true" /></select>
-								<font color="red">*</font></td>
-							<td align="center"></td>
-							<td></td>
-						</tr>
-
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>

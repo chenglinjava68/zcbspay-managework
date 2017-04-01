@@ -52,6 +52,7 @@ table tr td font.current-step {
 					<input type="hidden" id="isDelegation" value="${merchMap.IS_DELEGATION}" /> 
 					<input type="hidden" id="merchId" name="merchDeta.merchId" value="${merchMap.MERCH_ID}" />
 					<input type="hidden" id="merchApplyId" value="${merchMap.SELF_ID}" />
+					<input type="hidden" id="prdtVer" value="${merchMap.PRDT_VER}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
 						<tr>
@@ -83,11 +84,6 @@ table tr td font.current-step {
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
-						<!--  
-					<tr> 
-						<td align="center">企业类型</td>
-						<td> 企业</td><td></td><td></td>
-					</tr>-->
 						<tr>
 							<td align="center">营业执照号<font color="red">*</font></td>
 							<td>${merchMap.LICENCE_NO}</td>
@@ -266,8 +262,16 @@ table tr td font.current-step {
 	</div>
 	<div region="south" border="false"
 		style="text-align: center; padding: 5px 0;">
-		<c:if test="${flag==2||flag==3}">
+		<c:if test="${flag==2}">
 			<a href="javascript:DetailParaDic('0');" id="button_ins1"
+				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
+			<a href="javascript:merchAudit('9');" id="button_ins2"
+				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
+			<a href="javascript:merchAudit('1');" id="button_ins3"
+				class="easyui-linkbutton" iconCls="icon-no">驳回</a>
+		</c:if>
+		<c:if test="${flag==3}">
+			<a href="javascript:showUser('0');" id="button_ins1"
 				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
 			<a href="javascript:merchAudit('9');" id="button_ins2"
 				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
@@ -277,75 +281,176 @@ table tr td font.current-step {
 		<a href="javascript:history.back(-1);" class="easyui-linkbutton"
 			iconCls="icon-back">返回</a>
 	</div>
-	<script>
-	  $(function() {
-			checkIsDelegation();
-			initCertUrl(); 
-		});
-		
-		function checkIsDelegation(){
-			var isDelegation = $('#isDelegation').val();
-			if(isDelegation=='1'){
-				$('#delegation').show();
-				$('#delegation_pic').show();
-			}else{
-				$('#delegation').hide();
-				$('#delegation_pic').hide();
-			}
+	
+	<div id="w" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				<form id="deptForm" action="dept/save" method="post">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
+						<tr>
+							<td align="center" width="20%">商户名称</td>
+							<td><input id="b_merName" name="enterpriseName" readonly="true"/></td>
+						</tr>
+						<tr>
+							<td align="center">风控版本</td>
+							<td><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div region="south" border="false"
+				style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok"
+					href="javascript:updateMerch()" id="btn_submit">保存</a> <a
+					class="easyui-linkbutton" iconCls="icon-cancel"
+					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			</div>
+		</div>
+	</div>
+<script>
+  $(function() {
+		checkIsDelegation();
+		initCertUrl(); 
+	});
+	
+	function checkIsDelegation(){
+		var isDelegation = $('#isDelegation').val();
+		if(isDelegation=='1'){
+			$('#delegation').show();
+			$('#delegation_pic').show();
+		}else{
+			$('#delegation').hide();
+			$('#delegation_pic').hide();
 		}
-		
-		function initCertUrl(){
-			$("span[id*='_cert_img']").each(function(){
-				var _this = $(this);
-				var id = _this.attr('id');
-				var certType = id.substring(0,id.indexOf('_cert_img'));
-				$.ajax({
-					type: "POST",
-					url: "merchant/downloadImgUrl",
-					data: "merchApplyId=" + $('#merchApplyId').val()+"&certTypeCode="+certType,
-					dataType: "json",
-					success: function(json) {
-						 if(json.status=='OK'){
-							 _this.html('<a href="<%=basePath%>'+json.url+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
-						 }else if(json.status=='notExist'){
-							 $(this).html('暂无可查看文件');
-						 } else{
-							 _this.html('查询失败');
-						 }
-					}
-				}); 
-			});
-		}
-		
-		function merchAudit(result) {
-			$("#button_ins1").linkbutton('disable');
-			$("#button_ins2").linkbutton('disable');
-			$("#button_ins3").linkbutton('disable');
-			var merchApplyId = $("#merchApplyId").val();
-			var stexaOpt = $("#STOPINION").val();
-			var flag = $("#flag_ins").val();
+	}
+	
+	function initCertUrl(){
+		$("span[id*='_cert_img']").each(function(){
+			var _this = $(this);
+			var id = _this.attr('id');
+			var certType = id.substring(0,id.indexOf('_cert_img'));
 			$.ajax({
 				type: "POST",
-				url: "merchant/audit?isAgree=" + result + "&merchApplyId=" + merchApplyId + "&flag=" + flag,
-				data: "stexaOpt=" + encodeURI(stexaOpt),
+				url: "merchant/downloadImgUrl",
+				data: "merchApplyId=" + $('#merchApplyId').val()+"&certTypeCode="+certType,
 				dataType: "json",
 				success: function(json) {
+					 if(json.status=='OK'){
+						 _this.html('<a href="<%=basePath%>'+json.url+'" target="view_window" style="font-size: 12px;color:blue">点击查看</a>');
+					 }else if(json.status=='notExist'){
+						 $(this).html('暂无可查看文件');
+					 } else{
+						 _this.html('查询失败');
+					 }
+				}
+			}); 
+		});
+	}
+	
+	function merchAudit(result) {
+		$("#button_ins1").linkbutton('disable');
+		$("#button_ins2").linkbutton('disable');
+		$("#button_ins3").linkbutton('disable');
+		var merchApplyId = $("#merchApplyId").val();
+		var stexaOpt = $("#STOPINION").val();
+		var flag = $("#flag_ins").val();
+		$.ajax({
+			type: "POST",
+			url: "merchant/audit?isAgree=" + result + "&merchApplyId=" + merchApplyId + "&flag=" + flag,
+			data: "stexaOpt=" + encodeURI(stexaOpt),
+			dataType: "json",
+			success: function(json) {
+				$.each(json,
+				function(key, value) {
+					alert(value.INFO);
+					if (value.INFO == "操作成功!") {
+						history.back( - 1);
+					}
+				})
+	
+			}
+		});
+	}
+	
+	 function DetailParaDic(result) {
+		 var memberId = $("#merchApplyId").val();
+		 window.location.href= "<%=basePath%>" +'merchant/showProdCase?memberId='+ memberId;
+	  }
+	 function closeAdd(){
+			$('#w').window('close');
+		}
+	 function showUser(){
+		 var memberId = $("#merchApplyId").val();
+		 var pid = $("#prdtVer").val();
+			$.ajax({
+			   type: "POST",
+			   url: "merchant/findEnterById",
+			   data: "memberId="+memberId,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+					$("#b_merName").val(json.enterpriseName);
+					$("#b_merchId").val(json.enterpriseMemberId);
+					queryRiskType(pid);
+			   }
+			});
+			
+			$('#w').window({
+				title: '添加风控信息',
+				top:300,
+				width: 400,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 180
+			});
+		}
+		 function queryRiskType(pid) {
+			$.ajax({
+				type: "POST",
+				url: "merchant/queryRiskType?vid=" + pid,
+				data: "rand=" + new Date().getTime(),
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择风控版本--</option>";
 					$.each(json,
 					function(key, value) {
-						alert(value.INFO);
-						if (value.INFO == "操作成功!") {
-							history.back( - 1);
-						}
-					})
+						html += '<option value="' + value.RISKVER + '">' + value.RISKNAME + '</option>';
+					});
+					$("#riskver").html(html);
 		
 				}
 			});
 		}
-		
-		 function DetailParaDic(result) {
+		 
+		 function updateMerch(){
 			 var memberId = $("#merchApplyId").val();
-			 window.location.href= "<%=basePath%>" +'merchant/showProdCase?memberId='+ memberId;
-		  }
+			 var riskVer = $("#riskver").val();
+			$.ajax({
+			   type: "POST",
+			   url: "merchant/updateMerch",
+			   data: {"memberId":memberId,"riskVer":riskVer},
+			   async: false,
+			   dataType:"json",
+			   success: function(data){
+// 				   json = eval("(" + data + ")");
+					 if(data.status=='OK'){
+						 
+						 $.messager.alert('提示',"提交成功");
+						 closeAdd();
+						 merchAudit('0');
+					 }else{
+						 closeAdd();
+						 $.messager.alert('提示',"提交失败");  
+					 }
+			    }
+			});
+		}
 	</script>
 </body>
 

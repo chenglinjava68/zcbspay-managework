@@ -662,6 +662,7 @@ public class MerchDetaController {
     	result.addObject("memberId", memberId); 
     	return result; 
     }
+  //*********************************初审添加计费方式*******************************************
     /**
      * 查询业务计费列表
      * @return
@@ -750,6 +751,39 @@ public class MerchDetaController {
     @RequestMapping("/findParaDescById")
     public List<?> findParaDescById(String rateMethod,String rateId) {
     	return rateAllService.findParaById(Long.parseLong(rateMethod),Long.parseLong(rateId));
+    }
+//*********************************复审添加风控*******************************************
+    
+    /**
+     * 复审风控--查询商户信息
+     * @param memberId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+   	@RequestMapping("/findEnterById")
+   	public EnterpriseDetaApplyBean findEnterById(String memberId,HttpServletRequest request) {
+       	return enterpriseDetaService.findById(memberId);
+   	}
+    /**
+     * 复审风控--查询商户信息
+     * @param memberId
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updateMerch")
+    public Map<String, String> updateMerch(String memberId,String riskVer) {
+    	
+    	Map<String, String> result = new HashMap<String, String>();
+        merchDetaService.updateMerch(memberId,riskVer);
+        MerchDetaApplyBean bean = merchDetaService.getBean(Long.parseLong(memberId));
+        if (bean.getRiskVer().equals(riskVer)) {
+            result.put("status", "OK");
+        } else {
+            result.put("status", "FAIL");
+        }
+        return result; 
     }
     
 //*********************************商户信息变更*******************************************
@@ -841,12 +875,6 @@ public class MerchDetaController {
         result.addObject("member", enterpriseDeta); 
         result.addObject("merchApplyId", merchApplyId);
         return result;
-//        merchDeta = serviceContainer.getMerchDetaService().getBean(
-//                Long.parseLong(merchApplyId));
-//        if (merchDeta == null) {
-//        }
-
-//        return "toUploadModifyInfo";
     }
     /**
      * 

@@ -673,5 +673,11 @@ public class AgencyDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> impl
         return executeOracleProcedure("{CALL  PCK_T_MERCH_MK.pro_i_t_merch_mk(?,?,?,?,?,?,?,?,?,?,?)}",
                         columns, paramaters, "cursor0");
     }
+	
+	@Override
+	public void updateMerch(String memberId, String riskVer) {
+		String sql="update t_merch_deta_apply set RISK_VER=? where SELF_ID=?";
+	      updateBySQL(sql, new Object[]{riskVer,memberId});
+	}
 }
 

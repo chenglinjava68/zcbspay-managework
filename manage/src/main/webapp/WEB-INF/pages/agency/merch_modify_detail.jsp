@@ -132,25 +132,8 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">合作机构<font color="red">*</font></td>
 							<td>${merchMap.INSTI_NAME}</td>
-							<td align="center" colspan="2"></td>
-						</tr>
-						<tr>
 							<td align="center">产品<font color="red">*</font></td>
 							<td>${merchMap.PRDTNAME}</td>
-							<td align="center">风控版本<font color="red">*</font></td>
-							<td>${merchMap.RISKNAME}</td>
-						</tr>
-						<tr>
-							<td align="center">扣率版本<font color="red">*</font></td>
-							<td>${merchMap.FEENAME}</td>
-							<td align="center">分润版本</td>
-							<td>${merchMap.SPLITNAME}</td>
-						</tr>
-						<tr>
-							<td align="center">路由版本</td>
-							<td>${merchMap.ROUTNAME}</td>
-							<td></td>
-							<td></td>
 						</tr>
 
 						<tr>
@@ -275,7 +258,15 @@ table tr td font.current-step {
 	</div>
 	<div region="south" border="false"
 		style="text-align: center; padding: 5px 0;">
-		<c:if test="${flag==5||flag==6}">
+		<c:if test="${flag==5}">
+			<a href="javascript:merchAudit('0');" id="button_ins1"
+				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
+			<a href="javascript:merchAudit('9');" id="button_ins2"
+				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
+			<a href="javascript:merchAudit('1');" id="button_ins3"
+				class="easyui-linkbutton" iconCls="icon-no">驳回</a>
+		</c:if>
+		<c:if test="${flag==6}">
 			<a href="javascript:merchAudit('0');" id="button_ins1"
 				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
 			<a href="javascript:merchAudit('9');" id="button_ins2"

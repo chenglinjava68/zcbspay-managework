@@ -52,6 +52,7 @@ table tr td font.current-step {
 					<input type="hidden" id="isDelegation" value="${merchMap.IS_DELEGATION}" /> 
 					<input type="hidden" id="merchId" name="merchDeta.merchId" value="${merchMap.MERCH_ID}" />
 					<input type="hidden" id="merchApplyId" value="${merchMap.SELF_ID}" />
+					<input type="hidden" id="prdtVer" value="${merchMap.PRDT_VER}" />
 					<input type="hidden" id="flag_ins" value="${flag}" />
 					<table width="100%">
 						<tr>
@@ -140,27 +141,9 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">合作机构<font color="red">*</font></td>
 							<td>${merchMap.INSTI_NAME}</td>
-							<td align="center" colspan="2"></td>
-						</tr>
-						<tr>
 							<td align="center">产品<font color="red">*</font></td>
 							<td>${merchMap.PRDTNAME}</td>
-							<td align="center">风控版本<font color="red">*</font></td>
-							<td>${merchMap.RISKNAME}</td>
 						</tr>
-						<tr>
-							<td align="center">扣率版本<font color="red">*</font></td>
-							<td>${merchMap.FEENAME}</td>
-							<td align="center">分润版本</td>
-							<td>${merchMap.SPLITNAME}</td>
-						</tr>
-						<tr>
-							<td align="center">路由版本</td>
-							<td>${merchMap.ROUTNAME}</td>
-							<td></td>
-							<td></td>
-						</tr>
-
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
@@ -284,8 +267,16 @@ table tr td font.current-step {
 	</div>
 	<div region="south" border="false"
 		style="text-align: center; padding: 5px 0;">
-		<c:if test="${flag==2||flag==3}">
+		<c:if test="${flag==2}">
 			<a href="javascript:DetailParaDic('0');" id="button_ins1"
+				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
+			<a href="javascript:merchAudit('9');" id="button_ins2"
+				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
+			<a href="javascript:merchAudit('1');" id="button_ins3"
+				class="easyui-linkbutton" iconCls="icon-no">驳回</a>
+		</c:if>
+		<c:if test="${flag==3}">
+			<a href="javascript:showUser('0');" id="button_ins1"
 				class="easyui-linkbutton" iconCls="icon-ok">通过</a>
 			<a href="javascript:merchAudit('9');" id="button_ins2"
 				class="easyui-linkbutton" iconCls="icon-cancel">否决</a>
@@ -295,7 +286,35 @@ table tr td font.current-step {
 		<a href="javascript:history.back(-1);" class="easyui-linkbutton"
 			iconCls="icon-back">返回</a>
 	</div>
-	<script>
+	
+	<div id="w" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				<form id="deptForm" action="dept/save" method="post">
+					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left" id="inputForm">
+						<tr>
+							<td align="center" width="20%">商户名称</td>
+							<td><input id="b_merName" name="enterpriseName" readonly="true"/></td>
+						</tr>
+						<tr>
+							<td align="center">风控版本</td>
+							<td><select name="riskVer" maxlength="8" required="true" id="riskver" /></select> <font color="red">*</font></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div region="south" border="false"
+				style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok"
+					href="javascript:updateMerch()" id="btn_submit">保存</a> <a
+					class="easyui-linkbutton" iconCls="icon-cancel"
+					href="javascript:void(0)" onclick="closeAdd()">取消</a>
+			</div>
+		</div>
+	</div>
+<script>
 	  $(function() {
 			checkIsDelegation();
 			initCertUrl(); 
@@ -363,6 +382,79 @@ table tr td font.current-step {
 			 var memberId = $("#merchApplyId").val();
 			 window.location.href= "<%=basePath%>" +'agency/showProdCase?memberId='+ memberId;
 		  }
+		function closeAdd(){
+			$('#w').window('close');
+		}
+	 function showUser(){
+		 var memberId = $("#merchApplyId").val();
+		 var pid = $("#prdtVer").val();
+			$.ajax({
+			   type: "POST",
+			   url: "agency/findEnterById",
+			   data: "memberId="+memberId,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+					$("#b_merName").val(json.enterpriseName);
+					$("#b_merchId").val(json.enterpriseMemberId);
+					queryRiskType(pid);
+			   }
+			});
+			
+			$('#w').window({
+				title: '添加风控信息',
+				top:300,
+				width: 400,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 180
+			});
+		}
+		 function queryRiskType(pid) {
+			$.ajax({
+				type: "POST",
+				url: "agency/queryRiskType?vid=" + pid,
+				data: "rand=" + new Date().getTime(),
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择风控版本--</option>";
+					$.each(json,
+					function(key, value) {
+						html += '<option value="' + value.RISKVER + '">' + value.RISKNAME + '</option>';
+					});
+					$("#riskver").html(html);
+		
+				}
+			});
+		}
+		 
+		 function updateMerch(){
+			 var memberId = $("#merchApplyId").val();
+			 var riskVer = $("#riskver").val();
+			$.ajax({
+			   type: "POST",
+			   url: "agency/updateMerch",
+			   data: {"memberId":memberId,"riskVer":riskVer},
+			   async: false,
+			   dataType:"json",
+			   success: function(data){
+// 				   json = eval("(" + data + ")");
+					 if(data.status=='OK'){
+						 
+						 $.messager.alert('提示',"提交成功");
+						 closeAdd();
+						 merchAudit('0');
+					 }else{
+						 closeAdd();
+						 $.messager.alert('提示',"提交失败");  
+					 }
+			    }
+			});
+		}
 	</script>
 </body>
 

@@ -173,4 +173,11 @@ public interface MerchDetaDAO extends BaseDAO<PojoMerchDetaApply>{
 	List<Map<String, Object>> merchAudit(String merchApplyId, MerchDetaApplyBean merchDeta, String memId, String flag,
 			String isAgree);
 
+	/**
+	 * 复审--添加风控
+	 * @param memberId
+	 * @param riskVer
+	 */
+	void updateMerch(String memberId, String riskVer);
+
 }

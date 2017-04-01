@@ -182,6 +182,10 @@ public class AgencyServiceImpl implements AgencyService {
 		return agencyDAO.merchAudit(merchApplyId, merchDeta, memId, flag, isAgree);
 	}
 
+	@Override
+	public void updateMerch(String memberId, String riskVer) {
+		agencyDAO.updateMerch(memberId,riskVer);
+	}
 
 }
 

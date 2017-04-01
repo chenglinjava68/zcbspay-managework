@@ -182,6 +182,11 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 		return merchDetaDAO.merchAudit(merchApplyId, merchDeta, memId, flag, isAgree);
 	}
 
+	@Override
+	public void updateMerch(String memberId, String riskVer) {
+		merchDetaDAO.updateMerch(memberId,riskVer);
+	}
+
 
 }
 
