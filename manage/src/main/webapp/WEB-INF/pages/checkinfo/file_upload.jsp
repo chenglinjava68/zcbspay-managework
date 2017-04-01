@@ -62,26 +62,6 @@ input {
 	<div style="margin: 5px;" id="continer">
 
 		<div style="padding-left: 5px; padding-right: 5px">
-			<form id="downBillchanform" method="post"
-				action="pages/merchant/downChanBilDownloadAction.action">
-				<table width="100%" border="1">
-					<tr>
-						<td colspan="4" align="center">畅捷对账文件下载</td>
-					</tr>
-					<tr height="26" id="fileadd1">
-						<td align="center">对账日期</td>
-						<td colspan="3"><input name="billDate" maxlength="12"
-							id="billDate" /></td>
-					</tr>
-					<tr>
-						<td align="center" colspan="4" id="uploadbutton"><a
-							class="easyui-linkbutton" iconCls="icon-ok"
-							href="javascript:downBillchan()">下载</a></td>
-					</tr>
-				</table>
-			</form>
-		</div>
-		<div style="padding-left: 5px; padding-right: 5px">
 			<form id="importCsvForm" method="post"
 				action="pages/merchant/uploadUploadAction.action"
 				enctype="multipart/form-data">
@@ -119,34 +99,6 @@ input {
 		</div>
 	</div>
 
-	<div style="padding-left: 5px; padding-right: 5px">
-		<table width="100%" border="1">
-			<tr>
-				<td colspan="4" align="center">微信对账</td>
-			</tr>
-			<tr height="26" id="fileadd1">
-				<td align="center">对账日期</td>
-				<td colspan="3"><input name="billdate" maxlength="12"
-					type="text" id="startDate" /></td>
-			</tr>
-			<tr height="26" id="fileadd1">
-				<td align="center">对账类型</td>
-				<td colspan="3"><select id="instiid_wechat"
-					class="easyui-validatebox">
-						<option value=''>请选择</option>
-						<option value='app_wechat'>App支付</option>
-						<option value='code_wechat'>扫码支付</option>
-				</select></td>
-			</tr>
-
-			<td align="center" colspan="4" id="uploadbutton"><a
-				class="easyui-linkbutton" iconCls="icon-ok"
-				href="javascript:billFileUpload()">开始</a> <a
-				class="easyui-linkbutton" iconCls="icon-back"
-				href="javascript:back()">返回</a></td>
-			</tr>
-		</table>
-	</div>
 
 
 </body>
@@ -181,10 +133,6 @@ input {
 		$("#uploadbutton").show();
 		$("#uploadhint").hide();
 
-		/* var fileInputList = new FileInputList();
-		$("#addFileSelectButton").click(function() {
-			fileInputList.add("upload", "addFileSelectButton")
-		}); */
 		 	$("#billDate").datebox({  
 		   	required:true
 	    	 });  
@@ -227,8 +175,8 @@ input {
 
 	function back() {
 		var form = document.forms['fileuploadform'];
-		form.action = "checkinfo/showFileUpload";
-		form.submit();
+		/* form.action = "checkinfo/showFileUpload";
+		form.submit(); */
 	}
 	
 	/**补0**/
