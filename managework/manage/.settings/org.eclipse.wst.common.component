@@ -22,9 +22,6 @@
         <dependent-module archiveName="reconcilication-api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reconcilication-api/reconcilication-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="cnaps-common-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cnaps-common/cnaps-common">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="cnaps-application-api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/cnaps-application-api/cnaps-application-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>

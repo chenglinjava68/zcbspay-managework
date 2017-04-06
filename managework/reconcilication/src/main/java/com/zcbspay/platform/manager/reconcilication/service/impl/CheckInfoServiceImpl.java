@@ -15,9 +15,9 @@ import com.zcbspay.platform.cnaps.application.bean.TotalCheckBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckMessageBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckPaymentBean;
 import com.zcbspay.platform.cnaps.application.service.CheckBillService;
-import com.zcbspay.platform.cnaps.utils.BeanCopyUtil;
 import com.zcbspay.platform.manager.constants.Constants;
 import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
+import com.zcbspay.platform.manager.utils.BeanCopyUtil;
 import com.zcbspay.platform.manager.utils.DateUtils;
 
 @Service("checkInfoService")

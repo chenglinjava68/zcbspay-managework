@@ -2,9 +2,6 @@ package com.zcbspay.platform.manager.business.bean;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 public class RouteConfigBean implements java.io.Serializable{
 
     /**
