@@ -95,9 +95,13 @@ table tr td select {
 							至<input id=etime type="text" style="width: 120PX"
 							class="easyui-datetimebox" data-options="showSeconds:false"
 							name="etime"></input></td>
-
+						<td></td>
 						<td colspan="2" align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+							class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a
+							href="javascript:resize()" class="easyui-linkbutton"
+							iconCls="icon-redo">清空</a></td>
+							</td>
 					</tr>
 					</tr>
 				</table>
@@ -364,6 +368,10 @@ table tr td select {
 			"accmemberid":$('#accmemberid').val()
 		}
 			$('#test').datagrid('load',data);
+		}
+		
+		function resize(){
+			$('#theForm :input').val('');
 		}
 		
 		function queryTxnsLog(txnseqno){

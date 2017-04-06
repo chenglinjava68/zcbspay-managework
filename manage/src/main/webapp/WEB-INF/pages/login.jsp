@@ -26,7 +26,12 @@
 
 
 <body id="loginbody">
+<<<<<<< HEAD
 	<form id="theForm" action="<%=basePath%>login/validateUser" method="post">
+=======
+	<form id="theForm" action="<%=basePath%>login/validateUser"
+		method="post">
+>>>>>>> branch 'develop' of https://github.com/paytonggithub/zcbspay-managework.git
 		<div class="loginbody">
 			<span class="systemlogo"></span>
 			<div class="loginbox">
@@ -47,7 +52,7 @@
 									name="randcode" class="easyui-validatebox" maxlength="4" />
 							</div>
 							<div>
-								<img src="validateCode"
+								<img src=""
 									onclick="changeValidateCode(this)"
 									style="vertical-align: middle; cursor: pointer; position: relative; top: 2px"
 									alt="刷新验证码" id="rand_image" />
@@ -108,19 +113,52 @@
 									  	url: "loginFailedCookie?rand="+new Date().getTime(),
 									 	dataType: "text",
 									 	success:function(text){
+// 						$('#theForm').form('submit', {  
+// 						    onSubmit: function(){  
+// 						        return $('#theForm').form('validate');   
+// 						    },   
+// 						    success:function(data){   
+// 						    	var json = eval('(' + data + ')')
+// 							    if(json.ret=='success'){
+<%-- 					    			window.location="<%=basePath%>"+"pages/querymenuAction.action"; --%>
+// 								}else if(json.ret=='err_user'){
+// 									$("#info").html(json.info);
+// 									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+// 									$.ajax({
+// 										type: "GET",
+// 									  	url: "login?rand="+new Date().getTime(),
+// 									 	dataType: "text",
+// 									 	success:function(text){
 							    			
-									 	}
-									});
+// 									 	}
+// 									});
+// 								}else{
+// 									$("#info").html(json.info);
+// 									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+// 								}
+// 						    }   
+// 						});  
+						var loginName = $('#loginname').val();
+						var pwd = $('#pwd').val();
+						var randcode = $('#randcode').val();
+						
+						$.ajax({
+							type:"post",
+							url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
+							data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
+							async: false,
+							success:function(data){
+								  if(data.ret=='success'){
+									window.location="<%=basePath%>login/loginSuccess";
 								}else{
-									$("#info").html(json.info);
-									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+									$("#info").html(data.result);
+									$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 								}
-						    }   
-						});  
+							}
+						});
 				    }
 									
 				});
-			})
 			function login(){
 				if($('#processfile').validatebox("isValid")){
 					$('#theForm').ajaxSubmit({
@@ -137,12 +175,43 @@
 		           //每次请求需要一个不同的参数，否则可能会返回同样的验证码   
 		        //这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。   
 		        obj.src="validateCode?rand="+timenow;   
+		        obj.src="<%=basePath%>login/validateCode?d="+timenow;   
 		    }   
 
 			$("#reset_btn").click(function(){
+				
 				$("#theForm :input").val('');
 			})
-
+			
+//     	if(passwordValue == "" ||hasEmpty(passwordValue)==false){
+//     		password.focus();
+//             return false;
+//     	}else if(passwordnewValue == ""||passwordnewValue.length<6 ||passwordnewValue.length>20||hasEmpty(passwordnewValue)==false){
+//         	//passwordnew.focus();
+//             return false;
+//         }else if(confirm_passwordnewValue == ""||confirm_passwordnewValue.length<6 ||confirm_passwordnewValue.length>20 ||passwordnewValue!=confirm_passwordnewValue){
+//         	confirm_passwordnew.focus();
+//             return false;
+//         }
+//     	if (checkStrong(passwordnewValue)<2) {
+//     		$.MessageBox("密码由6-20位字母，数字和符号至少两种以上组合，区分大小写");
+//     		return false;
+// 		}
+//         	$.ajax({
+//         		type:"post",
+//         		url:"modify/modifyUserPwd",
+//         		data:$('#signupForm').serialize(),
+//         		async: false,
+//         		success:function(data){
+//         			if(data.success == "true"){
+<%--         				window.location="<%=basePath%>user/"+data.newUrl; --%>
+//         			}else{
+//         				$.MessageBox(data.result);
+//         			}
+//         		}
+//         	});
+        
+        	
 			$('#login_btn').click(function(){
 				var loginName = $('#loginname').val();
 				var pwd = $('#pwd').val();
@@ -162,8 +231,52 @@
 	        			}
 	        		}
 	        	});
+				
+				var loginName = $('#loginname').val();
+				var pwd = $('#pwd').val();
+				var randcode = $('#randcode').val();
+				
+				$.ajax({
+	        		type:"post",
+	        		url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
+	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
+	        		async: false,
+	        		success:function(data){
+	        			  if(data.ret=='success'){
+	        				window.location="<%=basePath%>login/loginSuccess";
+	        			}else{
+	        				$("#info").html(data.result);
+	        				$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
+	        			}
+	        		}
+	        	});
+// 				$('#theForm').form('submit', {  
+// 				    onSubmit: function(){  
+				    	
+// 				        return $('#theForm').form('validate');   
+// 				    },   
+// 				    success:function(data){   
+// 					    var json = eval('(' + data + ')');
+// 					    if(json.ret=='success'){
+<%-- 			    			window.location="<%=basePath%>pages/querymenuAction.action"; --%>
+// 						}else if(json.ret=='err_user'){
+// 							$("#info").html(json.info);
+// 							$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+// 							$.ajax({
+// 								type: "GET",
+// 							  	url: "login/validateUser?rand="+new Date().getTime(),
+// 							 	dataType: "text",
+// 							 	success:function(text){
+					    			
+// 							 	}
+// 							});
+// 						}else{
+// 							$("#info").html(json.info);
+// 							$('#rand_image').attr("src","validateCodeLoginAction.action?rand="+new Date().getTime());
+// 						}
+// 				    }   
+// 				});  
 								
-			})
 
 </script>
 </html>

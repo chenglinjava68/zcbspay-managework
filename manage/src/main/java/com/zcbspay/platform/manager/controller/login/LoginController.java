@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 import com.zcbspay.platform.manager.system.service.FunctionService;
 import com.zcbspay.platform.manager.system.service.UserService;
