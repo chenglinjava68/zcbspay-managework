@@ -26,12 +26,7 @@
 
 
 <body id="loginbody">
-<<<<<<< HEAD
 	<form id="theForm" action="<%=basePath%>login/validateUser" method="post">
-=======
-	<form id="theForm" action="<%=basePath%>login/validateUser"
-		method="post">
->>>>>>> branch 'develop' of https://github.com/paytonggithub/zcbspay-managework.git
 		<div class="loginbody">
 			<span class="systemlogo"></span>
 			<div class="loginbox">
