@@ -531,6 +531,14 @@ table tr td select {
 							</td>
 						</tr>
 						<tr style="height: 30px">
+							<td>注销生效日期</td>
+							<td align="left">
+							<input type="date" id="revocationDate" name="revocationDate" class="easyui-validatebox" required="true"
+								maxlength="12"/></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
 							<td>备注</td>
 							<td align="left" colspan="3">
 							<textarea rows="3" cols="81" id="c_notes" maxlength="64" name="notes" style="margin: 5px" readonly="true"></textarea></td>
@@ -783,7 +791,7 @@ table tr td select {
 					   $.ajax({
 						   type: "POST",
 						   url: "contract/delect",
-						   data: {'tId':$('#c_tId').val(),'withdrawOpt':$('#c_withdrawOpt').val()},
+						   data: {'tId':$('#c_tId').val(),'withdrawOpt':$('#c_withdrawOpt').val(),'revocationDate':$('#revocationDate').val()},
 						   dataType:"json",
 						   success: function(json) {
 							   $.each(json, function(key,value){

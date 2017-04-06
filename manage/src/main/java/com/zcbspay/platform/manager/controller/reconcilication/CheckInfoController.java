@@ -1,4 +1,4 @@
-package com.zcbspay.platform.manager.controller.checkinfo;
+package com.zcbspay.platform.manager.controller.reconcilication;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,15 +29,16 @@ import com.zcbspay.platform.manager.reconcilication.service.UploadlogService;
 import com.zcbspay.platform.manager.utils.CSVUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
 
-@SuppressWarnings("all")
 @Controller
 @RequestMapping("/checkinfo/")
 public class CheckInfoController {
 
 	@Autowired
 	private CheckInfoService checkInfoService;
+	
 	@Autowired
 	private ChannelFileService channelFileService;
+	
 	@Autowired
 	private UploadlogService uploadlogService;
 
@@ -118,7 +119,6 @@ public class CheckInfoController {
 	@ResponseBody
 	@RequestMapping("queryChannel")
 	public List<?> queryChannel() {
-		Map<String, Object> result = new HashMap<String, Object>();
 		List<?> list = channelFileService.getAllStatusChannel();
 		return list;
 	}
@@ -187,7 +187,7 @@ public class CheckInfoController {
 	public Map<String, Object> queryFail(HttpServletRequest request,String page,String rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("proid", request.getParameter("proid")); 
-        variables.put("user",UserHelper.getCurrentUser(request));
+        variables.put("user",UserHelper.getCurrentUser(request).getUserId());
         Map<String, Object> failList = uploadlogService.queryFail(variables, page,rows);
         return failList;
 	}
@@ -205,7 +205,7 @@ public class CheckInfoController {
 	public Map<String, Object> querySuccess(HttpServletRequest request,String page,String rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("proid", request.getParameter("proid")); 
-        variables.put("user",UserHelper.getCurrentUser(request));
+        variables.put("user",UserHelper.getCurrentUser(request).getUserId());
         Map<String, Object> failList = uploadlogService.querySuccess(variables, page,rows);
         return failList;
 	}

@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 						$('#theForm').ajaxSubmit({
 							success: function(json) {
-								json = eval('(' + json + ')');
+// 								json = eval('(' + json + ')');
 								if (json.retcode == "succ") {
 									$.messager.alert('提示', json.retinfo);
 									if ($('#pwdFlag').val() > 0) {
@@ -336,7 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div region="center" border="false"
 				style="background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm"
-					action="system/changePassword" method="post">
+					action="user/changePassword" method="post">
 
 					<table width="100%" style="margin-top: 5px">
 						<tr>

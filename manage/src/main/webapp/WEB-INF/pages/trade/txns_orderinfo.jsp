@@ -57,7 +57,11 @@ table tr td select {
 						<td></td>
 						<td></td>
 						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+							class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a
+							href="javascript:resize()" class="easyui-linkbutton"
+							iconCls="icon-redo">清空</a></td>
+							</td>
 					</tr>
 				</table>
 			</form>
@@ -375,6 +379,10 @@ table tr td select {
 		$('#test').datagrid('load', data);
 	}
 
+	function resize(){
+		$('#theForm :input').val('');
+	}
+	
 	function queryTxnsLog(txnseqno) {
 		$("#tid").html("");
 		$("#tinstitution").html("");

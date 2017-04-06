@@ -125,7 +125,7 @@ table tr td font.current-step {
 								validType="url" required="true" class="easyui-validatebox" /> <font
 								color="red">*</font></td>
 						<td align="center">委托机构单位代码</td>
-						<td><input name="chargingunit" maxlength="256" type="text"  required="true" class="easyui-validatebox" />
+						<td><input name="chargingunit" maxlength="10" type="text"  required="true" class="easyui-validatebox" />
 						<font color="red">*</font></td>
 						</tr>
 						<tr>
@@ -349,7 +349,7 @@ table tr td font.current-step {
 						$.each(json,
 							function(key, value) {
 							if (value.RET == "succ") {
-// 								$("#button_id").linkbutton('enable');
+								$("#button_id").linkbutton('enable');
 								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
 									if(data){
 										window.location.href='agency/toUpload?merchApplyId='+value.INFO;
@@ -358,6 +358,7 @@ table tr td font.current-step {
 								});
 							} else {
 								$.messager.alert('提示', value.INFO);
+								$("#button_id").linkbutton('enable');
 							}
 						});
 					}

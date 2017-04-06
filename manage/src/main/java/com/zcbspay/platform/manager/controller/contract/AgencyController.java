@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,15 +23,16 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.zcbspay.platform.manager.merchant.bean.CertType;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchRateConfigBean;
+import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.CoopInstiService;
 import com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService;
 import com.zcbspay.platform.manager.merchant.service.MccListService;
 import com.zcbspay.platform.manager.merchant.service.MerchRateConfigService;
-import com.zcbspay.platform.manager.merchant.service.AgencyService;
 import com.zcbspay.platform.manager.merchant.service.PojoProductService;
 import com.zcbspay.platform.manager.merchant.service.ProdCaseService;
 import com.zcbspay.platform.manager.merchant.service.RateAllService;
@@ -48,6 +48,7 @@ public class AgencyController {
     private String charge;
     private final static BigDecimal HUNDERED = new BigDecimal(100);
     
+//    @Reference
     @Autowired
 	private AgencyService agencyService;
     @Autowired
