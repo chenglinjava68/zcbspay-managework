@@ -306,7 +306,7 @@
     <!-- <module>system-service</module> -->
     <module>merchant</module>
     <module>merchant-api</module>
-    <!-- <module>merchant-service</module> -->
+    <module>merchant-simple</module> 
     <module>risk-api</module>
     <module>risk</module>
     <!--  <module>risk-service</module> -->
