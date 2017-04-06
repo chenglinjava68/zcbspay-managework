@@ -177,34 +177,13 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">合作机构</td>
 							<td><select id="coop_insti_ins" class="easyui-validatebox"
-								required="true" name="coopInstiId" style="width: 150px"
-								onchange="refreshProduct()" /></select> <font color="red">*</font></td>
-							<td align="center" colspan="2"></td>
-						</tr>
-						<tr>
+								required="true" name="coopInstiId" 
+								style="width: 150px" onchange="refreshProduct()" /></select> <font
+								color="red">*</font></td>
 							<td align="center">产品</td>
 							<td><select id="prdtver_ins" class="easyui-validatebox"
 								required="true" name="prdtVer" style="width: 150px"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
-							<td align="center">风控版本</td>
-							<td><select name="riskVer" maxlength="8" required="true"
-								id="riskver" /></select> <font color="red">*</font></td>
-						</tr>
-						<tr>
-							<td align="center">扣率版本</td>
-							<td><select id="feever_ins" class="easyui-validatebox"
-								required="true" name="feeVer" /></select> <font color="red">*</font></td>
-							<td align="center">分润版本</td>
-							<td><select name="spiltVer" maxlength="8" id="spiltver" /></select></td>
-						</tr>
-						<tr>
-
-							<td align="center">路由版本</td>
-							<td><select id="routver_ins" class="easyui-validatebox"
-								name="routVer" style="width: 150px" required="true" /></select> <font
-								color="red">*</font></td>
-							<td align="center"></td>
-							<td></td>
 						</tr>
 
 						<tr>
@@ -429,13 +408,11 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择所属市--</option>";
 					$.each(json,
 					function(key, value) {
-						if(value.CId!=pid){
-							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
-						}else if(value.CId==city){
-							html += '<option value="' + value.CId + '" selected="selected">' + value.CName + '</option>';
+						if(value.C_ID!=pid){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
+						}else if(value.C_ID==city){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
 						}
-						//alert(value.roleName);
-// 						html += '<option value="' + value.CId + '">' + value.CName + '</option>';
 					});
 					if (type == 'province_ins') {
 						$("#city_ins").html(html);

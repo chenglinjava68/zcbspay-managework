@@ -24,25 +24,25 @@ table tr td select {
 					<tr>
 						<td align="right" width="10%">委托机构代码</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
-							name="merid" id="merids" maxlength="32" /></td>
+							name="merid" id="merids"  /></td>
 						<td align="right" width="10%">委托机构名称</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="merName" id="merNames" maxlength="32" /></td>
+							name="mername" id="mernames"  /></td>
 						<td align="right" width="10%">订单号</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
-							name="orderid" id="orderids" maxlength="32" /></td>
+							name="orderid" id="orderids"  /></td>
 					</tr>
 					<tr>
 						<td align="right" width="10%">受理订单号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="tn" id="tns" maxlength="32" /></td>
+							name="tn" id="tns"  /></td>
 						<td align="right" width="10%">付款人账号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="debtoraccount" id="debtoraccounts" maxlength="32" /></td>
+							name="debtoraccount" id="debtoraccounts"  /></td>
 							
 						<td align="right" width="10%">收款人账号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="creditoraccount" id="creditoraccounts" maxlength="32" /></td>
+							name="creditoraccount" id="creditoraccounts"  /></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -171,12 +171,11 @@ table tr td select {
 									{field:'TID',title:'标志',width:120,align:'center'},
 									{field:'ACCESSTYPE',title:'接入类型',width:121,align:'center'},
 									{field:'COOPINSTIID',title:'合作机构号',width:122,align:'center'},
-									{field:'MERID',title:'商户号',width:123,align:'center'},
+									{field:'MERID',title:'委托机构号',width:123,align:'center'},
 									{field:'VERSION',title:'版本',width:124,align:'center'},
 									{field:'ENCODING',title:'编码方式',width:125,align:'center'},
 									{field:'TXNTYPE',title:'交易类型',width:126,align:'center'},
-									{field:'MERNAME',title:'商户全称',width:126,align:'center'},
-									{field:'MERABBR',title:'商户简称',width:126,align:'center'},
+									{field:'MERNAME',title:'委托机构全称',width:126,align:'center'},
 									{field:'PAYTIMEOUT',title:'支付超时时间',width:126,align:'center'},
 									{field:'TXNSUBTYPE',title:'交易子类',width:127,align:'center'},
 									{field:'BIZTYPE',title:'产品类型',width:128,align:'center'},
@@ -202,17 +201,15 @@ table tr td select {
 									{field:'STATUS',title:'状态',width:148,align:'center'},
 									{field:'ORDERCOMMITIME',title:'订单提交时间',width:149,align:'center'},
 									{field:'SYNCNOTIFY',title:'异步通知结果',width:150,align:'center'},
-									{field:'NOTES',title:'备注',width:151,align:'center'},
-									{field:'REMARKS',title:'备注',width:152,align:'center'},
 									{
 										field : 'ID',
 										title : '操作',
 										width : 100,
 										align : 'center',
 										formatter : function(value, rec) {
-											if (rec.ID != null) {
+											if (rec.TID != null) {
 												return '<a href="javascript:queryTxnsLog(\''
-														+ rec.ID
+														+ rec.TID
 														+ '\')" style="color:blue;margin-left:10px">详细信息</a>';
 											} else {
 												return '';

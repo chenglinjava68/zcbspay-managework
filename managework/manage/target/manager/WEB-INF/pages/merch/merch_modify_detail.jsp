@@ -80,11 +80,6 @@ table tr td font.current-step {
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
-						<!--  
-					<tr> 
-						<td align="center">企业类型</td>
-						<td> 企业</td><td></td><td></td>
-					</tr>-->
 						<tr>
 							<td align="center">营业执照号<font color="red">*</font></td>
 							<td>${merchMap.LICENCE_NO}</td>
@@ -102,11 +97,6 @@ table tr td font.current-step {
 							<td>${merchMap.WEBSITE}</td>
 							<td></td>
 							<td></td>
-							<!--  
-						<td align="center">ICP备案号</td>
-						<td>
-						 	<input name="merchDate.icp" maxlength="256" type="text"  required="true" class="easyui-validatebox" /> <font color="red">*</font>
-						</td>-->
 						</tr>
 						<tr>
 							<td align="center" id="psamORpass">法人姓名<font color="red">*</font></td>
@@ -142,26 +132,27 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">合作机构<font color="red">*</font></td>
 							<td>${merchMap.INSTI_NAME}</td>
-							<td align="center" colspan="2"></td>
-						</tr>
-						<tr>
 							<td align="center">产品<font color="red">*</font></td>
 							<td>${merchMap.PRDTNAME}</td>
-							<td align="center">风控版本<font color="red">*</font></td>
-							<td>${merchMap.RISKNAME}</td>
 						</tr>
-						<tr>
-							<td align="center">扣率版本<font color="red">*</font></td>
-							<td>${merchMap.FEENAME}</td>
-							<td align="center">分润版本</td>
-							<td>${merchMap.SPLITNAME}</td>
-						</tr>
-						<tr>
-							<td align="center">路由版本</td>
-							<td>${merchMap.ROUTNAME}</td>
-							<td></td>
-							<td></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td align="center">产品<font color="red">*</font></td> -->
+<%-- 							<td>${merchMap.PRDTNAME}</td> --%>
+<!-- 							<td align="center">风控版本<font color="red">*</font></td> -->
+<%-- 							<td>${merchMap.RISKNAME}</td> --%>
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td align="center">扣率版本<font color="red">*</font></td> -->
+<%-- 							<td>${merchMap.FEENAME}</td> --%>
+<!-- 							<td align="center">分润版本</td> -->
+<%-- 							<td>${merchMap.SPLITNAME}</td> --%>
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td align="center">路由版本</td> -->
+<%-- 							<td>${merchMap.ROUTNAME}</td> --%>
+<!-- 							<td></td> -->
+<!-- 							<td></td> -->
+<!-- 						</tr> -->
 
 						<tr>
 							<td colspan="4" class="head-title"></td>

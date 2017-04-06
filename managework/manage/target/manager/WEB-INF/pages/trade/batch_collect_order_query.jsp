@@ -24,9 +24,19 @@ table tr td select {
 					<tr>
 						<td align="right">批次序号</td>
 						<td align="left" style="padding-left: 5px"><input
-							id="batchNo" maxlength="8" /></td>
+							id="batchnos"  /></td>
+						<td align="right">合作机构号</td>
+						<td align="left" style="padding-left: 5px"><input
+							id="merids" /></td>
 					</tr>
 					<tr>
+						<td align="right" width="10%">起止时间</td>
+						<td style="padding-left: 5px"><input id="stime" type="text"
+							style="width: 120PX" class="easyui-datetimebox"
+							data-options="showSeconds:false" name="stime"></input> 至<input
+							id=etime type="text" style="width: 120PX"
+							class="easyui-datetimebox" data-options="showSeconds:false"
+							name="etime"></input></td>
 					</tr>
 					<tr>
 						<td align="right"></td>
@@ -54,83 +64,48 @@ table tr td select {
 				<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo"
 					border="1">
 					<tr>
-						<td>标识</td><td id="ttid"></td>
-						<td>报文标识号</td><td id="tmsgid"></td>
+					<td>标志</td><td id="tid"></td>
+					<td>接入类型</td><td id="accesstype"></td>
 					</tr>
 					<tr>
-						<td>批次序号</td><td id="tbatchno"></td>
-						<td>转发日期</td><td id="ttransmitdate"></td>
+					<td>合作机构号</td><td id="coopinstiid"></td>
+					<td>商户号</td><td id="merid"></td>
 					</tr>
 					<tr>
-						<td>回执期限</td><td id="treturnlimited"></td>
-						<td>付款行行号</td><td id="tdebtorbranchcode"></td>
+					<td>版本</td><td id="version"></td>
+					<td>编码方式</td><td id="encoding"></td>
 					</tr>
 					<tr>
-						<td>付款清算行行号</td><td id="tdebtoragentcode"></td>
-						<td>收款清算行行号</td><td id="tcreditoragentcode"></td>
+					<td>交易类型</td><td id="txntype"></td>
+					<td>交易子类</td><td id="txnsubtype"></td>
 					</tr>
 					<tr>
-						<td>收款行行号</td><td id="tcreditorbranchcode"></td>
-						<td>收款人名称</td><td id="tcreditorname"></td>
+					<td>产品类型</td><td id="biztype"></td>
+					<td>通知地址</td><td id="backurl"></td>
 					</tr>
 					<tr>
-						<td>收款人账号</td><td id="tcreditoraccountno"></td>
-						<td>总金额</td><td id="ttotalamount"></td>
+					<td>批次号</td><td id="batchno"></td>
+					<td>订单发送时间</td><td id="txntime"></td>
 					</tr>
 					<tr>
-						<td>业务类型编码</td><td id="tcategorypurposecode"></td>
-						<td>付款人数目</td><td id="tdebtornumber"></td>
+					<td>总笔数</td><td id="totalqty"></td>
+					<td>总金额 </td><td id="totalamt "></td>
 					</tr>
 					<tr>
-						<td>成功付款总笔数</td><td id="treceivingtotalnumber"></td>
-						<td>成功付款总金额</td><td id="treceivingtotalamount"></td>
+					<td>保留域</td><td id="reserved"></td>
+					<td>响应码</td><td id="respcode"></td>
 					</tr>
 					<tr>
-						<td>失败付款总笔数</td><td id="tfailtotalnumber"></td>
-						<td>失败付款总金额</td><td id="tfailtotalamount"></td>
+					<td>应答信息</td><td id="respmsg"></td>
+					<td>状态</td><td id="status"></td>
 					</tr>
 					<tr>
-						<td>NPC处理状态</td><td id="tnpcprocessstatus"></td>
-						<td>NPC业务处理码</td><td id="tnpcprocesscode"></td>
+					<td>订单提交时间</td><td id="ordercommitime"></td>
+					<td>异步通知结果</td><td id="syncnotify"></td>
 					</tr>
 					<tr>
-						<td>NPC拒绝信息</td><td id="tnpcrejectinformation"></td>
-						<td>NPC轧差日期</td><td id="tnpcnettingdate"></td>
-					</tr>
-					<tr>
-						<td>NPC轧差场次</td><td id="tnpcnettinground"></td>
-						<td>NPC清算日期/终态日期</td><td id="tnpcsettlementdate"></td>
-					</tr>
-					<tr>
-						<td>NPC接收时间</td><td id="tnpcreceivetime"></td>
-						<td>NPC转发时间</td><td id="tnpctransmittime"></td>
-					</tr>
-					<tr>
-						<td>应答状态</td><td id="trspstatus"></td>
-						<td>应答码</td><td id="trsprejectcode"></td>
-					</tr>
-					<tr>
-						<td>业务拒绝信息</td><td id="trsprejectinformation"></td>
-						<td>业务处理参与机构</td><td id="trspprocessparty"></td>
-					</tr>
-					<tr>
-						<td>业务应答时间</td><td id="trspdate"></td>
-						<td>参与机构业务状态</td><td id="tcomprocessstatus"></td>
-					</tr>
-					<tr>
-						<td>参与机构业务处理码</td><td id="tcomprocesscode"></td>
-						<td>拒绝业务的参与机构行号</td><td id="tcompartyidentification"></td>
-					</tr>
-					<tr>
-						<td>参与机构业务拒绝码</td><td id="tcompartyprocesscode"></td>
-						<td>参与机构业务拒绝信息</td><td id="tcomrejectinformation"></td>
-					</tr>
-					<tr>
-						<td>参与机构处理日期（终态日期）</td><td id="tcomprocessdate"></td>
-						<td>参与机构轧差场次</td><td id="tcomnettinground"></td>
-					</tr>
-					<tr>
-						<td>通用处理报文接收时间</td><td id="tcomdate"></td>
+					<td>备注</td><td id="notes"></td>
+					<td>备注</td><td id="remarks"></td>
 					</tr>
 				</table>
 			</div>
@@ -150,7 +125,7 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'trade/getBepsCollectBatchByPage',
+							url : 'trade/getBatchCollectOrderByPage',
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
@@ -174,8 +149,6 @@ table tr td select {
 								{field:'STATUS',title:'状态',width:137,align:'center'},
 								{field:'ORDERCOMMITIME',title:'订单提交时间',width:138,align:'center'},
 								{field:'SYNCNOTIFY',title:'异步通知结果',width:139,align:'center'},
-								{field:'NOTES',title:'备注',width:140,align:'center'},
-								{field:'REMARKS',title:'备注',width:141,align:'center'},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
 										return '<a href="javascript:queryDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
@@ -193,7 +166,7 @@ table tr td select {
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
-									url:'trade/queryCollectDetail?batchNo='+batchNo,	
+									url:'trade/getCollectOrderDetaByBatchNo?batchno='+batchNo,	
 									remoteSort: false,
 									idField:'TID',
 									columns:[
@@ -229,7 +202,10 @@ table tr td select {
 
 	function search() {
 		var data = {
-			"batchNo" : $('#batchNo').val(),
+				"batchno" : $('#batchnos').val(),
+				"merid" : $('#merids').val(),
+				"stime" : $('#stime').datebox('getValue'),
+				"etime" : $('#etime').datebox('getValue')
 		}
 		$('#test').datagrid('load', data);
 	}

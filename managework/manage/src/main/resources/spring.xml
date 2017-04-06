@@ -30,5 +30,14 @@
          <property name="maxInMemorySize" value="4096" />
          <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
-	
+	<bean id="logHelper" class="com.zcbspay.platform.manager.utils.LogHelper"/>
+	<aop:config>
+	    <aop:aspect ref="logHelper">
+	        <aop:pointcut id="pointcut" expression="execution(* com.zcbspay.platform.manager..*.*(..))"/>
+	        <aop:before method="before"  pointcut-ref="pointcut" />
+	        <aop:after method="after" pointcut-ref="pointcut" />
+	        <aop:around method="around"  pointcut-ref="pointcut" />
+	        <aop:after-throwing method="throwException" pointcut-ref="pointcut" throwing="ex" />
+	    </aop:aspect>
+	</aop:config>
 </beans>

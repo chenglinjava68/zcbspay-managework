@@ -259,14 +259,13 @@ table tr td select {
 			$.ajax({
 				   type: "POST",
 				   url: "organ/queryCity",
-// 				   url: "pages/system/queryCityOrganAction.action",
 				   data: "pid="+pid,
 				   dataType:"json",
 				   success: function(json){
 				   		var html ="<option value=''>--请选择所属市--</option>";
 				   		$.each(json, function(key,value){
 							//alert(value.roleName);
-							html += '<option value="'+value.CId+'">'+value.CName+'</option>';
+							html += '<option value="'+value.C_ID+'">'+value.C_NAME+'</option>';
 						})
 				   		$("#org_city").html(html);
 				   		
