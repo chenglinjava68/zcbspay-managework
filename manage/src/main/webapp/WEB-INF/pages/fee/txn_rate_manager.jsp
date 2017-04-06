@@ -50,7 +50,11 @@ table tr td select {
 						</select></td>
 
 						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+							class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a
+							href="javascript:resize()" class="easyui-linkbutton"
+							iconCls="icon-redo">清空</a>
+							</td>
 					</tr>
 
 				</table>
@@ -442,6 +446,9 @@ table tr td select {
 					$("#busicase").html(html);
 				}
 			});
+		}
+		function resize(){
+			$('#theForm :input').val('');
 		}
 	</script>
 </html>

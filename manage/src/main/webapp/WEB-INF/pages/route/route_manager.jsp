@@ -19,7 +19,11 @@
 							name="routname" id="routname_qid" maxlength="128" />
 						</td>
 						<td align="right" colspan=2><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+							class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a
+							href="javascript:resize()" class="easyui-linkbutton"
+							iconCls="icon-redo">清空</a>
+							</td>
 					</tr>
 				</table>
 			</form>
@@ -312,7 +316,9 @@
 			$('#btn_submit').linkbutton('enable');
 		}
 	
-
+		function resize(){
+			$('#dedurateForm :input').val('');
+		}
 </script>
 </html>
 

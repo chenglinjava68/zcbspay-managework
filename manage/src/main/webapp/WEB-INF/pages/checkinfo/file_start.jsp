@@ -48,6 +48,9 @@ table tr td select {
 								style="text-align: center; padding: 5px 0;">
 								<a class="easyui-linkbutton" iconCls="icon-ok"
 									href="javascript:search()" id="btn_submit" onclick="">查询</a>
+								<a
+							href="javascript:resize()" class="easyui-linkbutton"
+							iconCls="icon-redo">清空</a>
 							</div>
 						</td>
 					</tr>
@@ -270,6 +273,9 @@ table tr td select {
 		/* $('#check').attr("action","checkinfo/exportCheck");
 		$("#check").submit(); */
 		$.messager.alert('提示',"敬请期待......");   
+	}
+	function resize(){
+		$('#theForm :input').val('');
 	}
 </script>
 </html>

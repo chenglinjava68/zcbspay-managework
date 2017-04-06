@@ -36,7 +36,11 @@ table tr td select {
 							id="checkInfoDate" />
 						</td>
 						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+							class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a
+							href="javascript:resize()" class="easyui-linkbutton"
+							iconCls="icon-redo">清空</a>
+							</td>
 					</tr>
 				</table>
 			</form>
@@ -267,6 +271,9 @@ table tr td select {
 				}
 			}
 		}); 
+		}
+		function resize(){
+			$('#theForm :input').val('');
 		}
 	</script>
 </html>

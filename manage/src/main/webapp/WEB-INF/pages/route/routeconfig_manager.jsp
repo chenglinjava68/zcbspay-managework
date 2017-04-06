@@ -63,7 +63,11 @@
 							<option value="00">在用</option>
 							<option value="01">停用</option> </select></td>
 						<td align="right" colspan=1><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+							class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a
+							href="javascript:resize()" class="easyui-linkbutton"
+							iconCls="icon-redo">清空</a>
+							</td>
 				</table>
 			</form>
 		</div>
@@ -782,6 +786,10 @@
 	            }
 	        });
 	    }
+	    
+	    function resize(){
+			$('#dedurateForm :input').val('');
+		}
 </script>
 </html>
 

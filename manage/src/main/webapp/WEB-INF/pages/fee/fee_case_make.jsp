@@ -382,6 +382,8 @@ table tr td select {
 			 }   
 			});  
 		}
-					
+	function resize(){
+		$('#theForm :input').val('');
+	}			
 	</script>
 </html>
