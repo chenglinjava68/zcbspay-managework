@@ -187,32 +187,6 @@ table tr td font.current-step {
 								required="true" name="prdtVer" style="width: 150px"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
 						</tr>
-<!-- 						<tr> -->
-<!-- 							<td align="center">产品</td> -->
-<!-- 							<td><select id="prdtver_ins" class="easyui-validatebox" -->
-<!-- 								required="true" name="prdtVer" style="width: 150px" -->
-<!-- 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td> -->
-<!-- 							<td align="center">风控版本</td> -->
-<!-- 							<td><select name="riskVer" maxlength="8" required="true" -->
-<!-- 								id="riskver" /></select> <font color="red">*</font></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td align="center">扣率版本</td> -->
-<!-- 							<td><select id="feever_ins" class="easyui-validatebox" -->
-<!-- 								required="true" name="feeVer" /></select> <font color="red">*</font></td> -->
-<!-- 							<td align="center">分润版本</td> -->
-<!-- 							<td><select name="spiltVer" maxlength="8" id="spiltver" /></select></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-
-<!-- 							<td align="center">路由版本</td> -->
-<!-- 							<td><select id="routver_ins" class="easyui-validatebox" -->
-<!-- 								name="routVer" style="width: 150px" required="true" /></select> <font -->
-<!-- 								color="red">*</font></td> -->
-<!-- 							<td align="center"></td> -->
-<!-- 							<td></td> -->
-<!-- 						</tr> -->
-
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
@@ -376,7 +350,7 @@ table tr td font.current-step {
 						$.each(json,
 							function(key, value) {
 							if (value.RET == "succ") {
-// 								$("#button_id").linkbutton('enable');
+								$("#button_id").linkbutton('enable');
 								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
 									if(data){
 										window.location.href='merchant/toUpload?merchApplyId='+value.INFO;
@@ -385,6 +359,7 @@ table tr td font.current-step {
 								});
 							} else {
 								$.messager.alert('提示', value.INFO);
+								$("#button_id").linkbutton('enable');
 							}
 						});
 					}
@@ -536,24 +511,6 @@ table tr td font.current-step {
 				}
 			});
 		}
-		/*
-		function showqueryTrade(){
-			$.ajax({
-				type: "POST",
-				url: "merchant/queryTrate",
-				data: "rand=" + new Date().getTime(),
-				dataType: "json",
-				success: function(json) {
-					var html = "<option value=''>--请选择所属行业--</option>";
-					$.each(json,
-					function(key, value) {
-						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
-					});
-					$("#trade_ins").html(html);
-		
-				}
-			});
-		}*/
 		function showMerchParent() {
 			$.ajax({
 				type: "POST",

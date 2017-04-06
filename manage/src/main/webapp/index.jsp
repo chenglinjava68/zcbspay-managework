@@ -99,10 +99,10 @@
 						    success:function(data){   
 						    	var json = eval('(' + data + ')')
 							    if(json.ret=='success'){
-					    			window.location="<%=basePath%>"+"pages/querymenuAction.action";
+							    	window.location="<%=basePath%>"+"login/querymenu";
 								}else if(json.ret=='err_user'){
 									$("#info").html(json.info);
-									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+									$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 									$.ajax({
 										type: "GET",
 									  	url: "login?rand="+new Date().getTime(),
@@ -186,7 +186,7 @@
 	        		async: false,
 	        		success:function(data){
 	        			  if(data.ret=='success'){
-	        				window.location="<%=basePath%>login/loginSuccess";
+	        				window.location="<%=basePath%>" + "login/loginSuccess";
 	        			}else{
 	        				$.MessageBox(data.result);
 	        				$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());

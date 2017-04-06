@@ -86,6 +86,8 @@ public class PojoContract implements java.io.Serializable {
 	private String remarks;
 	/** 附件地址 **/
 	private String fileAddress;
+	/** 合同注销生效日期 **/
+	private String revocationDate;
 
 	@Id
 	@Column(name = "TID")
@@ -384,5 +386,13 @@ public class PojoContract implements java.io.Serializable {
 
 	public void setFileAddress(String fileAddress) {
 		this.fileAddress = fileAddress;
+	}
+	@Column(name = "REVOCATIONDATE")
+	public String getRevocationDate() {
+		return revocationDate;
+	}
+
+	public void setRevocationDate(String revocationDate) {
+		this.revocationDate = revocationDate;
 	}
 }

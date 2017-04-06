@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
 import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
@@ -129,16 +131,18 @@ public class ContractController {
 	 * 删除信息
 	 * @param bankAccout
 	 * @return queryCity
+	 * @throws ParseException 
 	 */
 	@ResponseBody
     @RequestMapping("/delect")
-	public Map<String, Object> delect(String tId,String withdrawOpt,HttpServletRequest request) {
+	public Map<String, Object> delect(String tId,String withdrawOpt,String revocationDate,HttpServletRequest request) throws ParseException {
 		Map<String, String> result = new HashMap<String, String>();
 		UserBean loginUser = (UserBean)request.getSession().getAttribute("LOGIN_USER");
 		ContractBean bean = contractService.findById(tId);
 		bean.setStatus("99");
 		bean.setWithdrawUser(loginUser.getUserId());
 		bean.setWithdrawOpt(withdrawOpt);
+		bean.setRevocationDate(revocationDate);
         return contractService.eidtContract(bean);
 	}
 	

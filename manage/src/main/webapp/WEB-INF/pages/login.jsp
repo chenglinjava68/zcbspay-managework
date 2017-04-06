@@ -10,27 +10,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>欢迎登录宜赋通综合管理系统</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css"/>
 <link rel="stylesheet" type="text/css" href="<%=basePath%>js/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>js/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css"/>
 <link rel="stylesheet" type="text/css" href="<%=basePath%>css/base.css" />
-<link href="css/login/login-box.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=basePath%>js/jquery-1.7.2.min.js"/>
-<script type="text/javascript" src="<%=basePath%>js/jquery.easyui.min.js"/>
-<script type="text/javascript" src="<%=basePath%>js/function.js"/>
-<script type="text/javascript" src="<%=basePath%>js/json2.js"/>
-<script type="text/javascript" src="<%=basePath%>js/jquery.form.js"/>
-<script type="text/javascript" src="<%=basePath%>js/easyui-lang-zh_CN.js"/>
-
-
-
-
+<link rel="stylesheet" type="text/css" href="<%=basePath%>css/login/login-box.css"/>
+<script type="text/javascript" src="<%=basePath%>js/jquery-1.7.2.min.js" ></script>
+<script type="text/javascript" src="<%=basePath%>js/jquery.easyui.min.js" ></script>
+<script type="text/javascript" src="<%=basePath%>js/function.js" ></script>
+<script type="text/javascript" src="<%=basePath%>js/json2.js" ></script>
+<script type="text/javascript" src="<%=basePath%>js/jquery.form.js" ></script>
+<script type="text/javascript" src="<%=basePath%>js/easyui-lang-zh_CN.js" ></script>
 </head>
 
+
 <body id="loginbody">
-	<form id="theForm" action="" method="post">
-<%-- 	<form id="theForm" action="<%=basePath%>validateUser" method="post"> --%>
+	<form id="theForm" action="<%=basePath%>login/validateUser" method="post">
 		<div class="loginbody">
 			<span class="systemlogo"></span>
 			<div class="loginbox">
@@ -93,7 +89,7 @@
 						 
 					$("#info").html("操作超时,请重新登录");
 				} 
-				$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+				$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 				$("#pwd,#loginname,#randcode,#loginbody").keydown(function(event){
 					if(event.keyCode==13){
 						$('#theForm').form('submit', {  
@@ -106,7 +102,7 @@
 					    			window.location="<%=basePath%>"+"login/querymenu";
 								}else if(json.ret=='err_user'){
 									$("#info").html(json.info);
-									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+									$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 									$.ajax({
 										type: "GET",
 									  	url: "loginFailedCookie?rand="+new Date().getTime(),
@@ -140,7 +136,7 @@
 		        var timenow = new Date().getTime();   
 		           //每次请求需要一个不同的参数，否则可能会返回同样的验证码   
 		        //这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。   
-		        obj.src="login/validateCode?d="+timenow;   
+		        obj.src="validateCode?rand="+timenow;   
 		    }   
 
 			$("#reset_btn").click(function(){
@@ -148,32 +144,24 @@
 			})
 
 			$('#login_btn').click(function(){
-				$('#theForm').form('submit', {  
-				    onSubmit: function(){  
-				    	
-				        return $('#theForm').form('validate');   
-				    },   
-				    success:function(data){   
-					    var json = eval('(' + data + ')');
-					    if(json.ret=='success'){
-			    			window.location="<%=basePath%>" + "login/querymenu";
-						}else if(json.ret=='err_user'){
-							$("#info").html(json.info);
-							$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
-							$.ajax({
-								type: "GET",
-							  	url: "login/loginFailedCookie?rand="+new Date().getTime(),
-							 	dataType: "text",
-							 	success:function(text){
-					    			
-							 	}
-							});
-						}else{
-							$("#info").html(json.info);
-							$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
-						}
-				    }   
-				});  
+				var loginName = $('#loginname').val();
+				var pwd = $('#pwd').val();
+				var randcode = $('#randcode').val();
+				
+				$.ajax({
+	        		type:"post",
+	        		url:"validateUser?rand="+new Date().getTime(),
+	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
+	        		async: false,
+	        		success:function(data){
+	        			  if(data.ret=='success'){
+	        				window.location="<%=basePath%>" + "login/loginSuccess";
+	        			}else{
+	        				$.MessageBox(data.result);
+	        				$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+	        			}
+	        		}
+	        	});
 								
 			})
 
