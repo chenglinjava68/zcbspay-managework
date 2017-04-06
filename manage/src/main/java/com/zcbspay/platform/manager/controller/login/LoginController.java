@@ -140,6 +140,9 @@ public class LoginController {
     public ModelAndView createUserTo(UserBean user, HttpServletRequest request) {
         ModelAndView result=new ModelAndView("/index");
         UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+        if (loginUser==null) {
+			return new ModelAndView("/login");
+		}
         if (loginUser.getLoginName().equals("admin")) {
             funlist = functionService.findFunction();
         } else {

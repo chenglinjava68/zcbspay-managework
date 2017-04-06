@@ -112,7 +112,7 @@ table tr td select {
 			columns:[
 			[
 				{field:'TID',title:'任务代码',width:120,align:'center'},
-				{field:'STARTTIME',title:'任务开始时间',width:120,align:'center'},
+				{field:'STARTTIME',title:'任务开始时间',width:160,align:'center'},
 				{field:'STATUS',title:'状态',width:120,align:'center',
 					formatter:function(value,rec){
 					if(value=="00"){
@@ -126,7 +126,7 @@ table tr td select {
 					}
 				}
 					},	
-				{field:'TI',title:'操作',width:160,align:'center',
+				{field:'TI',title:'操作',width:260,align:'center',
 				formatter:function(value,rec){
 					if(rec.STATUS=="00"){
 						return '<a href="javascript:startProcess('+rec.TID+')" style="color:blue;margin-left:10px">开始任务</a>';
@@ -250,7 +250,7 @@ table tr td select {
 				{field:'TXNFEE',title:'手续费金额(元)',width:140,align:'center'},
 				{field:'CFEE',title:'通道手续费',width:140,align:'center'},
 				{field:'PAYINST',title:'交易渠道',width:140,align:'center'},
-				{field:'MISTAKEDESC',title:'差错原因',width:140,align:'center'}
+				{field:'MISTAKEDESC',title:'差错原因',width:240,align:'center'}
 			]],
 			pagination:true,
 			rownumbers:true,

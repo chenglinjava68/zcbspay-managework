@@ -1,7 +1,6 @@
-package com.zcbspay.platform.manager.controller.checkinfo;
+package com.zcbspay.platform.manager.controller.reconcilication;
 
 import java.io.File;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,25 +14,19 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.cnaps.application.bean.DetailCheckPaymentInformation;
 import com.zcbspay.platform.cnaps.application.bean.ResultBean;
-import com.zcbspay.platform.cnaps.application.bean.TotalCheckMessageBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckPaymentBean;
-import com.zcbspay.platform.manager.reconcilication.bean.ChannelFileBean;
 import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 import com.zcbspay.platform.manager.reconcilication.service.ChannelFileService;
 import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
 import com.zcbspay.platform.manager.reconcilication.service.UploadlogService;
 import com.zcbspay.platform.manager.utils.CSVUtils;
-import com.zcbspay.platform.manager.utils.JsonUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
 
 @Controller
@@ -126,7 +119,6 @@ public class CheckInfoController {
 	@ResponseBody
 	@RequestMapping("queryChannel")
 	public List<?> queryChannel() {
-		Map<String, Object> result = new HashMap<String, Object>();
 		List<?> list = channelFileService.getAllStatusChannel();
 		return list;
 	}
@@ -195,7 +187,7 @@ public class CheckInfoController {
 	public Map<String, Object> queryFail(HttpServletRequest request,String page,String rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("proid", request.getParameter("proid")); 
-        variables.put("user",UserHelper.getCurrentUser(request));
+        variables.put("user",UserHelper.getCurrentUser(request).getUserId());
         Map<String, Object> failList = uploadlogService.queryFail(variables, page,rows);
         return failList;
 	}
@@ -213,7 +205,7 @@ public class CheckInfoController {
 	public Map<String, Object> querySuccess(HttpServletRequest request,String page,String rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("proid", request.getParameter("proid")); 
-        variables.put("user",UserHelper.getCurrentUser(request));
+        variables.put("user",UserHelper.getCurrentUser(request).getUserId());
         Map<String, Object> failList = uploadlogService.querySuccess(variables, page,rows);
         return failList;
 	}
