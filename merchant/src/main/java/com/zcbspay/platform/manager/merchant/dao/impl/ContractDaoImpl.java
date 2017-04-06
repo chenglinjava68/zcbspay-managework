@@ -84,12 +84,13 @@ public class ContractDaoImpl extends HibernateBaseDAOImpl<PojoContract> implemen
 	@Override
 	public Map<String, Object> eidtContract(ContractBean bean) {
 		
-		String[] columns = new String[]{"v_tid","v_withdrawuser", "v_withdrawopt"};
+		String[] columns = new String[]{"v_tid","v_withdrawuser", "v_withdrawopt","v_revocationdate"};
 		Object[] paramaters = new Object[] {
 				"".equals(bean.gettId()) ? null : bean.gettId(),
 				"".equals(bean.getWithdrawUser()) ? null : bean.getWithdrawUser(),
-				"".equals(bean.getWithdrawOpt()) ? null : bean.getWithdrawOpt()};
-        return executeOracleProcedure("{CALL  PCK_T_CONTRACT.del_t_contract(?,?,?,?)}", columns,
+				"".equals(bean.getWithdrawOpt()) ? null : bean.getWithdrawOpt(),
+				"".equals(bean.getRevocationDate()) ? null : bean.getRevocationDate()};
+        return executeOracleProcedure("{CALL  PCK_T_CONTRACT.del_t_contract(?,?,?,?,?)}", columns,
                 paramaters, "cursor0").get(0);
 	}
 	/**

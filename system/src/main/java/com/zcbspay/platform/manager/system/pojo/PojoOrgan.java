@@ -1,22 +1,16 @@
 package com.zcbspay.platform.manager.system.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * TOrgan entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "T_ORGAN")
-public class PojoOrgan implements java.io.Serializable {
+public class PojoOrgan implements Serializable {
 
-	// Fields
-
-	/**
-	 * serialVersionUID
-	 */
 	private static final long serialVersionUID = 8238598993022463007L;
 	private Long organId;
 	private String organCode;
@@ -30,38 +24,8 @@ public class PojoOrgan implements java.io.Serializable {
 	private String notes;
 	private String remarks;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoOrgan() {
-	}
-
-	/** minimal constructor */
-	public PojoOrgan(Long organId, String organName) {
-		this.organId = organId;
-		this.organName = organName;
-	}
-
-	/** full constructor */
-	public PojoOrgan(Long organId, String organCode, String organName,
-			Long superid, Byte levelid, String province, String city,
-			String creator, String status, String notes, String remarks) {
-		this.organId = organId;
-		this.organCode = organCode;
-		this.organName = organName;
-		this.superid = superid;
-		this.levelid = levelid;
-		this.province = province;
-		this.city = city;
-		this.creator = creator;
-		this.status = status;
-		this.notes = notes;
-		this.remarks = remarks;
-	}
-
-	// Property accessors
 	@Id
-	@Column(name = "ORGAN_ID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "ORGAN_ID")
 	public Long getOrganId() {
 		return this.organId;
 	}
@@ -70,7 +34,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.organId = organId;
 	}
 
-	@Column(name = "ORGAN_CODE", length = 4)
+	@Column(name = "ORGAN_CODE")
 	public String getOrganCode() {
 		return this.organCode;
 	}
@@ -79,7 +43,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.organCode = organCode;
 	}
 
-	@Column(name = "ORGAN_NAME", nullable = false, length = 64)
+	@Column(name = "ORGAN_NAME")
 	public String getOrganName() {
 		return this.organName;
 	}
@@ -88,7 +52,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.organName = organName;
 	}
 
-	@Column(name = "SUPERID", precision = 10, scale = 0)
+	@Column(name = "SUPERID")
 	public Long getSuperid() {
 		return this.superid;
 	}
@@ -97,7 +61,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.superid = superid;
 	}
 
-	@Column(name = "LEVELID", precision = 2, scale = 0)
+	@Column(name = "LEVELID")
 	public Byte getLevelid() {
 		return this.levelid;
 	}
@@ -106,7 +70,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.levelid = levelid;
 	}
 
-	@Column(name = "PROVINCE", precision = 2, scale = 0)
+	@Column(name = "PROVINCE")
 	public String getProvince() {
 		return this.province;
 	}
@@ -115,7 +79,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.province = province;
 	}
 
-	@Column(name = "CITY", precision = 4, scale = 0)
+	@Column(name = "CITY")
 	public String getCity() {
 		return this.city;
 	}
@@ -124,7 +88,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.city = city;
 	}
 
-	@Column(name = "CREATOR", length = 32)
+	@Column(name = "CREATOR")
 	public String getCreator() {
 		return this.creator;
 	}
@@ -133,7 +97,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.creator = creator;
 	}
 
-	@Column(name = "STATUS", length = 2)
+	@Column(name = "STATUS")
 	public String getStatus() {
 		return this.status;
 	}
@@ -142,7 +106,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "NOTES", length = 128)
+	@Column(name = "NOTES")
 	public String getNotes() {
 		return this.notes;
 	}
@@ -151,7 +115,7 @@ public class PojoOrgan implements java.io.Serializable {
 		this.notes = notes;
 	}
 
-	@Column(name = "REMARKS", length = 128)
+	@Column(name = "REMARKS")
 	public String getRemarks() {
 		return this.remarks;
 	}
@@ -160,12 +124,4 @@ public class PojoOrgan implements java.io.Serializable {
 		this.remarks = remarks;
 	}
 
-	@Override
-	public String toString() {
-		return "PojoOrgan [organId=" + organId + ", organCode=" + organCode + ", organName=" + organName + ", superid="
-				+ superid + ", levelid=" + levelid + ", province=" + province + ", city=" + city + ", creator="
-				+ creator + ", status=" + status + ", notes=" + notes + ", remarks=" + remarks + "]";
-	}
-
-	
 }
