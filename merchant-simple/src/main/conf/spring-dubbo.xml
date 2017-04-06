@@ -11,6 +11,11 @@
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.CoopInstiService" ref="coopInstiService" retries="0" version="1.0" timeout="60000"/>
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.EnterpriseDetaService" ref="enterpriseDetaService" retries="0" version="1.0" timeout="60000"/>
 	
+	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.ProdCaseService" ref="prodCaseService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.MerchRateConfigService" ref="merchRateConfigService" retries="0" version="1.0" timeout="60000"/>
+	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.RateAllService" ref="rateAllService" retries="0" version="1.0" timeout="60000"/>
+	
+	
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.PojoProductService" ref="pojoProductService" retries="0" version="1.0" timeout="60000"/>
 	<!-- 银行账户 -->
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.MerchBankAccoutService" ref="merchBankAccoutService" retries="0" version="1.0" timeout="60000"/>
