@@ -1,7 +1,6 @@
 package com.zcbspay.platform.manager.controller.checkinfo;
 
 import java.io.File;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,37 +14,30 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.cnaps.application.bean.DetailCheckPaymentInformation;
 import com.zcbspay.platform.cnaps.application.bean.ResultBean;
-import com.zcbspay.platform.cnaps.application.bean.TotalCheckMessageBean;
 import com.zcbspay.platform.cnaps.application.bean.TotalCheckPaymentBean;
-import com.zcbspay.platform.manager.reconcilication.bean.ChannelFileBean;
 import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 import com.zcbspay.platform.manager.reconcilication.service.ChannelFileService;
 import com.zcbspay.platform.manager.reconcilication.service.CheckInfoService;
 import com.zcbspay.platform.manager.reconcilication.service.UploadlogService;
 import com.zcbspay.platform.manager.utils.CSVUtils;
-import com.zcbspay.platform.manager.utils.JsonUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
 
+@SuppressWarnings("all")
 @Controller
 @RequestMapping("/checkinfo/")
 public class CheckInfoController {
 
 	@Autowired
 	private CheckInfoService checkInfoService;
-	
 	@Autowired
 	private ChannelFileService channelFileService;
-	
 	@Autowired
 	private UploadlogService uploadlogService;
 
