@@ -2,8 +2,6 @@ package com.zcbspay.platform.manager.reconcilication.service;
 
 import java.util.List;
 
-import com.zcbspay.platform.manager.reconcilication.bean.ChannelFileBean;
-
 public interface ChannelFileService {
 	/**
 	 * 获取全部的组织结构

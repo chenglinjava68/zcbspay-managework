@@ -6,10 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zcbspay.platform.manager.system.bean.RoleFunctBean;
 import com.zcbspay.platform.manager.system.bean.UserFunctBean;
 import com.zcbspay.platform.manager.system.dao.UserFunctDAO;
-import com.zcbspay.platform.manager.system.pojo.PojoRoleFunct;
 import com.zcbspay.platform.manager.system.pojo.PojoUserFunct;
 import com.zcbspay.platform.manager.system.service.UserFunctService;
 @Service("userFunctService")

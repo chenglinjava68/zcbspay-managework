@@ -9,7 +9,6 @@ import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.manager.reconcilication.bean.ChannelFileBean;
 import com.zcbspay.platform.manager.reconcilication.bean.ChnTxnBean;
 import com.zcbspay.platform.manager.reconcilication.dao.UploadlogDao;
-import com.zcbspay.platform.manager.reconcilication.exception.BatchInsException;
 
 @Repository
 public class UploadlogDaoImpl extends HibernateBaseDAOImpl<ChannelFileBean> implements UploadlogDao {

@@ -3,17 +3,13 @@ package com.zcbspay.platform.manager.system.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
-import com.zcbspay.platform.manager.system.bean.RoleFunctBean;
 import com.zcbspay.platform.manager.system.dao.RoleFunctDAO;
 import com.zcbspay.platform.manager.system.pojo.PojoRoleFunct;
-import com.zcbspay.platform.manager.utils.BeanCopyUtil;
 
 @Repository
 @SuppressWarnings("all")

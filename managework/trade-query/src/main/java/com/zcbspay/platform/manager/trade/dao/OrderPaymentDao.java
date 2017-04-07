@@ -3,7 +3,6 @@ package com.zcbspay.platform.manager.trade.dao;
 import java.util.Map;
 
 import com.zcbspay.platform.manager.dao.BaseDAO;
-import com.zcbspay.platform.manager.trade.bean.BatchCollectOrderBean;
 import com.zcbspay.platform.manager.trade.bean.BatchPaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.RealTimePaymentOrderBean;
 

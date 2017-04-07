@@ -17,8 +17,6 @@ import java.util.Map;
 
 import javax.crypto.Cipher;
 
-import com.zcbspay.platform.manager.utils.Base64Utils;
-
 /**
  * Class Description
  * RSA公钥/私钥/签名工具包 
