@@ -1,5 +1,6 @@
 <%@ page contentType="application/vnd.ms-excel;charset=GBK"%>
 <% response.setContentType("application/octet-stream");      response.addHeader("Content-Disposition","attachment; filename=export.xls"); %>
+<%@taglib prefix="s" uri="/struts-tags"%>
 <HTML>
 <head>
 <title>Test</title>
