@@ -26,11 +26,7 @@
 						<td align="right" colspan=2><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a> <a
 							href="javascript:resize()" class="easyui-linkbutton"
-<<<<<<< HEAD
-							iconCls="icon-redo">重置</a></td>
-=======
 							iconCls="icon-redo">清空</a></td>
->>>>>>> refs/heads/develop
 					</tr>
 
 
