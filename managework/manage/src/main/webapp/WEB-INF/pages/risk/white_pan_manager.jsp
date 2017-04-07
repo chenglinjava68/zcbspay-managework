@@ -197,7 +197,7 @@
 						closeAdd();
 						search();
 					} else {
-						alert(date);
+						alert(data);
 						$('#btn_submit').linkbutton('enable');
 					}
 	
