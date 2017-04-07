@@ -322,7 +322,7 @@ table tr td select {
 		}
 	
 		function showRateDetail() {
-			var ratatype = $("#feeRateType").val();
+			var ratatype = $("#rateType").val();
 			if (ratatype == '01') {
 				$("#feeRate").attr("readonly", "readonly");
 				$("#feeRate").val("0");
