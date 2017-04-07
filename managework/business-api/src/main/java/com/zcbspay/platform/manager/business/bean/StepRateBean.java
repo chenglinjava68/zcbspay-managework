@@ -1,6 +1,5 @@
 package com.zcbspay.platform.manager.business.bean;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**

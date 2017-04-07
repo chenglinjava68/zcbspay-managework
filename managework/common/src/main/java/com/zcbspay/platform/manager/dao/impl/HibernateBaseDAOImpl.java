@@ -10,8 +10,6 @@
  */
 package com.zcbspay.platform.manager.dao.impl;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

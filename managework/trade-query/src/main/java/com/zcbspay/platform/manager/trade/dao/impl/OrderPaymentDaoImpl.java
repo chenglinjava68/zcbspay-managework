@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
-import com.zcbspay.platform.manager.trade.bean.BatchCollectOrderBean;
 import com.zcbspay.platform.manager.trade.bean.BatchPaymentOrderBean;
 import com.zcbspay.platform.manager.trade.bean.RealTimePaymentOrderBean;
 import com.zcbspay.platform.manager.trade.dao.OrderPaymentDao;

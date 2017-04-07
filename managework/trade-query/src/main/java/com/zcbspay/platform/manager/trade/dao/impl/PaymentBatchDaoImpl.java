@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.manager.trade.bean.CollectAndPaymentBean;
-import com.zcbspay.platform.manager.trade.dao.CollectBatchDao;
 import com.zcbspay.platform.manager.trade.dao.PaymentBatchDao;
 
 @Repository
