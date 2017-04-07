@@ -2,6 +2,7 @@ package com.zcbspay.platform.manager.business.bean;
 
 import java.util.Date;
 
+
 public class RouteConfigBean implements java.io.Serializable{
 
     /**

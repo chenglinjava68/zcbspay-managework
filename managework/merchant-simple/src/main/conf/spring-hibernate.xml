@@ -13,19 +13,7 @@
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 	">
-	<!-- 非jndi,单元测用 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass" value="oracle.jdbc.OracleDriver" />
-		<property name="jdbcUrl"
-			value="jdbc:oracle:thin:@192.168.1.43:1521:ORCL" />
-		<property name="user" value="pdtt" />
-		<property name="password" value="pdtt" />
-		<property name="maxPoolSize" value="40" />
-		<property name="minPoolSize" value="1" />
-		<property name="initialPoolSize" value="1" />
-		<property name="maxIdleTime" value="20" />
-	</bean>-->
+
  	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
 		<!-- 基本属性 url、user、password -->

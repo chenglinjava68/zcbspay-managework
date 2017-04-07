@@ -23,5 +23,4 @@
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.ContractService" ref="contractService" retries="0" version="1.0" timeout="60000"/>
 	<!-- 委托机构 -->
 	<dubbo:service interface="com.zcbspay.platform.manager.merchant.service.AgencyService" ref="agencyService" retries="0" version="1.0" timeout="60000"/>
-	
 </beans>

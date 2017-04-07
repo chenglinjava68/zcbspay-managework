@@ -382,6 +382,12 @@ table tr td select {
 			 }   
 			});  
 		}
+<<<<<<< HEAD
 					
+=======
+	function resize(){
+		$('#theForm :input').val('');
+	}			
+>>>>>>> refs/heads/develop
 	</script>
 </html>

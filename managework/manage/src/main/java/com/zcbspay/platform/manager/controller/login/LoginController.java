@@ -46,7 +46,7 @@ public class LoginController {
     private int pwdFlag;// 密码有效期过期标示 1-过期 0-未过期
     private int pwdDay;// 密码到期时间，5天时开始提示
 	    
-	@Autowired
+    @Autowired
 	private UserService userService;
 	@Autowired
 	private FunctionService functionService;
@@ -140,6 +140,9 @@ public class LoginController {
     public ModelAndView createUserTo(UserBean user, HttpServletRequest request) {
         ModelAndView result=new ModelAndView("/index");
         UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+        if (loginUser==null) {
+			return new ModelAndView("/login");
+		}
         if (loginUser.getLoginName().equals("admin")) {
             funlist = functionService.findFunction();
         } else {

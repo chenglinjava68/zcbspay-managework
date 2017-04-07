@@ -187,6 +187,7 @@ table tr td font.current-step {
 								required="true" name="prdtVer" style="width: 150px"
 								onchange="showThreeVersion()" /></select> <font color="red">*</font></td>
 						</tr>
+<<<<<<< HEAD
 <!-- 						<tr> -->
 <!-- 							<td align="center">产品</td> -->
 <!-- 							<td><select id="prdtver_ins" class="easyui-validatebox" -->
@@ -554,6 +555,332 @@ table tr td font.current-step {
 				}
 			});
 		}*/
+=======
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td align="center"><input type="checkbox" id="isDelegation"
+								name="isDelegation" onchange="checkIsDelegation()" />是否授权人办理</td>
+							<td colspan="3"></td>
+						</tr>
+						<tr id="delegation">
+							<td align="center">委托人姓名</td>
+							<td><input class="easyui-validatebox" maxlength="16"
+								id="signatory" name="signatory" /> <font color="red">*</font></td>
+							<td align="center">委托人身份证号</td>
+							<td><input class="easyui-validatebox" validType="cardNo[18]"
+								id="signCertNo" maxlength="18" name="signCertNo" /> <font
+								color="red">*</font></td>
+						</tr>
+						<tr>
+							<td align="center">客户经理</td>
+							<td><input class="easyui-validatebox" maxlength="16"
+								name="custMgr" /></td>
+							<td align="center">客户经理部门</td>
+							<td><input name="custMgrDept" maxlength="16" type="text" /></td>
+						</tr>
+						<tr>
+							<td align="center">合约开始日期</td>
+							<td><input name="agreemtStart" maxlength="12" type="date"
+								id="startDate" /></td>
+							<td align="center">合约终止日期</td>
+							<td><input class="easyui-validatebox" maxlength="32"
+								type="date" name="agreemtEnd" id="endDate" /></td>
+						</tr>
+						<tr>
+							<td align="center">保证金</td>
+							<td><input class="easyui-validatebox" maxlength="8"
+								validType="amount" name="deposit" /><font color="red">元</font>
+							</td>
+							<td align="center">服务费</td>
+							<td><input name="charge" maxlength="8" validType="amount"
+								class="easyui-validatebox" type="text" /><font color="red">元</font>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td align="center">联系人姓名</td>
+							<td><input name="contact" maxlength="16" type="text"
+								class="easyui-validatebox" />
+							<td align="center">联系人地址</td>
+							<td><input name="contAddress" maxlength="120"
+								style="width: 250px" type="text" class="easyui-validatebox" />
+							</td>
+						</tr>
+						<tr>
+							<td align="center">联系人电话</td>
+							<td><input class="easyui-validatebox" maxlength="11"
+								validType="chinesetest" name="contPhone" /></td>
+							<td align="center">联系人职位</td>
+							<td><input name="contTitle" maxlength="16" type="text" /></td>
+						</tr>
+						<tr>
+							<td align="center">联系人邮箱</td>
+							<td><input class="easyui-validatebox" maxlength="16"
+								validType="email" name="contEmail" /></td>
+							<td colspan="2"></td>
+						</tr>
+					</table>
+				</form>
+				<div id="w" class="easyui-window" closed="true" title="My Window"
+					iconCls="icon-save"
+					style="width: 500px; height: 200px; padding: 5px;">
+					<div class="easyui-layout" fit="true">
+						<div region="center" border="false"
+							style="border: 1px solid #ccc; background: #fff; border: 1px solid #ccc; text-align: center">
+							<form id="theForm" action="merchant/upload" method="post"
+								enctype="multipart/form-data">
+								<input type="hidden" id="scanType" />
+								<table width="100%" height="100%" cellpadding="2"
+									cellspacing="2" border="0">
+									<tr>
+										<td align="right" id="uptitle"></td>
+										<td align="left"><input style="height: 20px"
+											id="imagehead" type="file" name="headImage"
+											class="easyui-validatebox"></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+						<div region="south" border="false"
+							style="text-align: center; padding: 5px 0;">
+							<a class="easyui-linkbutton" iconCls="icon-save"
+								href="javascript:uploadProcess()" id="btn_upload">上传</a> <a
+								class="easyui-linkbutton" iconCls="icon-cancel"
+								href="javascript:closeUpload()">取消</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div region="south" border="false"
+				style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-ok" id="button_id"
+					href="javascript:savemerchDate()" onclick="">下一步</a> <a
+					class="easyui-linkbutton" iconCls="icon-cancel"
+					href="javascript:resize()" onclick="resize()">取消</a> <a
+					href="javascript:backToMerchIndex()" class="easyui-linkbutton"
+					iconCls="icon-back">返回</a>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	  $(function() {
+			showProvince();
+			showMerchType();
+			//showqueryTrade();
+			showCoopInsti() ;
+			showMccList();
+			//showCash();
+			showChnlname();
+			//showMerchParent(); 
+			showSetlcycleAll();
+			showSetClearType();
+			//showMccList();
+			$('#startDate,#endDate').datebox({});
+			$("#startDate,#endDate").datebox({ editable:false});
+			queryBankNode();
+			checkIsDelegation();
+		});
+		
+		function loadOrgan() {
+			var html = '<option value="">--请选择所属机构--</option>';
+			$.ajax({
+				type: "GET",
+				url: "pages/pos/queryOrganfAction.action",
+				data: "rand=" + new Date().getTime(),
+				dataType: "json",
+				success: function(json) {
+					$.each(json,
+					function(key, value) {
+						html += '<option value="' + value.organId + '">' + value.organName + '</option>';
+					});
+					$("#dept_ins").html(html);
+				}
+			});
+		}
+		
+		function savemerchDate() {				
+			var jp = $("#banknode_ins").val(); 
+			if ($('#merchDetaForm').form("validate")) {
+				$("#button_id").linkbutton('disable');
+				$('#merchDetaForm').form('submit', {
+					onSubmit: function() {
+						return $('#merchDetaForm').form('validate');
+					},
+					success: function(json) {
+						
+						json = eval('(' + json + ')');
+						$.each(json,
+							function(key, value) {
+							if (value.RET == "succ") {
+								$("#button_id").linkbutton('enable');
+								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){
+									if(data){
+										window.location.href='merchant/toUpload?merchApplyId='+value.INFO;
+									}
+									
+								});
+							} else {
+								$.messager.alert('提示', value.INFO);
+								$("#button_id").linkbutton('enable');
+							}
+						});
+					}
+					
+				});
+			}
+		}
+		
+		function showProvince() {
+			$.ajax({
+				type: "POST",
+				url: "merchant/queryProvince",
+				dataType: "json",
+				success: function(json) {
+					var province = $('#province_old').val();
+					var html = "<option value=''>--请选择所属省--</option>";
+					$.each(json,
+					function(key, value) {
+						//alert(value.roleName);
+// 						html += '<option value="' + value.P_ID + '">' + value.P_NAME + '</option>';
+						if(value.P_ID==province){
+							html += '<option value="' + value.P_ID + '" selected="selected">' + value.P_NAME + '</option>';
+						}else{
+							html += '<option value="' + value.P_ID + '">' + value.P_NAME + '</option>';
+						}
+					}) ;
+					$("#province_ins").html(html);
+					$("#bnkProvince_ins").html(html);
+				}
+			});
+		}
+		
+		function showCity(type) {
+			var pid;
+			if (type == 'province_ins') {
+				pid = $("#province_ins").val();
+			} else {
+				pid = $("#bnkProvince_ins").val();
+			}
+		
+			$.ajax({
+				type: "POST",
+				url: "merchant/queryCity",
+				data: "pid=" + pid,
+				dataType: "json",
+				success: function(json) {
+					var city = $('#city_old').val();
+					var html = "<option value=''>--请选择所属市--</option>";
+					$.each(json,
+					function(key, value) {
+						if(value.C_ID!=pid){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
+						}else if(value.C_ID==city){
+							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
+						}
+					});
+					if (type == 'province_ins') {
+						$("#city_ins").html(html);
+					} else {
+						$("#bnkCity_ins").html(html);
+					}
+		
+				}
+			});
+		}
+		function showCounty(type) {
+			var pid;
+			if (type == 'city_ins') {
+				pid = $("#city_ins").val();
+			} else {
+				pid = $("#bnkCity_ins").val();
+			}
+			$.ajax({
+				type: "POST",
+				url: "merchant/queryCounty",
+				data: "pid=" + pid,
+				dataType: "json",
+				success: function(json) {
+					var county = $('#county_old').val();
+					var html = "<option value=''>--请选择所属县--</option>";
+					$.each(json,
+					function(key, value) {
+						if(value.T_ID==county){
+							html += '<option value="' + value.T_ID + '" selected="selected">' + value.T_NAME + '</option>';
+						}else{
+							html += '<option value="' + value.T_ID + '">' + value.T_NAME + '</option>';
+						}
+						//alert(value.roleName);
+// 						html += '<option value="' + value.T_ID + '">' + value.T_NAME + '</option>';
+					});
+					if (type == 'city_ins') {
+						$("#county_ins").html(html);
+					} else {
+						$("#bnkStreet_ins").html(html);
+					}
+		
+				}
+			});
+		}
+		
+		function checkBankKey(){
+			var pid = $("#banknode_key").val();
+			 if(pid=='输入关键字检索开户行'){
+				$("#banknode_key").val('');
+			}
+			$("#banknode_key").css({color:"#515151"});
+		}
+		
+		function queryBankNode() {
+			var pid = $("#banknode_key").val();
+			if(pid==null||pid==''){
+				$("#banknode_key").val('输入关键字检索开户行');
+				$("#banknode_key").css({color:"#BEBEBE"});
+				return;
+			} 
+			$.ajax({
+				type: "POST",
+				url: "merchant/queryBankNode",
+				data: "bankName=" + pid,
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择开户行--</option>";
+					$.each(json,
+					function(key, value) {
+						//alert(value);
+						var codenode = value.BANK_CODE + "," + value.BANK_NODE;
+						html += '<option value="' + codenode + '">' + value.BANK_NAME + '</option>';
+					});
+					$("#banknode_ins").html(html);
+				}
+			});
+		}
+		
+		function showMerchType(){
+			$.ajax({
+				type: "POST",
+				url: "merchant/queryMerchType",
+				data: "rand=" + new Date().getTime(),
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择商户类型--</option>";
+					$.each(json,
+					function(key, value) {
+						//alert(value.roleName);
+						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
+					}) ;
+					$("#merchtype_ins").html(html);
+		
+				}
+			});
+		}
+>>>>>>> refs/heads/develop
 		function showMerchParent() {
 			$.ajax({
 				type: "POST",

@@ -23,9 +23,16 @@
 						<td align="right">会员名称</td>
 						<td align="left" style="padding-left: 5px"><input
 							id="merbername_qid" maxlength="20" /></td>
+<<<<<<< HEAD
 						<td align="right" colspan=2><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
 
+=======
+						<td align="right" colspan=2>
+							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+							<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a>
+						</td>
+>>>>>>> refs/heads/develop
 					</tr>
 				</table>
 			</form>

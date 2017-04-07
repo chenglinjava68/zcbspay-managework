@@ -1,6 +1,7 @@
 package com.zcbspay.platform.manager.business.bean;
 
 
+
 public class ParaDicBean implements java.io.Serializable {
 
 	// Fields

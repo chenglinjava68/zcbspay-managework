@@ -22,6 +22,7 @@ import com.zcbspay.platform.manager.business.service.RouteService;
 import com.zcbspay.platform.manager.utils.JsonUtils;
 import com.zcbspay.platform.manager.utils.UserHelper;
 
+@SuppressWarnings("all")
 @Controller
 @RequestMapping("/route/")
 public class RouteController {

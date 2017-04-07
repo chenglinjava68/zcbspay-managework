@@ -4,7 +4,6 @@
 	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-	
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.CityService" ref="cityService" retries="0" version="1.0" timeout="60000"/>
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.DeptService" ref="deptService" retries="0" version="1.0" timeout="60000"/>
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.FunctionService" ref="functionService" retries="0" version="1.0" timeout="60000"/>
@@ -16,5 +15,4 @@
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserFunctService" ref="userFunctService" retries="0" version="1.0" timeout="60000"/>
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserRoleService" ref="userRoleService" retries="0" version="1.0" timeout="60000"/>
 	<dubbo:service interface="com.zcbspay.platform.manager.system.service.UserService" ref="userService" retries="0" version="1.0" timeout="60000"/>
-	
 </beans>
