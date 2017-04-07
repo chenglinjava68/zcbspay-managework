@@ -57,13 +57,12 @@ table tr td select {
 								<option value="04">订单失效</option>
 						</select></td>
 						<td align="right" width="10%">起止时间</td>
-						<td style="padding-left: 5px"><input id="stime" type="text"
+						<td colspan="2" style="padding-left: 5px"><input id="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox"
 							data-options="showSeconds:false" name="stime"></input> 至<input
 							id=etime type="text" style="width: 120PX"
 							class="easyui-datetimebox" data-options="showSeconds:false"
 							name="etime"></input></td>
-						<td></td>
 						<td align="right"><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>
 							<a
@@ -160,7 +159,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '交易订单信息列表',
+							title : '实时代付订单信息列表',
 							iconCls : 'icon-save',
 							height : 500,
 							singleSelect : true,
@@ -170,7 +169,6 @@ table tr td select {
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [
-									{field:'TID',title:'标志',width:120,align:'center'},
 									{field:'ACCESSTYPE',title:'接入类型',width:121,align:'center'},
 									{field:'COOPINSTIID',title:'合作机构号',width:122,align:'center'},
 									{field:'MERID',title:'委托机构号',width:123,align:'center'},

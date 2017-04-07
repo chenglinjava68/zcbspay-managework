@@ -194,7 +194,7 @@ table tr td select {
 		
 		$(function() {
 			$('#test').datagrid({
-				title: '累计扣率列表',
+				title: '累计分段扣率列表',
 				iconCls: 'icon-save',
 				height: gridHeight,
 				singleSelect: true,
@@ -364,7 +364,7 @@ table tr td select {
 				rownumbers: true,
 				toolbar: [{
 					id: 'btnadd',
-					text: '累计类型扣率',
+					text: '新增累计类型扣率',
 					iconCls: 'icon-add',
 					handler: function() {
 						showAdd(false);

@@ -348,7 +348,7 @@ table tr td select {
 				rownumbers: true,
 				toolbar: [{
 					id: 'btnadd',
-					text: '分段类型扣率',
+					text: '新增分段类型扣率',
 					iconCls: 'icon-add',
 					handler: function() {
 						showAdd(false);

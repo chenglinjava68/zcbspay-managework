@@ -95,7 +95,8 @@
 						</tr>
 						<tr>
 							<td align="right" width="15%" height="20px">路由版本</td>
-							<td align="left" style="padding-left: 5px" width="25%"><select
+							<td align="left" style="padding-left: 5px" width="25%">
+								<select style="width:160px"
 								id="merchroutver" name="merchroutver"
 								required="true" missingMessage="请选择路由版本"
 								class="easyui-validatebox" />
@@ -226,7 +227,7 @@
 <script>
 		var width = $("#continer").width();
 	  	var gridHeight = 540;
-		var panelWidth = 640;
+		var panelWidth = 800;
 		var panelHeight = 260;
 		var panelHoriFloat = (width-panelWidth)/2;
 		var panelVertFloat = 150;
