@@ -12,7 +12,7 @@
 <body>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="风控版本查询"
-			style="height: 100px; padding: 10px; background: #fafafa;"
+			style="height: 72px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="dedurateForm" method="post">
 				<table width="100%">
@@ -101,7 +101,7 @@
 					}
 					return value.length >= param[0];
 				},
-				message: '请输入8位数字的扣率代码'
+				message: '请输入8位数字的风控版本代码'
 			}
 	
 		});
@@ -124,7 +124,7 @@
 				},
 				{
 					field: 'RISKNAME',
-					title: '扣率版本名称',
+					title: '风控版本名称',
 					width: 220,
 					align: 'center'
 				},
