@@ -92,31 +92,49 @@
 				$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 				$("#pwd,#loginname,#randcode,#loginbody").keydown(function(event){
 					if(event.keyCode==13){
-						$('#theForm').form('submit', {  
-						    onSubmit: function(){  
-						        return $('#theForm').form('validate');   
-						    },   
-						    success:function(data){   
-						    	var json = eval('(' + data + ')')
-							    if(json.ret=='success'){
-					    			window.location="<%=basePath%>"+"pages/querymenuAction.action";
-								}else if(json.ret=='err_user'){
-									$("#info").html(json.info);
-									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
-									$.ajax({
-										type: "GET",
-									  	url: "login?rand="+new Date().getTime(),
-									 	dataType: "text",
-									 	success:function(text){
+// 						$('#theForm').form('submit', {  
+// 						    onSubmit: function(){  
+// 						        return $('#theForm').form('validate');   
+// 						    },   
+// 						    success:function(data){   
+// 						    	var json = eval('(' + data + ')')
+// 							    if(json.ret=='success'){
+<%-- 					    			window.location="<%=basePath%>"+"pages/querymenuAction.action"; --%>
+// 								}else if(json.ret=='err_user'){
+// 									$("#info").html(json.info);
+// 									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+// 									$.ajax({
+// 										type: "GET",
+// 									  	url: "login?rand="+new Date().getTime(),
+// 									 	dataType: "text",
+// 									 	success:function(text){
 							    			
-									 	}
-									});
+// 									 	}
+// 									});
+// 								}else{
+// 									$("#info").html(json.info);
+// 									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+// 								}
+// 						    }   
+// 						});  
+						var loginName = $('#loginname').val();
+						var pwd = $('#pwd').val();
+						var randcode = $('#randcode').val();
+						
+						$.ajax({
+							type:"post",
+							url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
+							data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
+							async: false,
+							success:function(data){
+								  if(data.ret=='success'){
+									window.location="<%=basePath%>login/loginSuccess";
 								}else{
-									$("#info").html(json.info);
-									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+									$("#info").html(data.result);
+									$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 								}
-						    }   
-						});  
+							}
+						});
 				    }
 									
 				});
@@ -181,15 +199,15 @@
 				
 				$.ajax({
 	        		type:"post",
-	        		url:"login/validateUser?rand="+new Date().getTime(),
+	        		url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
 	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
 	        		async: false,
 	        		success:function(data){
 	        			  if(data.ret=='success'){
 	        				window.location="<%=basePath%>login/loginSuccess";
 	        			}else{
-	        				$.MessageBox(data.result);
-	        				$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
+	        				$("#info").html(data.result);
+	        				$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 	        			}
 	        		}
 	        	});

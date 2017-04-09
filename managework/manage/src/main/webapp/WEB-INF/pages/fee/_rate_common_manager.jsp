@@ -143,7 +143,7 @@ table tr td select {
 	  
 		$(function() {
 			$('#test').datagrid({
-				title: '业务类型扣率列表',
+				title: '常规扣率列表',
 				iconCls: 'icon-save',
 				height: gridHeight,
 				singleSelect: true,
@@ -322,7 +322,7 @@ table tr td select {
 		}
 	
 		function showRateDetail() {
-			var ratatype = $("#feeRateType").val();
+			var ratatype = $("#rateType").val();
 			if (ratatype == '01') {
 				$("#feeRate").attr("readonly", "readonly");
 				$("#feeRate").val("0");

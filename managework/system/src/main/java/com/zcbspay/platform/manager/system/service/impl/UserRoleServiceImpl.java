@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.manager.system.bean.UserRoleBean;
 import com.zcbspay.platform.manager.system.dao.UserRoleDAO;
-import com.zcbspay.platform.manager.system.pojo.PojoRoleFunct;
-import com.zcbspay.platform.manager.system.pojo.PojoUserFunct;
 import com.zcbspay.platform.manager.system.pojo.PojoUserRole;
 import com.zcbspay.platform.manager.system.service.UserRoleService;
 

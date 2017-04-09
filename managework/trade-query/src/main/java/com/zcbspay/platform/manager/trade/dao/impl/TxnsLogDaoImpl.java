@@ -3,7 +3,6 @@ package com.zcbspay.platform.manager.trade.dao.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.zcbspay.platform.manager.dao.impl.HibernateBaseDAOImpl;

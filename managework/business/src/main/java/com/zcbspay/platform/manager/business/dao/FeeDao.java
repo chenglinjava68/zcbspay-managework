@@ -3,15 +3,12 @@ package com.zcbspay.platform.manager.business.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.event.spi.FlushEntityEvent;
-
 import com.zcbspay.platform.manager.business.bean.AccumulateRateBean;
 import com.zcbspay.platform.manager.business.bean.BusiRateBean;
 import com.zcbspay.platform.manager.business.bean.CardRateBean;
 import com.zcbspay.platform.manager.business.bean.CommonRateBean;
 import com.zcbspay.platform.manager.business.bean.FeeBean;
 import com.zcbspay.platform.manager.business.bean.NewCardRateBean;
-import com.zcbspay.platform.manager.business.bean.ProductBean;
 import com.zcbspay.platform.manager.business.bean.StepRateBean;
 import com.zcbspay.platform.manager.dao.BaseDAO;
 

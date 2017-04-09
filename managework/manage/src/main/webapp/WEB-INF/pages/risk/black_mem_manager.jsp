@@ -12,7 +12,7 @@
 <body>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="商户黑名单查询"
-			style="height: 100px; padding: 10px; background: #fafafa;"
+			style="height: 72px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="dedurateForm" method="post">
 				<table width="100%">
@@ -20,7 +20,7 @@
 						<td align="right">会员号</td>
 						<td align="left" style="padding-left: 5px"><input
 							id="merber_qid" maxlength="15" /></td>
-						<td align="right">会员名称</td>
+						<td align="right">商户名称</td>
 						<td align="left" style="padding-left: 5px"><input
 							id="merbername_qid" maxlength="20" /></td>
 						<td align="right" colspan=2>

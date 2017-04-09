@@ -80,17 +80,17 @@ table tr td select {
 							</select>
 							</td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate" name="feeRate"
+							<td><input id="feeRate" name="feeRate" required="true"
 								validType="percent" type="text" class="easyui-validatebox"
 								maxlength="5" /></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee" name="minFee"
+							<td><input id="minFee" name="minFee" required="true"
 								validType="amount" maxlength="12" type="text"
 								class="easyui-validatebox" /></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee" name="maxFee"
+							<td><input id="maxFee" name="maxFee" required="true"
 								validType="amount" maxlength="12" type="text"
 								class="easyui-validatebox" /></td>
 						</tr>
@@ -101,38 +101,38 @@ table tr td select {
 								validType="amount" type="text" class="easyui-validatebox"
 								maxlength="12" /></td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate2" name="feeRate2"
+							<td><input id="feeRate2" name="feeRate2" required="true"
 								validType="percent" type="text" class="easyui-validatebox"
 								maxlength="5" /></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee2" name="minFee2"
+							<td><input id="minFee2" name="minFee2" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee2" name="maxFee2"
+							<td><input id="maxFee2" name="maxFee2" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 						</tr>
 
 						<tr>
 							<td>分界线2(单位：元)</td>
-							<td><input id="limit2" name="limit2"
+							<td><input id="limit2" name="limit2" 
 								validType="amount" type="text" class="easyui-validatebox"
 								maxlength="12" /></td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRate3" name="feeRate3"
+							<td><input id="feeRate3" name="feeRate3" required="true"
 								validType="percent" type="text" class="easyui-validatebox"
 								maxlength="5" /></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFee3" name="minFee3"
+							<td><input id="minFee3" name="minFee3" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFee3" name="maxFee3"
+							<td><input id="maxFee3" name="maxFee3" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 						</tr>
@@ -348,7 +348,7 @@ table tr td select {
 				rownumbers: true,
 				toolbar: [{
 					id: 'btnadd',
-					text: '分段类型扣率',
+					text: '新增分段类型扣率',
 					iconCls: 'icon-add',
 					handler: function() {
 						showAdd(false);
@@ -442,8 +442,6 @@ table tr td select {
 					$("#maxFee3").val(json.MAX_FEE3);
 					$("#limit1").val(json.LIMIT1);
 					$("#limit2").val(json.LIMIT2);
-					
-					
 					$("#notes").val(json.NOTES);
 				}
 			});
@@ -462,7 +460,7 @@ table tr td select {
 			$('#test').datagrid('load', data);
 		}
 		function showRateDetail() {
-			var ratatype = $("#feeRateType").val();
+			var ratatype = $("#rateType").val();
 			if (ratatype == '01') {
 				$("#feeRate").attr("readonly", "readonly");
 				$("#feeRate").val("0");
@@ -470,6 +468,20 @@ table tr td select {
 				$("#maxFee").val("0");
 				$("#minFee").removeAttr("readonly");
 				$("#minFee").val("");
+				
+				$("#feeRate2").attr("readonly", "readonly");
+				$("#feeRate2").val("0");
+				$("#maxFee2").attr("readonly", "readonly");
+				$("#maxFee2").val("0");
+				$("#minFee2").removeAttr("readonly");
+				$("#minFee2").val("");
+				
+				$("#feeRate3").attr("readonly", "readonly");
+				$("#feeRate3").val("0");
+				$("#maxFee3").attr("readonly", "readonly");
+				$("#maxFee3").val("0");
+				$("#minFee3").removeAttr("readonly");
+				$("#minFee3").val("");
 			} else if (ratatype == '02') {
 				$("#feeRate").removeAttr("readonly");
 				$("#feeRate").val("");
@@ -477,6 +489,20 @@ table tr td select {
 				$("#maxFee").val("0");
 				$("#minFee").attr("readonly", "readonly");
 				$("#minFee").val("0");
+				
+				$("#feeRate2").removeAttr("readonly");
+				$("#feeRate2").val("");
+				$("#maxFee2").attr("readonly", "readonly");
+				$("#maxFee2").val("0");
+				$("#minFee2").attr("readonly", "readonly");
+				$("#minFee2").val("0");
+				
+				$("#feeRate3").removeAttr("readonly");
+				$("#feeRate3").val("");
+				$("#maxFee3").attr("readonly", "readonly");
+				$("#maxFee3").val("0");
+				$("#minFee3").attr("readonly", "readonly");
+				$("#minFee3").val("0");
 			} else if (ratatype == '03') {
 				$("#feeRate").removeAttr("readonly");
 				$("#feeRate").val("");
@@ -484,6 +510,20 @@ table tr td select {
 				$("#maxFee").val("");
 				$("#minFee").removeAttr("readonly");
 				$("#minFee").val("");
+				
+				$("#feeRate2").removeAttr("readonly");
+				$("#feeRate2").val("");
+				$("#maxFee2").removeAttr("readonly");
+				$("#maxFee2").val("");
+				$("#minFee2").removeAttr("readonly");
+				$("#minFee2").val("");
+				
+				$("#feeRate3").removeAttr("readonly");
+				$("#feeRate3").val("");
+				$("#maxFee3").removeAttr("readonly");
+				$("#maxFee3").val("");
+				$("#minFee3").removeAttr("readonly");
+				$("#minFee3").val("");
 			}
 	
 		}

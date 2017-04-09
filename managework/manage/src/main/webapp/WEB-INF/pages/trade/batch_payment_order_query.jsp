@@ -17,7 +17,7 @@ table tr td select {
 </style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 140px; padding: 10px; background: #fafafa;"
+			style="height: 130px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
@@ -31,7 +31,7 @@ table tr td select {
 					</tr>
 					<tr>
 						<td align="right" width="10%">起止时间</td>
-						<td style="padding-left: 5px"><input id="stime" type="text"
+						<td colspan="2" style="padding-left: 5px"><input id="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox"
 							data-options="showSeconds:false" name="stime"></input> 至<input
 							id=etime type="text" style="width: 120PX"
@@ -39,7 +39,6 @@ table tr td select {
 							name="etime"></input></td>
 					</tr>
 					<tr>
-						<td align="right"></td>
 						<td align="right"></td>
 						<td align="right"></td>
 						<td style="padding-left: 5px"></td>
@@ -123,7 +122,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '交易流水列表',
+							title : '批量代付列表',
 							iconCls : 'icon-save',
 							height : 400,
 							singleSelect : true,
@@ -133,7 +132,6 @@ table tr td select {
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
-								{field:'TID',title:'标志',width:120,align:'center'},
 								{field:'ACCESSTYPE',title:'接入类型',width:120,align:'center'},
 								{field:'COOPINSTIID',title:'合作机构号',width:120,align:'center'},
 								{field:'MERID',title:'商户号',width:120,align:'center'},

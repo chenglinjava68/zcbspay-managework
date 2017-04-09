@@ -58,6 +58,4 @@
 	
 	<!-- 委托机构 -->
 	<dubbo:reference id="agencyService" interface="com.zcbspay.platform.manager.merchant.service.AgencyService" version="1.0"/>
-
-<!-- <dubbo:annotation package="com.zcbspay.platform.manager"/> -->
 </beans>

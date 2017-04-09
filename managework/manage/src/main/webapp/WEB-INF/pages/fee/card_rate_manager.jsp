@@ -175,7 +175,7 @@ table tr td select {
 	  
 		$(function() {
 			$('#test').datagrid({
-				title: '卡扣率列表',
+				title: '卡分类扣率列表',
 				iconCls: 'icon-save',
 				height: gridHeight,
 				singleSelect: true,

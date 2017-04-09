@@ -1,15 +1,12 @@
 package com.zcbspay.platform.manager.merchant.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.manager.merchant.bean.ProductBean;
 import com.zcbspay.platform.manager.merchant.dao.ProductDao;
-import com.zcbspay.platform.manager.merchant.pojo.PojoProduct;
 import com.zcbspay.platform.manager.merchant.service.PojoProductService;
 
 @Service("pojoProductService")
