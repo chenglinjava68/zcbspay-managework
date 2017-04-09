@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,7 +47,7 @@ public class LoginController {
     private Map<String, Object> session;
     private int pwdFlag;// 密码有效期过期标示 1-过期 0-未过期
     private int pwdDay;// 密码到期时间，5天时开始提示
-	    
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
     @Autowired
 	private UserService userService;
 	@Autowired
@@ -137,7 +139,7 @@ public class LoginController {
 
 	@ResponseBody
     @RequestMapping("/loginSuccess")
-    public ModelAndView createUserTo(UserBean user, HttpServletRequest request) {
+    public ModelAndView createUserTo(UserBean user, HttpServletRequest request) throws ParseException {
         ModelAndView result=new ModelAndView("/index");
         UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
         if (loginUser==null) {
@@ -148,12 +150,14 @@ public class LoginController {
         } else {
             funlist = functionService.findLoginFuntion(loginUser);
         }
-        checkPWDDate(request);
+        Integer pwdFlag = checkPWDDate(request);
         pwdDay = calcExpirationDay(request);
        
         result.addObject("loginName",loginUser.getLoginName());
         result.addObject("funlist",funlist);
+        
         result.addObject("pwdDay",pwdDay);
+        result.addObject("pwdFlag",pwdFlag);
         
         return result;
     }
@@ -172,40 +176,44 @@ public class LoginController {
 	        funlist = functionService.findLoginFuntion(loginUser);
 	    }
 	    session.put("Authority", funlist);
-	    checkPWDDate(request);
+	    Integer pwdFlag = checkPWDDate(request);
 	    pwdDay = calcExpirationDay(request);
 	    
 	    result.addObject("loginName",loginUser.getLoginName());
         result.addObject("funlist",funlist);
         result.addObject("pwdDay",pwdDay);
+        result.addObject("pwdFlag",pwdFlag);
         
         return result;
 	}
 
 	/**
      * 检查密码有效期
+	 * @throws ParseException 
      */
-    private void checkPWDDate(HttpServletRequest request) {
-//		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
-//         pwdFlag=0;
-//         Timestamp pwdTime = (Timestamp) loginUser.getPwdValid();
-//         if(isNull(pwdTime)){
-//        	 pwdFlag=1;
-//         }else{
-//	         long time = pwdTime.getTime();//密码有效期
-//	         long currentTime = new Date().getTime();//当前时间
-//	         if(currentTime>time){
-//	        	 pwdFlag = 1;
-//	         }
-//         }
+    private Integer checkPWDDate(HttpServletRequest request) throws ParseException {
+		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
+         pwdFlag=0;
+         String pwdTime =  loginUser.getPwdValid();
+         if(isNull(pwdTime)){
+        	 pwdFlag=1;
+         }else{
+	         long time = sdf.parse(loginUser.getPwdValid()).getTime();//密码有效期
+	         long currentTime = new Date().getTime();//当前时间
+	         if(currentTime>time){
+	        	 pwdFlag = 1;
+	         }
+         }
+         return pwdFlag;
     }
 
 	/**
 	 * 计算时间间隔
 	 * 
 	 * @return
+	 * @throws ParseException 
 	 */
-	private int calcExpirationDay(HttpServletRequest request) {
+	private int calcExpirationDay(HttpServletRequest request) throws ParseException {
 		UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(new Date());
@@ -213,7 +221,8 @@ public class LoginController {
         if (isNull(loginUser.getPwdValid())) {
             cal2.setTime(new Date());
         } else {
-            cal2.setTime(new Date(loginUser.getPwdValid().getTime()));
+        	
+            cal2.setTime(sdf.parse(loginUser.getPwdValid()));
         }
         long l = cal2.getTimeInMillis() - cal1.getTimeInMillis();
         int days = new Long(l / (1000 * 60 * 60 * 24)).intValue();

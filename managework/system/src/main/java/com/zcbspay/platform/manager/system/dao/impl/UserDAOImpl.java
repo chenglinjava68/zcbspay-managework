@@ -1,7 +1,8 @@
 package com.zcbspay.platform.manager.system.dao.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,7 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 				"v_login_name", "v_pwd", "v_pwd_valid", "v_creator",
 				"v_organ_id", "v_dept_id", "v_isadmin", "v_notes",
 				"v_remarks"};
+		
 		Object[] paramaters = new Object[] {
 				"".equals(user.getUserCode()) ? null : user.getUserCode(),
 				"".equals(user.getUserName()) ? null : user.getUserName(),
@@ -79,6 +81,7 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 				"".equals(user.getRemarks()) ? null : user.getRemarks() };
 		return executeOracleProcedure("{CALL PCK_T_USER.ins_t_user(?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
 				paramaters, "cursor0");
+		
 	}
 
 	public List<?> updateUser(UserBean user) {
@@ -86,22 +89,24 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 				"v_login_name", "v_pwd", "v_pwd_valid", "v_creator",
 			    "v_organ_id", "v_dept_id", "v_isadmin","v_status", "v_notes",
 				"v_remarks"};
-		Object[] paramaters = new Object[] {
-				"".equals(user.getUserId()) ? null : user.getUserId(),
-				"".equals(user.getUserCode()) ? null : user.getUserCode(),
-				"".equals(user.getUserName()) ? null : user.getUserName(),
-				"".equals(user.getLoginName()) ? null : user.getLoginName(),
-				"".equals(user.getPwd()) ? null : user.getPwd(),
-				"".equals(user.getPwdValid()) ? null : user.getPwdValid(),
-				"".equals(user.getCreator()) ? null : user.getCreator(),
-				"".equals(user.getOrganId()) ? null : user.getOrganId(),
-				"".equals(user.getDeptId()) ? null : user.getDeptId(),
-				"".equals(user.getIsadmin()) ? null : user.getIsadmin(),
-				"".equals(user.getStatus()) ? null : user.getStatus(),
-				"".equals(user.getNotes()) ? null : user.getNotes(),
-				"".equals(user.getRemarks()) ? null : user.getRemarks() };
-		return executeOracleProcedure("{CALL PCK_T_USER.upt_t_user(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
-				paramaters, "cursor0");
+		
+			Object[] paramaters = new Object[] {
+					"".equals(user.getUserId()) ? null : user.getUserId(),
+					"".equals(user.getUserCode()) ? null : user.getUserCode(),
+					"".equals(user.getUserName()) ? null : user.getUserName(),
+					"".equals(user.getLoginName()) ? null : user.getLoginName(),
+					"".equals(user.getPwd()) ? null : user.getPwd(),
+					"".equals(user.getPwdValid()) ? null : user.getPwdValid(),
+					"".equals(user.getCreator()) ? null : user.getCreator(),
+					"".equals(user.getOrganId()) ? null : user.getOrganId(),
+					"".equals(user.getDeptId()) ? null : user.getDeptId(),
+					"".equals(user.getIsadmin()) ? null : user.getIsadmin(),
+					"".equals(user.getStatus()) ? null : user.getStatus(),
+					"".equals(user.getNotes()) ? null : user.getNotes(),
+					"".equals(user.getRemarks()) ? null : user.getRemarks() };
+			return executeOracleProcedure("{CALL PCK_T_USER.upt_t_user(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
+					paramaters, "cursor0");
+		
 	}
 
 	@Override
@@ -125,15 +130,11 @@ public class UserDAOImpl extends HibernateBaseDAOImpl<PojoUser> implements UserD
 	}
 
 	@Override
-	public void resetPwd(UserBean user) {
-		Object[] paramaters = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String sql = "update T_USER set PWD=?,PWD_VALID=(Date ?) where USER_ID=?";
-		paramaters = new Object[]{
-				"".equals(user.getPwd()) ? null : user.getPwd(),
-				"".equals(sdf.format(date)) ? null : sdf.format(date),
-				"".equals(user.getUserId()) ? null : user.getUserId()};
-		updateBySQL(sql, paramaters);
+	public void resetPwd(UserBean user, String timestamp) {
+		String pwd =user.getPwd();
+		Long userId =user.getUserId();
+		String sql = "update PojoUser p set p.pwd=?,p.pwdValid=to_date(?,'yyyy-MM-dd') where p.userId=?";
+//		String sql = "update PojoUser p set p.pwd=?,p.pwdValid=? where p.userId=?";
+		updateByHQL(sql, new Object[]{pwd,timestamp,userId});	
 	}
 }

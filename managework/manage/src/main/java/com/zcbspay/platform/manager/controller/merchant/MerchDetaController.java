@@ -276,13 +276,13 @@ public class MerchDetaController {
 	@RequestMapping("/downloadImgUrl")
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String merchApplyId, String certTypeCode) { 
     	String filePath = merchDetaService.downloadFromFtp(merchApplyId, CertType.format(certTypeCode));
-    	filePath = "javaCode/"+filePath;
         Map<String, String> result = new HashMap<String, String>();
         if (filePath == null) {
             result.put("status", "fail");
         } else if (filePath.equals("")) {
             result.put("status", "notExist");
         } else {
+        	filePath = "javaCode/"+filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }

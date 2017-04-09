@@ -1,5 +1,6 @@
 package com.zcbspay.platform.manager.system.service.impl;
 
+import java.security.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +42,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void resetPwd(UserBean userBean) {
-		userDAO.resetPwd(userBean);
+	public void resetPwd(UserBean userBean, String timestamp) {
+		userDAO.resetPwd(userBean,timestamp);
 	}
 
 }

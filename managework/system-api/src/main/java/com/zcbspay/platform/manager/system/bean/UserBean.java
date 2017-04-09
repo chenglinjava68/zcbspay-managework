@@ -14,7 +14,7 @@ public class UserBean implements Serializable{
 	private String userName;
 	private String loginName;
 	private String pwd;
-	private Date pwdValid;
+	private String pwdValid;
 	private Short pwdErrorNumber;
 	private Date lastLoginTime;
 	private String creator;
@@ -57,10 +57,10 @@ public class UserBean implements Serializable{
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	public Date getPwdValid() {
+	public String getPwdValid() {
 		return pwdValid;
 	}
-	public void setPwdValid(Date pwdValid) {
+	public void setPwdValid(String pwdValid) {
 		this.pwdValid = pwdValid;
 	}
 	public Short getPwdErrorNumber() {
