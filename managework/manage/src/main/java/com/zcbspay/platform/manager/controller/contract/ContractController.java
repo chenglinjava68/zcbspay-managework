@@ -1,14 +1,8 @@
 package com.zcbspay.platform.manager.controller.contract;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,18 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.zcbspay.platform.manager.merchant.bean.ContractBean;
-import com.zcbspay.platform.manager.merchant.bean.EnterpriseDetaApplyBean;
-import com.zcbspay.platform.manager.merchant.bean.MerchDetaApplyBean;
 import com.zcbspay.platform.manager.merchant.service.ContractService;
 import com.zcbspay.platform.manager.system.bean.UserBean;
 
@@ -235,6 +224,7 @@ public class ContractController {
 //            resultlist.get(0).put("FLAG", "复审通过");
 //        }else{
 //           resultlist.get(0).put("FLAG", ""); 
+//        managework/manage/src/main/java/com/zcbspay/platform/manager/controller/contract/ContractController.java
 //        }
         return resultlist;
     }
