@@ -1,6 +1,6 @@
 package com.zcbspay.platform.manager.controller.system;
 
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -132,9 +132,9 @@ public class UserController {
 		 */
 		@ResponseBody
 	    @RequestMapping("/save")
-		public List<?> save(HttpServletRequest request,String pwd) {
+		public List<?> save(HttpServletRequest request,String pwd,UserBean user) {
 			UserBean loginUser = (UserBean) request.getSession().getAttribute("LOGIN_USER");
-			UserBean user = new UserBean();
+//			UserBean user = new UserBean();
 			user.setCreator(loginUser.getLoginName());
 			String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
 			passwordMark = passwordMark + pwd;
@@ -195,16 +195,21 @@ public class UserController {
 		 * 
 		 * @return
 		 */
+		
 		@ResponseBody
 	    @RequestMapping("/resetPwd")
 		public String resetPwd(Long userId) {
 			UserBean user = userService.getSingleById(userId);
 			String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
-			passwordMark = passwordMark + "113414";
+			passwordMark = passwordMark + "123456";
 			user.setPwd(MD5Util.MD5(passwordMark));
-			user.setPwdValid(new Date());// 密码重置有效期更新为当前时间，登录后会强制修改密码
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DAY_OF_MONTH, +30);//
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   
+			String pwdVal = format.format(cal.getTime().getTime());
+//			user.setPwdValid(new Date());// 密码重置有效期更新为当前时间，登录后会强制修改密码
 //			user.setPwdValid(new Timestamp(new Date().getTime()));// 密码重置有效期更新为当前时间，登录后会强制修改密码
-			userService.resetPwd(user);
+			userService.resetPwd(user, pwdVal);
 			return "true";
 		}
 
@@ -371,9 +376,13 @@ public class UserController {
 					// 密码有效期延长30天
 					Calendar cal = Calendar.getInstance();
 					cal.add(Calendar.DAY_OF_MONTH, +30);//
-					Timestamp timestamp = new Timestamp(cal.getTime().getTime());
-					user.setPwdValid(timestamp);
-					userService.updateUser(user);
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   
+					String pwdVal = format.format(cal.getTime().getTime());
+//					Timestamp timestamp = new Timestamp(cal.getTime().getTime());
+					UserBean bean = new UserBean();
+					bean.setPwd(MD5Util.MD5(new_passwordMark));
+					bean.setUserId(user.getUserId());
+					userService.resetPwd(bean, pwdVal);
 					returnMap.put("retcode", "succ");
 					returnMap.put("retinfo", "操作成功！");
 				} else {

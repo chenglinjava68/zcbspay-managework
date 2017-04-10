@@ -51,9 +51,9 @@ public interface UserService {
 	 */
 	public UserBean getSingleById(Long userId);
 	
-	/**
+	/**重置密码
 	 * @param pwd
 	 * @param pwdValid
 	 */
-	public void resetPwd(UserBean userBean);
+	public void resetPwd(UserBean bean, String timestamp);
 }

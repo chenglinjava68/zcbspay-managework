@@ -13,7 +13,7 @@
 <body>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="商户日累计限次限额查询"
-			style="height: 100px; padding: 10px; background: #fafafa;"
+			style="height: 72px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="dedurateForm" method="post">
 				<table width="100%">

@@ -144,13 +144,13 @@ public class ContractController {
     public Map<String, String> downloadImgUrl(HttpServletRequest request, String fouceDownload, String tId, String certTypeCode) { 
     	ContractBean bean = contractService.findById(tId);
     	String filePath = bean.getFileAddress();
-    	filePath = "javaCode/"+filePath;
         Map<String, String> result = new HashMap<String, String>();
         if (bean == null) {
             result.put("status", "fail");
         } else if (bean.equals("")) {
             result.put("status", "notExist");
         } else {
+        	filePath = "javaCode/"+filePath;
             result.put("status", "OK");
             result.put("url", filePath);
         }
@@ -224,6 +224,7 @@ public class ContractController {
 //            resultlist.get(0).put("FLAG", "复审通过");
 //        }else{
 //           resultlist.get(0).put("FLAG", ""); 
+//        managework/manage/src/main/java/com/zcbspay/platform/manager/controller/contract/ContractController.java
 //        }
         return resultlist;
     }

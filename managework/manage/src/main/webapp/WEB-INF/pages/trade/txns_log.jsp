@@ -17,7 +17,7 @@ table tr td select {
 </style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 140px; padding: 10px; background: #fafafa;"
+			style="height: 150px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
@@ -27,7 +27,7 @@ table tr td select {
 							name="txnseqno" id="txnseqno" maxlength="32" /></td>
 
 						<td align="right" width="10%">交易类型</td>
-						<td colspan="1"><select name="busicode"
+						<td colspan="1" style="padding-left: 5px"><select name="busicode"
 							class="easyui-validatebox validatebox-text" id="busicode" style="width:150px">
 								<option value="">请选择</option>
 								<c:forEach items="${bus}" var="bus">
@@ -42,7 +42,7 @@ table tr td select {
 							name="pan" id="pan" maxlength="32" /></td>
 
 						<td align="right" width="10%">商户订单号</td>
-						<td align="left" style="padding-left: 1px" width="15%"><input
+						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accordno" id="accordno" maxlength="32" /></td>
 
 
@@ -52,7 +52,7 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accfirmerno" id="accfirmerno" maxlength="32" /></td>
 						<td align="right" width="10%">商户号</td>
-						<td align="left" style="padding-left: 1px" width="15%"><input
+						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accsecmerno" id="accsecmerno" maxlength="32" /></td>
 						<td align="right" width="10%">支付流水号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
@@ -60,7 +60,7 @@ table tr td select {
 
 
 						<td align="right" width="10%">中心应答码</td>
-						<td colspan="1"><select name="retcode" id="retcode" style="width:150px">
+						<td colspan="1" style="padding-left: 5px"><select name="retcode" id="retcode" style="width:150px">
 								<option value="">请选择</option>
 								<option value="00">成功</option>
 								<option value="01">失败</option>
@@ -76,7 +76,7 @@ table tr td select {
 							name="payordno" id="payordno" maxlength="32" /></td>
 
 						<td align="right" width="10%">交易渠道
-						<td colspan="1"><select name="payinst" id="payinst" style="width:150px">
+						<td colspan="1" style="padding-left: 5px"><select name="payinst" id="payinst" style="width:150px">
 								<option value="">请选择</option>
 								<c:forEach items="${channel}" var="channel">
 									<option value=${channel.CHNLCODE }>${channel.CHNLNAME}</option>
@@ -89,7 +89,7 @@ table tr td select {
 							name="accmemberid" id="accmemberid" maxlength="32" /></td>
 
 						<td align="right" width="10%">受理定单提交时间</td>
-						<td colspan="2"><input id="stime" type="text"
+						<td colspan="2" style="padding-left: 5px"><input id="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox"
 							data-options="showSeconds:false" name="stime"></input>
 							至<input id=etime type="text" style="width: 120PX"

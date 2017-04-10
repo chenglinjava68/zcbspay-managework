@@ -82,21 +82,21 @@ table tr td select {
 							<td>
 							<select
 								id="rateTypeD" class="easyui-validatebox" required="true" name="rateTypeD"
-								onchange="showRateDetail()">
+								onchange="showRateDetail('D')">
 							</select>
 							</td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRateD" name="feeRateD"
+							<td><input id="feeRateD" name="feeRateD" required="true"
 								validType="percent" type="text" class="easyui-validatebox"
 								maxlength="5" /></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFeeD" name="minFeeD"
+							<td><input id="minFeeD" name="minFeeD" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFeeD" name="maxFeeD"
+							<td><input id="maxFeeD" name="maxFeeD" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 						</tr>
@@ -111,21 +111,21 @@ table tr td select {
 							<td>
 							<select
 								id="rateTypeC" class="easyui-validatebox" required="true" name="rateTypeC"
-								onchange="showRateDetail()">
+								onchange="showRateDetail('C')">
 							</select>
 							</td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRateC" name="feeRateC"
+							<td><input id="feeRateC" name="feeRateC" required="true"
 								validType="percent" type="text" class="easyui-validatebox"
 								maxlength="5" /></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFeeC" name="minFeeC"
+							<td><input id="minFeeC" name="minFeeC"  required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFeeC" name="maxFeeC"
+							<td><input id="maxFeeC" name="maxFeeC" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 						</tr>
@@ -140,21 +140,21 @@ table tr td select {
 							<td>
 							<select
 								id="rateTypeSC" class="easyui-validatebox" required="true" name="rateTypeSC"
-								onchange="showRateDetail()">
+								onchange="showRateDetail('SC')">
 							</select>
 							</td>
 							<td width="15%">扣率(百分比)</td>
-							<td><input id="feeRateSC" name="feeRateSC"
+							<td><input id="feeRateSC" name="feeRateSC" required="true"
 								validType="percent" type="text" class="easyui-validatebox"
 								maxlength="5" /></td>
 						</tr>
 						<tr>
 							<td>最低收费额(单位:元)</td>
-							<td><input id="minFeeSC" name="minFeeSC"
+							<td><input id="minFeeSC" name="minFeeSC" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 							<td width="15%">最高收费额(单位:元)</td>
-							<td><input id="maxFeeSC" name="maxFeeSC"
+							<td><input id="maxFeeSC" name="maxFeeSC" required="true"
 								maxlength="12" validType="amount" type="text"
 								class="easyui-validatebox" /></td>
 						</tr>
@@ -474,30 +474,81 @@ table tr td select {
 			$('#test').datagrid('load', data);
 		}
 		
-		function showRateDetail() {
-			var ratatype = $("#feeRateType").val();
-			if (ratatype == '01') {
-				$("#feeRate").attr("readonly", "readonly");
-				$("#feeRate").val("0");
-				$("#maxFee").attr("readonly", "readonly");
-				$("#maxFee").val("0");
-				$("#minFee").removeAttr("readonly");
-				$("#minFee").val("");
-			} else if (ratatype == '02') {
-				$("#feeRate").removeAttr("readonly");
-				$("#feeRate").val("");
-				$("#maxFee").attr("readonly", "readonly");
-				$("#maxFee").val("0");
-				$("#minFee").attr("readonly", "readonly");
-				$("#minFee").val("0");
-			} else if (ratatype == '03') {
-				$("#feeRate").removeAttr("readonly");
-				$("#feeRate").val("");
-				$("#maxFee").removeAttr("readonly");
-				$("#maxFee").val("");
-				$("#minFee").removeAttr("readonly");
-				$("#minFee").val("");
+		function showRateDetail(type) {
+			var ratatype = $("#rateType"+type).val();
+			if(type=='D'){
+				if (ratatype == '01') {
+					$("#feeRateD").attr("readonly", "readonly");
+					$("#feeRateD").val("0");
+					$("#maxFeeD").attr("readonly", "readonly");
+					$("#maxFeeD").val("0");
+					$("#minFeeD").removeAttr("readonly");
+					$("#minFeeD").val("");
+				} else if (ratatype == '02') {
+					$("#feeRateD").removeAttr("readonly");
+					$("#feeRateD").val("");
+					$("#maxFeeD").attr("readonly", "readonly");
+					$("#maxFeeD").val("0");
+					$("#minFeeD").attr("readonly", "readonly");
+					$("#minFeeD").val("0");
+				} else if (ratatype == '03') {
+					$("#feeRateD").removeAttr("readonly");
+					$("#feeRateD").val("");
+					$("#maxFeeD").removeAttr("readonly");
+					$("#maxFeeD").val("");
+					$("#minFeeD").removeAttr("readonly");
+					$("#minFeeD").val("");
+				}
 			}
+			if(type=='C'){
+				if (ratatype == '01') {
+					$("#feeRateC").attr("readonly", "readonly");
+					$("#feeRateC").val("0");
+					$("#maxFeeC").attr("readonly", "readonly");
+					$("#maxFeeC").val("0");
+					$("#minFeeC").removeAttr("readonly");
+					$("#minFeeC").val("");
+				} else if (ratatype == '02') {
+					$("#feeRateC").removeAttr("readonly");
+					$("#feeRateC").val("");
+					$("#maxFeeC").attr("readonly", "readonly");
+					$("#maxFeeC").val("0");
+					$("#minFeeC").attr("readonly", "readonly");
+					$("#minFeeC").val("0");
+				} else if (ratatype == '03') {
+					$("#feeRateC").removeAttr("readonly");
+					$("#feeRateC").val("");
+					$("#maxFeeC").removeAttr("readonly");
+					$("#maxFeeC").val("");
+					$("#minFeeC").removeAttr("readonly");
+					$("#minFeeC").val("");
+				}
+			}
+			if(type=='SC'){
+				if (ratatype == '01') {
+					$("#feeRateSC").attr("readonly", "readonly");
+					$("#feeRateSC").val("0");
+					$("#maxFeeSC").attr("readonly", "readonly");
+					$("#maxFeeSC").val("0");
+					$("#minFeeSC").removeAttr("readonly");
+					$("#minFeeSC").val("");
+				} else if (ratatype == '02') {
+					$("#feeRateSC").removeAttr("readonly");
+					$("#feeRateSC").val("");
+					$("#maxFeeSC").attr("readonly", "readonly");
+					$("#maxFeeSC").val("0");
+					$("#minFeeSC").attr("readonly", "readonly");
+					$("#minFeeSC").val("0");
+				} else if (ratatype == '03') {
+					$("#feeRateSC").removeAttr("readonly");
+					$("#feeRateSC").val("");
+					$("#maxFeeSC").removeAttr("readonly");
+					$("#maxFeeSC").val("");
+					$("#minFeeSC").removeAttr("readonly");
+					$("#minFeeSC").val("");
+				}
+			}
+			
 		}
 		
 		function showTxnRateDetail(tid) {
