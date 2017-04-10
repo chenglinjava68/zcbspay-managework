@@ -25,7 +25,6 @@
 		<property name="minPoolSize" value="1" />
 		<property name="initialPoolSize" value="1" />
 		<property name="maxIdleTime" value="20" />
-		<property name="maxIdleTime" value="20" />
 	</bean>
  	
 	<!-- session工厂 -->

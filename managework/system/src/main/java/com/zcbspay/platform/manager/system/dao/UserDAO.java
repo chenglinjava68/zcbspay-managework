@@ -49,8 +49,9 @@ public interface UserDAO extends BaseDAO<PojoUser>{
 	 */
 	public UserBean getSingleById(Long userId);
 	/**
+	 * @param timestamp 
 	 * @param pwd
 	 * @param pwdValid
 	 */
-	public void resetPwd(UserBean userBean);
+	public void resetPwd(UserBean userBean, String timestamp);
 }

@@ -6,8 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * TUser entity. @author MyEclipse Persistence Tools
@@ -27,7 +25,7 @@ public class PojoUser implements java.io.Serializable {
 	private String userName;
 	private String loginName;
 	private String pwd;
-	private Date pwdValid;
+	private String pwdValid;
 	private Short pwdErrorNumber;
 	private Date lastLoginTime;
 	private String creator;
@@ -39,44 +37,8 @@ public class PojoUser implements java.io.Serializable {
 	private String notes;
 	private String remarks;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoUser() {
-	}
-
-	/** minimal constructor */
-	public PojoUser(Long userId) {
-		this.userId = userId;
-	}
-
-	/** full constructor */
-	public PojoUser(Long userId, String userCode, String userName,
-			String loginName, String pwd, Date pwdValid, Short pwdErrorNumber,
-			Date lastLoginTime, String creator, Date createDate, Long organId,
-			Long deptId, String isadmin, String status, String notes,
-			String remarks) {
-		this.userId = userId;
-		this.userCode = userCode;
-		this.userName = userName;
-		this.loginName = loginName;
-		this.pwd = pwd;
-		this.pwdValid = pwdValid;
-		this.pwdErrorNumber = pwdErrorNumber;
-		this.lastLoginTime = lastLoginTime;
-		this.creator = creator;
-		this.createDate = createDate;
-		this.organId = organId;
-		this.deptId = deptId;
-		this.isadmin = isadmin;
-		this.status = status;
-		this.notes = notes;
-		this.remarks = remarks;
-	}
-
-	// Property accessors
 	@Id
-	@Column(name = "USER_ID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "USER_ID")
 	public Long getUserId() {
 		return this.userId;
 	}
@@ -85,7 +47,7 @@ public class PojoUser implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "USER_CODE", length = 16)
+	@Column(name = "USER_CODE")
 	public String getUserCode() {
 		return this.userCode;
 	}
@@ -94,7 +56,7 @@ public class PojoUser implements java.io.Serializable {
 		this.userCode = userCode;
 	}
 
-	@Column(name = "USER_NAME", length = 32)
+	@Column(name = "USER_NAME")
 	public String getUserName() {
 		return this.userName;
 	}
@@ -103,7 +65,7 @@ public class PojoUser implements java.io.Serializable {
 		this.userName = userName;
 	}
 
-	@Column(name = "LOGIN_NAME", length = 32)
+	@Column(name = "LOGIN_NAME")
 	public String getLoginName() {
 		return this.loginName;
 	}
@@ -112,7 +74,7 @@ public class PojoUser implements java.io.Serializable {
 		this.loginName = loginName;
 	}
 
-	@Column(name = "PWD", length = 32)
+	@Column(name = "PWD")
 	public String getPwd() {
 		return this.pwd;
 	}
@@ -121,17 +83,16 @@ public class PojoUser implements java.io.Serializable {
 		this.pwd = pwd;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "PWD_VALID", length = 7)
-	public Date getPwdValid() {
+	@Column(name = "PWD_VALID")
+	public String getPwdValid() {
 		return this.pwdValid;
 	}
 
-	public void setPwdValid(Date pwdValid) {
+	public void setPwdValid(String pwdValid) {
 		this.pwdValid = pwdValid;
 	}
 
-	@Column(name = "PWD_ERROR_NUMBER", precision = 4, scale = 0)
+	@Column(name = "PWD_ERROR_NUMBER")
 	public Short getPwdErrorNumber() {
 		return this.pwdErrorNumber;
 	}
@@ -140,8 +101,7 @@ public class PojoUser implements java.io.Serializable {
 		this.pwdErrorNumber = pwdErrorNumber;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "LAST_LOGIN_TIME", length = 7)
+	@Column(name = "LAST_LOGIN_TIME")
 	public Date getLastLoginTime() {
 		return this.lastLoginTime;
 	}
@@ -159,8 +119,7 @@ public class PojoUser implements java.io.Serializable {
 		this.creator = creator;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATE_DATE", length = 7)
+	@Column(name = "CREATE_DATE")
 	public Date getCreateDate() {
 		return this.createDate;
 	}
@@ -169,7 +128,7 @@ public class PojoUser implements java.io.Serializable {
 		this.createDate = createDate;
 	}
 
-	@Column(name = "ORGAN_ID", precision = 10, scale = 0)
+	@Column(name = "ORGAN_ID")
 	public Long getOrganId() {
 		return this.organId;
 	}
@@ -178,7 +137,7 @@ public class PojoUser implements java.io.Serializable {
 		this.organId = organId;
 	}
 
-	@Column(name = "DEPT_ID", precision = 10, scale = 0)
+	@Column(name = "DEPT_ID")
 	public Long getDeptId() {
 		return this.deptId;
 	}
@@ -196,7 +155,7 @@ public class PojoUser implements java.io.Serializable {
 		this.isadmin = isadmin;
 	}
 
-	@Column(name = "STATUS", length = 2)
+	@Column(name = "STATUS")
 	public String getStatus() {
 		return this.status;
 	}
@@ -205,7 +164,7 @@ public class PojoUser implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "NOTES", length = 128)
+	@Column(name = "NOTES")
 	public String getNotes() {
 		return this.notes;
 	}
@@ -214,7 +173,7 @@ public class PojoUser implements java.io.Serializable {
 		this.notes = notes;
 	}
 
-	@Column(name = "REMARKS", length = 128)
+	@Column(name = "REMARKS")
 	public String getRemarks() {
 		return this.remarks;
 	}

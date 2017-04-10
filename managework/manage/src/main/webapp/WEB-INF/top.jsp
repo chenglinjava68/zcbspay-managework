@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");
 	        if(sessionstatus=="sessiontimeout"){     
 	        	$.messager.confirm('提示','您的登录已超时,请重新登录',function(r){if(r){
-	            	window.parent.location.replace("<%=basePath%>"+"pages/logoutAction.action?relogin=relogin");
+	        		window.parent.location.replace("<%=basePath%>"+"login/logout?relogin=relogin");
 	        		}
 	        	});
 	        }  

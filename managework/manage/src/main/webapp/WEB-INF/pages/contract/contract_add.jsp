@@ -552,7 +552,7 @@ table tr td select {
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-			<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:deleteUser()" >提交</a>
+			<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:deleteUser()" id="c_btn_submit">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-cancel" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
@@ -786,9 +786,16 @@ table tr td select {
 		}
 
 		function deleteUser(){
-			$.messager.confirm("提示","您是否想要注销此机构?",function(r){   
-				   if (r){  
-					   $.ajax({
+			$('#c_saveForm').form('submit', {  
+			    onSubmit: function(){  
+			    	if($('#c_saveForm').form('validate')){
+			    		$('#c_btn_submit').linkbutton('disable');	
+			    		return true;   
+				    }
+			        return false;   
+			    }, 
+			    success:function(json){
+			    	 $.ajax({
 						   type: "POST",
 						   url: "contract/delect",
 						   data: {'tId':$('#c_tId').val(),'withdrawOpt':$('#c_withdrawOpt').val(),'revocationDate':$('#revocationDate').val()},
@@ -807,8 +814,31 @@ table tr td select {
 							}); 
 						   }
 						});
-					 }   
-				});  
+			    }
+			});  
+// 			$.messager.confirm("提示","您是否想要注销此机构?",function(r){   
+// 				   if (r){  
+// 					   $.ajax({
+// 						   type: "POST",
+// 						   url: "contract/delect",
+// 						   data: {'tId':$('#c_tId').val(),'withdrawOpt':$('#c_withdrawOpt').val(),'revocationDate':$('#revocationDate').val()},
+// 						   dataType:"json",
+// 						   success: function(json) {
+// 							   $.each(json, function(key,value){
+// 									if(value.RET='succ'){
+// 									 $.messager.confirm('提示', '注销成功',function(data){
+// 										if(data){
+<%-- 											window.location.href= "<%=basePath%>" +'/contract/show'; --%>
+// 										}
+// 									});
+// 								 }else{
+// 									 $.messager.alert("提示",value.INFO);  
+// 								 }
+// 							}); 
+// 						   }
+// 						});
+// 					 }   
+// 				});  
 			}
 		$(function(){
 			$("input[id*='_cert_img']").each(function(){
