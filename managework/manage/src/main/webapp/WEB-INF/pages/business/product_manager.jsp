@@ -37,7 +37,7 @@
 <body>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 100px; padding: 10px; background: #fafafa;"
+			style="height: 72px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form action="pages/paradic/queryGroupGrouAction.action"
 				id="searchForm">
@@ -49,13 +49,6 @@
 						<td align="right">产品名称</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="name_ins" maxlength="32" /></td>
-					</tr>
-					<tr>
-					</tr>
-					<tr>
-						<td align="right"></td>
-						<td align="right"></td>
-						<td align="right"></td>
 						<td style="padding-left: 5px"></td>
 						<td align="right"><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a> <a

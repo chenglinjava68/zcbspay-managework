@@ -21,7 +21,7 @@ table tr td select {
 </style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 100px; padding: 10px; background: #fafafa;"
+			style="height: 120px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post"
 				action="checkinfo/saveProcess">
