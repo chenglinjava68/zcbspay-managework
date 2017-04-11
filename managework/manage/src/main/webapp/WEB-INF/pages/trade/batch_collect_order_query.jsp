@@ -17,7 +17,7 @@ table tr td select {
 </style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 140px; padding: 10px; background: #fafafa;"
+			style="height: 100px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
@@ -37,10 +37,6 @@ table tr td select {
 							id=etime type="text" style="width: 120PX"
 							class="easyui-datetimebox" data-options="showSeconds:false"
 							name="etime"></input></td>
-					</tr>
-					<tr>
-						<td align="right"></td>
-						<td align="right"></td>
 						<td style="padding-left: 5px"></td>
 						<td align="right"><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>

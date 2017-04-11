@@ -17,7 +17,7 @@ table tr td select {
 </style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="查询条件"
-			style="height: 140px; padding: 10px; background: #fafafa;"
+			style="height: 130px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post">
 				<table width="100%">
@@ -43,7 +43,6 @@ table tr td select {
 						<td align="right" width="10%">收款人账号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="creditoraccount" id="creditoraccounts"  /></td>
-						<td></td>
 					</tr>
 					<tr>
 						<td align="right" width="10%">状态</td>
@@ -63,7 +62,7 @@ table tr td select {
 							id=etime type="text" style="width: 120PX"
 							class="easyui-datetimebox" data-options="showSeconds:false"
 							name="etime"></input></td>
-						<td align="right"><a href="javascript:search()"
+						<td align="right" ><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>
 							<a
 							href="javascript:resize()" class="easyui-linkbutton"

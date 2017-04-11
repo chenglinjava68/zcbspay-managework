@@ -62,7 +62,7 @@
 							<option value="">--请选择--</option>
 							<option value="00">在用</option>
 							<option value="01">停用</option> </select></td>
-						<td align="right" colspan=1><a href="javascript:search()"
+						<td align="right" colspan=2><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>
 							<a
 							href="javascript:resize()" class="easyui-linkbutton"
