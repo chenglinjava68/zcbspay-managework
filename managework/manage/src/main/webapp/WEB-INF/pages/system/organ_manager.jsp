@@ -27,10 +27,9 @@ table tr td select {
 						<td align="right" width="15%">机构名称</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="organName" id="organName" /></td>
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a> <a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a></td>
+						<td align="right">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 					</tr>
 
 				</table>
@@ -264,7 +263,6 @@ table tr td select {
 				   success: function(json){
 				   		var html ="<option value=''>--请选择所属市--</option>";
 				   		$.each(json, function(key,value){
-							//alert(value.roleName);
 							html += '<option value="'+value.C_ID+'">'+value.C_NAME+'</option>';
 						})
 				   		$("#org_city").html(html);
@@ -321,7 +319,7 @@ table tr td select {
 				  
 				var html ="<option value=''>--请选择所属市--</option>";
 		   		$.each(json.cityList, function(key,value){
-		   			html += '<option value="'+value.CId+'">'+value.CName+'</option>';
+		   			html += '<option value="'+value.C_ID+'">'+value.C_NAME+'</option>';
 				})
 		   		$("#org_city").html(html);
 				$("#org_code").val(json.organModel.organCode);

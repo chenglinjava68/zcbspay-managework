@@ -66,13 +66,13 @@ table tr td select {
 		iconCls="icon-save" style="width: 500px; height: 400px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="bankaccout/save" method="post">
 					<input type="hidden" id="bankProvince" name="bankProvince" />
 					<input type="hidden" id="bankCity" name="bankCity" />
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>账户号</td>
+							<td width="15%">账户号</td>
 							<td align="left">
 							<input type="text" id="accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
 								maxlength="7" missingMessage="请输入用户代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
@@ -146,7 +146,7 @@ table tr td select {
 		iconCls="icon-save" style="width: 500px; height: 400px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="b_saveForm" action="bankaccout/eidtBankAccount" method="post">
 					<input type="hidden" id="b_tId" name="tId" /> 
 					<input type="hidden" id="b_status" name="status" />
@@ -154,7 +154,7 @@ table tr td select {
 					<input type="hidden" id="b_bankCity" name="bankCity" />
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>账户号</td>
+							<td width="15%">账户号</td>
 							<td align="left">
 							<input type="text" id="b_accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
 								maxlength="7" missingMessage="请输入用户代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
@@ -228,29 +228,25 @@ table tr td select {
 		iconCls="icon-save" style="width: 500px; height: 400px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="" action="" method="post">
-					<input type="hidden" id="b_tId" name="tId" value="${json.tId}"/> 
+					<input type="hidden" id="b_tId" name="tId" value="${json.tId}" readonly="true"/> 
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>账户号</td>
+							<td width="15%">账户号</td>
 							<td align="left">
-							<input type="text" id="d_accoutNoa" name="accoutNo" /></td>
-						</tr>
-						<tr style="height: 25px">
+							<input type="text" id="d_accoutNoa" name="accoutNo" readonly="true"/></td>
 							<td>账户名称</td>
 							<td align="left">
-							<input type="text" id="d_accoutNamea" name="accoutName" /></td>
+							<input type="text" id="d_accoutNamea" name="accoutName" readonly="true"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>商户号</td>
 							<td align="left">
-							<input type="text" id="d_merchNoa" name="merchNo"/></td>
-						</tr>
-						<tr style="height: 25px">
+							<input type="text" id="d_merchNoa" name="merchNo" readonly="true"/></td>
 							<td>协议类型</td>
 							<td align="left">
-								<select id="d_protocoltype" name="protocoltype">
+								<select id="d_protocoltype" name="protocoltype" disabled="disabled">
 										<option value=''>--请选择协议类型--</option>
 										<option value='1'>代理收款</option>
 										<option value='2'>代理付款</option>
@@ -260,33 +256,29 @@ table tr td select {
 						<tr style="height: 25px">
 							<td>支行行号</td>
 							<td align="left">
-							<input type="text" id="d_bankNode" name="bankNode"/></td>
-						</tr>
-						<tr style="height: 25px">
+							<input type="text" id="d_bankNode" name="bankNode" readonly="true"/></td>
 							<td>清算行号</td>
 							<td align="left">
-							<input type="text" id="d_bankCode" name="bankCode"/></td>
+							<input type="text" id="d_bankCode" name="bankCode" readonly="true"/></td>
 						</tr>
 						<tr style="height: 25px">	
 							<td>所属省</td>
 							<td align="left">
-							<input type="text" id="d_bankProvince" name="a_bankProvince"/></td>
-						</tr>
-						<tr style="height: 25px">
+							<input type="text" id="d_bankProvince" name="a_bankProvince" readonly="true"/></td>
 							<td>所属市</td>
 							<td align="left">
-							<input type="text" id="d_bankCity" name="a_bankCity"/></td>
+							<input type="text" id="d_bankCity" name="a_bankCity" readonly="true"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>渠道代码</td>
 							<td align="left">
-							<input type="text" id="d_channelCode" name="channelCode"/></td>
+							<input type="text" id="d_channelCode" name="channelCode" readonly="true"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>备注</td>
 							<td align="left" colspan="3">
 							<textarea rows="3" cols="81" id="d_notes" maxlength="64" name="notes" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+									onkeyup="value=value.replace(/<[^<]+>/g,'')" readonly="true"></textarea></td>
 
 						</tr>
 					</table>
@@ -304,7 +296,7 @@ table tr td select {
   	var width = $("#continer").width();
 		$(function(){
 			$('#bankList').datagrid({
-				title:'用户列表',
+				title:'银行账户列表',
 				iconCls:'icon-save',
 				height:600,
 				nowrap: false,
@@ -354,7 +346,7 @@ table tr td select {
 				rownumbers:true,
 				toolbar:[{
 					id:'btnadd',
-					text:'新增商户银行账户',
+					text:'新增银行账户',
 					iconCls:'icon-add',
 					handler:function(){
 						$("#user_code").removeAttr('readonly');
@@ -405,7 +397,7 @@ table tr td select {
 			$("#saveForm").attr("action","bankaccout/save");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增用户信息',
+				title: '新增银行账户信息',
 				top:100,
 				width: 600,
 				modal: true,
@@ -442,9 +434,11 @@ table tr td select {
 		    		$('#btn_submit').linkbutton('enable');
 		    		json = eval('(' + json + ')');
 					 if(json.status=='OK'){
-						 $.messager.alert('提示',"保存成功");  
+						 $.messager.alert('提示',"保存成功");
+						 search();
 					 }else{
-						 $.messager.alert('提示',"保存失败");  
+						 $.messager.alert('提示',"保存失败"); 
+						 search();
 					 }
 				}
 			});  
@@ -463,9 +457,11 @@ table tr td select {
 			    	json = eval('(' + json + ')');
 		    		$('#b_btn_submit').linkbutton('enable');
 					 if(json.status=='OK'){
-						 $.messager.alert('提示',"注销成功");  
+						 $.messager.alert('提示',"修改成功");
+						 search();
 					 }else{
-						 $.messager.alert('提示',"注销失败");  
+						 $.messager.alert('提示',"修改失败");
+						 search();
 					 }
 				} 
 			});
@@ -505,7 +501,7 @@ table tr td select {
 			   }
 			});
 			$('#w2').window({
-				title: '修改账户信息',
+				title: '修改银行账户信息',
 				top:100,
 				width: 600,
 				modal: true,
@@ -551,7 +547,7 @@ table tr td select {
 			   }
 			});
 			$('#w3').window({
-				title: '账户信息',
+				title: '银行账户信息',
 				top:100,
 				width: 600,
 				modal: true,
@@ -560,27 +556,33 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 420
+				height: 300
 			});
 		}
 
 		function deleteUser(tId){
+			$.messager.confirm('提示','您是否想要注销此银行账户信息?',function(r){   
+			    if (r){  
+			    	$.ajax({
+						   type: "POST",
+						   url: "bankaccout/delect",
+						   data: "tId="+tId,
+						   async: false,
+						   dataType:"json",
+						   success: function(json){
+//		 					   json = eval("(" + data + ")");
+								 if(json.status=='OK'){
+									 $.messager.alert('提示',"注销成功");
+									 search();
+								 }else{
+									 $.messager.alert('提示',"注销失败");
+									 search();
+								 }
+						    }
+						});
+			    }   
+			}); 
 			
-			$.ajax({
-				   type: "POST",
-				   url: "bankaccout/delect",
-				   data: "tId="+tId,
-				   async: false,
-				   dataType:"json",
-				   success: function(data){
-					   json = eval("(" + data + ")");
-						 if(json.status=='OK'){
-							 $.messager.alert('提示',"删除成功");  
-						 }else{
-							 $.messager.alert('提示',"删除失败");  
-						 }
-				    }
-				});
 				
 						
 		}
@@ -593,8 +595,12 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-					$("#bankCode").val(json.bankCode);
-					showCity(json.bankCity)
+				   if(json != null){
+					   $("#bankCode").val(json.bankCode);
+						showCity(json.bankCity)
+				   }else{
+				   		$.messager.alert('提示', '银行行号输入错误!');
+				   }
 			   }
 			});
 			$("#saveForm").attr("action","bankaccout/save");

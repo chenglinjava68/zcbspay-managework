@@ -698,7 +698,7 @@ table tr td select {
 			});
 		}
 	    
-/*用户权限  */	    
+		/*用户权限  */	    
 	    var roleFunction = null;
 		function ToUserAuthority(userId){
 			$("#userId").val(userId);

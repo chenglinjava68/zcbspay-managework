@@ -5,39 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * TRoleFunct entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "T_ROLE_FUNCT")
 public class PojoRoleFunct implements java.io.Serializable {
 
-	// Fields
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6389885565020228656L;
+	private static final long serialVersionUID = -7837915625814108336L;
 	private Long roleFunctId;
 	private Long roleId;
 	private Long functId;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoRoleFunct() {
-	}
-
-	/** full constructor */
-	public PojoRoleFunct(Long roleId, Long functId) {
-		this.roleId = roleId;
-		this.functId = functId;
-	}
-
-	// Property accessors
 	
 	@Id
-	@Column(name = "ROLE_FUNCT_ID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "ROLE_FUNCT_ID")
 	public Long getRoleFunctId() {
 		return this.roleFunctId;
 	}
@@ -46,7 +25,7 @@ public class PojoRoleFunct implements java.io.Serializable {
 		this.roleFunctId = roleFunctId;
 	}
 
-	@Column(name = "ROLE_ID", nullable = false, precision = 10, scale = 0)
+	@Column(name = "ROLE_ID")
 	public Long getRoleId() {
 		return this.roleId;
 	}
@@ -55,7 +34,7 @@ public class PojoRoleFunct implements java.io.Serializable {
 		this.roleId = roleId;
 	}
 
-	@Column(name = "FUNCT_ID", nullable = false, precision = 10, scale = 0)
+	@Column(name = "FUNCT_ID")
 	public Long getFunctId() {
 		return this.functId;
 	}

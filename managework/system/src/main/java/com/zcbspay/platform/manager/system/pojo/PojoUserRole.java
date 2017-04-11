@@ -4,38 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * UserRoleModel entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "T_USER_ROLE")
 public class PojoUserRole implements java.io.Serializable {
-
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6902433615206738497L;
+	
+	private static final long serialVersionUID = 6522807265194818407L;
 	private Long userRoleId;
 	private Long userId;
 	private Long roleId;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoUserRole() {
-	}
-
-	/** full constructor */
-	public PojoUserRole(Long userRoleId, Long userId, Long roleId) {
-		this.userRoleId = userRoleId;
-		this.userId = userId;
-		this.roleId = roleId;
-	}
-
-	// Property accessors
 	@Id
-	@Column(name = "USER_ROLE_ID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "USER_ROLE_ID")
 	public Long getUserRoleId() {
 		return this.userRoleId;
 	}
@@ -44,7 +23,7 @@ public class PojoUserRole implements java.io.Serializable {
 		this.userRoleId = userRoleId;
 	}
 
-	@Column(name = "USER_ID", nullable = false, precision = 10, scale = 0)
+	@Column(name = "USER_ID")
 	public Long getUserId() {
 		return this.userId;
 	}
@@ -53,7 +32,7 @@ public class PojoUserRole implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "ROLE_ID", nullable = false, precision = 10, scale = 0)
+	@Column(name = "ROLE_ID")
 	public Long getRoleId() {
 		return this.roleId;
 	}

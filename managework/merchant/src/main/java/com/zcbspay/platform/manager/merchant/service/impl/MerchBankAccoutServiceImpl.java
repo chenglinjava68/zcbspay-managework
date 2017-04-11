@@ -74,9 +74,14 @@ public class MerchBankAccoutServiceImpl implements MerchBankAccoutService {
 
 	@Override
 	public BankInfoBean queryBankInfo(String bankNode) {
-		PojoBankInfo pojo = (PojoBankInfo) bankInfoDao.queryBankInfo(bankNode).get(0);
+		List<?> list = bankInfoDao.queryBankInfo(bankNode);
 		BankInfoBean bean = new BankInfoBean();
-		BeanUtils.copyProperties(pojo, bean);
+		if(list.size() != 0){
+			PojoBankInfo pojo = (PojoBankInfo) list.get(0);
+			BeanUtils.copyProperties(pojo, bean);
+		}else{
+			bean = null;
+		}
 		return bean;
 	}
 

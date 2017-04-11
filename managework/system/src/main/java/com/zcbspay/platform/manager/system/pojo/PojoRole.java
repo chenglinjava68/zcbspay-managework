@@ -6,22 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-/**
- * TRole entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "T_ROLE")
 public class PojoRole implements java.io.Serializable {
-
-	// Fields
-
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = -6189370948567110255L;
+	private static final long serialVersionUID = 6547267667213230996L;
 	private Long roleId;
 	private String roleName;
 	private Long organId;
@@ -32,35 +21,8 @@ public class PojoRole implements java.io.Serializable {
 	private String notes;
 	private String remarks;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoRole() {
-	}
-
-	/** minimal constructor */
-	public PojoRole(Long roleId) {
-		this.roleId = roleId;
-	}
-
-	/** full constructor */
-	public PojoRole(Long roleId, String roleName, Long organId, Long deptId,
-			String creator, Date creatDate, String status, String notes,
-			String remarks) {
-		this.roleId = roleId;
-		this.roleName = roleName;
-		this.organId = organId;
-		this.deptId = deptId;
-		this.creator = creator;
-		this.creatDate = creatDate;
-		this.status = status;
-		this.notes = notes;
-		this.remarks = remarks;
-	}
-
-	// Property accessors
 	@Id
-	@Column(name = "ROLE_ID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "ROLE_ID")
 	public Long getRoleId() {
 		return this.roleId;
 	}
@@ -69,7 +31,7 @@ public class PojoRole implements java.io.Serializable {
 		this.roleId = roleId;
 	}
 
-	@Column(name = "ROLE_NAME", length = 64)
+	@Column(name = "ROLE_NAME")
 	public String getRoleName() {
 		return this.roleName;
 	}
@@ -78,7 +40,7 @@ public class PojoRole implements java.io.Serializable {
 		this.roleName = roleName;
 	}
 
-	@Column(name = "ORGAN_ID", precision = 10, scale = 0)
+	@Column(name = "ORGAN_ID")
 	public Long getOrganId() {
 		return this.organId;
 	}
@@ -87,7 +49,7 @@ public class PojoRole implements java.io.Serializable {
 		this.organId = organId;
 	}
 
-	@Column(name = "DEPT_ID", precision = 10, scale = 0)
+	@Column(name = "DEPT_ID")
 	public Long getDeptId() {
 		return this.deptId;
 	}
@@ -96,7 +58,7 @@ public class PojoRole implements java.io.Serializable {
 		this.deptId = deptId;
 	}
 
-	@Column(name = "CREATOR", length = 32)
+	@Column(name = "CREATOR")
 	public String getCreator() {
 		return this.creator;
 	}
@@ -105,8 +67,7 @@ public class PojoRole implements java.io.Serializable {
 		this.creator = creator;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "CREAT_DATE", length = 7)
+	@Column(name = "CREAT_DATE")
 	public Date getCreatDate() {
 		return this.creatDate;
 	}
@@ -115,7 +76,7 @@ public class PojoRole implements java.io.Serializable {
 		this.creatDate = creatDate;
 	}
 
-	@Column(name = "STATUS", length = 2)
+	@Column(name = "STATUS")
 	public String getStatus() {
 		return this.status;
 	}
@@ -124,7 +85,7 @@ public class PojoRole implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "NOTES", length = 128)
+	@Column(name = "NOTES")
 	public String getNotes() {
 		return this.notes;
 	}
@@ -133,7 +94,7 @@ public class PojoRole implements java.io.Serializable {
 		this.notes = notes;
 	}
 
-	@Column(name = "REMARKS", length = 128)
+	@Column(name = "REMARKS")
 	public String getRemarks() {
 		return this.remarks;
 	}

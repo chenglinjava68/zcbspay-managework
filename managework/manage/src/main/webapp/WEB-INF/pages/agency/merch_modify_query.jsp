@@ -33,8 +33,9 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							id="memberName_ins" maxlength="50" /></td>
 						</td>
-						<td align="right" width="10%"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+						<td align="right">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 					</tr>
 
 				</table>
@@ -224,6 +225,9 @@ table tr td select {
 					'memberName':$('#memberName_ins').val(),					
 					};
 			$('#test').datagrid('load',data);
+		}
+		function resize(){
+			$('#theForm :input').val('');
 		}
 		//详情
 		function toMerchModifyDetail(id,isApply){

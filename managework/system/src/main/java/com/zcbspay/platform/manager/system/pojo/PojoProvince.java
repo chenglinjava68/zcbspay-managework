@@ -5,19 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@SuppressWarnings("all")
 @Entity
 @Table(name = "T_PROVINCE")
 public class PojoProvince implements java.io.Serializable {
-
-
-	// Fields
-
+	
+	private static final long serialVersionUID = 5170191076797656576L;
 	private String PId;
 	private String PName;
 	private String PCode;
-
-	// Constructors
 
 	@Id
 	@Column(name = "P_ID")

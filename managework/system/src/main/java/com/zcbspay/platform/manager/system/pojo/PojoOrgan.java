@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "T_ORGAN")
 public class PojoOrgan implements Serializable {
 
-	private static final long serialVersionUID = 8238598993022463007L;
+	private static final long serialVersionUID = -7694145308256317137L;
 	private Long organId;
 	private String organCode;
 	private String organName;

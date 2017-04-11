@@ -2,7 +2,6 @@ package com.zcbspay.platform.manager.system.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,11 +12,6 @@ import javax.persistence.Table;
 @Table(name = "T_PARA_DIC")
 public class PojoParaDic implements java.io.Serializable {
 
-	// Fields
-
-	/**
-	 * serialVersionUID
-	 */
 	private static final long serialVersionUID = -4732133832626818557L;
 	private Long tid;
 	private String paraCode;
@@ -28,28 +22,8 @@ public class PojoParaDic implements java.io.Serializable {
 	private Long status;
 	private String remarks;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoParaDic() {
-	}
-
-	/** full constructor */
-	public PojoParaDic(String paraCode, Long parentId, String paraName,
-			String paraType, Long hasSub, Long status, String remarks) {
-		this.paraCode = paraCode;
-		this.parentId = parentId;
-		this.paraName = paraName;
-		this.paraType = paraType;
-		this.hasSub = hasSub;
-		this.status = status;
-		this.remarks = remarks;
-	}
-
-	// Property accessors
 	@Id
-	@GeneratedValue
-	@Column(name = "TID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "TID")
 	public Long getTid() {
 		return this.tid;
 	}
@@ -58,7 +32,7 @@ public class PojoParaDic implements java.io.Serializable {
 		this.tid = tid;
 	}
 
-	@Column(name = "PARA_CODE", length = 32)
+	@Column(name = "PARA_CODE")
 	public String getParaCode() {
 		return this.paraCode;
 	}
@@ -67,7 +41,7 @@ public class PojoParaDic implements java.io.Serializable {
 		this.paraCode = paraCode;
 	}
 
-	@Column(name = "PARENT_ID", precision = 10, scale = 0)
+	@Column(name = "PARENT_ID")
 	public Long getParentId() {
 		return this.parentId;
 	}
@@ -76,7 +50,7 @@ public class PojoParaDic implements java.io.Serializable {
 		this.parentId = parentId;
 	}
 
-	@Column(name = "PARA_NAME", length = 128)
+	@Column(name = "PARA_NAME")
 	public String getParaName() {
 		return this.paraName;
 	}
@@ -85,7 +59,7 @@ public class PojoParaDic implements java.io.Serializable {
 		this.paraName = paraName;
 	}
 
-	@Column(name = "PARA_TYPE", length = 64)
+	@Column(name = "PARA_TYPE")
 	public String getParaType() {
 		return this.paraType;
 	}
@@ -94,7 +68,7 @@ public class PojoParaDic implements java.io.Serializable {
 		this.paraType = paraType;
 	}
 
-	@Column(name = "HAS_SUB", precision = 1, scale = 0)
+	@Column(name = "HAS_SUB")
 	public Long getHasSub() {
 		return this.hasSub;
 	}
@@ -103,7 +77,7 @@ public class PojoParaDic implements java.io.Serializable {
 		this.hasSub = hasSub;
 	}
 
-	@Column(name = "STATUS", precision = 1, scale = 0)
+	@Column(name = "STATUS")
 	public Long getStatus() {
 		return this.status;
 	}
@@ -112,7 +86,7 @@ public class PojoParaDic implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "REMARKS", length = 128)
+	@Column(name = "REMARKS")
 	public String getRemarks() {
 		return this.remarks;
 	}
