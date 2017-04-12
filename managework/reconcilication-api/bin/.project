@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>trade-query</name>
+	<name>reconcilication-api</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -34,4 +34,3 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
 </projectDescription>
-
