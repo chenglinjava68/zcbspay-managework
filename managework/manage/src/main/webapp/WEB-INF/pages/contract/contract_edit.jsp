@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <jsp:include page="../../top.jsp"></jsp:include>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -124,7 +125,7 @@ table tr td select {
 							<td>金额限制类型</td>
 							<td align="left">
 							<select id="b_debTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="debTranLimitType">
+								readonly="true" name="debTranLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -139,7 +140,7 @@ table tr td select {
 							<td>付款次数限制类型</td>
 							<td align="left">
 							<select id="b_debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="debTransLimitType">
+								readonly="true" name="debTransLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -175,7 +176,7 @@ table tr td select {
 							<td>金额限制类型</td>
 							<td align="left">
 							<select id="b_credTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="credTranLimitType">
+								readonly="true" name="credTranLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -190,7 +191,7 @@ table tr td select {
 							<td>收款次数限制类型</td>
 							<td align="left">
 							<select id="b_credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="credTransLimitType">
+								readonly="true" name="credTransLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -203,15 +204,15 @@ table tr td select {
 						</tr>
 						<tr style="height: 30px">
 							<td align="center">合约开始日期</td>
-							<td align="left"><input name="signDate" maxlength="12" type="date" id="b_startDate" readonly="true"/></td>
+							<td align="left"><input name="signDate" maxlength="12" type="test" id="b_startDate" readonly="true"/></td>
 							<td align="center">合约终止日期</td>
-							<td align="left"><input class="easyui-validatebox" maxlength="12" type="date" name="expiryDate" id="b_endDate" readonly="true"/></td>
+							<td align="left"><input class="easyui-validatebox" maxlength="12" type="test" name="expiryDate" id="b_endDate" readonly="true"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>合同类型</td>
 							<td align="left">
 							<select id="b_contractType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="b_contractType">
+								readonly="true" name="b_contractType" disabled="disabled">
 									<option value=''>请选择合同类型</option>
 									<option value='CT00'>代收协议</option>
 									<option value='CT01'>代付协议</option>
@@ -477,22 +478,19 @@ table tr td select {
 				data: "stexaOpt=" + encodeURI(stexaOpt),
 				dataType: "json",
 				success: function(json) {
-					$.each(json,
-					function(key, value) {
-						if(value.FLAG == "复审通过"){ 
-							alert("操作成功,变更信息下一日生效");
-							if (value.INFO == "操作成功!") {
-								window.location.href= "<%=basePath%>" +'/contract/showAudit';
-							}
-						}else{
-							alert(value.INFO);	
-							if (value.INFO == "操作成功!") {
-								window.location.href= "<%=basePath%>" +'/contract/showAudit';
-							}
-						}						
-						
-					})
-		
+			    	$.each(json, function(key,value){
+			    		if(value.RET == "succ"){
+		    				$.messager.alert('提示',"操作成功!");
+			    			search();
+				    		closeAdd();
+				    	}else{
+				    		$.messager.alert('提示',value.INFO); 
+				    		search();
+				    		closeAdd();
+				    	}
+			    		$("#button_ins1").linkbutton('enable');
+						$("#button_ins3").linkbutton('enable');		
+					}) 
 				}
 			});
 		}

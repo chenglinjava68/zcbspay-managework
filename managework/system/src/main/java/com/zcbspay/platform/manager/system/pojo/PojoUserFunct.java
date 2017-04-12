@@ -12,31 +12,13 @@ import javax.persistence.Table;
 @Table(name = "T_USER_FUNCT")
 public class PojoUserFunct implements java.io.Serializable {
 
-	// Fields
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1472274870777488732L;
+	private static final long serialVersionUID = -7397469521603886068L;
 	private Long userFunctId;
 	private Long userId;
 	private Long functId;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoUserFunct() {
-	}
-
-	/** full constructor */
-	public PojoUserFunct(Long userId, Long functId) {
-		this.userId = userId;
-		this.functId = functId;
-	}
-
-	// Property accessors
 	@Id
-	@Column(name = "USER_FUNCT_ID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "USER_FUNCT_ID")
 	public Long getUserFunctId() {
 		return this.userFunctId;
 	}
@@ -45,7 +27,7 @@ public class PojoUserFunct implements java.io.Serializable {
 		this.userFunctId = userFunctId;
 	}
 
-	@Column(name = "USER_ID", precision = 10, scale = 0)
+	@Column(name = "USER_ID")
 	public Long getUserId() {
 		return this.userId;
 	}
@@ -54,7 +36,7 @@ public class PojoUserFunct implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "FUNCT_ID", precision = 10, scale = 0)
+	@Column(name = "FUNCT_ID")
 	public Long getFunctId() {
 		return this.functId;
 	}

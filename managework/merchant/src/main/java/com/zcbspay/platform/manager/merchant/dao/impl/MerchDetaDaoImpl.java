@@ -430,7 +430,7 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 	                "v_contemail_e", "v_contaddress_e", "v_contpost_e",
 	                "v_custfrom_e", "v_custmgr_e", "v_custmgrdept_e",
 	                "v_isdelegation_e", "v_signatory_e", "v_signcertno_e",
-	                "v_CHARGINGUNIT","v_notes_e", "v_remarks_e"};
+	                "v_notes_e", "v_remarks_e"};
 	        Object[] paramaters = null;
 			try {
 				paramaters = new Object[]{
@@ -494,14 +494,13 @@ public class MerchDetaDaoImpl extends HibernateBaseDAOImpl<PojoMerchDetaApply> i
 				        "".equals(enterpriseDeta.getIsDelegation()) ? null : enterpriseDeta.getIsDelegation(),
 				        "".equals(enterpriseDeta.getSignatory()) ? null : enterpriseDeta.getSignatory(),
 				        "".equals(enterpriseDeta.getSignCertNo()) ? null : enterpriseDeta.getSignCertNo(),
-				        "".equals(merchDeta.getChargingunit()) ? null : merchDeta.getChargingunit(),
 				        "".equals(enterpriseDeta.getNotes()) ? null : enterpriseDeta.getNotes(),
 				        "".equals(enterpriseDeta.getRemarks()) ? null : enterpriseDeta.getRemarks()};
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 	        List<?> dbResult = executeOracleProcedure(
-	                        "{CALL PCK_MERCH.pro_u_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
+	                        "{CALL PCK_MERCH.pro_u_t_merch_deta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}",
 	                        columns, paramaters, "cursor0");
 	        if (dbResult == null || dbResult.get(0) == null) {
 	            resultMap.clear();

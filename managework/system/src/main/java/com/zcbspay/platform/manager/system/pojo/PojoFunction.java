@@ -34,36 +34,8 @@ public class PojoFunction implements java.io.Serializable {
 	private String notes;
 	private String remarks;
 
-	// Constructors
-
-	/** default constructor */
-	public PojoFunction() {
-	}
-
-	/** full constructor */
-	public PojoFunction(String functName, Long functOrder, String parentId,
-			String url, String icon, Byte status, Short levelId,
-			String leafnode, String sysFlag, Byte functType, String isadmin,
-			String moveSort, String notes, String remarks) {
-		this.functName = functName;
-		this.functOrder = functOrder;
-		this.parentId = parentId;
-		this.url = url;
-		this.icon = icon;
-		this.status = status;
-		this.levelId = levelId;
-		this.leafnode = leafnode;
-		this.sysFlag = sysFlag;
-		this.functType = functType;
-		this.isadmin = isadmin;
-		this.moveSort = moveSort;
-		this.notes = notes;
-		this.remarks = remarks;
-	}
-
-	// Property accessors
 	@Id
-	@Column(name = "FUNCT_ID", unique = true, nullable = false, precision = 10, scale = 0)
+	@Column(name = "FUNCT_ID")
 	public Long getFunctId() {
 		return this.functId;
 	}
@@ -72,7 +44,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.functId = functId;
 	}
 
-	@Column(name = "FUNCT_NAME", length = 32)
+	@Column(name = "FUNCT_NAME")
 	public String getFunctName() {
 		return this.functName;
 	}
@@ -81,7 +53,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.functName = functName;
 	}
 
-	@Column(name = "FUNCT_ORDER", precision = 10, scale = 0)
+	@Column(name = "FUNCT_ORDER")
 	public Long getFunctOrder() {
 		return this.functOrder;
 	}
@@ -90,7 +62,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.functOrder = functOrder;
 	}
 
-	@Column(name = "PARENT_ID", length = 10)
+	@Column(name = "PARENT_ID")
 	public String getParentId() {
 		return this.parentId;
 	}
@@ -99,7 +71,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.parentId = parentId;
 	}
 
-	@Column(name = "URL", length = 128)
+	@Column(name = "URL")
 	public String getUrl() {
 		return this.url;
 	}
@@ -108,7 +80,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.url = url;
 	}
 
-	@Column(name = "ICON", length = 64)
+	@Column(name = "ICON")
 	public String getIcon() {
 		return this.icon;
 	}
@@ -117,7 +89,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.icon = icon;
 	}
 
-	@Column(name = "STATUS", precision = 2, scale = 0)
+	@Column(name = "STATUS")
 	public Byte getStatus() {
 		return this.status;
 	}
@@ -126,7 +98,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "LEVEL_ID", precision = 4, scale = 0)
+	@Column(name = "LEVEL_ID")
 	public Short getLevelId() {
 		return this.levelId;
 	}
@@ -135,7 +107,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.levelId = levelId;
 	}
 
-	@Column(name = "LEAFNODE", length = 1)
+	@Column(name = "LEAFNODE")
 	public String getLeafnode() {
 		return this.leafnode;
 	}
@@ -144,7 +116,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.leafnode = leafnode;
 	}
 
-	@Column(name = "SYS_FLAG", length = 32)
+	@Column(name = "SYS_FLAG")
 	public String getSysFlag() {
 		return this.sysFlag;
 	}
@@ -153,7 +125,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.sysFlag = sysFlag;
 	}
 
-	@Column(name = "FUNCT_TYPE", precision = 2, scale = 0)
+	@Column(name = "FUNCT_TYPE")
 	public Byte getFunctType() {
 		return this.functType;
 	}
@@ -162,7 +134,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.functType = functType;
 	}
 
-	@Column(name = "ISADMIN", length = 1)
+	@Column(name = "ISADMIN")
 	public String getIsadmin() {
 		return this.isadmin;
 	}
@@ -171,7 +143,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.isadmin = isadmin;
 	}
 
-	@Column(name = "MOVE_SORT", length = 1)
+	@Column(name = "MOVE_SORT")
 	public String getMoveSort() {
 		return this.moveSort;
 	}
@@ -180,7 +152,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.moveSort = moveSort;
 	}
 
-	@Column(name = "NOTES", length = 128)
+	@Column(name = "NOTES")
 	public String getNotes() {
 		return this.notes;
 	}
@@ -189,7 +161,7 @@ public class PojoFunction implements java.io.Serializable {
 		this.notes = notes;
 	}
 
-	@Column(name = "REMARKS", length = 128)
+	@Column(name = "REMARKS")
 	public String getRemarks() {
 		return this.remarks;
 	}

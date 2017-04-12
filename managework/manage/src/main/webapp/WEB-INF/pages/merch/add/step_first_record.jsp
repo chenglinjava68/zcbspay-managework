@@ -347,8 +347,7 @@ table tr td font.current-step {
 					success: function(json) {
 						
 						json = eval('(' + json + ')');
-						$.each(json,
-							function(key, value) {
+						$.each(json, function(key, value) {
 							if (value.RET == "succ") {
 								$("#button_id").linkbutton('enable');
 								$.messager.confirm('提示', '保存成功,等待上传证件照片',function(data){

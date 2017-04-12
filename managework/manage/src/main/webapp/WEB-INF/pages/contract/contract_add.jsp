@@ -8,6 +8,8 @@
 	type="text/css" />
 <script type="text/javascript"
 	src="<%=basePath%>js/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript"
+	src="<%=basePath%>/js/extendsValidator_1.0_20151215.js"></script>
 <style type="text/css">
 .left, .mid, .right {
 	width: auto;
@@ -91,31 +93,31 @@ table tr td select {
 							<td>商户号</td>
 							<td align="left">
 							<input type="text" id="merchNo" name="merchNo" class="easyui-validatebox" required="true"
-								maxlength="15" missingMessage="请输入商户号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="15" missingMessage="请输入商户号" validType="merchno"/></td>
 							<td>合同编号 </td>
 							<td align="left">
 							<input type="text" id="contractNum" name="contractNum" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入合同编号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入合同编号" validType="contract"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>付款人名称</td>
 							<td align="left">
-							<input type="text" id="debName" name="debName" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入付款人名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<input type="text" name="debName" required="true" maxlength="15" 
+							missingMessage="请输入付款人名称" class="easyui-validatebox" validType="debName"/></td>
 							<td>付款人账号 </td>
 							<td align="left">
 							<input type="text" id="debAccNo" name="debAccNo" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入付款人账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入付款人账号" validType="bankcard"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>付款行行号</td>
 							<td align="left">
 							<input type="text" id="debBranchCode" name="debBranchCode" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入付款人行号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="12" missingMessage="请输入付款人行号" onchange="showBranchCode('debBranchCode')"/></td>
 							<td>单笔金额上限 </td>
 							<td align="left">
 							<input type="text" id="debAmoLimit" name="debAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入单笔上限金额" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入单笔上限金额" validType="amount"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>金额限制类型</td>
@@ -130,7 +132,7 @@ table tr td select {
 							<td>累计金额上限</td>
 							<td align="left">
 							<input type="text" id="debAccyAmoLimit" name="debAccyAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入累计上限金额" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="12" missingMessage="请输入累计上限金额" validType="amount"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>付款次数限制类型</td>
@@ -145,28 +147,28 @@ table tr td select {
 							<td>付款次数限制</td>
 							<td align="left">
 							<input type="text" id="debTransLimit" name="debTransLimit" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入限制次数" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="10" missingMessage="请输入限制次数" validType="number"/></td>
 							<td align="left"></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>收款人名称</td>
 							<td align="left">
 							<input type="text" id="credName" name="credName" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入收款人名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="12" missingMessage="请输入收款人名称" class="easyui-validatebox" validType="debName"/></td>
 							<td>收款人账号 </td>
 							<td align="left">
 							<input type="text" id="credAccNo" name="credAccNo" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入收款人账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入收款人账号" validType="bankcard"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>收款行行号</td>
 							<td align="left">
 							<input type="text" id="credBranchCode" name="credBranchCode" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入收款人行号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="12" missingMessage="请输入收款人行号" onchange="showBranchCode('credBranchCode')"/></td>
 							<td>单笔金额上限 </td>
 							<td align="left">
 							<input type="text" id="credAmoLimit" name="credAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入单笔上限金额" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入单笔上限金额" validType="amount"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>金额限制类型</td>
@@ -181,7 +183,7 @@ table tr td select {
 							<td>累计金额上限</td>
 							<td align="left">
 							<input type="text" id="credAccuAmoLimit" name="credAccuAmoLimit" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入累计上限金额" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="12" missingMessage="请输入累计上限金额" validType="amount"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>收款次数限制类型</td>
@@ -196,13 +198,13 @@ table tr td select {
 							<td>收款次数限制</td>
 							<td align="left">
 							<input type="text" id="credTransLimit" name="credTransLimit" class="easyui-validatebox" required="true"
-								maxlength="12" missingMessage="请输入限制次数" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="10" missingMessage="请输入限制次数" validType="number"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td align="center">合约开始日期</td>
-							<td align="left"><input name="signDate" maxlength="12" type="date" id="startDate" required="true"/></td>
+							<td align="left"><input name="signDate" class="easyui-validatebox" type="date"required="true"/></td>
 							<td align="center">合约终止日期</td>
-							<td align="left"><input class="easyui-validatebox" maxlength="12" type="date" name="expiryDate" id="endDate" required="true"/></td>
+							<td align="left"><input class="easyui-validatebox" type="date" name="expiryDate" required="true"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>合同类型</td>
@@ -216,15 +218,14 @@ table tr td select {
 							</select></td>
 							<td align="center">合同附件</td>
 							<td align="left"><input class="easyui-validatebox" required="true" id="fileAddress_cert_img" type="file"/>
-								<div id="fileAddress_span" class="easyui-validatebox"></div> 
+								<div id="fileAddress_span"></div> 
 							</td>
 						</tr>
 						<tr style="height: 30px">
 							<td>备注</td>
 							<td align="left" colspan="3">
-							<textarea rows="3" cols="81" id="notes" maxlength="64" name="notes" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
-
+							<textarea rows="3" cols="81" id="notes" maxlength="64" name="notes" 
+							style="resize: none;"></textarea></td>
 						</tr>
 					</table>
 				</form>
@@ -278,7 +279,7 @@ table tr td select {
 							<td>金额限制类型</td>
 							<td align="left">
 							<select id="b_debTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="debTranLimitType">
+								readonly="true" name="debTranLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -293,7 +294,7 @@ table tr td select {
 							<td>付款次数限制类型</td>
 							<td align="left">
 							<select id="b_debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="debTransLimitType">
+								readonly="true" name="debTransLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -329,7 +330,7 @@ table tr td select {
 							<td>金额限制类型</td>
 							<td align="left">
 							<select id="b_credTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="credTranLimitType">
+								readonly="true" name="credTranLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -344,7 +345,7 @@ table tr td select {
 							<td>收款次数限制类型</td>
 							<td align="left">
 							<select id="b_credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="credTransLimitType">
+								readonly="true" name="credTransLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -357,15 +358,15 @@ table tr td select {
 						</tr>
 						<tr style="height: 30px">
 							<td align="center">合约开始日期</td>
-							<td align="left"><input name="signDate" maxlength="12" type="date" id="b_startDate" readonly="true"/></td>
+							<td align="left"><input name="signDate" maxlength="12" class="easyui-validatebox" id="b_startDate" readonly="true"/></td>
 							<td align="center">合约终止日期</td>
-							<td align="left"><input class="easyui-validatebox" maxlength="12" type="date" name="expiryDate" id="b_endDate" readonly="true"/></td>
+							<td align="left"><input class="easyui-validatebox" maxlength="12" name="expiryDate" id="b_endDate" readonly="true"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>合同类型</td>
 							<td align="left">
 							<select id="b_contractType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="b_contractType">
+								readonly="true" name="b_contractType" disabled="disabled">
 									<option value=''>请选择合同类型</option>
 									<option value='CT00'>代收协议</option>
 									<option value='CT01'>代付协议</option>
@@ -432,7 +433,7 @@ table tr td select {
 							<td>金额限制类型</td>
 							<td align="left">
 							<select id="c_debTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="debTranLimitType">
+								readonly="true" name="debTranLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -447,7 +448,7 @@ table tr td select {
 							<td>付款次数限制类型</td>
 							<td align="left">
 							<select id="c_debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="debTransLimitType">
+								readonly="true" name="debTransLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -483,7 +484,7 @@ table tr td select {
 							<td>金额限制类型</td>
 							<td align="left">
 							<select id="c_credTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="credTranLimitType">
+								readonly="true" name="credTranLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -498,7 +499,7 @@ table tr td select {
 							<td>收款次数限制类型</td>
 							<td align="left">
 							<select id="c_credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="credTransLimitType">
+								readonly="true" name="credTransLimitType" disabled="disabled">
 									<option value='00 '>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
@@ -511,15 +512,15 @@ table tr td select {
 						</tr>
 						<tr style="height: 30px">
 							<td align="center">合约开始日期</td>
-							<td align="left"><input name="signDate" maxlength="12" type="date" id="c_startDate" readonly="true"/></td>
+							<td align="left"><input class="easyui-validatebox" name="signDate" maxlength="12" id="c_startDate" readonly="true"/></td>
 							<td align="center">合约终止日期</td>
-							<td align="left"><input class="easyui-validatebox" maxlength="12" type="date" name="expiryDate" id="c_endDate" readonly="true"/></td>
+							<td align="left"><input class="easyui-validatebox" maxlength="12" name="expiryDate" id="c_endDate" readonly="true"/></td>
 						</tr>
 						<tr style="height: 30px">
 							<td>合同类型</td>
 							<td align="left">
 							<select id="c_contractType" class="easyui-validatebox" missingMessage="请选择类型"
-								readonly="true" name="b_contractType">
+								readonly="true" name="b_contractType" disabled="disabled">
 									<option value=''>请选择合同类型</option>
 									<option value='CT00'>代收协议</option>
 									<option value='CT01'>代付协议</option>
@@ -622,7 +623,6 @@ table tr td select {
 					iconCls:'icon-add',
 					handler:function(){
 						showAdd(0);
-						$("#saveForm").attr("action","contract/save");
 					}
 				}]
 			});
@@ -633,8 +633,8 @@ table tr td select {
 		}
 		
 		function showAdd(num){
-			$("#saveForm").attr("action","contract/save");
 			$('#saveForm :input').val('');
+			$('#fileAddress_span').html("");
 			$('#w').window({
 				title: '新增合同信息',
 				top:100,
@@ -671,18 +671,16 @@ table tr td select {
 			        return false;   
 			    }, 
 			    success:function(json){
-					$.each(json, function(key,value){
-						if(value.RET='succ'){
-							 $.messager.confirm('提示', '添加成功',function(data){
-								if(data){
-									window.location.href= "<%=basePath%>" +'/contract/show';
-								}
-							});
-						}else{
-							 $.messager.alert("提示",'添加失败');  
-						}
-			    	$('#btn_submit').linkbutton('enable');		
-				}) 
+			    	json = eval('(' + json + ')');
+					if(json.RET == "succ"){
+						 $.messager.alert('提示', '添加成功');
+						 search();
+						 closeAdd();
+					}else{
+						 $.messager.alert("提示",'添加失败');
+						 closeAdd();
+					}
+			    	$('#btn_submit').linkbutton('enable');	
 			    }
 			});  
 		}
@@ -801,44 +799,20 @@ table tr td select {
 						   data: {'tId':$('#c_tId').val(),'withdrawOpt':$('#c_withdrawOpt').val(),'revocationDate':$('#revocationDate').val()},
 						   dataType:"json",
 						   success: function(json) {
-							   $.each(json, function(key,value){
-									if(value.RET='succ'){
-									 $.messager.confirm('提示', '注销成功',function(data){
-										if(data){
-											window.location.href= "<%=basePath%>" +'/contract/show';
-										}
-									});
+								if(json.RET=='succ'){
+									 $.messager.confirm('提示', '注销成功');
+									 search();
+									 closeAdd();
 								 }else{
-									 $.messager.alert("提示",value.INFO);  
+									 $.messager.alert("提示",json.INFO);
+									 search();
+									 closeAdd();
 								 }
-							}); 
+								$('#c_btn_submit').linkbutton('enable');		
 						   }
 						});
 			    }
 			});  
-// 			$.messager.confirm("提示","您是否想要注销此机构?",function(r){   
-// 				   if (r){  
-// 					   $.ajax({
-// 						   type: "POST",
-// 						   url: "contract/delect",
-// 						   data: {'tId':$('#c_tId').val(),'withdrawOpt':$('#c_withdrawOpt').val(),'revocationDate':$('#revocationDate').val()},
-// 						   dataType:"json",
-// 						   success: function(json) {
-// 							   $.each(json, function(key,value){
-// 									if(value.RET='succ'){
-// 									 $.messager.confirm('提示', '注销成功',function(data){
-// 										if(data){
-<%-- 											window.location.href= "<%=basePath%>" +'/contract/show'; --%>
-// 										}
-// 									});
-// 								 }else{
-// 									 $.messager.alert("提示",value.INFO);  
-// 								 }
-// 							}); 
-// 						   }
-// 						});
-// 					 }   
-// 				});  
 			}
 		$(function(){
 			$("input[id*='_cert_img']").each(function(){
@@ -925,6 +899,28 @@ table tr td select {
 						 }
 					}
 				}); 
+			});
+		}
+		function showBranchCode(type){ 
+			var bankNode;
+			if (type == 'debBranchCode') {
+				bankNode = $("#debBranchCode").val();
+			} else {
+				bankNode = $("#credBranchCode").val();
+			}
+			$.ajax({
+			   type: "POST",
+			   url: "bankaccout/queryBankInfo",
+			   data: "bankNode="+bankNode,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+				   if(json != null){
+					   $.messager.alert('提示', json.bankName);
+				   }else{
+					   $.messager.alert('提示', '银行行号输入错误!');
+				   }
+			   }
 			});
 		}
 		

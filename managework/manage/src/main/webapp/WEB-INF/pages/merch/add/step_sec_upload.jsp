@@ -185,7 +185,6 @@ table tr td font.current-step {
   });
 	
 	function toFirstStep(){
-		$.messager.alert('提示','成功');
 		window.location.href= "<%=basePath%>" +'merchant/toMerchChange?merchApplyId=' + $('#merchApplyId').val();
 	}
 	

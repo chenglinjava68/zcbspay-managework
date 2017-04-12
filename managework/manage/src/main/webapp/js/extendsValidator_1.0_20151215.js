@@ -115,7 +115,26 @@ $.extend($.fn.validatebox.defaults.rules, {
 		},
 		message: '请输入正确的邮政编码'
 	},
-
+	contract: { //合同编号
+		validator: function(value, param) {
+			var re = /^[a-zA-Z0-9]{12,20}$/;
+			if (!re.test(value)) {
+				return false;
+			}
+			return true;
+		},
+		message: '请输入12位以上的合同编号'
+	},
+	debName: { //银行账户名
+		validator: function(value, param) {
+			var re = value.replace(/[^\u4E00-\u9FA5]+[^a-zA-Z]/g,'');
+			if ( re != value) {
+				return false;
+			}
+			return true;
+		},
+		message: '请输入汉字或英文'
+	},
 	accName: { //账户名
 		validator: function(value, param) {
 			var arr = value.replace(/\s+/g, '');
@@ -127,6 +146,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 		},
 		message: '请输入正确的开户名，不可有空格'
 	},
+	
 	settleAccount: { //结算账号
 		validator: function(value, param) {
 			var arr = value.replace(/\s+/g, '');

@@ -7,19 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * TUser entity. @author MyEclipse Persistence Tools
- */
 @Entity
 @Table(name = "T_USER")
 public class PojoUser implements java.io.Serializable {
-
-	// Fields
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1580109651271505525L;
+	
+	private static final long serialVersionUID = -585996272237918258L;
 	private Long userId;
 	private String userCode;
 	private String userName;

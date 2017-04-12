@@ -27,8 +27,9 @@ table tr td select {
 						<td align="right" width="15%">部门名称</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="deptName" id="deptName" /></td>
-						<td align="right"><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+						<td align="right">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 					</tr>
 
 				</table>
@@ -190,14 +191,14 @@ table tr td select {
 			$('#w').window('close');
 			
 		}		
-
-	    
 		function search(){
 			var data={deptName:$('#deptName').val(),"deptCode":$("#deptCode").val()};
 			$('#test').datagrid('load',data);
 		}
 		
-		
+		function resize(){
+			$('#theForm :input').val('');
+		}
 		function saveDept(){
 			
 			$('#deptForm').form('submit', {  
