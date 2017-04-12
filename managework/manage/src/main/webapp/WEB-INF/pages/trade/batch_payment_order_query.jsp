@@ -246,7 +246,7 @@ table tr td select {
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 800
+			height: 400
 		});
 	
 		var rows = $('#test').datagrid('getSelected');

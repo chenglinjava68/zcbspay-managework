@@ -290,7 +290,7 @@ table tr td select {
 			maximizable : false,
 			shadow : false,
 			closed : false,
-			height : 800
+			height : 550
 		});
 		var rows = $('#test').datagrid('getSelected');
 		$("#tid").html(rows["TID"]);
