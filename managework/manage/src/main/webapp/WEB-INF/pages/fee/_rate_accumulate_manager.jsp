@@ -403,6 +403,7 @@ table tr td select {
 		}
 		//保存 
 		function saveAccumulateRate() {
+			   var ratatype = $("#rateType").val();
 		       var minfee =$("#minfee").val();
 		       var maxfee = $("#maxfee").val();
 		       var minfee2 = $("#minfee2").val();
@@ -415,7 +416,7 @@ table tr td select {
 		       var maxfee2_max = parseFloat(maxfee2);
 		       var minfee3_min = parseFloat(minfee3);
 		       var maxfee3_max = parseFloat(maxfee3);
-		       if((minfee_min >maxfee_max) || (minfee2_min >maxfee2_max) || (minfee3_min>maxfee3_max)){
+		       if(ratatype=="03" && ((minfee_min >maxfee_max) || (minfee2_min >maxfee2_max) || (minfee3_min>maxfee3_max))){
 		    	   alert("最低收费额不能大于最高收费额");
 		       }else if($("#rateType").val() == null || $("#rateType").val() == ""){
 		    	   alert("请选择计费方式");

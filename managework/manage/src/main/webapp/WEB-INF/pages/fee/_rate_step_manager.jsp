@@ -378,6 +378,7 @@ table tr td select {
 			});
 		}
 		function saveTxnRate() {
+			var ratatype = $("#rateType").val();
 	       var minfee =$("#minFee").val();
 	       var maxfee = $("#maxFee").val();
 	       var minfee2 = $("#minFee2").val();
@@ -390,7 +391,7 @@ table tr td select {
 	       var maxfee2_max = parseFloat(maxfee2);
 	       var minfee3_min = parseFloat(minfee3);
 	       var maxfee3_max = parseFloat(maxfee3);
-	       if((minfee_min >=maxfee_max) || (minfee2_min >=maxfee2_max) || (minfee3_min>=maxfee3_max)){
+	       if(ratatype=="03" && ((minfee_min >=maxfee_max) || (minfee2_min >=maxfee2_max) || (minfee3_min>=maxfee3_max))){
 	    	   alert("最低收费额不能大于等于最高收费额");
 	       }else{
 				if ($('#txnRateForm').form("validate")) {
