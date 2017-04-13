@@ -53,12 +53,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
-							<td align="right" width="10%" height="50px">风控版本代码</td>
+							<td align="right" width="10%" height="50px">业务代码</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="busicode" id="busicode"
 								validType="minLength[8,8]" maxlength="8"
 								class="easyui-validatebox" /></td>
-							<td align="right" width="10%">风控版本名称</td>
+							<td align="right" width="10%">业务名称</td>
 							<td align="left" style="padding-left: 5px" width="25%"><input
 								name="businame" id="businame" /></td>
 						</tr>
@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					align: 'center',
 					formatter: function(value, rec) {
 						if (rec.STATUS == "00") {
-							return '<a href="javascript:showFeeCase(' + rec.RISKVER + ',' + '\'' + rec.BUSINAME + '\'' + ',' + rec.BUSICODE + ',' + rec.CASEID + ')" style="color:blue;margin-left:10px">配置</a>';
+							return '<a href="javascript:showFeeCase(' + '\'' + rec.RISKVER + '\'' +  ',' + '\'' + rec.BUSINAME + '\'' + ',' + '\'' + rec.BUSICODE + '\'' + ',' + '\'' + rec.CASEID + '\'' + ')" style="color:blue;margin-left:10px">配置</a>';
 						} else {
 							return "";
 						}
