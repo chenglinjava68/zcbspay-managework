@@ -139,7 +139,7 @@ table tr td select {
 							<td align="left">
 							<select id="debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								required="true" name="debTransLimitType">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -175,7 +175,7 @@ table tr td select {
 							<td align="left">
 							<select id="credTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								required="true" name="credTranLimitType">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -190,7 +190,7 @@ table tr td select {
 							<td align="left">
 							<select id="credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								required="true" name="credTransLimitType">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -280,7 +280,7 @@ table tr td select {
 							<td align="left">
 							<select id="b_debTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="debTranLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -295,7 +295,7 @@ table tr td select {
 							<td align="left">
 							<select id="b_debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="debTransLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -331,7 +331,7 @@ table tr td select {
 							<td align="left">
 							<select id="b_credTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="credTranLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -346,7 +346,7 @@ table tr td select {
 							<td align="left">
 							<select id="b_credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="credTransLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -434,7 +434,7 @@ table tr td select {
 							<td align="left">
 							<select id="c_debTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="debTranLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -449,7 +449,7 @@ table tr td select {
 							<td align="left">
 							<select id="c_debTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="debTransLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -485,7 +485,7 @@ table tr td select {
 							<td align="left">
 							<select id="c_credTranLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="credTranLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -500,7 +500,7 @@ table tr td select {
 							<td align="left">
 							<select id="c_credTransLimitType" class="easyui-validatebox" missingMessage="请选择类型"
 								readonly="true" name="credTransLimitType" disabled="disabled">
-									<option value='00 '>--不限--</option>
+									<option value='00'>--不限--</option>
 									<option value='01'>按年限次</option>
 									<option value='02'>按月限次</option>
 									<option value='03'>总计限次</option>
@@ -554,6 +554,34 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 			<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:deleteUser()" id="c_btn_submit">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-cancel" onclick="closeAdd()">返回</a>
+			</div>
+		</div>
+	</div>
+	<div id="w4" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 400px; padding: 5px;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
+				<form id="d_saveForm" action="contract/excelImport" method="post">
+					<table width="90%" cellpadding="2" cellspacing="2">
+					<tr style="height: 30px">
+						<td align="center"  style="font-size: 15px;">合同文件</td>
+						<td align="left">
+							<input style="height: 25px;" class="easyui-validatebox" name="orderCSV" type="file"/>
+							<div id="fileAddress_span"></div> 
+						</td>
+					</tr>
+					<tr style="height: 30px">
+						<td align="center"></td>
+						<td align="left"><div style="height: 25px;font-size: 15px;" id="org_province"></div></td>
+					</tr>
+					
+				</table>
+				</form>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+			<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveFile()" id="d_btn_submit">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-cancel" onclick="closeAdd()">返回</a>
 			</div>
 		</div>
@@ -624,6 +652,13 @@ table tr td select {
 					handler:function(){
 						showAdd(0);
 					}
+				},{
+					id:'btnadds',
+					text:'批量上传',
+					iconCls:'icon-add',
+					handler:function(){
+						showFile();
+					}
 				}]
 			});
 		});
@@ -649,10 +684,28 @@ table tr td select {
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
+		function showFile(){
+			$('#d_saveForm :input').val('');
+			$('#org_province').html('');
+			$('#w4').window({
+				title: '合同批量上传',
+				top:100,
+				width: 600,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 380
+			});
+			$('#d_btn_submit').linkbutton('enable');	
+		}
 		function closeAdd(){
 			$('#w').window('close');
 			$('#w2').window('close');
 			$('#w3').window('close');
+			$('#w4').window('close');
 			
 		}		
 		function search(){
@@ -677,8 +730,7 @@ table tr td select {
 						 search();
 						 closeAdd();
 					}else{
-						 $.messager.alert("提示",'添加失败');
-						 closeAdd();
+						 $.messager.alert("提示",json.INFO);
 					}
 			    	$('#btn_submit').linkbutton('enable');	
 			    }
@@ -805,7 +857,6 @@ table tr td select {
 									 closeAdd();
 								 }else{
 									 $.messager.alert("提示",json.INFO);
-									 search();
 									 closeAdd();
 								 }
 								$('#c_btn_submit').linkbutton('enable');		
@@ -921,6 +972,32 @@ table tr td select {
 					   $.messager.alert('提示', '银行行号输入错误!');
 				   }
 			   }
+			});
+		}
+		function saveFile(){ 
+			 var formData = new FormData( $("#d_saveForm")[0] );
+			$.ajax({
+			   url: "contract/excelImport",
+			   type: 'POST',
+			   data: formData,
+	           dataType:"json",
+	           cache: false,
+	           contentType: false,  
+	           processData: false, 
+			   success: function(json){	
+				   console.log("json:"+JSON.stringify(json));
+				   		if(json.status == "error"){
+				   			var html ="<div>--批量上传错误信息--</div>";
+				   		   for (var i = 0; i < json.msg.length; i++) {
+							   html += '<div>'+json.msg[i]+'</div>';
+				   		   }
+				   		 $("#org_province").html(html);
+					   }else{
+						   $.messager.alert('提示', '导入成功！');
+					   }
+				  
+			   }
+			  
 			});
 		}
 		

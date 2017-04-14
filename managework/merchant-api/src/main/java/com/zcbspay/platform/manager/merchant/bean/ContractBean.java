@@ -172,6 +172,7 @@ public class ContractBean implements java.io.Serializable {
 	public void setDebTransLimit(Long debTransLimit) {
 		this.debTransLimit = debTransLimit;
 	}
+	
 	public Long getCredAmoLimit() {
 		return credAmoLimit;
 	}

@@ -103,21 +103,21 @@ table tr td font.current-step {
 					</tr>-->
 						<tr>
 							<td align="center">营业执照号</td>
-							<td><input name="licenceNo" maxlength="15" type="text"
-								validType="licencenoMerLength[15]"
+							<td><input name="licenceNo" maxlength="18" type="text"
+								validType="licencenoNewLength[15,18]" id="add_licenceNo"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								required="true" class="easyui-validatebox" /><font color="red">*</font>
 							</td>
 							<td align="center">组织机构代码号</td>
-							<td><input name="orgCode" maxlength="10" type="text"
-								validType="orgLength[8]"
+							<td><input name="orgCode" maxlength="18" type="text"
+								validType="orgNewLength[8,9,10,18]" id="add_orgCode"
 								onkeyup="value=value.replace(/[^\d\-]/g,'')" required="true"
 								class="easyui-validatebox" /> <font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td align="center">税务登记号</td>
 							<td><input name="taxno" maxlength="20" type="text"
-								required="true" validType="merLength[15]"
+								required="true" validType="merLength[15]" id="add_taxno"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								class="easyui-validatebox" /> <font color="red">*</font></td>
 							<td align="center">所属行业</td>
@@ -338,6 +338,15 @@ table tr td font.current-step {
 		
 		function savemerchDate() {				
 			var jp = $("#banknode_ins").val(); 
+			var add_licenceNo = $("#add_licenceNo").val();
+			var add_orgCode = $("#add_orgCode").val();
+			var add_taxno = $("#add_taxno").val();
+			if(add_licenceNo.length == 18){
+				if(add_licenceNo != add_orgCode && add_licenceNo != add_taxno ){
+					$.messager.alert('提示',"税务登记号、营业执照号、组织机构代码输入不一致！");
+					return false;
+				}
+			}
 			if ($('#merchDetaForm').form("validate")) {
 				$("#button_id").linkbutton('disable');
 				$('#merchDetaForm').form('submit', {
@@ -481,9 +490,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择开户行--</option>";
-					$.each(json,
-					function(key, value) {
-						//alert(value);
+					$.each(json,function(key, value) {
 						var codenode = value.BANK_CODE + "," + value.BANK_NODE;
 						html += '<option value="' + codenode + '">' + value.BANK_NAME + '</option>';
 					});
@@ -500,9 +507,7 @@ table tr td font.current-step {
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择商户类型--</option>";
-					$.each(json,
-					function(key, value) {
-						//alert(value.roleName);
+					$.each(json,function(key, value) {
 						html += '<option value="' + value.PARA_CODE + '">' + value.PARA_NAME + '</option>';
 					}) ;
 					$("#merchtype_ins").html(html);
@@ -673,7 +678,6 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择收银台--</option>";
 					$.each(json,
 					function(key, value) {
-						//alert(value.roleName);
 						html += '<option value="' + value.CASHVER + '">' + value.CASHNAME + '</option>';
 					});
 					$("#cashver_ins").html(html);
@@ -690,7 +694,6 @@ table tr td font.current-step {
 					var html = "<option value=''>--请选择路由版本--</option>";
 					$.each(json,
 					function(key, value) {
-						//alert(value.roleName);
 						html += '<option value="' + value.CHNLCODE + '">' + value.CHNLNAME + '</option>';
 					});
 					$("#routver_ins").html(html);

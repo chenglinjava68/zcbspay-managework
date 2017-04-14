@@ -300,16 +300,7 @@ table tr td select {
 						}}
 					]],
 				pagination:true,
-				rownumbers:true,
-				toolbar:[{
-					id:'btnadd',
-					text:'新增合同',
-					iconCls:'icon-add',
-					handler:function(){
-						showAdd(0);
-						$("#saveForm").attr("action","contract/save");
-					}
-				}]
+				rownumbers:true
 			});
 		});
 

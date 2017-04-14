@@ -369,7 +369,7 @@ table tr td font.current-step {
 				success: function(json) {
 					$.each(json,
 					function(key, value) {
-						alert(value.INFO);
+						$.messager.alert('提示',value.INFO);
 						if (value.INFO == "操作成功!") {
 							history.back( - 1);
 						}

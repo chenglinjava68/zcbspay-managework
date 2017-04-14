@@ -1,5 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <jsp:include page="../../../top.jsp"></jsp:include>
+
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<script type="text/javascript"
+	src="<%=basePath%>/js/extendsValidator_1.0_20151215.js"></script>
 <style type="text/css">
 .left, .mid, .right {
 	width: auto;
@@ -72,23 +80,23 @@ table tr td select {
 					<input type="hidden" id="bankCity" name="bankCity" />
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td width="15%">账户号</td>
+							<td width="15%">银行账号</td>
 							<td align="left">
 							<input type="text" id="accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入用户代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td>账户名称</td>
+								maxlength="7" missingMessage="请输入银行账号" validType="bankcard"/></td>
+							<td>银行账户名称</td>
 							<td align="left">
 							<input type="text" id="accoutNamea" name="accoutName" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入用户名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入银行账户名称" validType="debName"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>商户号</td>
 							<td align="left">
 							<input type="text" id="merchNoa" name="merchNo" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="32" missingMessage="请输入商户号" validType="merchno"/></td>
 							<td>协议类型</td>
 							<td align="left">
-							<select id="protocoltype" class="easyui-validatebox" missingMessage="请选择所属机构"
+							<select id="protocoltype" class="easyui-validatebox" missingMessage="请选择协议类型"
 								required="true" name="protocoltype">
 									<option value=''>--请选择协议类型--</option>
 									<option value='1'>代理收款</option>
@@ -99,11 +107,11 @@ table tr td select {
 							<td>支行行号</td>
 							<td align="left">
 							<input type="text" id="bankNode" name="bankNode" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onchange="showBankInfo()"/></td>
+								maxlength="32" missingMessage="请输入支行行号" onchange="showBankInfo()"/></td>
 							<td>清算行号</td>
 							<td align="left">
 							<input type="text" id="bankCode" name="bankCode" class="easyui-validatebox" required="true"
-								maxlength="32"  onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="32"  /></td>
 							<td></td>
 							<td align="left"></td>
 						</tr>
@@ -154,20 +162,20 @@ table tr td select {
 					<input type="hidden" id="b_bankCity" name="bankCity" />
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td width="15%">账户号</td>
+							<td width="15%">银行账号</td>
 							<td align="left">
 							<input type="text" id="b_accoutNoa" name="accoutNo" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入用户代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td>账户名称</td>
+								maxlength="7" missingMessage="请输入银行账号" validType="bankcard"/></td>
+							<td>银行账户名称</td>
 							<td align="left">
 							<input type="text" id="b_accoutNamea" name="accoutName" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入用户名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入银行账户名称" validType="debName"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>商户号</td>
 							<td align="left">
 							<input type="text" id="b_merchNoa" name="merchNo" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="32" missingMessage="请输入商户号" validType="merchno"/></td>
 							<td>协议类型</td>
 							<td align="left">
 							<select id="b_protocoltype" class="easyui-validatebox" missingMessage="请选择所属机构"
@@ -181,7 +189,7 @@ table tr td select {
 							<td>支行行号</td>
 							<td align="left">
 							<input type="text" id="b_bankNode" name="bankNode" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onchange="showBankInfo()"/></td>
+								maxlength="32" missingMessage="请输入支行行号" onchange="showBankInfo()"/></td>
 							<td>清算行号</td>
 							<td align="left">
 							<input type="text" id="b_bankCode" name="bankCode" class="easyui-validatebox" required="true"
@@ -205,7 +213,7 @@ table tr td select {
 							<td>渠道代码</td>
 							<td align="left">
 							<input type="text" id="b_channelCode" name="channelCode" class="easyui-validatebox"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="32" missingMessage="请输入渠道代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
 							<td align="left"></td>
 						</tr>
 						<tr style="height: 25px">
@@ -233,10 +241,10 @@ table tr td select {
 					<input type="hidden" id="b_tId" name="tId" value="${json.tId}" readonly="true"/> 
 					<table width="90%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td width="15%">账户号</td>
+							<td width="15%">银行账号</td>
 							<td align="left">
 							<input type="text" id="d_accoutNoa" name="accoutNo" readonly="true"/></td>
-							<td>账户名称</td>
+							<td>银行账户名称</td>
 							<td align="left">
 							<input type="text" id="d_accoutNamea" name="accoutName" readonly="true"/></td>
 						</tr>
@@ -306,12 +314,11 @@ table tr td select {
 				remoteSort: false,
 				columns:[[
 					{field:'MERCHNO',title:'商户号',align:'center',width:130},
-					{field:'ACCOUNTNO',title:'账号',width:130,align:'center'},
+					{field:'ACCOUNTNO',title:'银行账号',width:130,align:'center'},
 					{field:'BANKNODE',title:'支行行号',align:'center',width:100},
 					{field:'BANKCODE',title:'清算行号',width:120,align:'center'},
-					{field:'ACCOUNTNAME',title:'用户名称',width:100,align:'center'},
-					{field:'PROTOCOLTYPE',title:'账户名称',width:100,align:'center'},
-					{field:'BANKPROVINCE',title:'协议类型',width:90,align:'center',
+					{field:'ACCOUNTNAME',title:'银行账户名称',width:100,align:'center'},
+					{field:'PROTOCOLTYPE',title:'协议类型',width:100,align:'center',
 						formatter:function(value,rec){
 							if(value=="1"){
 								return "代理收款";

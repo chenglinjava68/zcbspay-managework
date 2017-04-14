@@ -59,6 +59,34 @@ $.extend($.fn.validatebox.defaults.rules, {
 		},
 		message: '请输入正确的商户号'
 	},
+	licencenoNewLength: { //营业执照号
+		validator: function(value, param) {
+			if(value.length == param[0]){
+				return true;
+			}
+			if(value.length == param[1]){
+				return true;
+			}
+		},
+		message: '请输入正确的营业执照号'
+	},
+	orgNewLength: { //税务登记号
+		validator: function(value, param) {
+			if(value.length == param[0]){
+				return true;
+			}
+			if(value.length == param[1]){
+				return true;
+			}
+			if(value.length == param[2]){
+				return true;
+			}
+			if(value.length == param[3]){
+				return true;
+			}
+		},
+		message: '请输入正确的税务登记号'
+	},
 	packcode: { // 版本号
 		validator: function(value) {
 			return /^\w{8}$/.test(value);

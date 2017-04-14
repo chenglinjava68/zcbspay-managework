@@ -40,12 +40,6 @@ public class ContractServiceImpl implements ContractService {
 
 	@Override
 	public Map<String, Object> eidtContract(ContractBean bean) { 
-//		try {
-//			contractDao.eidtContract(bean);
-//			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		return contractDao.eidtContract(bean);
 	}
 
@@ -62,5 +56,10 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	public List<Map<String, Object>> merchAudit(ContractBean contract, String isAgree) {
 		return contractDao.merchAudit(contract,isAgree);
+	}
+
+	@Override
+	public List<StringBuffer> importBatch(List<ContractBean> list) {
+			return contractDao.importBatch(list);
 	}
 }

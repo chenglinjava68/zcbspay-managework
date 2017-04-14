@@ -362,9 +362,8 @@ table tr td font.current-step {
 			data: "stexaOpt=" + encodeURI(stexaOpt),
 			dataType: "json",
 			success: function(json) {
-				$.each(json,
-				function(key, value) {
-					alert(value.INFO);
+				$.each(json,function(key, value) {
+					$.messager.alert('提示',value.INFO);
 					if (value.INFO == "操作成功!") {
 						history.back( - 1);
 					}

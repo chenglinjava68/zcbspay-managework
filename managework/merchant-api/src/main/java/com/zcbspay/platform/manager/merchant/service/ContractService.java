@@ -59,5 +59,12 @@ public interface ContractService {
 	 * @return
 	 */
 	List<Map<String, Object>> merchAudit(ContractBean deta, String isAgree);
+
+	/**
+	 * 合同批量上传
+	 * @param list
+	 * @return
+	 */
+	List<StringBuffer> importBatch(List<ContractBean> list);
 	
 }

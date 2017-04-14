@@ -87,9 +87,9 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">企业所在地</td>
 							<td colspan="3">
-							<select id="bnkProvince_ins" class="easyui-validatebox" required="true" name="province"
-								onchange="showCity('bnkProvince_ins')" /></select> 
-							<select id="bnkCity_ins"
+							<select id="province_ins" class="easyui-validatebox" required="true" name="province"
+								onchange="showCity('province_ins')" /></select> 
+							<select id="city_ins"
 								class="easyui-validatebox" required="true" name="city" onchange="showCounty('city_ins')" />
 								</select>
 							<select id="county_ins" class="easyui-validatebox" required="true" name="street" /></select> <font
@@ -124,14 +124,14 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">营业执照号</td>
 							<td><input name="licenceNo" maxlength="15"
-								type="text" validType="licencenoMerLength[15]"
+								type="text" validType="licencenoNewLength[15,18]" id="add_licenceNo"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								required="true" class="easyui-validatebox"
 								value="${member.licenceNo}" /><font color="red">*</font>
 							</td>
 							<td align="center">组织机构代码号</td>
 							<td><input name="orgCode" maxlength="10"
-								type="text" validType="orgLength[8]"
+								type="text" validType="orgNewLength[8,9,10,18]" id="add_orgCode"
 								onkeyup="value=value.replace(/[^\d\-]/g,'')" required="true"
 								class="easyui-validatebox" value="${member.orgCode}" />
 								<font color="red">*</font></td>
@@ -139,7 +139,7 @@ table tr td font.current-step {
 						<tr>
 							<td align="center">税务登记号</td>
 							<td><input name="taxno" maxlength="20"
-								type="text" required="true" validType="merLength[15]"
+								type="text" required="true" validType="merLength[15]" id="add_taxno"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								class="easyui-validatebox" value="${member.taxno}" />
 								<font color="red">*</font></td>
@@ -387,6 +387,15 @@ table tr td font.current-step {
 		
 		function savemerchDeta() {
 			var jp = $("#banknode_ins").val(); 
+			var add_licenceNo = $("#add_licenceNo").val();
+			var add_orgCode = $("#add_orgCode").val();
+			var add_taxno = $("#add_taxno").val();
+			if(add_licenceNo.length == 18){
+				if(add_licenceNo != add_orgCode && add_licenceNo != add_taxno ){
+					$.messager.alert('提示',"税务登记号、营业执照号、组织机构代码输入不一致！");
+					return false;
+				}
+			}
 			if ($('#merchDetaForm').form("validate")) {
 				$("#button_id").linkbutton('disable');
 				$("#coop_insti_ins").removeAttr('disabled');
@@ -437,7 +446,6 @@ table tr td font.current-step {
 		}
 		
 		function showCity(type) {
-			var pid;
 			var pid;
 			if (type == 'province_ins') {
 				pid = $("#province_ins").val();

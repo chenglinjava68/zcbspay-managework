@@ -362,7 +362,7 @@ table tr td select {
 			success: function(json) {
 				$.each(json,
 				function(key, value) {
-					alert(value.INFO);
+					$.messager.alert('提示',value.INFO);
 					if (value.INFO == "操作成功!") {
 						window.location.href= "<%=basePath%>" +'merchant/showMerchAuditQuery';
 					}

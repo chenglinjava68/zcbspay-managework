@@ -59,4 +59,12 @@ public interface ContractDao extends BaseDAO<PojoContract> {
 	 * @return
 	 */
 	List<Map<String, Object>> merchAudit(ContractBean contract, String isAgree);
+
+	/**
+	 * 合同批量导入
+	 * @param list
+	 * @return
+	 */
+	List<StringBuffer> importBatch(List<ContractBean> list);
+	
 }
