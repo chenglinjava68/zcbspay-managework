@@ -123,14 +123,14 @@ table tr td font.current-step {
 						</tr>
 						<tr>
 							<td align="center">营业执照号</td>
-							<td><input name="licenceNo" maxlength="15"
+							<td><input name="licenceNo" maxlength="18"
 								type="text" validType="licencenoNewLength[15,18]" id="add_licenceNo"
 								onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
 								required="true" class="easyui-validatebox"
 								value="${member.licenceNo}" /><font color="red">*</font>
 							</td>
 							<td align="center">组织机构代码号</td>
-							<td><input name="orgCode" maxlength="10"
+							<td><input name="orgCode" maxlength="18"
 								type="text" validType="orgNewLength[8,9,10,18]" id="add_orgCode"
 								onkeyup="value=value.replace(/[^\d\-]/g,'')" required="true"
 								class="easyui-validatebox" value="${member.orgCode}" />
